@@ -9,9 +9,8 @@ setup(
     description='XiVO ami event server',
     author='Avencall',
     author_email='dev@avencall.com',
-    url='http://git.xivo.fr/',
+    url='https://github.com/xivo-pbx/xivo-amid',
     license='GPLv3',
-    packages=['xivo_amid',
-              'xivo_amid.bin'],
+    packages=['xivo_ami'],
     scripts=['bin/xivo-amid'],
 )
