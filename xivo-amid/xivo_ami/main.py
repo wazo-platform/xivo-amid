@@ -16,13 +16,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import argparse
+import collections
 import logging
 import signal
+import time
+from contextlib import contextmanager
+from xivo_ami import ami
+from xivo_ami.ami.client import ConnectionLostError
 
 from xivo import daemonize
 
 _LOG_FILENAME = '/var/log/xivo-amid.log'
 _PID_FILENAME = '/var/run/xivo-amid.pid'
+_RECON_DELAY = 5
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +75,19 @@ def _init_logging(parsed_args):
 
 
 def _run():
+    message_queue = collections.deque()
     _init_signal()
+    with _new_ami_client() as ami_client:
+        while True:
+            try:
+                ami_client.connect_and_login()
+                while True:
+                    ami_client.parse_next_messages(message_queue)
+                    _process_messages(message_queue)
+            except ConnectionLostError as e:
+                logger.debug('ConnectionLostError %s. Reconnecting', e)
+                ami_client.disconnect()
+                time.sleep(_RECON_DELAY)
 
 
 def _init_signal():
@@ -78,6 +96,21 @@ def _init_signal():
 
 def _handle_sigterm(signum, frame):
     raise SystemExit()
+
+
+def _process_messages(message_queue):
+    while message_queue:
+        msg = message_queue.popleft()
+        logger.debug('Processing message %s', msg)
+
+
+@contextmanager
+def _new_ami_client():
+    ami_client = ami.new_client('localhost', 'xivo_amid', 'eeCho8ied3u')
+    try:
+        yield ami_client
+    finally:
+        ami_client.disconnect()
 
 
 if __name__ == '__main__':
