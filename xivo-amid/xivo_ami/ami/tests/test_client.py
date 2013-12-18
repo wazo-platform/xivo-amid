@@ -59,8 +59,8 @@ class TestAMIClient(unittest.TestCase):
 
         self.ami_client.connect_and_login()
 
-        self.ami_client._connect_socket.assert_called_once()
-        self.ami_client._login.assert_called_once()
+        self.ami_client._connect_socket.assert_called_once_with()
+        self.ami_client._login.assert_called_once_with()
 
     @patch('socket.socket')
     def test_when_connect_socket_then_socket_created(self, socket_mock):
@@ -107,8 +107,8 @@ class TestAMIClient(unittest.TestCase):
 
         self.ami_client.parse_next_messages(queue)
 
-        self.ami_client._add_data_to_buffer.assert_called_once()
-        self.ami_client._parse_next_msgs.assert_called_once()
+        self.ami_client._add_data_to_buffer.assert_called_once_with()
+        self.ami_client._parse_next_msgs.assert_called_once_with()
 
     def test_given_data_on_socket_when_add_data_to_buffer_then_buffer_filled(self):
         ami_client = self._new_mocked_amiclient(None, [
