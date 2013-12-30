@@ -21,7 +21,7 @@ import logging
 import signal
 import time
 from contextlib import contextmanager
-from xivo_ami import ami
+from xivo_ami.ami.client import AMIClient
 from xivo_ami.ami.client import ConnectionLostError
 
 from xivo import daemonize
@@ -106,7 +106,7 @@ def _process_messages(message_queue):
 
 @contextmanager
 def _new_ami_client():
-    ami_client = ami.new_client('localhost', 'xivo_amid', 'eeCho8ied3u')
+    ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
     try:
         yield ami_client
     finally:
