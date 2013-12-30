@@ -55,6 +55,7 @@ class TestAMIClient(unittest.TestCase):
     def test_given_socket_is_none_when_connect_and_login_then_connect_then_login(self):
         self.ami_client._connect_socket = Mock()
         self.ami_client._login = Mock()
+        self.ami_client._sock = None
 
         self.ami_client.connect_and_login()
 
