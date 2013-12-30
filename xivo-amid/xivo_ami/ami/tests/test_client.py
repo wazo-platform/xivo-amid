@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import collections
 from hamcrest import assert_that, not_none
 from mock import Mock, patch
 import unittest
@@ -102,13 +101,12 @@ class TestAMIClient(unittest.TestCase):
 
     def test_given_no_msg_on_queue_when_parse_next_messages_then_add_data_and_parse_msgs(self):
         self.ami_client._add_data_to_buffer = Mock()
-        self.ami_client._parse_next_msgs = Mock()
-        queue = Mock()
+        self.ami_client._parse_buffer = Mock()
 
-        self.ami_client.parse_next_messages(queue)
+        self.ami_client.parse_next_messages()
 
         self.ami_client._add_data_to_buffer.assert_called_once_with()
-        self.ami_client._parse_next_msgs.assert_called_once_with()
+        self.ami_client._parse_buffer.assert_called_once_with()
 
     def test_given_data_on_socket_when_add_data_to_buffer_then_buffer_filled(self):
         ami_client = self._new_mocked_amiclient(None, [
@@ -122,8 +120,7 @@ class TestAMIClient(unittest.TestCase):
 
     def test_given_non_empty_buffer_when_parse_buffer_then_msgs_added_to_queue(self):
         self.ami_client._buffer = 'Event: ExtensionStatus\r\n\r\n'
-        queue = collections.deque()
-        self.ami_client._parse_buffer(queue)
+        queue = self.ami_client._parse_buffer()
 
         self.assertEqual(1, len(queue))
         self.assertEqual('ExtensionStatus', queue[0].name)

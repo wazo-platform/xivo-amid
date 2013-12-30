@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+import collections
 import logging
 import socket
 from xivo_ami.ami.parser import parse_msg
@@ -45,9 +46,9 @@ class AMIClient(object):
         if self._sock is not None:
             self._disconnect_socket()
 
-    def parse_next_messages(self, message_queue):
+    def parse_next_messages(self):
         self._add_data_to_buffer()
-        self._parse_buffer(message_queue)
+        return self._parse_buffer()
 
     def _connect_socket(self):
         logger.info('Connecting AMI client to %s:%s', self._hostname, self._PORT)
@@ -82,7 +83,8 @@ class AMIClient(object):
         data = self._recv_data_from_socket()
         self._buffer += data
 
-    def _parse_buffer(self, message_queue):
+    def _parse_buffer(self):
+        message_queue = collections.deque()
         while True:
             head, sep, self._buffer = self._buffer.partition('\r\n\r\n')
             if not sep:
@@ -95,6 +97,7 @@ class AMIClient(object):
                 logger.error('Could not parse message: %s', e)
                 continue
             message_queue.append(msg)
+        return message_queue
 
     def _send_data_to_socket(self, data):
         try:
