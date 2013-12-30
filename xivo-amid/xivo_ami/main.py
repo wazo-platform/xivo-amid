@@ -73,6 +73,7 @@ def _init_logging(parsed_args):
     root_logger.addHandler(handler)
 
 
+#POC implementation to test AMIClient. Will be replaced by facade.run()
 def _run():
     message_queue = collections.deque()
     _init_signal()
