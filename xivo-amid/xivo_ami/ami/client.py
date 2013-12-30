@@ -58,7 +58,7 @@ class AMIClient(object):
             # discard the AMI protocol version
             self._sock.recv(self._BUFSIZE)
         except socket.error:
-            raise ConnectionLostError()
+            raise AMIConnectionError()
 
     def _login(self):
         data = self._build_login_msg()
@@ -101,20 +101,20 @@ class AMIClient(object):
             self._sock.sendall(data)
         except socket.error as e:
             logger.error('Could not write data to socket: %s', e)
-            raise ConnectionLostError()
+            raise AMIConnectionError()
 
     def _recv_data_from_socket(self):
         try:
             data = self._sock.recv(self._BUFSIZE)
         except socket.error as e:
             logger.error('Could not read data from socket: %s', e)
-            raise ConnectionLostError()
+            raise AMIConnectionError()
         else:
             if not data:
                 logger.error('Could not read data from socket: remote connection closed')
-                raise ConnectionLostError()
+                raise AMIConnectionError()
             return data
 
 
-class ConnectionLostError(Exception):
+class AMIConnectionError(Exception):
     pass

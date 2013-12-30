@@ -21,8 +21,7 @@ import logging
 import signal
 import time
 from contextlib import contextmanager
-from xivo_ami.ami.client import AMIClient
-from xivo_ami.ami.client import ConnectionLostError
+from xivo_ami.ami.client import AMIClient, AMIConnectionError
 
 from xivo import daemonize
 
@@ -84,8 +83,8 @@ def _run():
                 while True:
                     ami_client.parse_next_messages(message_queue)
                     _process_messages(message_queue)
-            except ConnectionLostError as e:
-                logger.debug('ConnectionLostError %s. Reconnecting', e)
+            except AMIConnectionError as e:
+                logger.debug('AMIConnectionError %s. Reconnecting', e)
                 ami_client.disconnect()
                 time.sleep(_RECON_DELAY)
 
