@@ -81,7 +81,8 @@ def _run():
             try:
                 ami_client.connect_and_login()
                 while True:
-                    ami_client.parse_next_messages(message_queue)
+                    new_messages = ami_client.parse_next_messages()
+                    message_queue.extend(new_messages)
                     _process_messages(message_queue)
             except AMIConnectionError as e:
                 logger.debug('AMIConnectionError %s. Reconnecting', e)
