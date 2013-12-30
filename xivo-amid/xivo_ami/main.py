@@ -17,13 +17,13 @@
 
 import argparse
 import collections
+from contextlib import contextmanager
 import logging
 import signal
 import time
-from contextlib import contextmanager
-from xivo_ami.ami.client import AMIClient, AMIConnectionError
 
 from xivo import daemonize
+from xivo_ami.ami.client import AMIClient, AMIConnectionError
 
 _LOG_FILENAME = '/var/log/xivo-amid.log'
 _PID_FILENAME = '/var/run/xivo-amid.pid'
