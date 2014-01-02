@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2013 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,18 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import argparse
-import collections
-from contextlib import contextmanager
 import logging
 import signal
-import time
 
 from xivo import daemonize
-from xivo_ami.ami.client import AMIClient, AMIConnectionError
+from xivo_ami.ami.client import AMIClient
+from xivo_ami.bus.client import BusClient
+from xivo_ami.facade import EventHandlerFacade
 
 _LOG_FILENAME = '/var/log/xivo-amid.log'
 _PID_FILENAME = '/var/run/xivo-amid.pid'
-_RECON_DELAY = 5
 
 logger = logging.getLogger(__name__)
 
@@ -73,22 +71,27 @@ def _init_logging(parsed_args):
     root_logger.addHandler(handler)
 
 
+def _process_messages(message_queue):
+    while message_queue:
+        msg = message_queue.popleft()
+        logger.debug('Processing message %s', msg)
+
+
 #POC implementation to test AMIClient. Will be replaced by facade.run()
 def _run():
-    message_queue = collections.deque()
     _init_signal()
-    with _new_ami_client() as ami_client:
-        while True:
-            try:
-                ami_client.connect_and_login()
-                while True:
-                    new_messages = ami_client.parse_next_messages()
-                    message_queue.extend(new_messages)
-                    _process_messages(message_queue)
-            except AMIConnectionError as e:
-                logger.debug('AMIConnectionError %s. Reconnecting', e)
-                ami_client.disconnect()
-                time.sleep(_RECON_DELAY)
+    ami_client = _new_ami_client()
+    bus_client = _new_bus_client()
+    facade = EventHandlerFacade(ami_client, bus_client, _process_messages)
+    facade.run()
+
+
+def _new_ami_client():
+    return AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
+
+
+def _new_bus_client():
+    return BusClient()
 
 
 def _init_signal():
@@ -97,21 +100,6 @@ def _init_signal():
 
 def _handle_sigterm(signum, frame):
     raise SystemExit()
-
-
-def _process_messages(message_queue):
-    while message_queue:
-        msg = message_queue.popleft()
-        logger.debug('Processing message %s', msg)
-
-
-@contextmanager
-def _new_ami_client():
-    ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
-    try:
-        yield ami_client
-    finally:
-        ami_client.disconnect()
 
 
 if __name__ == '__main__':

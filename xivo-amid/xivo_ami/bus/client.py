@@ -15,14 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class BusClient(object):
 
     def connect(self):
-        raise NotImplementedError()
+        logger.info('BusClient.connect : NotImplementedError()')
 
     def disconnect(self):
-        raise NotImplementedError()
+        logger.info('BusClient.disconnect: NotImplementedError()')
 
 
 class BusConnectionError(Exception):
