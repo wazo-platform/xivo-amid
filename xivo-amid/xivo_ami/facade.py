@@ -32,32 +32,31 @@ class EventHandlerFacade(object):
         self._event_handler_callback = event_handler_callback
 
     def run(self):
-        try:
-            self._bus_client.connect()
-            self._ami_client.connect_and_login()
-            self._process_messages()
-        except AMIConnectionError:
-            self._handle_ami_connection_error()
-        except BusConnectionError:
-            self._handle_bus_connection_error()
-        except Exception as e:
-            self._handle_unexpected_error(e)
+        while True:
+            try:
+                self._bus_client.connect()
+                self._ami_client.connect_and_login()
+                self._process_messages_indefinitely()
+            except AMIConnectionError:
+                self._handle_ami_connection_error()
+            except BusConnectionError:
+                self._handle_bus_connection_error()
+            except Exception as e:
+                self._handle_unexpected_error(e)
 
     def _handle_ami_connection_error(self):
         self._ami_client.disconnect()
         time.sleep(self.RECONNECTION_DELAY)
-        self._ami_client.connect_and_login()
 
     def _handle_bus_connection_error(self):
         self._bus_client.disconnect()
         time.sleep(self.RECONNECTION_DELAY)
-        self._bus_client.connect()
 
     def _handle_unexpected_error(self, e):
         self._ami_client.disconnect()
         raise e
 
-    def _process_messages(self):
-        new_messages = self._ami_client.parse_next_messages()
-        self._event_queue.extend(new_messages)
-        self._event_handler_callback(self._event_queue)
+    def _process_messages_indefinitely(self):
+        while True:
+            new_messages = self._ami_client.parse_next_messages()
+            self._event_handler_callback(new_messages)
