@@ -1,0 +1,4 @@
+nose
+mock
+pyhamcrest
+svn+https://github.com/xivo-pbx/xivo-lib-python/trunk/xivo-lib-python
