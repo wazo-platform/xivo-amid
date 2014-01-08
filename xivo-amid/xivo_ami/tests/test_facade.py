@@ -52,6 +52,7 @@ class testEventHandlerFacade(unittest.TestCase):
         self.assertRaises(Exception, self.facade.run)
 
         self.ami_client_mock.disconnect.assert_called_once_with()
+        self.bus_client_mock.disconnect.assert_called_once_with()
 
     @patch('time.sleep')
     def test_given_ami_connection_error_when_run_then_ami_reconnect(self, sleep_mock):
@@ -80,7 +81,7 @@ class testEventHandlerFacade(unittest.TestCase):
 
         self.assertRaises(Exception, self.facade.run)
 
-        self.bus_client_mock.disconnect.assert_called_once_with()
+        assert_that(self.bus_client_mock.disconnect.call_count, equal_to(2))
         sleep_mock.assert_called_once_with(RECONNECTION_DELAY)
         assert_that(self.bus_client_mock.connect.call_count, equal_to(2))
 
