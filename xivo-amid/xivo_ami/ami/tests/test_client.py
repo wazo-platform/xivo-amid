@@ -15,9 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+import socket
+import unittest
 from hamcrest import assert_that, not_none
 from mock import Mock, patch
-import unittest
 
 from xivo_ami.ami.client import AMIClient
 
@@ -38,30 +39,6 @@ class TestAMIClient(unittest.TestCase):
         ami_client._sock.recv.return_value = '\r\n'.join(lines) + '\r\n'
         return ami_client
 
-    def test_given_socket_not_none_when_connect_and_login_then_nothing_happens(self):
-        ami_client = self._new_mocked_amiclient(None, [
-            'Event: ExtensionStatus',
-            ''
-        ])
-
-        ami_client._connect_socket = Mock()
-        ami_client._login = Mock()
-
-        ami_client.connect_and_login()
-
-        self.assertEqual(ami_client._connect_socket.call_count, 0)
-        self.assertEqual(ami_client._login.call_count, 0)
-
-    def test_given_socket_is_none_when_connect_and_login_then_connect_then_login(self):
-        self.ami_client._connect_socket = Mock()
-        self.ami_client._login = Mock()
-        self.ami_client._sock = None
-
-        self.ami_client.connect_and_login()
-
-        self.ami_client._connect_socket.assert_called_once_with()
-        self.ami_client._login.assert_called_once_with()
-
     @patch('socket.socket')
     def test_when_connect_socket_then_socket_created(self, socket_mock):
         ami_client = AMIClient(self.hostname, self.username, self.password)
@@ -72,33 +49,53 @@ class TestAMIClient(unittest.TestCase):
         assert_that(ami_client._sock, not_none())
 
     @patch('socket.socket')
-    def test_given_connected_socket_when_login_then_login_data_sent_to_socket(self, socket_mock):
+    def test_when_connect_and_login_twice_then_only_one_socket_is_created(self, mock_socket_constructor):
         ami_client = AMIClient(self.hostname, self.username, self.password)
-        socket_mock.return_value = Mock()
-        ami_client._connect_socket()
+
+        ami_client.connect_and_login()
+        ami_client.connect_and_login()
+
+        mock_socket_constructor.assert_called_once_with(socket.AF_INET, socket.SOCK_STREAM)
+
+    @patch('socket.socket')
+    def when_connect_and_login_then_login_data_sent_to_socket(self, mock_socket_constructor):
+        ami_client = AMIClient(self.hostname, self.username, self.password)
+        mock_socket = mock_socket_constructor.return_value
         lines = ['Action: Login',
                  'Username: %s' % self.username,
                  'Secret: %s' % self.password,
-                 '\r\n'
-                 ]
+                 '\r\n']
         expected_data = '\r\n'.join(lines).encode('UTF-8')
 
-        self.ami_client._login()
+        ami_client.connect_and_login()
 
-        self.ami_client._sock.sendall.assert_called_once_with(expected_data)
+        mock_socket.sendall.assert_called_once_with(expected_data)
 
-    def test_given_disconnect_when_after_init(self):
-        self.ami_client.disconnect()
-
-    def test_given_disconnect_when_disconnect(self):
-        self.ami_client.disconnect()
-
-        self.ami_client.disconnect()
-
-    def test_sock_is_none_after_init(self):
+    def test_given_not_connected_when_disconnect_then_no_error(self):
         ami_client = AMIClient(self.hostname, self.username, self.password)
 
-        self.assertEqual(None, ami_client._sock)
+        ami_client.disconnect()
+
+    @patch('socket.socket')
+    def test_given_connected_when_disconnect_then_socket_closed(self, mock_socket_constructor):
+        mock_socket = mock_socket_constructor.return_value
+        ami_client = AMIClient(self.hostname, self.username, self.password)
+        ami_client.connect_and_login()
+
+        ami_client.disconnect()
+
+        mock_socket.close.assert_called_once_with()
+
+    @patch('socket.socket')
+    def test_given_connected_when_disconnect_twice_then_socket_closed_only_once(self, mock_socket_constructor):
+        mock_socket = mock_socket_constructor.return_value
+        ami_client = AMIClient(self.hostname, self.username, self.password)
+        ami_client.connect_and_login()
+
+        ami_client.disconnect()
+        ami_client.disconnect()
+
+        mock_socket.close.assert_called_once_with()
 
     def test_given_no_msg_on_queue_when_parse_next_messages_then_add_data_and_parse_msgs(self):
         self.ami_client._add_data_to_buffer = Mock()
