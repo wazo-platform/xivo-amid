@@ -71,27 +71,18 @@ def _init_logging(parsed_args):
     root_logger.addHandler(handler)
 
 
-def _process_messages(message_queue):
-    while message_queue:
-        msg = message_queue.popleft()
-        logger.debug('Processing message %s', msg)
-
-
-#POC implementation to test AMIClient. Will be replaced by facade.run()
 def _run():
     _init_signal()
-    ami_client = _new_ami_client()
-    bus_client = _new_bus_client()
+    ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
+    bus_client = BusClient()
     facade = EventHandlerFacade(ami_client, bus_client, _process_messages)
     facade.run()
 
 
-def _new_ami_client():
-    return AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
-
-
-def _new_bus_client():
-    return BusClient()
+def _process_messages(message_queue):
+    while message_queue:
+        msg = message_queue.popleft()
+        logger.debug('Processing message %s', msg)
 
 
 def _init_signal():

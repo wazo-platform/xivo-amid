@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from mock import Mock
+from mock import sentinel
 import unittest
 import collections
 
@@ -24,10 +24,10 @@ from xivo_ami.main import _process_messages
 
 class TestMain(unittest.TestCase):
 
-    def test_given_event_in_queue_when_process_messages_then_queue_is_emptied(self):
+    def test_given_events_in_queue_when_process_messages_then_queue_is_emptied(self):
         queue = collections.deque()
-        event = Mock()
-        queue.append(event)
+        queue.append(sentinel.event1)
+        queue.append(sentinel.event2)
 
         _process_messages(queue)
 
