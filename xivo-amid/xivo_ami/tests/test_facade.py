@@ -46,6 +46,13 @@ class testEventHandlerFacade(unittest.TestCase):
 
         self.ami_client_mock.connect_and_login.assert_called_once_with()
 
+    def test_given_unexpected_error_when_run_then_stop(self):
+        self.ami_client_mock.connect_and_login.side_effect = Exception()
+
+        self.assertRaises(Exception, self.facade.run)
+
+        self.ami_client_mock.disconnect.assert_called_once_with()
+
     @patch('time.sleep')
     def test_given_ami_connection_error_when_run_then_ami_reconnect(self, sleep_mock):
         self.ami_client_mock.connect_and_login.side_effect = [AMIConnectionError(), None]
@@ -60,20 +67,12 @@ class testEventHandlerFacade(unittest.TestCase):
     def test_given_ami_connection_error_when_run_then_new_messages_processed(self, sleep_mock):
         self.ami_client_mock.connect_and_login.side_effect = [AMIConnectionError(), None]
 
-        first_msgs = sentinel.first_msgs
-        second_msgs = sentinel.second_msgs
-        self.ami_client_mock.parse_next_messages.side_effect = [first_msgs, second_msgs, Exception()]
+        self.ami_client_mock.parse_next_messages.side_effect = [sentinel.messages, Exception()]
 
         self.assertRaises(Exception, self.facade.run)
 
-        assert_that(self.ami_client_mock.disconnect.call_count, equal_to(2))
-        sleep_mock.assert_called_once_with(RECONNECTION_DELAY)
-        assert_that(self.ami_client_mock.connect_and_login.call_count, equal_to(2))
-
-        assert_that(self.ami_client_mock.parse_next_messages.call_count, equal_to(3))
-        assert_that(self.event_handler_callback.call_count, equal_to(2))
-        self.event_handler_callback.assert_any_call(second_msgs)
-        self.event_handler_callback.assert_any_call(first_msgs)
+        assert_that(self.event_handler_callback.call_count, equal_to(1))
+        self.event_handler_callback.assert_any_call(sentinel.messages)
 
     @patch('time.sleep')
     def test_given_bus_connection_error_when_run_then_bus_reconnect(self, sleep_mock):
@@ -85,21 +84,14 @@ class testEventHandlerFacade(unittest.TestCase):
         sleep_mock.assert_called_once_with(RECONNECTION_DELAY)
         assert_that(self.bus_client_mock.connect.call_count, equal_to(2))
 
-    def test_given_unexpected_error_when_run_then_stop(self):
-        self.ami_client_mock.connect_and_login.side_effect = Exception()
-
-        self.assertRaises(Exception, self.facade.run)
-
-        self.ami_client_mock.disconnect.assert_called_once_with()
-
     def test_given_multiple_messages_fetched_when_run_then_all_messages_processed(self):
-        first_msgs = sentinel.first_msgs
-        second_msgs = sentinel.second_msgs
-        self.ami_client_mock.parse_next_messages.side_effect = [first_msgs, second_msgs, Exception()]
+        self.ami_client_mock.parse_next_messages.side_effect = [sentinel.first_msgs,
+                                                                sentinel.second_msgs,
+                                                                Exception()]
 
         self.assertRaises(Exception, self.facade.run)
 
         assert_that(self.ami_client_mock.parse_next_messages.call_count, equal_to(3))
         assert_that(self.event_handler_callback.call_count, equal_to(2))
-        self.event_handler_callback.assert_any_call(second_msgs)
-        self.event_handler_callback.assert_any_call(first_msgs)
+        self.event_handler_callback.assert_any_call(sentinel.second_msgs)
+        self.event_handler_callback.assert_any_call(sentinel.first_msgs)
