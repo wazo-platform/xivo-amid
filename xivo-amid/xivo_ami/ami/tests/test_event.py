@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import unittest
-from xivo_agent.ami.parser import parse_msg
+from xivo_ami.ami.parser import parse_msg
 
 
 class TestResponse(unittest.TestCase):
@@ -36,3 +36,8 @@ class TestResponse(unittest.TestCase):
 
         self.assertEqual('foo', event.name)
         self.assertEqual('bar', event.action_id)
+
+    def test_parse_msg_when_invalid_data(self):
+        data = 'invalid'
+
+        self.assertRaises(Exception, parse_msg, data)
