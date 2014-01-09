@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import unittest
-from xivo_ami.ami.parser import parse_msg
+from xivo_ami.ami.parser import AMIParsingError, parse_msg
 
 
 class TestResponse(unittest.TestCase):
@@ -40,4 +40,9 @@ class TestResponse(unittest.TestCase):
     def test_parse_msg_when_invalid_data(self):
         data = 'invalid'
 
-        self.assertRaises(Exception, parse_msg, data)
+        self.assertRaises(AMIParsingError, parse_msg, data)
+
+    def test_parse_msg_when_another_invalid_data(self):
+        data = 'Event: invalid\r\ninvalid'
+
+        self.assertRaises(AMIParsingError, parse_msg, data)

@@ -18,13 +18,17 @@
 from xivo_ami.ami.event import Event
 
 
+class AMIParsingError(Exception):
+    pass
+
+
 def parse_msg(data):
     lines = data.split('\r\n')
+    if not _is_valid_message(lines):
+        raise AMIParsingError('unexpected data: %r' % data)
+
     first_header, first_value = _parse_line(lines[0])
-    if first_header.startswith('Event'):
-        msg_factory = Event
-    else:
-        raise Exception('unexpected data: %r' % data)
+    msg_factory = Event
 
     headers = {}
     for line in lines[1:]:
@@ -38,3 +42,16 @@ def _parse_line(line):
     header, value = line.split(':', 1)
     value = value.lstrip()
     return header, value
+
+
+def _is_valid_message(lines):
+    return (lines
+            and lines[0].startswith('Event:')
+            and _is_colon_in_each_line(lines))
+
+
+def _is_colon_in_each_line(lines):
+    for line in lines:
+        if ':' not in line:
+            return False
+    return True
