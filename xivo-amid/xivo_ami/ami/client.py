@@ -18,7 +18,7 @@
 import collections
 import logging
 import socket
-from xivo_ami.ami.parser import parse_msg
+from xivo_ami.ami import parser
 
 logger = logging.getLogger(__name__)
 
@@ -92,7 +92,7 @@ class AMIClient(object):
                 break
 
             try:
-                msg = parse_msg(head)
+                msg = parser.parse_msg(head)
             except Exception as e:
                 logger.error('Could not parse message: %s', e)
                 continue
