@@ -26,7 +26,6 @@ logger = logging.getLogger(__name__)
 class AMIClient(object):
 
     _BUFSIZE = 4096
-    _TIMEOUT = 100
     _PORT = 5038
 
     def __init__(self, hostname, username, password):
@@ -54,7 +53,6 @@ class AMIClient(object):
         logger.info('Connecting AMI client to %s:%s', self._hostname, self._PORT)
         try:
             self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self._sock.settimeout(self._TIMEOUT)
             self._sock.connect((self._hostname, self._PORT))
             # discard the AMI protocol version
             self._sock.recv(self._BUFSIZE)
