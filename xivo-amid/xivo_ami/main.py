@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2013 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,6 +20,9 @@ import logging
 import signal
 
 from xivo import daemonize
+from xivo_ami.ami.client import AMIClient
+from xivo_ami.bus.client import BusClient
+from xivo_ami.facade import EventHandlerFacade
 
 _LOG_FILENAME = '/var/log/xivo-amid.log'
 _PID_FILENAME = '/var/run/xivo-amid.pid'
@@ -70,6 +73,16 @@ def _init_logging(parsed_args):
 
 def _run():
     _init_signal()
+    ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
+    bus_client = BusClient()
+    facade = EventHandlerFacade(ami_client, bus_client, _process_messages)
+    facade.run()
+
+
+def _process_messages(message_queue):
+    while message_queue:
+        msg = message_queue.popleft()
+        logger.debug('Processing message %s', msg)
 
 
 def _init_signal():
