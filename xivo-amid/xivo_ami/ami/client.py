@@ -18,7 +18,7 @@
 import collections
 import logging
 import socket
-from xivo_ami.ami import parser
+from xivo_ami.ami import parser, event
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +34,7 @@ class AMIClient(object):
         self._password = password
         self._sock = None
         self._buffer = ''
+        self._event_queue = collections.deque()
 
     def connect_and_login(self):
         logger.info('Connecting socket')
@@ -47,7 +48,11 @@ class AMIClient(object):
 
     def parse_next_messages(self):
         self._add_data_to_buffer()
-        return self._parse_buffer()
+        self._parse_buffer()
+        messages = collections.deque()
+        messages.extend(self._event_queue)
+        self._event_queue.clear()
+        return messages
 
     def _connect_socket(self):
         logger.info('Connecting AMI client to %s:%s', self._hostname, self._PORT)
@@ -81,21 +86,12 @@ class AMIClient(object):
         data = self._recv_data_from_socket()
         self._buffer += data
 
-    def _parse_buffer(self):
-        message_queue = collections.deque()
-        while True:
-            head, sep, self._buffer = self._buffer.partition('\r\n\r\n')
-            if not sep:
-                self._buffer = head
-                break
+    def event_parser_callback(self, event_name, action_id, headers):
+        message = event.Event(event_name, action_id, headers)
+        self._event_queue.append(message)
 
-            try:
-                msg = parser.parse_msg(head)
-            except Exception as e:
-                logger.error('Could not parse message: %s', e)
-                continue
-            message_queue.append(msg)
-        return message_queue
+    def _parse_buffer(self):
+        self._buffer = parser.parse_buffer(self._buffer, self.event_parser_callback, None)
 
     def _send_data_to_socket(self, data):
         try:
