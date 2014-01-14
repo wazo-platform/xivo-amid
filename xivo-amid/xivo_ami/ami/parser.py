@@ -15,27 +15,53 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from xivo_ami.ami.event import Event
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class AMIParsingError(Exception):
     pass
 
 
-def parse_msg(data):
+def parse_buffer(raw_buffer, event_callback, response_callback):
+    unparsed_buffer = raw_buffer
+    while unparsed_buffer:
+        head, sep, unparsed_buffer = unparsed_buffer.partition('\r\n\r\n')
+        if not sep:
+            unparsed_buffer = head
+            break
+
+        try:
+            _parse_msg(head, event_callback, response_callback)
+        except Exception as e:
+            logger.error('Could not parse message: %s', e)
+            continue
+
+    return unparsed_buffer
+
+
+def _parse_msg(data, event_callback, response_callback):
     lines = data.split('\r\n')
     if not _is_valid_message(lines):
         raise AMIParsingError('unexpected data: %r' % data)
 
     first_header, first_value = _parse_line(lines[0])
-    msg_factory = Event
 
     headers = {}
     for line in lines[1:]:
         header, value = _parse_line(line)
         headers[header] = value
 
-    return msg_factory(first_value, headers.get('ActionID'), headers)
+    if first_header.startswith('Response'):
+        callback = response_callback
+    elif first_header.startswith('Event'):
+        callback = event_callback
+    else:
+        raise AMIParsingError('unexpected data: %r' % data)
+
+    if callback:
+        callback(first_value, headers.get('ActionID'), headers)
 
 
 def _parse_line(line):
@@ -46,7 +72,6 @@ def _parse_line(line):
 
 def _is_valid_message(lines):
     return (lines
-            and lines[0].startswith('Event:')
             and _is_colon_in_each_line(lines))
 
 
