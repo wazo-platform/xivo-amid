@@ -16,9 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import collections
+import logging
 import time
 from xivo_ami.ami.client import AMIConnectionError
 from xivo_ami.bus.client import BusConnectionError
+
+logger = logging.getLogger(__name__)
 
 
 class EventHandlerFacade(object):
