@@ -15,22 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import logging
+#from hamcrest import assert_that, equal_to
+#from mock import Mock, patch, sentinel
+import unittest
 
-logger = logging.getLogger(__name__)
-
-
-class BusClient(object):
-
-    def connect(self):
-        logger.info('BusClient.connect : NotImplementedError()')
-
-    def disconnect(self):
-        logger.info('BusClient.disconnect: NotImplementedError()')
-
-    def publish(self, message):
-        logger.info('BusClient.publish: NotImplementedError()')
+#from xivo_ami.bus.client import BusClient, BusConnectionError
 
 
-class BusConnectionError(Exception):
+class testBusClient(unittest.TestCase):
     pass
