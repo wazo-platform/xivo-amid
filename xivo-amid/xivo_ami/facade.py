@@ -28,11 +28,10 @@ class EventHandlerFacade(object):
 
     RECONNECTION_DELAY = 5
 
-    def __init__(self, ami_client, bus_client, event_handler_callback):
+    def __init__(self, ami_client, bus_client):
         self._ami_client = ami_client
         self._bus_client = bus_client
         self._event_queue = collections.deque()
-        self._event_handler_callback = event_handler_callback
 
     def run(self):
         while True:
@@ -63,4 +62,10 @@ class EventHandlerFacade(object):
     def _process_messages_indefinitely(self):
         while True:
             new_messages = self._ami_client.parse_next_messages()
-            self._event_handler_callback(new_messages)
+            self._process_messages(new_messages)
+
+    def _process_messages(self, messages):
+        while len(messages):
+            message = messages.pop()
+            logger.debug('Processing message %s', message)
+            self._bus_client.publish(message)

@@ -75,14 +75,8 @@ def _run():
     _init_signal()
     ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
     bus_client = BusClient()
-    facade = EventHandlerFacade(ami_client, bus_client, _process_messages)
+    facade = EventHandlerFacade(ami_client, bus_client)
     facade.run()
-
-
-def _process_messages(message_queue):
-    while message_queue:
-        msg = message_queue.popleft()
-        logger.debug('Processing message %s', msg)
 
 
 def _init_signal():
