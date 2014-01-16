@@ -16,12 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 from hamcrest import assert_that, equal_to
-from mock import Mock, patch
+from mock import Mock
 import unittest
 
 from xivo_ami.ami.parser import parse_buffer
 
 MESSAGE_DELIMITER = '\r\n\r\n'
+EVENT_DELIMITER = 'Event: '
 
 
 class TestParser(unittest.TestCase):
@@ -37,24 +38,22 @@ class TestParser(unittest.TestCase):
 
         assert_that(raw_buffer, equal_to(unparsed_buffer))
 
-    @patch('xivo_ami.ami.parser._parse_msg')
-    def test_given_complete_message_when_parse_buffer_then_parse_msg_and_buffer_emptied(self, mock_parse_msg):
-        complete_msg = "complete message"
-        raw_buffer = complete_msg + MESSAGE_DELIMITER
+    def test_given_complete_message_when_parse_buffer_then_callback_and_buffer_emptied(self):
+        complete_msg = 'complete message'
+        raw_buffer = EVENT_DELIMITER + complete_msg + MESSAGE_DELIMITER
 
         unparsed_buffer = parse_buffer(raw_buffer, self.mock_event_callback, self.mock_response_callback)
 
         assert_that(unparsed_buffer, equal_to(''))
-        mock_parse_msg.assert_called_once_with(complete_msg, self.mock_event_callback, self.mock_response_callback)
+        self.mock_event_callback.assert_called_once_with(complete_msg, None, {})
 
-    @patch('xivo_ami.ami.parser._parse_msg')
-    def test_given_complete_messages_when_parse_buffer_then_multiple_parse_msg_and_buffer_emptied(self, mock_parse_msg):
+    def test_given_complete_messages_when_parse_buffer_then_multiple_callback_and_buffer_emptied(self):
         first_msg = "first complete message"
         second_msg = "second complete message"
-        raw_buffer = first_msg + MESSAGE_DELIMITER + second_msg + MESSAGE_DELIMITER
+        raw_buffer = EVENT_DELIMITER + first_msg + MESSAGE_DELIMITER + EVENT_DELIMITER + second_msg + MESSAGE_DELIMITER
 
         unparsed_buffer = parse_buffer(raw_buffer, self.mock_event_callback, self.mock_response_callback)
 
         assert_that(unparsed_buffer, equal_to(''))
-        mock_parse_msg.assert_any_call(first_msg, self.mock_event_callback, self.mock_response_callback)
-        mock_parse_msg.assert_any_call(second_msg, self.mock_event_callback, self.mock_response_callback)
+        self.mock_event_callback.assert_any_call(first_msg, None, {})
+        self.mock_event_callback.assert_any_call(second_msg, None, {})
