@@ -8,7 +8,7 @@ from distutils.core import setup
 
 packages = [
     package for package, _, _ in os.walk('xivo_ami')
-    if not fnmatch.fnmatch(package, '*tests') and not fnmatch.fnmatch(package, 'svn')
+    if not fnmatch.fnmatch(package, '*tests') and '.svn' not in package
 ]
 
 setup(
