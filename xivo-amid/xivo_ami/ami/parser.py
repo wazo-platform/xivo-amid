@@ -35,7 +35,7 @@ def parse_buffer(raw_buffer, event_callback, response_callback):
         try:
             _parse_msg(head, event_callback, response_callback)
         except Exception as e:
-            logger.error('Could not parse message: %s', e)
+            logger.debug('Could not parse message: %s', e)
             continue
 
     return unparsed_buffer
