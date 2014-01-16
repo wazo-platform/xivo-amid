@@ -22,10 +22,15 @@ from xivo_ami.ami.event import Event
 
 class TestEvent(unittest.TestCase):
 
-    def test_given_event_when_get_value_then_value_returned(self):
+    def setUp(self):
         headers = {'ze_field': 'ze_value', 'ze_other_field': 'ze_other_value'}
-        event = Event('name', 'action_id', headers)
+        self.event = Event('name', 'action_id', headers)
 
-        value = event.get_value('ze_field')
+    def test_given_event_then_name_and_action_id(self):
+        assert_that(self.event.name, equal_to('name'))
+        assert_that(self.event.action_id, equal_to('action_id'))
+
+    def test_given_event_when_get_value_then_value_returned(self):
+        value = self.event.get_value('ze_field')
 
         assert_that(value, equal_to('ze_value'))
