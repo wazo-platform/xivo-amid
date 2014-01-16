@@ -49,10 +49,7 @@ class AMIClient(object):
     def parse_next_messages(self):
         self._add_data_to_buffer()
         self._parse_buffer()
-        messages = collections.deque()
-        messages.extend(self._event_queue)
-        self._event_queue.clear()
-        return messages
+        return self._pop_messages()
 
     def _connect_socket(self):
         logger.info('Connecting AMI client to %s:%s', self._hostname, self._PORT)
@@ -92,6 +89,12 @@ class AMIClient(object):
 
     def _parse_buffer(self):
         self._buffer = parser.parse_buffer(self._buffer, self.event_parser_callback, None)
+
+    def _pop_messages(self):
+        messages = collections.deque()
+        messages.extend(self._event_queue)
+        self._event_queue.clear()
+        return messages
 
     def _send_data_to_socket(self, data):
         try:
