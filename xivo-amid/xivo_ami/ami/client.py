@@ -18,9 +18,11 @@
 import collections
 import logging
 import socket
-from xivo_ami.ami import parser, event
+from xivo_ami.ami import parser
 
 logger = logging.getLogger(__name__)
+
+Message = collections.namedtuple('Message', 'name headers')
 
 
 class AMIClient(object):
@@ -84,7 +86,7 @@ class AMIClient(object):
         self._buffer += data
 
     def event_parser_callback(self, event_name, action_id, headers):
-        message = event.Event(event_name, action_id, headers)
+        message = Message(event_name, headers)
         self._event_queue.append(message)
 
     def _parse_buffer(self):

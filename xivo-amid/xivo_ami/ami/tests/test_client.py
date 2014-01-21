@@ -109,7 +109,7 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_complete_message_when_parse_next_messages_then_return_messages_queue(self, mock_socket):
-        data = 'Event: foo\r\nActionID: 42\r\n\r\n'
+        data = 'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'
         mock_socket.recv.return_value = data
         self.ami_client.connect_and_login()
 
@@ -117,7 +117,6 @@ class TestAMIClient(unittest.TestCase):
 
         assert_that(len(messages), equal_to(1))
         self.assertEqual('foo', messages[0].name)
-        self.assertEqual('42', messages[0].action_id)
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_incomplete_message_when_parse_next_messages_then_return_empty_queue(self, mock_socket):
@@ -138,7 +137,6 @@ class TestAMIClient(unittest.TestCase):
 
         assert_that(len(messages), equal_to(1))
         self.assertEqual('complete', messages[0].name)
-        self.assertEqual(None, messages[0].action_id)
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_recv_socket_error_when_parse_next_messages_then_raise_amiconnectionerror(self, mock_socket):

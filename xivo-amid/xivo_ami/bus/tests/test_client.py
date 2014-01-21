@@ -16,12 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 from hamcrest import assert_that, equal_to
-from collections import namedtuple
 from mock import Mock
 import unittest
 
-from xivo_bus.ctl.client import BusCtlClient
+from xivo_ami.ami.client import Message
 from xivo_ami.bus.client import BusClient
+from xivo_bus.ctl.client import BusCtlClient
 
 
 class testBusClient(unittest.TestCase):
@@ -44,7 +44,6 @@ class testBusClient(unittest.TestCase):
     def test_when_publish_then_publish_ami_event(self):
         name = 'EventName'
         headers = {'foo': 'bar', 'meaning of the universe': '42'}
-        Message = namedtuple('Message', 'name headers')
         message = Message(name, headers)
 
         self.bus_client.publish(message)
