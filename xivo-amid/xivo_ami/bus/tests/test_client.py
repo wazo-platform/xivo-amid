@@ -15,12 +15,41 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-#from hamcrest import assert_that, equal_to
-#from mock import Mock, patch, sentinel
+from hamcrest import assert_that, equal_to
+from collections import namedtuple
+from mock import Mock
 import unittest
 
-#from xivo_ami.bus.client import BusClient, BusConnectionError
+from xivo_bus.ctl.client import BusCtlClient
+from xivo_ami.bus.client import BusClient
 
 
 class testBusClient(unittest.TestCase):
-    pass
+
+    def setUp(self):
+        self.mock_bus_ctl_client = Mock(BusCtlClient)
+        self.bus_client = BusClient(self.mock_bus_ctl_client)
+
+    def test_when_connect_then_connect_and_declare(self):
+        self.bus_client.connect()
+
+        self.mock_bus_ctl_client.connect.assert_called_once_with()
+        self.mock_bus_ctl_client.declare_ami_exchange.assert_called_once_with()
+
+    def test_when_disconnect_then_close(self):
+        self.bus_client.disconnect()
+
+        self.mock_bus_ctl_client.close.assert_called_once_with()
+
+    def test_when_publish_then_publish_ami_event(self):
+        name = 'EventName'
+        headers = {'foo': 'bar', 'meaning of the universe': '42'}
+        Message = namedtuple('Message', 'name headers')
+        message = Message(name, headers)
+
+        self.bus_client.publish(message)
+
+        assert_that(self.mock_bus_ctl_client.publish_ami_event.call_count, equal_to(1))
+        resulting_event = self.mock_bus_ctl_client.publish_ami_event.call_args[0][0]
+        assert_that(resulting_event.name, equal_to(name))
+        assert_that(resulting_event.variables, equal_to(headers))
