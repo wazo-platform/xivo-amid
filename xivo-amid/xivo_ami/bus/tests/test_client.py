@@ -34,7 +34,7 @@ class TestBusClient(unittest.TestCase):
         self.bus_client.connect()
 
         self.mock_bus_ctl_client.connect.assert_called_once_with()
-        self.mock_bus_ctl_client.declare_ami_exchange.assert_called_once_with()
+        self.mock_bus_ctl_client.declare_exchange.assert_called_once_with('xivo-ami', 'topic', durable=True)
 
     def test_given_amqperror_when_connect_then_raise_busconnectionerror(self):
         self.mock_bus_ctl_client.connect.side_effect = IOError()
@@ -46,17 +46,20 @@ class TestBusClient(unittest.TestCase):
 
         self.mock_bus_ctl_client.close.assert_called_once_with()
 
-    def test_when_publish_then_publish_ami_event(self):
+    def test_when_publish_then_publish_event(self):
         name = 'EventName'
         headers = {'foo': 'bar', 'meaning of the universe': '42'}
         message = Message(name, headers)
 
         self.bus_client.publish(message)
 
-        assert_that(self.mock_bus_ctl_client.publish_ami_event.call_count, equal_to(1))
-        resulting_event = self.mock_bus_ctl_client.publish_ami_event.call_args[0][0]
+        assert_that(self.mock_bus_ctl_client.publish_event.call_count, equal_to(1))
+        resulting_args = self.mock_bus_ctl_client.publish_event.call_args[0]
+        resulting_exchange, resulting_key, resulting_event = resulting_args
         assert_that(resulting_event.name, equal_to(name))
         assert_that(resulting_event.variables, equal_to(headers))
+        assert_that(resulting_exchange, equal_to('xivo-ami'))
+        assert_that(resulting_key, equal_to(resulting_event.name))
 
     def test_given_amqperror_when_publish_then_raise_busconnectionerror(self):
         name = 'EventName'

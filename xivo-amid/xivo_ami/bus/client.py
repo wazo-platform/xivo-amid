@@ -31,7 +31,7 @@ class BusClient(object):
         logger.info('Connecting bus client')
         try:
             self._bus_ctl_client.connect()
-            self._bus_ctl_client.declare_ami_exchange()
+            self._bus_ctl_client.declare_exchange('xivo-ami', 'topic', durable=True)
         except IOError as e:
             logger.exception(e)
             raise BusConnectionError(e)
@@ -43,7 +43,7 @@ class BusClient(object):
     def publish(self, message):
         event = AMIEvent(message.name, message.headers)
         try:
-            self._bus_ctl_client.publish_ami_event(event)
+            self._bus_ctl_client.publish_event('xivo-ami', event.name, event)
         except IOError as e:
             logger.exception(e)
             raise BusConnectionError(e)
