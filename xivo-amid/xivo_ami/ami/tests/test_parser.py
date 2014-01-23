@@ -62,7 +62,8 @@ class TestParser(unittest.TestCase):
     def test_given_unknown_message_when_parse_buffer_then_no_callback(self):
         msg = "unknown: message" + MESSAGE_DELIMITER
 
-        parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
+        unparsed_buffer = parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
 
+        assert_that(unparsed_buffer, equal_to(''))
         assert_that(self.mock_event_callback.call_count, equal_to(0))
         assert_that(self.mock_response_callback.call_count, equal_to(0))
