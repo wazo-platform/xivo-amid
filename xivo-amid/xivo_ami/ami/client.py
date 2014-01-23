@@ -22,7 +22,7 @@ from xivo_ami.ami import parser
 
 logger = logging.getLogger(__name__)
 
-Message = collections.namedtuple('Message', 'name headers')
+Message = collections.namedtuple('Message', ['name', 'headers'])
 
 
 class AMIClient(object):

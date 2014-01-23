@@ -24,7 +24,7 @@ from xivo_ami.bus.client import BusClient
 from xivo_bus.ctl.client import BusCtlClient
 
 
-class testBusClient(unittest.TestCase):
+class TestBusClient(unittest.TestCase):
 
     def setUp(self):
         self.mock_bus_ctl_client = Mock(BusCtlClient)
