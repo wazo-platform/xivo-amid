@@ -27,7 +27,7 @@ from xivo_bus.ctl.client import BusCtlClient
 class TestBusClient(unittest.TestCase):
 
     def setUp(self):
-        self.mock_bus_ctl_client = Mock(BusCtlClient)
+        self.mock_bus_ctl_client = Mock(BusCtlClient, connected=False)
         self.bus_client = BusClient(self.mock_bus_ctl_client)
 
     def test_when_connect_then_connect_and_declare(self):
@@ -40,6 +40,13 @@ class TestBusClient(unittest.TestCase):
         self.mock_bus_ctl_client.connect.side_effect = IOError()
 
         self.assertRaises(BusConnectionError, self.bus_client.connect)
+
+    def test_given_connected_when_connect_then_nothing(self):
+        self.mock_bus_ctl_client.connected = True
+        self.bus_client.connect()
+
+        assert_that(self.mock_bus_ctl_client.connect.call_count, equal_to(0))
+        assert_that(self.mock_bus_ctl_client.declare_exchange.call_count, equal_to(0))
 
     def test_when_disconnect_then_close(self):
         self.bus_client.disconnect()

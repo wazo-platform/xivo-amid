@@ -30,11 +30,15 @@ class BusClient(object):
     def connect(self):
         logger.info('Connecting bus client')
         try:
-            self._bus_ctl_client.connect()
-            self._bus_ctl_client.declare_exchange('xivo-ami', 'topic', durable=True)
+            self._connect_and_declare_exchange()
         except IOError as e:
             logger.exception(e)
             raise BusConnectionError(e)
+
+    def _connect_and_declare_exchange(self):
+        if not self._bus_ctl_client.connected:
+            self._bus_ctl_client.connect()
+            self._bus_ctl_client.declare_exchange('xivo-ami', 'topic', durable=True)
 
     def disconnect(self):
         logger.info('Disconnecting bus client')
