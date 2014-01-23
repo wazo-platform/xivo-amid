@@ -57,7 +57,7 @@ class EventHandlerFacade(object):
     def _handle_unexpected_error(self, e):
         self._ami_client.disconnect()
         self._bus_client.disconnect()
-        raise e
+        raise
 
     def _process_messages_indefinitely(self):
         while True:
