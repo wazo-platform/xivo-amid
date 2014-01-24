@@ -28,10 +28,12 @@ class BusClient(object):
         self._bus_ctl_client = bus_ctl_client
 
     def connect(self):
+        logger.info('Connecting bus client')
         self._bus_ctl_client.connect()
         self._bus_ctl_client.declare_ami_exchange()
 
     def disconnect(self):
+        logger.info('Disconnecting bus client')
         self._bus_ctl_client.close()
 
     def publish(self, message):
