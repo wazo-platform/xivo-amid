@@ -17,10 +17,11 @@
 
 from hamcrest import assert_that, equal_to
 from mock import Mock
+from pika.exceptions import AMQPError
 import unittest
 
 from xivo_ami.ami.client import Message
-from xivo_ami.bus.client import BusClient
+from xivo_ami.bus.client import BusClient, BusConnectionError
 from xivo_bus.ctl.client import BusCtlClient
 
 
@@ -35,6 +36,11 @@ class TestBusClient(unittest.TestCase):
 
         self.mock_bus_ctl_client.connect.assert_called_once_with()
         self.mock_bus_ctl_client.declare_ami_exchange.assert_called_once_with()
+
+    def test_given_amqperror_when_connect_then_raise_busconnectionerror(self):
+        self.mock_bus_ctl_client.connect.side_effect = AMQPError()
+
+        self.assertRaises(BusConnectionError, self.bus_client.connect)
 
     def test_when_disconnect_then_close(self):
         self.bus_client.disconnect()
@@ -52,3 +58,11 @@ class TestBusClient(unittest.TestCase):
         resulting_event = self.mock_bus_ctl_client.publish_ami_event.call_args[0][0]
         assert_that(resulting_event.name, equal_to(name))
         assert_that(resulting_event.variables, equal_to(headers))
+
+    def test_given_amqperror_when_publish_then_raise_busconnectionerror(self):
+        name = 'EventName'
+        headers = {'foo': 'bar', 'meaning of the universe': '42'}
+        message = Message(name, headers)
+        self.mock_bus_ctl_client.publish_ami_event.side_effect = AMQPError()
+
+        self.assertRaises(BusConnectionError, self.bus_client.publish, message)
