@@ -16,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import logging
-from pika.exceptions import AMQPError
 
 from xivo_bus.resources.ami.event import AMIEvent
 
@@ -33,8 +32,9 @@ class BusClient(object):
         try:
             self._bus_ctl_client.connect()
             self._bus_ctl_client.declare_ami_exchange()
-        except AMQPError:
-            raise BusConnectionError()
+        except IOError as e:
+            logger.exception(e)
+            raise BusConnectionError(e)
 
     def disconnect(self):
         logger.info('Disconnecting bus client')
@@ -44,8 +44,9 @@ class BusClient(object):
         event = AMIEvent(message.name, message.headers)
         try:
             self._bus_ctl_client.publish_ami_event(event)
-        except AMQPError:
-            raise BusConnectionError()
+        except IOError as e:
+            logger.exception(e)
+            raise BusConnectionError(e)
 
 
 class BusConnectionError(Exception):
