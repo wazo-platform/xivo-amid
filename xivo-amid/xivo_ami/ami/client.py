@@ -18,9 +18,11 @@
 import collections
 import logging
 import socket
-from xivo_ami.ami import parser, event
+from xivo_ami.ami import parser
 
 logger = logging.getLogger(__name__)
+
+Message = collections.namedtuple('Message', ['name', 'headers'])
 
 
 class AMIClient(object):
@@ -37,13 +39,14 @@ class AMIClient(object):
         self._event_queue = collections.deque()
 
     def connect_and_login(self):
-        logger.info('Connecting socket')
         if self._sock is None:
+            logger.info('Connecting AMI client to %s:%s', self._hostname, self._PORT)
             self._connect_socket()
             self._login()
 
     def disconnect(self):
         if self._sock is not None:
+            logger.info('Disconnecting AMI client')
             self._disconnect_socket()
 
     def parse_next_messages(self):
@@ -52,7 +55,6 @@ class AMIClient(object):
         return self._pop_messages()
 
     def _connect_socket(self):
-        logger.info('Connecting AMI client to %s:%s', self._hostname, self._PORT)
         try:
             self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             self._sock.connect((self._hostname, self._PORT))
@@ -74,7 +76,6 @@ class AMIClient(object):
         return '\r\n'.join(lines).encode('UTF-8')
 
     def _disconnect_socket(self):
-        logger.info('Disconnecting AMI client')
         self._sock.close()
         self._sock = None
         self._buffer = ''
@@ -84,7 +85,7 @@ class AMIClient(object):
         self._buffer += data
 
     def event_parser_callback(self, event_name, action_id, headers):
-        message = event.Event(event_name, action_id, headers)
+        message = Message(event_name, headers)
         self._event_queue.append(message)
 
     def _parse_buffer(self):

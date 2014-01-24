@@ -23,6 +23,7 @@ from xivo import daemonize
 from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
 from xivo_ami.facade import EventHandlerFacade
+from xivo_bus.ctl.client import BusCtlClient
 
 _LOG_FILENAME = '/var/log/xivo-amid.log'
 _PID_FILENAME = '/var/run/xivo-amid.pid'
@@ -74,7 +75,8 @@ def _init_logging(parsed_args):
 def _run():
     _init_signal()
     ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
-    bus_client = BusClient()
+    bus_ctl_client = BusCtlClient()
+    bus_client = BusClient(bus_ctl_client)
     facade = EventHandlerFacade(ami_client, bus_client)
     facade.run()
 

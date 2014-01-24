@@ -17,19 +17,36 @@
 
 import logging
 
+from xivo_bus.resources.ami.event import AMIEvent
+
 logger = logging.getLogger(__name__)
 
 
 class BusClient(object):
 
+    def __init__(self, bus_ctl_client):
+        self._bus_ctl_client = bus_ctl_client
+
     def connect(self):
-        logger.info('BusClient.connect : NotImplementedError()')
+        logger.info('Connecting bus client')
+        try:
+            self._bus_ctl_client.connect()
+            self._bus_ctl_client.declare_ami_exchange()
+        except IOError as e:
+            logger.exception(e)
+            raise BusConnectionError(e)
 
     def disconnect(self):
-        logger.info('BusClient.disconnect: NotImplementedError()')
+        logger.info('Disconnecting bus client')
+        self._bus_ctl_client.close()
 
     def publish(self, message):
-        logger.info('BusClient.publish: NotImplementedError()')
+        event = AMIEvent(message.name, message.headers)
+        try:
+            self._bus_ctl_client.publish_ami_event(event)
+        except IOError as e:
+            logger.exception(e)
+            raise BusConnectionError(e)
 
 
 class BusConnectionError(Exception):
