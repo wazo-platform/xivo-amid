@@ -72,6 +72,6 @@ class TestBusClient(unittest.TestCase):
         name = 'EventName'
         headers = {'foo': 'bar', 'meaning of the universe': '42'}
         message = Message(name, headers)
-        self.mock_bus_ctl_client.publish_ami_event.side_effect = IOError()
+        self.mock_bus_ctl_client.publish_event.side_effect = IOError()
 
         self.assertRaises(BusConnectionError, self.bus_client.publish, message)
