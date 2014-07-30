@@ -19,7 +19,7 @@ import argparse
 import logging
 import signal
 
-from xivo import daemonize
+from xivo.daemonize import pidfile_context
 from xivo.xivo_logging import setup_logging
 from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
@@ -37,18 +37,13 @@ def main():
 
     setup_logging(_LOG_FILENAME, parsed_args.foreground, parsed_args.verbose)
 
-    if not parsed_args.foreground:
-        daemonize.daemonize()
-
-    logger.info('Starting xivo-amid')
-    daemonize.lock_pidfile_or_die(_PID_FILENAME)
-    try:
-        _run()
-    except Exception:
-        logger.exception('Unexpected error:')
-    finally:
+    with pidfile_context(_PID_FILENAME, parsed_args.foreground):
+        logger.info('Starting xivo-amid')
+        try:
+            _run()
+        except Exception:
+            logger.exception('Unexpected error:')
         logger.info('Stopping xivo-amid')
-        daemonize.unlock_pidfile(_PID_FILENAME)
 
 
 def _parse_args():
