@@ -65,14 +65,12 @@ def _parse_msg(data, event_callback, response_callback):
 
 
 def _parse_line(line):
-    header, value = line.split(':', 1)
-    value = value.lstrip()
+    header, value = line.split(': ', 1)
     return header, value
 
 
 def _is_valid_message(lines):
-    return (lines
-            and _is_colon_in_each_line(lines))
+    return lines and _is_colon_in_each_line(lines)
 
 
 def _is_colon_in_each_line(lines):
