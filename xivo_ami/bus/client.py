@@ -28,8 +28,8 @@ class BusClient(object):
     EXCHANGE_TYPE = 'topic'
     EXCHANGE_DURABLE = True
 
-    def __init__(self, bus_ctl_client):
-        self._bus_ctl_client = bus_ctl_client
+    def __init__(self, bus_producer):
+        self._bus_producer = bus_producer
 
     def connect(self):
         logger.info('Connecting bus client')
@@ -40,20 +40,20 @@ class BusClient(object):
             raise BusConnectionError(e)
 
     def _connect_and_declare_exchange(self):
-        if not self._bus_ctl_client.connected:
-            self._bus_ctl_client.connect()
-            self._bus_ctl_client.declare_exchange(self.EXCHANGE_NAME,
+        if not self._bus_producer.connected:
+            self._bus_producer.connect()
+            self._bus_producer.declare_exchange(self.EXCHANGE_NAME,
                                                   self.EXCHANGE_TYPE,
                                                   durable=self.EXCHANGE_DURABLE)
 
     def disconnect(self):
         logger.info('Disconnecting bus client')
-        self._bus_ctl_client.close()
+        self._bus_producer.close()
 
     def publish(self, message):
         event = AMIEvent(message.name, message.headers)
         try:
-            self._bus_ctl_client.publish_event(self.EXCHANGE_NAME, event.name, event)
+            self._bus_producer.publish_event(self.EXCHANGE_NAME, event.name, event)
         except IOError as e:
             logger.exception(e)
             raise BusConnectionError(e)

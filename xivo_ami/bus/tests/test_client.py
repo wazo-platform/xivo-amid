@@ -21,37 +21,37 @@ import unittest
 
 from xivo_ami.ami.client import Message
 from xivo_ami.bus.client import BusClient, BusConnectionError
-from xivo_bus.ctl.client import BusCtlClient
+from xivo_bus.ctl.producer import BusProducer
 
 
 class TestBusClient(unittest.TestCase):
 
     def setUp(self):
-        self.mock_bus_ctl_client = Mock(BusCtlClient, connected=False)
-        self.bus_client = BusClient(self.mock_bus_ctl_client)
+        self.mock_bus_producer = Mock(BusProducer, connected=False)
+        self.bus_client = BusClient(self.mock_bus_producer)
 
     def test_when_connect_then_connect_and_declare(self):
         self.bus_client.connect()
 
-        self.mock_bus_ctl_client.connect.assert_called_once_with()
-        self.mock_bus_ctl_client.declare_exchange.assert_called_once_with('xivo-ami', 'topic', durable=True)
+        self.mock_bus_producer.connect.assert_called_once_with()
+        self.mock_bus_producer.declare_exchange.assert_called_once_with('xivo-ami', 'topic', durable=True)
 
     def test_given_amqperror_when_connect_then_raise_busconnectionerror(self):
-        self.mock_bus_ctl_client.connect.side_effect = IOError()
+        self.mock_bus_producer.connect.side_effect = IOError()
 
         self.assertRaises(BusConnectionError, self.bus_client.connect)
 
     def test_given_connected_when_connect_then_nothing(self):
-        self.mock_bus_ctl_client.connected = True
+        self.mock_bus_producer.connected = True
         self.bus_client.connect()
 
-        assert_that(self.mock_bus_ctl_client.connect.call_count, equal_to(0))
-        assert_that(self.mock_bus_ctl_client.declare_exchange.call_count, equal_to(0))
+        assert_that(self.mock_bus_producer.connect.call_count, equal_to(0))
+        assert_that(self.mock_bus_producer.declare_exchange.call_count, equal_to(0))
 
     def test_when_disconnect_then_close(self):
         self.bus_client.disconnect()
 
-        self.mock_bus_ctl_client.close.assert_called_once_with()
+        self.mock_bus_producer.close.assert_called_once_with()
 
     def test_when_publish_then_publish_event(self):
         name = 'EventName'
@@ -60,8 +60,8 @@ class TestBusClient(unittest.TestCase):
 
         self.bus_client.publish(message)
 
-        assert_that(self.mock_bus_ctl_client.publish_event.call_count, equal_to(1))
-        resulting_args = self.mock_bus_ctl_client.publish_event.call_args[0]
+        assert_that(self.mock_bus_producer.publish_event.call_count, equal_to(1))
+        resulting_args = self.mock_bus_producer.publish_event.call_args[0]
         resulting_exchange, resulting_key, resulting_event = resulting_args
         assert_that(resulting_event.name, equal_to(name))
         assert_that(resulting_event.variables, equal_to(headers))
@@ -72,6 +72,6 @@ class TestBusClient(unittest.TestCase):
         name = 'EventName'
         headers = {'foo': 'bar', 'meaning of the universe': '42'}
         message = Message(name, headers)
-        self.mock_bus_ctl_client.publish_event.side_effect = IOError()
+        self.mock_bus_producer.publish_event.side_effect = IOError()
 
         self.assertRaises(BusConnectionError, self.bus_client.publish, message)

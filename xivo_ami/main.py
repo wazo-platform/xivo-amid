@@ -24,7 +24,7 @@ from xivo.xivo_logging import setup_logging
 from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
 from xivo_ami.facade import EventHandlerFacade
-from xivo_bus.ctl.client import BusCtlClient
+from xivo_bus.ctl.producer import BusProducer
 
 _LOG_FILENAME = '/var/log/xivo-amid.log'
 _PID_FILENAME = '/var/run/xivo-amid.pid'
@@ -58,8 +58,8 @@ def _parse_args():
 def _run():
     _init_signal()
     ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
-    bus_ctl_client = BusCtlClient()
-    bus_client = BusClient(bus_ctl_client)
+    bus_producer = BusProducer()
+    bus_client = BusClient(bus_producer)
     facade = EventHandlerFacade(ami_client, bus_client)
     facade.run()
 
