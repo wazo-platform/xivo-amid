@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import collections
 import logging
 import time
+
 from xivo_ami.ami.client import AMIConnectionError
 from xivo_ami.bus.client import BusConnectionError
 
@@ -31,7 +31,6 @@ class EventHandlerFacade(object):
     def __init__(self, ami_client, bus_client):
         self._ami_client = ami_client
         self._bus_client = bus_client
-        self._event_queue = collections.deque()
 
     def run(self):
         while True:
