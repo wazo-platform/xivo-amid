@@ -15,53 +15,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import argparse
 import logging
 import signal
+import thread
+
 
 from xivo.daemonize import pidfile_context
 from xivo.xivo_logging import setup_logging
 from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
+from xivo_ami.config import config
 from xivo_ami.facade import EventHandlerFacade
 from xivo_bus.ctl.producer import BusProducer
-
-_LOG_FILENAME = '/var/log/xivo-amid.log'
-_PID_FILENAME = '/var/run/xivo-amid.pid'
 
 logger = logging.getLogger(__name__)
 
 
 def main():
-    parsed_args = _parse_args()
+    setup_logging(config._LOG_FILENAME, config.foreground, config.debug)
 
-    setup_logging(_LOG_FILENAME, parsed_args.foreground, parsed_args.verbose)
-
-    with pidfile_context(_PID_FILENAME, parsed_args.foreground):
-        logger.info('Starting xivo-amid')
-        try:
-            _run()
-        except Exception:
-            logger.exception('Unexpected error:')
-        logger.info('Stopping xivo-amid')
-
-
-def _parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--foreground', action='store_true',
-                        help='run in foreground')
-    parser.add_argument('-v', '--verbose', action='store_true',
-                        help='increase verbosity')
-    return parser.parse_args()
+    with pidfile_context(config._PID_FILENAME, config.foreground):
+        _run()
 
 
 def _run():
     _init_signal()
-    ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
-    bus_producer = BusProducer()
-    bus_client = BusClient(bus_producer)
-    facade = EventHandlerFacade(ami_client, bus_client)
-    facade.run()
+    if not config.disable_bus:
+        ami_client = AMIClient(config.ami.host, config.ami.username, config.ami.password)
+        bus_producer = BusProducer(config.bus_config_obj)
+        bus_client = BusClient(bus_producer)
+        facade = EventHandlerFacade(ami_client, bus_client)
+        thread.start_new_thread(facade.run, ())
+
 
 
 def _init_signal():

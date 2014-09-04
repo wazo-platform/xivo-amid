@@ -18,7 +18,9 @@
 import collections
 import logging
 import socket
+
 from xivo_ami.ami import parser
+from xivo_ami.config import config
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +30,7 @@ Message = collections.namedtuple('Message', ['name', 'headers'])
 class AMIClient(object):
 
     _BUFSIZE = 4096
-    _PORT = 5038
+    _PORT = config.ami.port
 
     def __init__(self, hostname, username, password):
         self._hostname = hostname

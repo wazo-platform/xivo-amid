@@ -1,1 +1,2 @@
 debian/tmp/usr/bin/xivo-amid usr/bin/
+etc/* etc/
