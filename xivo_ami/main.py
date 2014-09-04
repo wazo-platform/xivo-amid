@@ -51,7 +51,6 @@ def _run():
         thread.start_new_thread(facade.run, ())
 
 
-
 def _init_signal():
     signal.signal(signal.SIGTERM, _handle_sigterm)
 
