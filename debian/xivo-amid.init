@@ -14,6 +14,8 @@
 set -e
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
+USER=www-data
+GROUP=$USER
 DAEMONNAME=xivo-amid
 DAEMON=/usr/bin/$DAEMONNAME
 PIDDIR=/var/run/$DAEMONNAME
@@ -43,7 +45,8 @@ case "$1" in
   start)
     is_enabled
     log_daemon_msg "Starting" "$DAEMONNAME"
-    if start-stop-daemon --start --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON;
+
+    if start-stop-daemon --start --quiet --oknodo --pidfile $PIDFILE --exec $DAEMON --user $USER;
     then
         log_end_msg 0
     else
@@ -60,7 +63,7 @@ case "$1" in
     fi
     rm -f $PIDFILE
     ;;
-  restart)
+  force-reload|restart)
     $0 stop
     $0 start
     ;;
@@ -68,7 +71,7 @@ case "$1" in
     status_of_proc -p $PIDFILE $DAEMON "$DAEMONNAME" && exit 0 || exit $?
     ;;
   *)
-    echo "Usage: $0 {start|stop|restart|status}"
+    echo "Usage: $0 {start|stop|restart|force-reload|status}"
     exit 1
     ;;
 esac

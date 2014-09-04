@@ -21,6 +21,7 @@ import thread
 
 
 from xivo.daemonize import pidfile_context
+from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
 from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
@@ -33,6 +34,8 @@ logger = logging.getLogger(__name__)
 
 def main():
     setup_logging(config._LOG_FILENAME, config.foreground, config.debug)
+    if config.user:
+        change_user(config.user)
 
     with pidfile_context(config._PID_FILENAME, config.foreground):
         _run()
