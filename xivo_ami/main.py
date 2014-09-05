@@ -17,7 +17,6 @@
 
 import logging
 import signal
-import thread
 
 
 from xivo.daemonize import pidfile_context
@@ -48,7 +47,7 @@ def _run():
         bus_producer = BusProducer(config.bus_config_obj)
         bus_client = BusClient(bus_producer)
         facade = EventHandlerFacade(ami_client, bus_client)
-        thread.start_new_thread(facade.run, ())
+        facade.run()
 
 
 def _init_signal():
