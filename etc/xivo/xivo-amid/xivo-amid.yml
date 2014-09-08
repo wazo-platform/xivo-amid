@@ -3,20 +3,20 @@ debug: False
 disable-bus: False
 
 ami:
-    host: 192.168.111.51
+    host: localhost
     port: 5038
     username: xivo_amid
     password: eeCho8ied3u
 
 ajam:
-    host: 192.168.111.51
+    host: localhost
     port: 8080
     username: xivo_amid
     password: eeCho8ied3u
 
 
 bus:
-    host: 192.168.111.51
+    host: localhost
     port: 5672
     username: xivo
     password: xivo
