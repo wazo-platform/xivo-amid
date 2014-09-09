@@ -17,9 +17,11 @@
 
 import socket
 import unittest
+
 from functools import wraps
 from hamcrest import assert_that, equal_to
 from mock import Mock, patch
+from mock import sentinel
 
 from xivo_ami.ami.client import AMIClient, AMIConnectionError
 
@@ -48,7 +50,8 @@ class TestAMIClient(unittest.TestCase):
         self.hostname = 'example.org'
         self.username = 'username'
         self.password = 'password'
-        self.ami_client = AMIClient(self.hostname, self.username, self.password)
+        self.port = sentinel.port
+        self.ami_client = AMIClient(self.hostname, self.username, self.password, self.port)
 
     @patch('socket.socket')
     def test_when_connect_socket_then_socket_created(self, mock_socket_constructor):

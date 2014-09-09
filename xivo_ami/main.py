@@ -24,7 +24,7 @@ from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
 from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
-from xivo_ami.config import config
+from xivo_ami import config as config_loader
 from xivo_ami.facade import EventHandlerFacade
 from xivo_bus.ctl.producer import BusProducer
 
@@ -32,22 +32,27 @@ logger = logging.getLogger(__name__)
 
 
 def main():
+    config = config_loader.fetch_and_merge_config()
+
     setup_logging(config._LOG_FILENAME, config.foreground, config.debug)
     if config.user:
         change_user(config.user)
 
     with pidfile_context(config._PID_FILENAME, config.foreground):
-        _run()
+        _run(config)
 
 
-def _run():
+def _run(config):
     _init_signal()
-    if not config.disable_bus:
-        ami_client = AMIClient(config.ami.host, config.ami.username, config.ami.password)
-        bus_producer = BusProducer(config.bus_config_obj)
-        bus_client = BusClient(bus_producer)
-        facade = EventHandlerFacade(ami_client, bus_client)
-        facade.run()
+    print config
+    if not config.publish_ami_events:
+        return
+
+    ami_client = AMIClient(**vars(config.ami))
+    bus_producer = BusProducer(config.bus_config_obj)
+    bus_client = BusClient(bus_producer, config.bus)
+    facade = EventHandlerFacade(ami_client, bus_client)
+    facade.run()
 
 
 def _init_signal():

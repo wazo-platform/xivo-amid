@@ -1,7 +1,7 @@
 
 debug: False
-disable-bus: False
-config-path: /etc/xivo/xivo-amid
+publish_ami_events: True
+config_path: /etc/xivo/xivo-amid
 
 ami:
     host: localhost

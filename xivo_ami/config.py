@@ -64,15 +64,15 @@ class ConfigXivoAMId(object):
 
     @property
     def bus_config_obj(self):
-        bus_config_obj = BusConfig(host=config.bus.host,
-                                   port=config.bus.port,
-                                   virtual_host=config.bus.vhost,
-                                   username=config.bus.username,
-                                   password=config.bus.password)
+        bus_config_obj = BusConfig(host=self.bus.host,
+                                   port=self.bus.port,
+                                   virtual_host=self.bus.vhost,
+                                   username=self.bus.username,
+                                   password=self.bus.password)
         return bus_config_obj
 
 
-def get_arg_parsed():
+def _get_cli_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-f',
                         '--foreground',
@@ -100,12 +100,14 @@ def get_arg_parsed():
     return parser.parse_args()
 
 
-def _get_config_dict(config_path):
+def _get_file_config(config_path):
     path = os.path.join(config_path, _CONF_FILENAME)
     with open(path) as fobj:
         return yaml.load(fobj)
 
-args_parsed = get_arg_parsed()
-data = _get_config_dict(args_parsed.config_path)
-data.update(vars(args_parsed))
-config = ConfigXivoAMId(data)
+
+def fetch_and_merge_config():
+    parsed_cli_args = _get_cli_args()
+    raw_file_config = _get_file_config(parsed_cli_args.config_path)
+    raw_file_config.update(vars(parsed_cli_args))
+    return ConfigXivoAMId(raw_file_config)

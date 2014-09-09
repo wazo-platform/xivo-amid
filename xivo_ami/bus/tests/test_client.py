@@ -17,9 +17,11 @@
 
 from hamcrest import assert_that, equal_to
 from mock import Mock
+from mock import sentinel
 import unittest
 
 from xivo_ami.ami.client import Message
+from xivo_ami.config import ConfigXivoAMId
 from xivo_ami.bus.client import BusClient, BusConnectionError
 from xivo_bus.ctl.producer import BusProducer
 
@@ -27,14 +29,21 @@ from xivo_bus.ctl.producer import BusProducer
 class TestBusClient(unittest.TestCase):
 
     def setUp(self):
+        config = {'bus': {'exchange_name': sentinel.exchange,
+                          'exchange_type': sentinel.topic,
+                          'exchange_durable': sentinel.durable}}
+        self.config = ConfigXivoAMId(config)
         self.mock_bus_producer = Mock(BusProducer, connected=False)
-        self.bus_client = BusClient(self.mock_bus_producer)
+        self.bus_client = BusClient(self.mock_bus_producer, self.config.bus)
 
     def test_when_connect_then_connect_and_declare(self):
         self.bus_client.connect()
 
         self.mock_bus_producer.connect.assert_called_once_with()
-        self.mock_bus_producer.declare_exchange.assert_called_once_with('xivo-ami', 'topic', durable=True)
+        self.mock_bus_producer.declare_exchange.assert_called_once_with(
+            sentinel.exchange,
+            sentinel.topic,
+            durable=sentinel.durable)
 
     def test_given_amqperror_when_connect_then_raise_busconnectionerror(self):
         self.mock_bus_producer.connect.side_effect = IOError()
@@ -65,7 +74,7 @@ class TestBusClient(unittest.TestCase):
         resulting_exchange, resulting_key, resulting_event = resulting_args
         assert_that(resulting_event.name, equal_to(name))
         assert_that(resulting_event.variables, equal_to(headers))
-        assert_that(resulting_exchange, equal_to('xivo-ami'))
+        assert_that(resulting_exchange, equal_to(sentinel.exchange))
         assert_that(resulting_key, equal_to(resulting_event.name))
 
     def test_given_amqperror_when_publish_then_raise_busconnectionerror(self):

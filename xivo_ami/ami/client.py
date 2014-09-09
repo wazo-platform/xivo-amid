@@ -20,7 +20,6 @@ import logging
 import socket
 
 from xivo_ami.ami import parser
-from xivo_ami.config import config
 
 logger = logging.getLogger(__name__)
 
@@ -30,19 +29,19 @@ Message = collections.namedtuple('Message', ['name', 'headers'])
 class AMIClient(object):
 
     _BUFSIZE = 4096
-    _PORT = config.ami.port
 
-    def __init__(self, hostname, username, password):
-        self._hostname = hostname
+    def __init__(self, host, username, password, port):
+        self._hostname = host
         self._username = username
         self._password = password
+        self._port = port
         self._sock = None
         self._buffer = ''
         self._event_queue = collections.deque()
 
     def connect_and_login(self):
         if self._sock is None:
-            logger.info('Connecting AMI client to %s:%s', self._hostname, self._PORT)
+            logger.info('Connecting AMI client to %s:%s', self._hostname, self._port)
             self._connect_socket()
             self._login()
 
@@ -59,7 +58,7 @@ class AMIClient(object):
     def _connect_socket(self):
         try:
             self._sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self._sock.connect((self._hostname, self._PORT))
+            self._sock.connect((self._hostname, self._port))
             # discard the AMI protocol version
             self._sock.recv(self._BUFSIZE)
         except socket.error:
