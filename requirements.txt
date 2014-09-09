@@ -3,3 +3,8 @@ pyhamcrest
 pika
 git+https://github.com/xivo-pbx/xivo-lib-python.git
 git+https://github.com/xivo-pbx/xivo-bus.git
+flask==0.8.1
+flup
+psycopg2
+requests
+pyaml

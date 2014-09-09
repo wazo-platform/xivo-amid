@@ -1,0 +1,3 @@
+etc/xivo/xivo-amid
+tmp/xivo-amid
+var/run/xivo-amid

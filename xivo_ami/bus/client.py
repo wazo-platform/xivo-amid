@@ -24,12 +24,9 @@ logger = logging.getLogger(__name__)
 
 class BusClient(object):
 
-    EXCHANGE_NAME = 'xivo-ami'
-    EXCHANGE_TYPE = 'topic'
-    EXCHANGE_DURABLE = True
-
-    def __init__(self, bus_producer):
+    def __init__(self, bus_producer, bus_config):
         self._bus_producer = bus_producer
+        self._config = bus_config
 
     def connect(self):
         logger.info('Connecting bus client')
@@ -42,9 +39,9 @@ class BusClient(object):
     def _connect_and_declare_exchange(self):
         if not self._bus_producer.connected:
             self._bus_producer.connect()
-            self._bus_producer.declare_exchange(self.EXCHANGE_NAME,
-                                                  self.EXCHANGE_TYPE,
-                                                  durable=self.EXCHANGE_DURABLE)
+            self._bus_producer.declare_exchange(self._config.exchange_name,
+                                                self._config.exchange_type,
+                                                durable=self._config.exchange_durable)
 
     def disconnect(self):
         logger.info('Disconnecting bus client')
@@ -53,7 +50,7 @@ class BusClient(object):
     def publish(self, message):
         event = AMIEvent(message.name, message.headers)
         try:
-            self._bus_producer.publish_event(self.EXCHANGE_NAME, event.name, event)
+            self._bus_producer.publish_event(self._config.exchange_name, event.name, event)
         except IOError as e:
             logger.exception(e)
             raise BusConnectionError(e)

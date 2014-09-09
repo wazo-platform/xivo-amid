@@ -1,0 +1,12 @@
+server {
+    listen 0.0.0.0:50061 default_server;
+    server_name $domain;
+    location / { try_files $uri @xivo-amid; }
+    location @xivo-amid {
+         include fastcgi_params;
+         fastcgi_param PATH_INFO $fastcgi_script_name;
+         fastcgi_param SCRIPT_NAME "";
+         fastcgi_pass unix:/tmp/xivo-amid.sock;
+    }
+}
+

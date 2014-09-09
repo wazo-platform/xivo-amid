@@ -15,51 +15,42 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import argparse
 import logging
 import signal
 
+
 from xivo.daemonize import pidfile_context
+from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
 from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
+from xivo_ami import config as config_loader
 from xivo_ami.facade import EventHandlerFacade
 from xivo_bus.ctl.producer import BusProducer
-
-_LOG_FILENAME = '/var/log/xivo-amid.log'
-_PID_FILENAME = '/var/run/xivo-amid.pid'
 
 logger = logging.getLogger(__name__)
 
 
 def main():
-    parsed_args = _parse_args()
+    config = config_loader.fetch_and_merge_config()
 
-    setup_logging(_LOG_FILENAME, parsed_args.foreground, parsed_args.verbose)
+    setup_logging(config._LOG_FILENAME, config.foreground, config.debug)
+    if config.user:
+        change_user(config.user)
 
-    with pidfile_context(_PID_FILENAME, parsed_args.foreground):
-        logger.info('Starting xivo-amid')
-        try:
-            _run()
-        except Exception:
-            logger.exception('Unexpected error:')
-        logger.info('Stopping xivo-amid')
+    with pidfile_context(config._PID_FILENAME, config.foreground):
+        _run(config)
 
 
-def _parse_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--foreground', action='store_true',
-                        help='run in foreground')
-    parser.add_argument('-v', '--verbose', action='store_true',
-                        help='increase verbosity')
-    return parser.parse_args()
-
-
-def _run():
+def _run(config):
     _init_signal()
-    ami_client = AMIClient('localhost', 'xivo_amid', 'eeCho8ied3u')
-    bus_producer = BusProducer()
-    bus_client = BusClient(bus_producer)
+    print config
+    if not config.publish_ami_events:
+        return
+
+    ami_client = AMIClient(**vars(config.ami))
+    bus_producer = BusProducer(config.bus_config_obj)
+    bus_client = BusClient(bus_producer, config.bus)
     facade = EventHandlerFacade(ami_client, bus_client)
     facade.run()
 
