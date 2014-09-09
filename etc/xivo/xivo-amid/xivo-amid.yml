@@ -19,8 +19,8 @@ ajam:
 bus:
     host: localhost
     port: 5672
-    username: xivo
-    password: xivo
+    username: guest
+    password: guest
     vhost: /
     exchange_name: xivo-ami
     exchange_type: topic
