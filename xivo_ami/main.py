@@ -44,7 +44,6 @@ def main():
 
 def _run(config):
     _init_signal()
-    print config
     if not config.publish_ami_events:
         return
 
