@@ -3,8 +3,6 @@
 set -e
 
 LOG_FILENAME='/var/log/xivo-amid.log'
-SOCKET_DIRNAME='/tmp/xivo-amid'
-PID_DIRNAME='/var/run/xivo-amid'
 
 case "$1" in
 	configure)
@@ -22,8 +20,6 @@ case "$1" in
 		fi
 
 		chown www-data: "$LOG_FILENAME"
-		chown www-data: "$SOCKET_DIRNAME"
-		chown www-data: "$PID_DIRNAME"
 
 		invoke-rc.d nginx reload
 	;;
