@@ -22,6 +22,6 @@ bus:
     username: guest
     password: guest
     vhost: /
-    exchange_name: xivo-ami
+    exchange_name: xivo
     exchange_type: topic
     exchange_durable: True

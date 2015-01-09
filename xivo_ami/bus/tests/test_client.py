@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2013 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -75,7 +75,7 @@ class TestBusClient(unittest.TestCase):
         assert_that(resulting_event.name, equal_to(name))
         assert_that(resulting_event.variables, equal_to(headers))
         assert_that(resulting_exchange, equal_to(sentinel.exchange))
-        assert_that(resulting_key, equal_to(resulting_event.name))
+        assert_that(resulting_key, equal_to('ami.{}'.format(resulting_event.name)))
 
     def test_given_amqperror_when_publish_then_raise_busconnectionerror(self):
         name = 'EventName'
