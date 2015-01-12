@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,6 +23,8 @@ logger = logging.getLogger(__name__)
 
 
 class BusClient(object):
+
+    _routing_key = 'ami.{}'
 
     def __init__(self, bus_producer, bus_config):
         self._bus_producer = bus_producer
@@ -50,7 +52,11 @@ class BusClient(object):
     def publish(self, message):
         event = AMIEvent(message.name, message.headers)
         try:
-            self._bus_producer.publish_event(self._config.exchange_name, event.name, event)
+            self._bus_producer.publish_event(
+                self._config.exchange_name,
+                self._routing_key.format(event.name),
+                event
+            )
         except IOError as e:
             logger.exception(e)
             raise BusConnectionError(e)
