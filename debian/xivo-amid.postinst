@@ -21,7 +21,6 @@ case "$1" in
 
 		chown www-data: "$LOG_FILENAME"
 
-		invoke-rc.d nginx reload
 	;;
 
 	abort-upgrade|abort-remove|abort-deconfigure)

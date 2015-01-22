@@ -1,4 +1,3 @@
-
 debug: False
 publish_ami_events: True
 config_path: /etc/xivo/xivo-amid
@@ -8,13 +7,6 @@ ami:
     port: 5038
     username: xivo_amid
     password: eeCho8ied3u
-
-ajam:
-    host: localhost
-    port: 8080
-    username: xivo_amid
-    password: eeCho8ied3u
-
 
 bus:
     host: localhost

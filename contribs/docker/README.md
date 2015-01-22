@@ -14,7 +14,7 @@ To install docker on Linux :
 
 To build the image, simply invoke
 
-    docker build -t xivo-amid github.com/xivo-pbx/xivo-amid/tree/poc_alpha42/contribs/docker
+    docker build -t xivo-amid github.com/xivo-pbx/xivo-amid
 
 Or directly in the sources in contribs/docker
 
@@ -24,21 +24,19 @@ Or directly in the sources in contribs/docker
 
 To run the container, do the following:
 
-    docker run -d -P xivo-amid
+    docker run -v /conf/amid:/etc/xivo/xivo-amid -t xivo-amid
 
 On interactive mode :
 
-    docker run -i -t xivo-amid /bin/bash
+    docker run -it xivo-amid /bin/bash
 
 After launch xivo-amid-service in /root directory.
 
-    cd /root
-    ./xivo-amid-service
+    xivo-amid -d -f
 
 ## Infos
 
-- Using docker version 1.2.0 (from get.docker.io) on ubuntu 14.04.
-- The root password is xivo by default.
+- Using docker version 1.4.0 (from get.docker.io) on ubuntu 14.04.
 - If you want to using a simple webi to administrate docker use : https://github.com/crosbymichael/dockerui
 
 To get the IP of your container use :
