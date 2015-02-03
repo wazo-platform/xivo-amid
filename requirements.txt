@@ -1,6 +1,6 @@
-pika
 git+https://github.com/xivo-pbx/xivo-lib-python.git
 git+https://github.com/xivo-pbx/xivo-bus.git
 psycopg2
 requests
 pyaml
+kombu==2.1.8

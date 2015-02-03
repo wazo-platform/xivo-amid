@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@ import logging
 import time
 
 from xivo_ami.ami.client import AMIConnectionError
-from xivo_ami.bus.client import BusConnectionError
 
 logger = logging.getLogger(__name__)
 
@@ -35,13 +34,10 @@ class EventHandlerFacade(object):
     def run(self):
         while True:
             try:
-                self._bus_client.connect()
                 self._ami_client.connect_and_login()
                 self._process_messages_indefinitely()
             except AMIConnectionError:
                 self._handle_ami_connection_error()
-            except BusConnectionError:
-                self._handle_bus_connection_error()
             except Exception as e:
                 self._handle_unexpected_error(e)
 
@@ -49,13 +45,8 @@ class EventHandlerFacade(object):
         self._ami_client.disconnect()
         time.sleep(self.RECONNECTION_DELAY)
 
-    def _handle_bus_connection_error(self):
-        self._bus_client.disconnect()
-        time.sleep(self.RECONNECTION_DELAY)
-
     def _handle_unexpected_error(self, e):
         self._ami_client.disconnect()
-        self._bus_client.disconnect()
         raise
 
     def _process_messages_indefinitely(self):

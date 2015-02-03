@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
 from xivo_ami import config as config_loader
 from xivo_ami.facade import EventHandlerFacade
-from xivo_bus.ctl.producer import BusProducer
 
 logger = logging.getLogger(__name__)
 
@@ -48,8 +47,7 @@ def _run(config):
         return
 
     ami_client = AMIClient(**vars(config.ami))
-    bus_producer = BusProducer(config.bus_config_obj)
-    bus_client = BusClient(bus_producer, config.bus)
+    bus_client = BusClient(vars(config.bus))
     facade = EventHandlerFacade(ami_client, bus_client)
     facade.run()
 

@@ -17,6 +17,9 @@
 
 import logging
 
+from kombu import Connection, Exchange, Producer
+
+from xivo_bus import Marshaler
 from xivo_bus.resources.ami.event import AMIEvent
 
 logger = logging.getLogger(__name__)
@@ -26,41 +29,21 @@ class BusClient(object):
 
     _routing_key = 'ami.{}'
 
-    def __init__(self, bus_producer, bus_config):
-        self._bus_producer = bus_producer
-        self._config = bus_config
-
-    def connect(self):
-        logger.info('Connecting bus client')
-        try:
-            self._connect_and_declare_exchange()
-        except IOError as e:
-            logger.exception(e)
-            raise BusConnectionError(e)
-
-    def _connect_and_declare_exchange(self):
-        if not self._bus_producer.connected:
-            self._bus_producer.connect()
-            self._bus_producer.declare_exchange(self._config.exchange_name,
-                                                self._config.exchange_type,
-                                                durable=self._config.exchange_durable)
-
-    def disconnect(self):
-        logger.info('Disconnecting bus client')
-        self._bus_producer.close()
+    def __init__(self, config):
+        bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config)
+        bus_connection = Connection(bus_url)
+        bus_exchange = Exchange(config['exchange_name'],
+                                type=config['exchange_type'])
+        bus_producer = Producer(bus_connection, exchange=bus_exchange, auto_declare=True)
+        self._send_bus_msg = bus_connection.ensure(bus_producer, bus_producer.publish,
+                                                   errback=self._on_bus_publish_error, max_retries=5,
+                                                   interval_start=0)
+        self._marshaler = Marshaler()
 
     def publish(self, message):
-        event = AMIEvent(message.name, message.headers)
-        try:
-            self._bus_producer.publish_event(
-                self._config.exchange_name,
-                self._routing_key.format(event.name),
-                event
-            )
-        except IOError as e:
-            logger.exception(e)
-            raise BusConnectionError(e)
+        msg = self._marshaler.marshal_message(AMIEvent(message.name, message.headers))
+        self._send_bus_msg(msg, routing_key=self._routing_key.format(message.name))
 
-
-class BusConnectionError(Exception):
-    pass
+    def _on_bus_publish_error(self, exc, interval):
+        logger.error('Error: %s', exc, exc_info=1)
+        logger.info('Retry in %s seconds...', interval)

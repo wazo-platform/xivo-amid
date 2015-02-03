@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ from mock import call, Mock, patch, sentinel
 import unittest
 
 from xivo_ami.ami.client import AMIClient, AMIConnectionError
-from xivo_ami.bus.client import BusClient, BusConnectionError
+from xivo_ami.bus.client import BusClient
 from xivo_ami.facade import EventHandlerFacade
 
 RECONNECTION_DELAY = 5
@@ -52,7 +52,6 @@ class testEventHandlerFacade(unittest.TestCase):
         self.assertRaises(Exception, self.facade.run)
 
         self.ami_client_mock.disconnect.assert_called_once_with()
-        self.bus_client_mock.disconnect.assert_called_once_with()
 
     @patch('time.sleep')
     def test_given_ami_connection_error_when_run_then_ami_reconnect(self, sleep_mock):
@@ -74,16 +73,6 @@ class testEventHandlerFacade(unittest.TestCase):
 
         assert_that(self.bus_client_mock.publish.call_count, equal_to(1))
         self.bus_client_mock.publish.assert_any_call(sentinel.message)
-
-    @patch('time.sleep')
-    def test_given_bus_connection_error_when_run_then_bus_reconnect(self, sleep_mock):
-        self.bus_client_mock.connect.side_effect = [BusConnectionError(), None]
-
-        self.assertRaises(Exception, self.facade.run)
-
-        assert_that(self.bus_client_mock.disconnect.call_count, equal_to(2))
-        sleep_mock.assert_called_once_with(RECONNECTION_DELAY)
-        assert_that(self.bus_client_mock.connect.call_count, equal_to(2))
 
     def test_given_multiple_messages_fetched_when_run_then_all_messages_orderly_processed(self):
         self.ami_client_mock.parse_next_messages.side_effect = [[sentinel.first_message],
