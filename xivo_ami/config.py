@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2014 Avencall
+# Copyright (C) 2014-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@ import argparse
 import pprint
 import os
 import yaml
-
-from xivo_bus.ctl.config import BusConfig
 
 _DAEMONNAME = 'xivo-amid'
 _CONF_DIR = '/etc/xivo/xivo-amid'
@@ -61,15 +59,6 @@ class ConfigXivoAMId(object):
     @property
     def ajam_url(self):
         return 'http://%(host)s:%(port)s/rawman' % self.ajam.__dict__
-
-    @property
-    def bus_config_obj(self):
-        bus_config_obj = BusConfig(host=self.bus.host,
-                                   port=self.bus.port,
-                                   virtual_host=self.bus.vhost,
-                                   username=self.bus.username,
-                                   password=self.bus.password)
-        return bus_config_obj
 
 
 def _get_cli_args():
