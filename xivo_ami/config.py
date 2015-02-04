@@ -56,10 +56,6 @@ class ConfigXivoAMId(object):
     def __repr__(self):
         return pprint.pformat(self.__dict__)
 
-    @property
-    def ajam_url(self):
-        return 'http://%(host)s:%(port)s/rawman' % self.ajam.__dict__
-
 
 def _get_cli_args():
     parser = argparse.ArgumentParser()
