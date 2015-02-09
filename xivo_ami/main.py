@@ -47,7 +47,7 @@ def _run(config):
         return
 
     ami_client = AMIClient(**config['ami'])
-    bus_client = BusClient(config['bus'])
+    bus_client = BusClient(config)
     facade = EventHandlerFacade(ami_client, bus_client)
     facade.run()
 
