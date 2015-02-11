@@ -1,0 +1,3 @@
+# see: dh_installdeb(1)
+
+rm_conffile /etc/xivo/xivo-amid/xivo-amid.yml 15.03
