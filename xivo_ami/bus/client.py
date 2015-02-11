@@ -30,15 +30,15 @@ class BusClient(object):
     _routing_key = 'ami.{}'
 
     def __init__(self, config):
-        bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config)
+        bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config['bus'])
         bus_connection = Connection(bus_url)
-        bus_exchange = Exchange(config['exchange_name'],
-                                type=config['exchange_type'])
+        bus_exchange = Exchange(config['bus']['exchange_name'],
+                                type=config['bus']['exchange_type'])
         bus_producer = Producer(bus_connection, exchange=bus_exchange, auto_declare=True)
         self._send_bus_msg = bus_connection.ensure(bus_producer, bus_producer.publish,
                                                    errback=self._on_bus_publish_error, max_retries=5,
                                                    interval_start=0)
-        self._marshaler = Marshaler()
+        self._marshaler = Marshaler(config['uuid'])
 
     def publish(self, message):
         msg = self._marshaler.marshal_message(AMIEvent(message.name, message.headers))

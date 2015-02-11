@@ -16,58 +16,44 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import argparse
-import pprint
-import os
-import yaml
+
+from xivo.chain_map import ChainMap
+from xivo.config_helper import read_config_file_hierarchy
+
 
 _DAEMONNAME = 'xivo-amid'
-_CONF_DIR = '/etc/xivo/xivo-amid'
-_CONF_FILENAME = '{}.yml'.format(_DAEMONNAME)
+_DEFAULT_CONFIG = {
+    'debug': False,
+    'foreground': False,
+    'pidfile': '/var/run/%s.pid' % _DAEMONNAME,
+    'logfile': '/var/log/%s.log' % _DAEMONNAME,
+    'config_file': '/etc/%s/config.yml' % _DAEMONNAME,
+    'extra_config_files': '/etc/%s/conf.d/' % _DAEMONNAME,
+    'publish_ami_events': True,
+    'ami': {'host': 'localhost',
+            'port': 5038,
+            'username': 'xivo_amid',
+            'password': 'eeCho8ied3u'},
+    'bus': {'host': 'localhost',
+            'port': 5672,
+            'username': 'guest',
+            'password': 'guest',
+            'vhost': '/',
+            'exchange_name': 'xivo',
+            'exchange_type': 'topic',
+            'exchange_durable': True},
+}
 
 
-class ConfigXivoAMId(object):
-
-    _LOG_FILENAME = '/var/log/{}.log'.format(_DAEMONNAME)
-    _PID_FILENAME = '/var/run/{daemon}/{daemon}.pid'.format(daemon=_DAEMONNAME)
-    _SOCKET_FILENAME = '/tmp/{}.sock'.format(_DAEMONNAME)
-
-    def __init__(self, d):
-        for k in d:
-            if isinstance(d[k], dict):
-                self.__dict__[k] = ConfigXivoAMId(d[k])
-            elif isinstance(d[k], (list, tuple)):
-                l = []
-                for v in d[k]:
-                    if isinstance(v, dict):
-                        l.append(ConfigXivoAMId(v))
-                    else:
-                        l.append(v)
-                self.__dict__[k] = l
-            else:
-                self.__dict__[k] = d[k]
-
-    def __getitem__(self, name):
-        if name in self.__dict__:
-            return self.__dict__[name]
-
-    def __iter__(self):
-        return iter(self.__dict__.keys())
-
-    def __repr__(self):
-        return pprint.pformat(self.__dict__)
-
-
-def _get_cli_args():
+def _get_cli_config():
     parser = argparse.ArgumentParser()
     parser.add_argument('-f',
                         '--foreground',
                         action='store_true',
-                        default=False,
                         help="Foreground, don't daemonize. Default: %(default)s")
     parser.add_argument('-d',
                         '--debug',
                         action='store_true',
-                        default=False,
                         help="Enable debug messages. Default: %(default)s")
     parser.add_argument('-u',
                         '--user',
@@ -76,23 +62,27 @@ def _get_cli_args():
     parser.add_argument('-c',
                         '--config-path',
                         action='store',
-                        default=_CONF_DIR,
                         help="The path where is the config file. Default: %(default)s")
     parser.add_argument('--disable-bus',
                         action='store_true',
-                        default=False,
                         help="Disable AMI message to BUS. Default: %(default)s")
-    return parser.parse_args()
+    parsed_args = parser.parse_args()
+
+    config = {}
+
+    if parsed_args.foreground:
+        config['foreground'] = parsed_args.foreground
+    if parsed_args.debug:
+        config['debug'] = parsed_args.debug
+    if parsed_args.user:
+        config['user'] = parsed_args.user
+    if parsed_args.disable_bus:
+        config['publish_ami_events'] = not parsed_args.disable_bus
+
+    return config
 
 
-def _get_file_config(config_path):
-    path = os.path.join(config_path, _CONF_FILENAME)
-    with open(path) as fobj:
-        return yaml.load(fobj)
-
-
-def fetch_and_merge_config():
-    parsed_cli_args = _get_cli_args()
-    raw_file_config = _get_file_config(parsed_cli_args.config_path)
-    raw_file_config.update(vars(parsed_cli_args))
-    return ConfigXivoAMId(raw_file_config)
+def load_config():
+    cli_config = _get_cli_config()
+    file_config = read_config_file_hierarchy(ChainMap(cli_config, _DEFAULT_CONFIG))
+    return ChainMap(cli_config, file_config, _DEFAULT_CONFIG)
