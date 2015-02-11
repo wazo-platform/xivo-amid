@@ -18,7 +18,7 @@ USER=www-data
 GROUP=$USER
 DAEMONNAME=xivo-amid
 DAEMON=/usr/bin/$DAEMONNAME
-PIDDIR=/var/run
+PIDDIR=/var/run/$DAEMONNAME
 PIDFILE=$PIDDIR/$DAEMONNAME.pid
 XIVO_DEFAULT_FILE="/etc/default/xivo"
 
