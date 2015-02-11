@@ -27,10 +27,10 @@ RUN python setup.py install
 # Configure environment
 RUN touch /var/log/xivo-amid.log
 RUN chown www-data: /var/log/xivo-amid.log
-RUN mkdir -p /etc/xivo/xivo-amid
+RUN mkdir -p /etc/xivo-amid
 RUN mkdir /var/run/xivo-amid
 RUN chown www-data: /var/run/xivo-amid
-RUN cp -a etc/xivo/xivo-amid/xivo-amid.yml /etc/xivo/xivo-amid/
+RUN cp -a etc/xivo-amid/config.yml /etc/xivo-amid/
 
 # Clean
 RUN apt-get clean
