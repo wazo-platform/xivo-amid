@@ -27,8 +27,6 @@ logger = logging.getLogger(__name__)
 
 class BusClient(object):
 
-    _routing_key = 'ami.{}'
-
     def __init__(self, config):
         bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config['bus'])
         bus_connection = Connection(bus_url)
@@ -41,8 +39,9 @@ class BusClient(object):
         self._marshaler = Marshaler(config['uuid'])
 
     def publish(self, message):
-        msg = self._marshaler.marshal_message(AMIEvent(message.name, message.headers))
-        self._send_bus_msg(msg, routing_key=self._routing_key.format(message.name))
+        ami_event = AMIEvent(message.name, message.headers)
+        msg = self._marshaler.marshal_message(ami_event)
+        self._send_bus_msg(msg, routing_key=ami_event.routing_key)
 
     def _on_bus_publish_error(self, exc, interval):
         logger.error('Error: %s', exc, exc_info=1)
