@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ import socket
 import unittest
 
 from functools import wraps
-from hamcrest import assert_that, equal_to
+from hamcrest import assert_that, equal_to, instance_of
 from mock import Mock, patch
 from mock import sentinel
 
@@ -140,6 +140,15 @@ class TestAMIClient(unittest.TestCase):
 
         assert_that(len(messages), equal_to(1))
         self.assertEqual('complete', messages[0].name)
+
+    @patch_return_value('socket.socket')
+    def test_given_non_utf8_message_when_parse_next_messages_then_return_unicode_messages(self, mock_socket):
+        self.ami_client.connect_and_login()
+        mock_socket.recv.return_value = 'Event: complete\r\ndata: \xE9\r\n\r\n'
+
+        messages = self.ami_client.parse_next_messages()
+
+        assert_that(messages[0].headers['data'], instance_of(unicode))
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_recv_socket_error_when_parse_next_messages_then_raise_amiconnectionerror(self, mock_socket):

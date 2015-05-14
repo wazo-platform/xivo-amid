@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ class AMIParsingError(Exception):
 
 
 def parse_buffer(raw_buffer, event_callback, response_callback):
-    unparsed_buffer = raw_buffer
+    unparsed_buffer = raw_buffer.decode('utf8', 'replace')
     while unparsed_buffer:
         head, sep, unparsed_buffer = unparsed_buffer.partition('\r\n\r\n')
         if not sep:
