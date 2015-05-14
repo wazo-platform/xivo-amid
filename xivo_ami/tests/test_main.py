@@ -26,10 +26,10 @@ from xivo_ami import main
 USER = 'www-data'
 
 default_config = {
-    'logfile': sentinel.logfile,
-    'foreground': sentinel.foreground,
-    'debug': sentinel.debug,
-    'pidfile': sentinel.default_pidfile,
+    'logfile': 'default_logfile',
+    'foreground': False,
+    'debug': False,
+    'pidfile': 'default_pidfile',
 }
 
 
@@ -56,19 +56,19 @@ class TestMain(TestCase):
         self.daemon_patch.stop()
 
     @patch('xivo_ami.main.load_config',
-           Mock(return_value=ChainMap({'pidfile': sentinel.pidfile}, default_config)))
+           Mock(return_value=ChainMap({'pidfile': 'pidfile'}, default_config)))
     @patch('xivo_ami.main._run')
     def test_that_amid_has_a_pid_file(self, run_mock):
         main.main()
 
-        self.daemon_lock.assert_called_once_with(sentinel.pidfile)
+        self.daemon_lock.assert_called_once_with('pidfile')
         run_mock.assert_called_once_with(ANY)
-        self.daemon_unlock.asssert_called_once_with(sentinel.pidfile)
+        self.daemon_unlock.asssert_called_once_with('pidfile')
 
     @patch('xivo_ami.main.load_config',
-           Mock(return_value=ChainMap({'user': sentinel.user}, default_config)))
+           Mock(return_value=ChainMap({'user': 'foobar'}, default_config)))
     @patch('xivo_ami.main._run', Mock())
     def test_when_arg_user_is_given_then_change_user(self):
         main.main()
 
-        self.change_user.assert_called_once_with(sentinel.user)
+        self.change_user.assert_called_once_with('foobar')
