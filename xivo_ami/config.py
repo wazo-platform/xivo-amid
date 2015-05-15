@@ -55,14 +55,16 @@ def _get_cli_config():
                         '--debug',
                         action='store_true',
                         help="Enable debug messages. Default: %(default)s")
+    parser.add_argument('--logfile', action='store', help='The path of the logfile')
+    parser.add_argument('--pidfile', action='store', help='The path of the pidfile')
     parser.add_argument('-u',
                         '--user',
                         action='store',
                         help="The owner of the process.")
     parser.add_argument('-c',
-                        '--config-path',
+                        '--config-file',
                         action='store',
-                        help="The path where is the config file. Default: %(default)s")
+                        help="The path where is the config file.")
     parser.add_argument('--disable-bus',
                         action='store_true',
                         help="Disable AMI message to BUS. Default: %(default)s")
@@ -70,6 +72,10 @@ def _get_cli_config():
 
     config = {}
 
+    if parsed_args.logfile:
+        config['logfile'] = parsed_args.logfile
+    if parsed_args.pidfile:
+        config['pidfile'] = parsed_args.pidfile
     if parsed_args.foreground:
         config['foreground'] = parsed_args.foreground
     if parsed_args.debug:
@@ -78,6 +84,8 @@ def _get_cli_config():
         config['user'] = parsed_args.user
     if parsed_args.disable_bus:
         config['publish_ami_events'] = not parsed_args.disable_bus
+    if parsed_args.config_file:
+        config['config_file'] = parsed_args.config_file
 
     return config
 
