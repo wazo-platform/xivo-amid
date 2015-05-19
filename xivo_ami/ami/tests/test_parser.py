@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -67,3 +67,10 @@ class TestParser(unittest.TestCase):
         assert_that(unparsed_buffer, equal_to(''))
         assert_that(self.mock_event_callback.call_count, equal_to(0))
         assert_that(self.mock_response_callback.call_count, equal_to(0))
+
+    def test_given_incomplete_character_when_parse_buffer_then_incomplete_character_returned(self):
+        msg = "foo\xc3"
+
+        unparsed_buffer = parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
+
+        assert_that(unparsed_buffer, equal_to(msg))

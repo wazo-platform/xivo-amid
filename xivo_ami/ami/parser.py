@@ -25,7 +25,7 @@ class AMIParsingError(Exception):
 
 
 def parse_buffer(raw_buffer, event_callback, response_callback):
-    unparsed_buffer = raw_buffer.decode('utf8', 'replace')
+    unparsed_buffer = raw_buffer
     while unparsed_buffer:
         head, sep, unparsed_buffer = unparsed_buffer.partition('\r\n\r\n')
         if not sep:
@@ -42,7 +42,7 @@ def parse_buffer(raw_buffer, event_callback, response_callback):
 
 
 def _parse_msg(data, event_callback, response_callback):
-    lines = data.split('\r\n')
+    lines = data.decode('utf8', 'replace').split('\r\n')
     if not _is_valid_message(lines):
         raise AMIParsingError('unexpected data: %r' % data)
 
