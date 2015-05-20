@@ -30,6 +30,8 @@ class BusClient(object):
     def __init__(self, config):
         bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config['bus'])
         bus_connection = Connection(bus_url)
+        self._send_bus_msg = bus_connection.ensure_connection(max_retries=3,
+                                                              interval_step=5)
         bus_exchange = Exchange(config['bus']['exchange_name'],
                                 type=config['bus']['exchange_type'])
         bus_producer = Producer(bus_connection, exchange=bus_exchange, auto_declare=True)
