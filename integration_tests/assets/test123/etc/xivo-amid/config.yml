@@ -1,0 +1,27 @@
+# This file should not be modified as it may get changed by the maintainer.
+# Add extra configuration files in the extra_config_files directory to override
+# the content from this file
+
+# Extra configuration directory where the config files overriding this file
+# should be.
+extra_config_files: /etc/xivo-amid/conf.d/
+
+debug: False
+publish_ami_events: True
+uuid: patate
+
+ami:
+    host: mockAMI
+    port: 5038
+    username: xivo_amid
+    password: eeCho8ied3u
+
+bus:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+    vhost: /
+    exchange_name: xivo
+    exchange_type: topic
+    exchange_durable: True

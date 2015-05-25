@@ -1,0 +1,26 @@
+amid:
+  image: amid-test
+  volumes:
+    - "./etc/xivo-amid:/etc/xivo-amid"
+  links:
+    - "rabbitmq"
+    - "mockAMI"
+
+rabbitmq:
+  image: rabbitmq:management
+  environment:
+    RABBITMQ_NODENAME: xivo-amid-test
+  expose:
+    - "5672"
+  ports:
+    - "15672:15672"
+
+mockAMI:
+  image: netcat
+  expose:
+    - "5038"
+  volumes:
+    - "./ami-message:./ami-message"
+  links:
+    - "rabbitmq"
+  command: sh -c "netcat -l -p 5038 < ami-message/ami.sample"

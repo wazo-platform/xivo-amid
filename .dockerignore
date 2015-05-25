@@ -1,0 +1,8 @@
+*.pyc 
+.git 
+LICENSE 
+README.md 
+contribs 
+debian 
+integration_tests 
+test_requirements.txt 

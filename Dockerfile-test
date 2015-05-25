@@ -1,0 +1,8 @@
+FROM xivo-amid
+
+ADD . /amid
+WORKDIR /amid
+RUN pip install -r requirements.txt
+RUN python setup.py install
+
+CMD xivo-amid -d -f
