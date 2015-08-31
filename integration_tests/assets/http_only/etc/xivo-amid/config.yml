@@ -1,0 +1,12 @@
+publish_ami_events: False
+
+ajam:
+    host: asterisk-ajam
+    port: 5040
+    username: xivo_amid
+    password: opensesame
+    verify: /usr/local/share/asterisk-ajam-ssl/server.crt
+
+rest_api:
+    certificate: /usr/local/share/xivo-amid-ssl/server.crt
+    private_key: /usr/local/share/xivo-amid-ssl/server.key

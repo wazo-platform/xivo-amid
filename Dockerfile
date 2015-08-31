@@ -1,38 +1,21 @@
 ## Image to build from sources
 
-FROM debian:latest
+FROM python:2.7
 MAINTAINER XiVO Team "dev@avencall.com"
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV HOME /root
-
-# Add dependencies
-RUN apt-get -qq update
-RUN apt-get -qq -y install \
-    wget \
-    apt-utils \
-    python-pip \
-    git \
-    python-dev \
-    libpq-dev \
-    libyaml-dev 
-
 # Install xivo-amid
-WORKDIR /root
-RUN git clone "git://github.com/xivo-pbx/xivo-amid"
-WORKDIR xivo-amid
+ADD . /usr/src/xivo-amid
+WORKDIR /usr/src/xivo-amid
 RUN pip install -r requirements.txt
+
 RUN python setup.py install
 
 # Configure environment
-RUN touch /var/log/xivo-amid.log
-RUN chown www-data: /var/log/xivo-amid.log
-RUN mkdir -p /etc/xivo-amid
-RUN mkdir /var/run/xivo-amid
-RUN chown www-data: /var/run/xivo-amid
-RUN cp -a etc/xivo-amid/config.yml /etc/xivo-amid/
+ADD ./contribs/docker/certs /usr/share/xivo-certs
+RUN install -o www-data -g www-data /dev/null /var/log/xivo-amid.log
+RUN install -d -o www-data -g www-data /var/run/xivo-amid
+RUN cp -r etc/* /etc
 
-# Clean
-RUN apt-get clean
+EXPOSE 9491
 
 CMD xivo-amid -d -f
