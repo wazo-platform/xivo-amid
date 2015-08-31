@@ -118,7 +118,6 @@ def _parse_ami(buffer_):
         headers.update({'Response': event_name})
         result.append(headers)
 
-    buffer_ = buffer_.replace('\n', '\r\n') + '\r\n'
     parser.parse_buffer(buffer_, None, aux)
 
     return result

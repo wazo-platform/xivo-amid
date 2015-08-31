@@ -30,6 +30,10 @@ context.use_privatekey_file('/usr/local/share/asterisk-ajam-ssl/server.key')
 context.use_certificate_file('/usr/local/share/asterisk-ajam-ssl/server.crt')
 
 
+def response(body):
+    return textwrap.dedent(body).replace('\n', '\r\n')
+
+
 @app.route("/rawman")
 def rawman():
     action = request.args['action'].lower()
@@ -37,18 +41,20 @@ def rawman():
 
 
 def login():
-    return textwrap.dedent('''\
+    return response('''\
         Response: Success
         Message: Authentication accepted
+
         '''), 200
 
 
 @app.route("/1.0/ping")
 def ping():
-    return textwrap.dedent('''\
+    return response('''\
         Response: Success
         Ping: Pong
         Timestamp: 1234567890.123456
+
         '''), 200
 
 
