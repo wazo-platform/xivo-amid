@@ -25,12 +25,11 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS
 from flask_restful import Api
-from flask_restful import Resource
-from requests import RequestException
 from werkzeug.contrib.fixers import ProxyFix
 
 from xivo import http_helpers
 from xivo_ami.ami import parser
+from xivo_ami.auth import AuthResource
 from xivo_ami.swagger.resource import SwaggerResource
 
 VERSION = 1.0
@@ -40,18 +39,16 @@ logger = logging.getLogger(__name__)
 api = Api(prefix='/{}'.format(VERSION))
 
 
-def configure_routes(global_config):
+def configure(global_config):
     Actions.configure(global_config)
 
-
-def run(config):
     http_helpers.add_logger(app, logger)
     app.after_request(http_helpers.log_request)
     app.wsgi_app = ProxyFix(app.wsgi_app)
     app.secret_key = os.urandom(24)
     app.permanent_session_lifetime = timedelta(minutes=5)
 
-    cors_config = dict(config.get('cors', {}))
+    cors_config = dict(global_config['rest_api']['cors'])
     enabled = cors_config.pop('enabled', False)
     if enabled:
         CORS(app, **cors_config)
@@ -60,6 +57,10 @@ def run(config):
     SwaggerResource.add_resource(api)
     api.init_app(app)
 
+    app.config['auth'] = global_config['auth']
+
+
+def run(config):
     bind_addr = (config['listen'], config['port'])
 
     _check_file_readable(config['certificate'])
@@ -85,7 +86,7 @@ def _check_file_readable(file_path):
         pass
 
 
-class Actions(Resource):
+class Actions(AuthResource):
 
     @classmethod
     def configure(cls, config):

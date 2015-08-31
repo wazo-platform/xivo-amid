@@ -7,6 +7,10 @@ ajam:
     password: opensesame
     verify: /usr/local/share/asterisk-ajam-ssl/server.crt
 
+auth:
+    host: auth
+    port: 9497
+
 rest_api:
     certificate: /usr/local/share/xivo-amid-ssl/server.crt
     private_key: /usr/local/share/xivo-amid-ssl/server.key

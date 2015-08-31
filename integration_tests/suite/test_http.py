@@ -18,6 +18,7 @@ from .base import BaseIntegrationTest
 
 from hamcrest import assert_that
 from hamcrest import contains
+from hamcrest import equal_to
 from hamcrest import has_entries
 from hamcrest import matches_regexp
 
@@ -34,3 +35,13 @@ class TestListPersonal(BaseIntegrationTest):
             'Ping': 'Pong',
             'Timestamp': matches_regexp('.*')
         })))
+
+
+class TestAuthentication(BaseIntegrationTest):
+
+    asset = 'http_only'
+
+    def test_that_actions_is_authenticated(self):
+        result = self.get_action_result('Ping', token='invalid')
+
+        assert_that(result.status_code, equal_to(401))

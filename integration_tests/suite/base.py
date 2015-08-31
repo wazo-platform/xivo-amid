@@ -23,6 +23,7 @@ import unittest
 
 from hamcrest import assert_that
 from hamcrest import equal_to
+from requests.packages import urllib3
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +31,8 @@ ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', 'assets')
 CA_CERT = os.path.join(ASSETS_ROOT, '_common', 'ssl', 'localhost', 'server.crt')
 
 VALID_TOKEN = 'valid-token'
+
+urllib3.disable_warnings()
 
 
 class BaseIntegrationTest(unittest.TestCase):

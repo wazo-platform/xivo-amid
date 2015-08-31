@@ -19,6 +19,7 @@ amid:
     - "/home/seb/data/git/lib-python/xivo:/usr/local/lib/python2.7/site-packages/xivo"
   links:
     - "asterisk-ajam"
+    - "auth"
 
 asterisk-ajam:
   image: asterisk-ajam-mock
@@ -35,5 +36,5 @@ auth:
     - "9497"
   volumes:
     - "./xivo-auth:/usr/local/share/xivo-auth"
-    - "./ssl:/usr/local/share/xivo-auth-ssl"
+    - "./ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
   command: "python /usr/local/share/xivo-auth/mock-xivo-auth.py 9497"

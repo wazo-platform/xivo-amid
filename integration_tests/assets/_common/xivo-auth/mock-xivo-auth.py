@@ -8,8 +8,8 @@ app = Flask(__name__)
 port = int(sys.argv[1])
 
 context = SSL.Context(SSL.SSLv23_METHOD)
-context.use_privatekey_file('/etc/ssl/server.key')
-context.use_certificate_file('/etc/ssl/server.crt')
+context.use_privatekey_file('/usr/local/share/xivo-auth-ssl/server.key')
+context.use_certificate_file('/usr/local/share/xivo-auth-ssl/server.crt')
 
 tokens = {'valid-token': 'uuid',
           'valid-token-1': 'uuid-1',

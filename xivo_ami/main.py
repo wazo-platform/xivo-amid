@@ -50,7 +50,7 @@ def _run(config):
         facade = EventHandlerFacade(ami_client, bus_client)
         thread.start_new_thread(facade.run, ())
 
-    rest_api.configure_routes(config)
+    rest_api.configure(config)
     rest_api.run(config['rest_api'])
 
 
