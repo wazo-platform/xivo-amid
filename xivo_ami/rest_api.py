@@ -18,6 +18,7 @@ import json
 import logging
 import os
 import requests
+import time
 
 from cherrypy import wsgiserver
 from datetime import timedelta
@@ -99,6 +100,14 @@ class Actions(AuthResource):
         cls.verify = config['ajam']['verify']
 
     def get(self, action):
+        if action.lower() == 'queues':
+            error = {
+                'reason': ['The action {action} is not compatible with xivo-amid'.format(action=action)],
+                'timestamp': [time.time()],
+                'status_code': 501,
+            }
+            return error, 501
+
         extra_args = json.loads(request.data) if request.data else {}
 
         with requests.Session() as session:
@@ -114,10 +123,9 @@ class Actions(AuthResource):
 def _parse_ami(buffer_):
     result = []
 
-    def aux(event_name, action_id, headers):
-        headers.update({'Response': event_name})
-        result.append(headers)
+    def aux(event_name, action_id, message):
+        result.append(message)
 
-    parser.parse_buffer(buffer_, None, aux)
+    parser.parse_buffer(buffer_, aux, aux)
 
     return result

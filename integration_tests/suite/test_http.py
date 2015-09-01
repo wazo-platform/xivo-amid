@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 from .base import BaseIntegrationTest
+from .base import VALID_TOKEN
 
 from hamcrest import assert_that
 from hamcrest import contains
@@ -23,7 +24,7 @@ from hamcrest import has_entries
 from hamcrest import matches_regexp
 
 
-class TestListPersonal(BaseIntegrationTest):
+class TestHTTP(BaseIntegrationTest):
 
     asset = 'http_only'
 
@@ -35,6 +36,40 @@ class TestListPersonal(BaseIntegrationTest):
             'Ping': 'Pong',
             'Timestamp': matches_regexp('.*')
         })))
+
+    def test_that_action_queues_is_refused(self):
+        result = self.get_action_result('Queues', token=VALID_TOKEN)
+
+        assert_that(result.status_code, equal_to(501))
+
+    def test_that_action_with_events_returns_events(self):
+        result = self.action('QueueStatus')
+
+        assert_that(result, contains(
+            has_entries({
+                'Response': 'Success',
+                'EventList': 'start',
+                'Message': 'Queue status will follow'
+            }),
+            has_entries({
+                'Event': 'QueueParams',
+                'Queue': 'my_queue',
+                'Max': '0',
+                'Strategy': 'ringall',
+                'Calls': '0',
+                'Holdtime': '0',
+                'TalkTime': '0',
+                'Completed': '0',
+                'Abandoned': '0',
+                'ServiceLevel': '0',
+                'ServicelevelPerf': '0.0',
+                'Weight': '0',
+            }),
+            has_entries({
+                'Event': 'QueueStatusComplete',
+                'EventList': 'Complete',
+                'ListItems': '1'
+            })))
 
 
 class TestAuthentication(BaseIntegrationTest):

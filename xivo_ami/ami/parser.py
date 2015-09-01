@@ -48,7 +48,7 @@ def _parse_msg(data, event_callback, response_callback):
 
     first_header, first_value = _parse_line(lines[0])
 
-    headers = {}
+    headers = {first_header: first_value}
     for line in lines[1:]:
         header, value = _parse_line(line)
         headers[header] = value

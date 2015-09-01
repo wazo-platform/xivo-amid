@@ -58,9 +58,37 @@ def ping():
         '''), 200
 
 
+@app.route("/1.0/queuestatus")
+def queuestatus():
+    return response('''\
+        Response: Success
+        EventList: start
+        Message: Queue status will follow
+
+        Event: QueueParams
+        Queue: my_queue
+        Max: 0
+        Strategy: ringall
+        Calls: 0
+        Holdtime: 0
+        TalkTime: 0
+        Completed: 0
+        Abandoned: 0
+        ServiceLevel: 0
+        ServicelevelPerf: 0.0
+        Weight: 0
+
+        Event: QueueStatusComplete
+        EventList: Complete
+        ListItems: 1
+
+        '''), 200
+
+
 actions = {
     'login': login,
-    'ping': ping
+    'ping': ping,
+    'queuestatus': queuestatus,
 }
 
 if __name__ == "__main__":
