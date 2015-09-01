@@ -14,14 +14,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from .base import BaseIntegrationTest
-from .base import VALID_TOKEN
+import random
+import string
 
 from hamcrest import assert_that
 from hamcrest import contains
 from hamcrest import equal_to
 from hamcrest import has_entries
+from hamcrest import has_item
 from hamcrest import matches_regexp
+
+from .base import BaseIntegrationTest
+from .base import VALID_TOKEN
 
 
 class TestHTTP(BaseIntegrationTest):
@@ -38,7 +42,8 @@ class TestHTTP(BaseIntegrationTest):
         })))
 
     def test_that_action_queues_is_refused(self):
-        result = self.get_action_result('Queues', token=VALID_TOKEN)
+        # the format of Queues response is suited for display, not parsing
+        result = self.post_action_result('Queues', token=VALID_TOKEN)
 
         assert_that(result.status_code, equal_to(501))
 
@@ -71,12 +76,26 @@ class TestHTTP(BaseIntegrationTest):
                 'ListItems': '1'
             })))
 
+    def test_that_action_with_parameters_sends_parameters(self):
+        key = ''.join(random.choice(string.letters) for _ in range(10))
+
+        self.action('DBPut', {'Family': key, 'Key': key, 'Val': key})
+        result = self.action('DBGet', {'Family': key, 'Key': key})
+
+        assert_that(result, has_item(
+            has_entries({
+                'Event': 'DBGetResponse',
+                'Family': key,
+                'Key': key,
+                'Val': key,
+            })))
+
 
 class TestAuthentication(BaseIntegrationTest):
 
     asset = 'http_only'
 
     def test_that_actions_is_authenticated(self):
-        result = self.get_action_result('Ping', token='invalid')
+        result = self.post_action_result('Ping', token='invalid')
 
         assert_that(result.status_code, equal_to(401))

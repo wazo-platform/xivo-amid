@@ -99,7 +99,7 @@ class Actions(AuthResource):
         }
         cls.verify = config['ajam']['verify']
 
-    def get(self, action):
+    def post(self, action):
         if action.lower() == 'queues':
             error = {
                 'reason': ['The action {action} is not compatible with xivo-amid'.format(action=action)],

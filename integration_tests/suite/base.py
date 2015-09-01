@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+import json
 import logging
 import os
 import requests
@@ -59,15 +60,16 @@ class BaseIntegrationTest(unittest.TestCase):
         os.chdir(cls.cur_dir)
 
     @classmethod
-    def get_action_result(cls, action, token=None):
+    def post_action_result(cls, action, params=None, token=None):
         url = u'https://localhost:9491/1.0/{action}'
-        result = requests.get(url.format(action=action),
-                              headers={'X-Auth-Token': token},
-                              verify=CA_CERT)
+        result = requests.post(url.format(action=action),
+                               data=(json.dumps(params) if params else ''),
+                               headers={'X-Auth-Token': token},
+                               verify=CA_CERT)
         return result
 
     @classmethod
-    def action(cls, action, token=VALID_TOKEN):
-        response = cls.get_action_result(action, token)
+    def action(cls, action, params=None, token=VALID_TOKEN):
+        response = cls.post_action_result(action, params, token)
         assert_that(response.status_code, equal_to(200))
         return response.json()
