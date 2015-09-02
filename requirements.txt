@@ -6,7 +6,6 @@ git+https://github.com/xivo-pbx/xivo-auth-client.git
 git+https://github.com/xivo-pbx/xivo-lib-python.git
 git+https://github.com/xivo-pbx/xivo-lib-rest-client.git  # from xivo-auth-client
 git+https://github.com/xivo-pbx/xivo-bus.git
-psycopg2
 requests==2.0.0
 pyyaml==3.10
 kombu==2.1.8
