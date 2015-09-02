@@ -61,7 +61,7 @@ class BaseIntegrationTest(unittest.TestCase):
 
     @classmethod
     def post_action_result(cls, action, params=None, token=None):
-        url = u'https://localhost:9491/1.0/{action}'
+        url = u'https://localhost:9491/1.0/action/{action}'
         result = requests.post(url.format(action=action),
                                data=(json.dumps(params) if params else ''),
                                headers={'X-Auth-Token': token},

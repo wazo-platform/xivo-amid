@@ -54,7 +54,7 @@ def configure(global_config):
     if enabled:
         CORS(app, **cors_config)
 
-    api.add_resource(Actions, '/<action>')
+    api.add_resource(Actions, '/action/<action>')
     SwaggerResource.add_resource(api)
     api.init_app(app)
 
