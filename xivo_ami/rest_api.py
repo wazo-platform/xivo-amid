@@ -117,7 +117,7 @@ class Actions(AuthResource):
             params.update(extra_args)
             response = session.get(self.ajam_url, params=params)
 
-        return _parse_ami(response.text), 200
+        return _parse_ami(response.content), 200
 
 
 def _parse_ami(buffer_):
