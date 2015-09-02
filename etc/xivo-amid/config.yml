@@ -23,6 +23,7 @@ ami:
 ajam:
     host: localhost
     port: 5040
+    verify: /usr/share/xivo-certs/server.crt  # True, False or CA bundle
     username: xivo_amid
     password: eeCho8ied3u
 
