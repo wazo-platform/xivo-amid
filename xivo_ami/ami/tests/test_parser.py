@@ -32,7 +32,7 @@ class TestParser(unittest.TestCase):
         self.mock_event_callback = Mock()
         self.mock_response_callback = Mock()
 
-    def test_given_incomple_message_when_parse_buffer_then_whole_buffer_returned(self):
+    def test_given_incomplete_message_when_parse_buffer_then_whole_buffer_returned(self):
         raw_buffer = 'incomplete'
 
         unparsed_buffer = parse_buffer(raw_buffer, self.mock_event_callback, self.mock_response_callback)
@@ -46,7 +46,7 @@ class TestParser(unittest.TestCase):
         unparsed_buffer = parse_buffer(raw_buffer, self.mock_event_callback, self.mock_response_callback)
 
         assert_that(unparsed_buffer, equal_to(''))
-        self.mock_event_callback.assert_called_once_with(complete_msg, None, {})
+        self.mock_event_callback.assert_called_once_with(complete_msg, None, {'Event': complete_msg})
 
     def test_given_complete_messages_when_parse_buffer_then_multiple_callback_and_buffer_emptied(self):
         first_msg = "first complete message"
@@ -56,8 +56,8 @@ class TestParser(unittest.TestCase):
         unparsed_buffer = parse_buffer(raw_buffer, self.mock_event_callback, self.mock_response_callback)
 
         assert_that(unparsed_buffer, equal_to(''))
-        self.mock_event_callback.assert_any_call(first_msg, None, {})
-        self.mock_response_callback.assert_any_call(second_msg, None, {})
+        self.mock_event_callback.assert_any_call(first_msg, None, {'Event': first_msg})
+        self.mock_response_callback.assert_any_call(second_msg, None, {'Response': second_msg})
 
     def test_given_unknown_message_when_parse_buffer_then_no_callback(self):
         msg = "unknown: message" + MESSAGE_DELIMITER
