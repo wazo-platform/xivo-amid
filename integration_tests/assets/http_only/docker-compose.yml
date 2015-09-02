@@ -16,7 +16,6 @@ amid:
     - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
     - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"
     - "../../..:/usr/src/xivo-amid"
-    - "/home/seb/data/git/lib-python/xivo:/usr/local/lib/python2.7/site-packages/xivo"
   links:
     - "asterisk-ajam"
     - "auth"
