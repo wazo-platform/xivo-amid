@@ -19,7 +19,16 @@ Description: XIVO PBX's Proxy for Asterisk's AMI Events
 
 Package: xivo-libamid
 Architecture: all
-Depends: ${python:Depends}, xivo-bus (>= 15.05~20150311.194150.b00ca46-1), xivo-lib-python (>= 13.02~20130125.161022.4959dfa-1)
+Depends: ${python:Depends},
+         python-cherrypy3,
+         python-flask,
+         python-flask-restful,
+         python-flask-cors,
+         python-kombu,
+         python-requests,
+         xivo-auth-client,
+         xivo-bus (>= 15.05~20150311.194150.b00ca46-1),
+         xivo-lib-python (>= 13.02~20130125.161022.4959dfa-1)
 Description: XIVO amid lib
  XIVO is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.

@@ -19,6 +19,7 @@ import argparse
 
 from xivo.chain_map import ChainMap
 from xivo.config_helper import read_config_file_hierarchy
+from xivo.http_helpers import DEFAULT_CIPHERS
 
 
 _DAEMONNAME = 'xivo-amid'
@@ -30,10 +31,17 @@ _DEFAULT_CONFIG = {
     'config_file': '/etc/{}/config.yml'.format(_DAEMONNAME),
     'extra_config_files': '/etc/{}/conf.d/'.format(_DAEMONNAME),
     'publish_ami_events': True,
+    'ajam': {'host': 'localhost',
+             'port': 5040,
+             'verify_certificate': '/usr/share/xivo-certs/server.crt',
+             'username': 'xivo_amid',
+             'password': 'default_password'},
     'ami': {'host': 'localhost',
             'port': 5038,
             'username': 'xivo_amid',
-            'password': 'eeCho8ied3u'},
+            'password': 'default'},
+    'auth': {'host': 'localhost',
+             'port': 9497},
     'bus': {'host': 'localhost',
             'port': 5672,
             'username': 'guest',
@@ -42,6 +50,13 @@ _DEFAULT_CONFIG = {
             'exchange_name': 'xivo',
             'exchange_type': 'topic',
             'exchange_durable': True},
+    'rest_api': {'listen': '0.0.0.0',
+                 'port': 9491,
+                 'certificate': '/usr/share/xivo-certs/server.crt',
+                 'private_key': '/usr/share/xivo-certs/server.key',
+                 'ciphers': DEFAULT_CIPHERS,
+                 'cors': {'enabled': True,
+                          'allow_headers': 'Content-Type, X-Auth-Token'}},
 }
 
 

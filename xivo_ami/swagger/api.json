@@ -1,0 +1,104 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "xivo-amid",
+        "description": "Send AMI actions to Asterisk, providing token based authentication.",
+        "version": "0.1"
+    },
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/1.0",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/action/{action}": {
+            "post": {
+                "summary": "AMI action",
+                "description": "The Action endpoint sends an action to the Asterisk Manager.\n\nSee https://wiki.asterisk.org/wiki/display/AST/Asterisk+13+AMI+Actions for more details about the AMI message parameters.\n",
+                "parameters": [
+                    {
+                        "name": "action",
+                        "in": "path",
+                        "description": "Name of the manager action",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "action_arguments",
+                        "in": "body",
+                        "description": "Arguments for the manager action.\n\nAction: taken from the URL\nActionID: not necessary\n",
+                        "schema": {
+                            "$ref": "#/definitions/ActionArguments"
+                        }
+                    },
+                    {
+                        "name": "X-Auth-Token",
+                        "in": "header",
+                        "description": "Authentication token obtained from xivo-auth",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "tags": [
+                    "action"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The Asterisk Manager responses",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid authentication token",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "503": {
+                        "description": "Another service is unavailable (e.g. xivo-auth)",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Response": {
+            "properties": {
+                "response": {
+                    "type": "string",
+                    "description": "Name of the action response"
+                }
+            }
+        },
+        "ActionArguments": {
+            "properties": {}
+        },
+        "Error": {
+            "properties": {
+                "status_code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "timestamp": {
+                    "type": "array",
+                    "items": {
+                        "type": "number",
+                        "format": "timestamp"
+                    }
+                },
+                "reason": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -17,11 +17,12 @@
 
 import logging
 import signal
-
+import thread
 
 from xivo.daemonize import pidfile_context
 from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
+from xivo_ami import rest_api
 from xivo_ami.ami.client import AMIClient
 from xivo_ami.bus.client import BusClient
 from xivo_ami.config import load_config
@@ -43,13 +44,14 @@ def main():
 
 def _run(config):
     _init_signal()
-    if not config['publish_ami_events']:
-        return
+    if config['publish_ami_events']:
+        ami_client = AMIClient(**config['ami'])
+        bus_client = BusClient(config)
+        facade = EventHandlerFacade(ami_client, bus_client)
+        thread.start_new_thread(facade.run, ())
 
-    ami_client = AMIClient(**config['ami'])
-    bus_client = BusClient(config)
-    facade = EventHandlerFacade(ami_client, bus_client)
-    facade.run()
+    rest_api.configure(config)
+    rest_api.run(config['rest_api'])
 
 
 def _init_signal():
