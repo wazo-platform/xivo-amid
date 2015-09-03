@@ -33,7 +33,7 @@ _DEFAULT_CONFIG = {
     'publish_ami_events': True,
     'ajam': {'host': 'localhost',
              'port': 5040,
-             'verify': '/usr/share/xivo-certs/server.crt',
+             'verify_certificate': '/usr/share/xivo-certs/server.crt',
              'username': 'xivo_amid',
              'password': 'default_password'},
     'ami': {'host': 'localhost',

@@ -5,7 +5,7 @@ ajam:
     port: 5040
     username: xivo_amid
     password: opensesame
-    verify: /usr/local/share/asterisk-ajam-ssl/server.crt
+    verify_certificate: False
 
 auth:
     host: auth

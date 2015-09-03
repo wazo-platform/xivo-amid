@@ -97,7 +97,7 @@ class Actions(AuthResource):
             'username': config['ajam']['username'],
             'secret': config['ajam']['password'],
         }
-        cls.verify = config['ajam']['verify']
+        cls.verify = config['ajam']['verify_certificate']
 
     def post(self, action):
         if action.lower() == 'queues':
