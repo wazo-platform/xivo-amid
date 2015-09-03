@@ -34,7 +34,7 @@ def parse_buffer(raw_buffer, event_callback, response_callback):
 
         try:
             _parse_msg(head, event_callback, response_callback)
-        except Exception as e:
+        except AMIParsingError as e:
             logger.exception('Could not parse message: %s', e)
             continue
 
@@ -71,8 +71,7 @@ def _parse_line(line):
 
 
 def _is_valid_message(lines):
-    return (lines
-            and _is_colon_in_each_line(lines))
+    return (lines and _is_colon_in_each_line(lines))
 
 
 def _is_colon_in_each_line(lines):
