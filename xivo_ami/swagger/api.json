@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "xivo-amid",
+        "title": "XiVO AMId",
         "description": "Send AMI actions to Asterisk, providing token based authentication.",
         "version": "0.1"
     },
