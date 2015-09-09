@@ -12,6 +12,8 @@
     "produces": [
         "application/json"
     ],
+    "x-xivo-name": "amid",
+    "x-xivo-port": 9491,
     "paths": {
         "/action/{action}": {
             "post": {
