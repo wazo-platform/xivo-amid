@@ -19,6 +19,7 @@ import textwrap
 import sys
 
 from flask import Flask
+from flask import jsonify
 from flask import request
 from OpenSSL import SSL
 
@@ -33,6 +34,7 @@ context.use_privatekey_file('/usr/local/share/asterisk-ajam-ssl/server.key')
 context.use_certificate_file('/usr/local/share/asterisk-ajam-ssl/server.crt')
 
 _db = {}
+_requests = []
 
 
 def _db_get(family, key):
@@ -45,6 +47,23 @@ def _db_put(family, key, value):
 
 def response(body):
     return textwrap.dedent(body).replace('\n', '\r\n')
+
+
+@app.before_request
+def log_request():
+    if not request.path.startswith('/_requests'):
+        path = request.path
+        log = {'method': request.method,
+               'path': path,
+               'query': request.args.items(multi=True),
+               'body': request.data,
+               'headers': dict(request.headers)}
+        _requests.append(log)
+
+
+@app.route('/_requests', methods=['GET'])
+def list_requests():
+    return jsonify(requests=_requests)
 
 
 @app.route('/rawman')
@@ -65,7 +84,6 @@ def login():
         '''), 200
 
 
-@app.route('/1.0/ping')
 def ping():
     return response('''\
         Response: Success
@@ -75,7 +93,6 @@ def ping():
         '''), 200
 
 
-@app.route('/1.0/queuestatus')
 def queuestatus():
     return response('''\
         Response: Success
@@ -102,7 +119,6 @@ def queuestatus():
         '''), 200
 
 
-@app.route('/1.0/dbget')
 def dbget():
     args = request.args
     family = args['Family']
@@ -126,7 +142,6 @@ def dbget():
                     value=_db_get(family, key).encode('utf-8')), 200
 
 
-@app.route('/1.0/dbput')
 def dbput():
     args = request.args
     _db_put(args['Family'], args['Key'], args['Val'])
@@ -137,13 +152,23 @@ def dbput():
         '''), 200
 
 
+def originate():
+    return response('''\
+        Response: Success
+        Message: Originate successfully queued
+
+        '''), 200
+
+
 actions = {
     'dbget': dbget,
     'dbput': dbput,
     'login': login,
     'ping': ping,
     'queuestatus': queuestatus,
+    'originate': originate,
 }
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=port, ssl_context=context, debug=True)

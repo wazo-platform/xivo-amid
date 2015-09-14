@@ -72,6 +72,13 @@ class BaseIntegrationTest(unittest.TestCase):
         return status
 
     @classmethod
+    def ajam_requests(cls):
+        url = u'https://localhost:5040/_requests'
+        response = requests.get(url, verify=False)
+        assert_that(response.status_code, equal_to(200))
+        return response.json()
+
+    @classmethod
     def post_action_result(cls, action, params=None, token=None):
         url = u'https://localhost:9491/1.0/action/{action}'
         result = requests.post(url.format(action=action),

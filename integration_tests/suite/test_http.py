@@ -22,6 +22,7 @@ from hamcrest import assert_that
 from hamcrest import contains
 from hamcrest import contains_string
 from hamcrest import equal_to
+from hamcrest import has_entry
 from hamcrest import has_entries
 from hamcrest import has_item
 from hamcrest import matches_regexp
@@ -109,6 +110,20 @@ class TestHTTP(BaseIntegrationTest):
                 'Key': key,
                 'Val': value,
             })))
+
+
+class TestHTTPMultipleIdenticalKeys(BaseIntegrationTest):
+
+    asset = 'http_only'
+
+    def test_when_action_with_multiple_identical_keys_then_all_keys_are_sent(self):
+        self.action('Originate', {'Variable': ('Var1=one', 'Var2=two')})
+
+        assert_that(self.ajam_requests(), has_entry('requests', has_item(has_entries({
+            'method': 'GET',
+            'path': '/rawman',
+            'query': contains(['action', 'Originate'], ['Variable', 'Var1=one'], ['Variable', 'Var2=two']),
+        }))))
 
 
 class TestHTTPError(BaseIntegrationTest):

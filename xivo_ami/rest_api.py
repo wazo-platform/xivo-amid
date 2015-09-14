@@ -114,9 +114,7 @@ class Actions(AuthResource):
             try:
                 session.get(self.ajam_url, params=self.login_params, verify=self.verify)
 
-                params = {'action': action}
-                params.update(extra_args)
-                response = session.get(self.ajam_url, params=params)
+                response = session.get(self.ajam_url, params=_ajam_params(action, extra_args))
             except requests.RequestException as e:
                 message = 'Could not connect to AJAM server on {url}: {error}'.format(url=self.ajam_url, error=e)
                 logger.exception(message)
@@ -127,6 +125,17 @@ class Actions(AuthResource):
                 }, 503
 
         return _parse_ami(response.content), 200
+
+
+def _ajam_params(action, ami_args):
+    result = [('action', action)]
+    for extra_arg_key, extra_arg_value in ami_args.iteritems():
+        if isinstance(extra_arg_value, list):
+            result.extend([(extra_arg_key, value) for value in extra_arg_value])
+        else:
+            result.append((extra_arg_key, extra_arg_value))
+
+    return result
 
 
 def _parse_ami(buffer_):
