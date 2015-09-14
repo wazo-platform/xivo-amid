@@ -163,3 +163,12 @@ class TestAMIClient(unittest.TestCase):
         mock_socket.recv.return_value = ''
 
         self.assertRaises(AMIConnectionError, self.ami_client.parse_next_messages)
+
+    @patch_return_value('socket.socket')
+    def test_when_stop_then_socket_shutdown(self, mock_socket):
+        self.ami_client.connect_and_login()
+
+        self.ami_client.stop()
+
+        mock_socket.shutdown.assert_called_once_with(socket.SHUT_RDWR)
+        mock_socket.close.assert_called_once_with()

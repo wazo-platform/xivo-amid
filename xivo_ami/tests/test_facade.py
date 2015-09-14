@@ -94,3 +94,8 @@ class testEventHandlerFacade(unittest.TestCase):
         self.facade._process_messages(queue)
 
         self.assertFalse(queue)
+
+    def test_when_stop_then_ami_client_stop_is_called(self):
+        self.facade.stop()
+
+        self.ami_client_mock.stop.assert_called_once_with()

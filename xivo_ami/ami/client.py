@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2014 Avencall
+# Copyright (C) 2012-2015 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -116,6 +116,11 @@ class AMIClient(object):
                 logger.error('Could not read data from socket: remote connection closed')
                 raise AMIConnectionError()
             return data
+
+    def stop(self):
+        if self._sock is not None:
+            self._sock.shutdown(socket.SHUT_RDWR)
+            self.disconnect()
 
 
 class AMIConnectionError(Exception):

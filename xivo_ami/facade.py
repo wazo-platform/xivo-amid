@@ -30,9 +30,10 @@ class EventHandlerFacade(object):
     def __init__(self, ami_client, bus_client):
         self._ami_client = ami_client
         self._bus_client = bus_client
+        self._should_stop = False
 
     def run(self):
-        while True:
+        while not self._should_stop:
             try:
                 self._ami_client.connect_and_login()
                 self._process_messages_indefinitely()
@@ -43,14 +44,15 @@ class EventHandlerFacade(object):
 
     def _handle_ami_connection_error(self):
         self._ami_client.disconnect()
-        time.sleep(self.RECONNECTION_DELAY)
+        if not self._should_stop:
+            time.sleep(self.RECONNECTION_DELAY)
 
     def _handle_unexpected_error(self, e):
         self._ami_client.disconnect()
         raise
 
     def _process_messages_indefinitely(self):
-        while True:
+        while not self._should_stop:
             new_messages = self._ami_client.parse_next_messages()
             self._process_messages(new_messages)
 
@@ -59,3 +61,7 @@ class EventHandlerFacade(object):
             message = messages.pop()
             logger.debug('Processing message %s', message)
             self._bus_client.publish(message)
+
+    def stop(self):
+        self._should_stop = True
+        self._ami_client.stop()

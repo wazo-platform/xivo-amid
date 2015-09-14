@@ -17,8 +17,8 @@
 
 import logging
 import signal
-import thread
 
+from threading import Thread
 from xivo.daemonize import pidfile_context
 from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
@@ -43,23 +43,19 @@ def main():
 
 
 def _run(config):
-    _init_signal()
     if config['publish_ami_events']:
         ami_client = AMIClient(**config['ami'])
         bus_client = BusClient(config)
         facade = EventHandlerFacade(ami_client, bus_client)
-        thread.start_new_thread(facade.run, ())
+        ami_thread = Thread(target=facade.run, name='ami_thread')
+        ami_thread.start()
 
     rest_api.configure(config)
-    rest_api.run(config['rest_api'])
-
-
-def _init_signal():
-    signal.signal(signal.SIGTERM, _handle_sigterm)
-
-
-def _handle_sigterm(signum, frame):
-    raise SystemExit()
+    try:
+        rest_api.run(config['rest_api'])
+    finally:
+        facade.stop()
+        ami_thread.join()
 
 
 if __name__ == '__main__':
