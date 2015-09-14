@@ -93,16 +93,6 @@ class TestHTTP(BaseIntegrationTest):
             })))
 
 
-class TestAuthentication(BaseIntegrationTest):
-
-    asset = 'http_only'
-
-    def test_that_actions_is_authenticated(self):
-        result = self.post_action_result('Ping', token='invalid')
-
-        assert_that(result.status_code, equal_to(401))
-
-
 class TestHTTPSMissingCertificate(BaseIntegrationTest):
 
     asset = 'no-ssl-certificate'
