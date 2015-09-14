@@ -93,6 +93,17 @@ class TestHTTP(BaseIntegrationTest):
             })))
 
 
+class TestHTTPError(BaseIntegrationTest):
+
+    asset = 'no_ajam_server'
+
+    def test_given_no_ajam_when_http_request_then_status_code_503(self):
+        result = self.post_action_result('ping', token=VALID_TOKEN)
+
+        assert_that(result.status_code, equal_to(503))
+        assert_that(result.json()['reason'][0], contains_string('inexisting-ajam-server:5040'))
+
+
 class TestHTTPSMissingCertificate(BaseIntegrationTest):
 
     asset = 'no-ssl-certificate'

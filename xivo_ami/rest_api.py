@@ -111,11 +111,20 @@ class Actions(AuthResource):
         extra_args = json.loads(request.data) if request.data else {}
 
         with requests.Session() as session:
-            session.get(self.ajam_url, params=self.login_params, verify=self.verify)
+            try:
+                session.get(self.ajam_url, params=self.login_params, verify=self.verify)
 
-            params = {'action': action}
-            params.update(extra_args)
-            response = session.get(self.ajam_url, params=params)
+                params = {'action': action}
+                params.update(extra_args)
+                response = session.get(self.ajam_url, params=params)
+            except requests.RequestException as e:
+                message = 'Could not connect to AJAM server on {url}: {error}'.format(url=self.ajam_url, error=e)
+                logger.exception(message)
+                return {
+                    'reason': [message],
+                    'timestamp': [time.time()],
+                    'status_code': 503,
+                }, 503
 
         return _parse_ami(response.content), 200
 
