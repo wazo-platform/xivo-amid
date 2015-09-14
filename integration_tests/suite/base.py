@@ -60,6 +60,18 @@ class BaseIntegrationTest(unittest.TestCase):
         os.chdir(cls.cur_dir)
 
     @classmethod
+    def amid_status(cls):
+        amid_id = cls._run_cmd('docker-compose ps -q amid').strip()
+        status = cls._run_cmd('docker inspect {container}'.format(container=amid_id))
+        return json.loads(status)
+
+    @classmethod
+    def amid_logs(cls):
+        amid_id = cls._run_cmd('docker-compose ps -q amid').strip()
+        status = cls._run_cmd('docker logs {container}'.format(container=amid_id))
+        return status
+
+    @classmethod
     def post_action_result(cls, action, params=None, token=None):
         url = u'https://localhost:9491/1.0/action/{action}'
         result = requests.post(url.format(action=action),

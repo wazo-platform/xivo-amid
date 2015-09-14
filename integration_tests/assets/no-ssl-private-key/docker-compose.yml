@@ -1,0 +1,14 @@
+sync:
+  image: n3llyb0y/wait
+  links:
+    - amid
+  environment:
+    PORTS: ""
+amid:
+  image: xivo-amid-tests
+  ports:
+    - "9491:9491"
+  volumes:
+    - "./etc/xivo-amid:/etc/xivo-amid"
+    - "../../..:/usr/src/xivo-amid"
+    - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"

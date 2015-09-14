@@ -16,9 +16,11 @@
 
 import random
 import string
+import time
 
 from hamcrest import assert_that
 from hamcrest import contains
+from hamcrest import contains_string
 from hamcrest import equal_to
 from hamcrest import has_entries
 from hamcrest import has_item
@@ -99,3 +101,37 @@ class TestAuthentication(BaseIntegrationTest):
         result = self.post_action_result('Ping', token='invalid')
 
         assert_that(result.status_code, equal_to(401))
+
+
+class TestHTTPSMissingCertificate(BaseIntegrationTest):
+
+    asset = 'no-ssl-certificate'
+
+    def test_given_inexisting_SSL_certificate_when_amid_starts_then_amid_stops(self):
+        for _ in range(5):
+            status = self.amid_status()[0]
+            if not status['State']['Running']:
+                break
+            time.sleep(1)
+        else:
+            self.fail('xivo-amid did not stop while missing SSL certificate')
+
+        log = self.amid_logs()
+        assert_that(log, contains_string("No such file or directory: '/usr/local/share/xivo-amid-ssl/server.crt'"))
+
+
+class TestHTTPSMissingPrivateKey(BaseIntegrationTest):
+
+    asset = 'no-ssl-private-key'
+
+    def test_given_inexisting_SSL_private_key_when_amid_starts_then_amid_stops(self):
+        for _ in range(2):
+            status = self.amid_status()[0]
+            if not status['State']['Running']:
+                break
+            time.sleep(1)
+        else:
+            self.fail('xivo-amid did not stop while missing SSL private key')
+
+        log = self.amid_logs()
+        assert_that(log, contains_string("No such file or directory: '/usr/local/share/xivo-amid-ssl/server.key'"))
