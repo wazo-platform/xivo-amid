@@ -121,7 +121,9 @@ def dbget():
         Event: DBGetComplete
         ListItems: 1
 
-        ''').format(family=family, key=key, value=_db_get(family, key)), 200
+        ''').format(family=family.encode('utf-8'),
+                    key=key.encode('utf-8'),
+                    value=_db_get(family, key).encode('utf-8')), 200
 
 
 @app.route('/1.0/dbput')

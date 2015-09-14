@@ -92,6 +92,22 @@ class TestHTTP(BaseIntegrationTest):
                 'Val': key,
             })))
 
+    def test_that_action_can_send_and_receive_non_ascii(self):
+        family = 'my-family'
+        key = 'my-key'
+        value = u'non-ascii-value äåéëþüü'
+
+        self.action('DBPut', {'Family': family, 'Key': key, 'Val': value})
+        result = self.action('DBGet', {'Family': family, 'Key': key})
+
+        assert_that(result, has_item(
+            has_entries({
+                'Event': 'DBGetResponse',
+                'Family': family,
+                'Key': key,
+                'Val': value,
+            })))
+
 
 class TestHTTPError(BaseIntegrationTest):
 
