@@ -23,7 +23,7 @@
                     {
                         "name": "action",
                         "in": "path",
-                        "description": "Name of the manager action",
+                        "description": "Name of the manager action. Currently not supported: Queues, Command.",
                         "required": true,
                         "type": "string"
                     },

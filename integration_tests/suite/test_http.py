@@ -43,10 +43,12 @@ class TestHTTP(BaseIntegrationTest):
             'Timestamp': matches_regexp('.*')
         })))
 
-    def test_that_action_queues_is_refused(self):
+    def test_that_malformatted_actions_are_refused(self):
         # the format of Queues response is suited for display, not parsing
         result = self.post_action_result('Queues', token=VALID_TOKEN)
+        assert_that(result.status_code, equal_to(501))
 
+        result = self.post_action_result('Command', token=VALID_TOKEN)
         assert_that(result.status_code, equal_to(501))
 
     def test_that_action_with_events_returns_events(self):
