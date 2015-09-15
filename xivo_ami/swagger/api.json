@@ -30,7 +30,7 @@
                     {
                         "name": "action_arguments",
                         "in": "body",
-                        "description": "Arguments for the manager action.\n\nAction: taken from the URL\nActionID: not necessary\n\nIf you need a same key multiple times, give a list of values.",
+                        "description": "Arguments for the manager action.\n\nAction: taken from the URL\nActionID: not necessary\n\nIf you need a same key multiple times, give a list of values.\n\nFor Action: Originate, you should always use Async: True",
                         "schema": {
                             "$ref": "#/definitions/ActionArguments"
                         }
@@ -85,7 +85,8 @@
                 "Priority": "1",
                 "Exten": "1234",
                 "Context": "default",
-                "Variable": ["Var1=one", "Var2=two"]
+                "Variable": ["Var1=one", "Var2=two"],
+                "Async": "True"
             }
         },
         "Error": {
