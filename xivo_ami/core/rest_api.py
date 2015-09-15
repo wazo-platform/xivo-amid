@@ -22,9 +22,13 @@ from datetime import timedelta
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
+from flask_restful import Resource
 from werkzeug.contrib.fixers import ProxyFix
 
 from xivo import http_helpers
+from xivo_ami.core import auth
+from xivo_ami.core import exceptions
+
 
 VERSION = 1.0
 
@@ -86,3 +90,11 @@ def run(config):
 def _check_file_readable(file_path):
     with open(file_path, 'r'):
         pass
+
+
+class ErrorCatchingResource(Resource):
+    method_decorators = [exceptions.handle_api_exception] + Resource.method_decorators
+
+
+class AuthResource(ErrorCatchingResource):
+    method_decorators = [auth.verify_token] + ErrorCatchingResource.method_decorators
