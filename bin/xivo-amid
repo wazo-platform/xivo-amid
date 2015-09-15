@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-from xivo_ami.main import main
+from xivo_ami.bin.daemon import main
 main()

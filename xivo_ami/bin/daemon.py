@@ -17,15 +17,11 @@
 
 import logging
 
-from threading import Thread
 from xivo.daemonize import pidfile_context
 from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
-from xivo_ami import rest_api
-from xivo_ami.ami.client import AMIClient
-from xivo_ami.bus.client import BusClient
 from xivo_ami.config import load_config
-from xivo_ami.facade import EventHandlerFacade
+from xivo_ami.controller import Controller
 
 logger = logging.getLogger(__name__)
 
@@ -34,28 +30,14 @@ def main():
     config = load_config()
 
     setup_logging(config['logfile'], config['foreground'], config['debug'])
+
     if config.get('user'):
         change_user(config['user'])
 
+    controller = Controller(config)
+
     with pidfile_context(config['pidfile'], config['foreground']):
-        _run(config)
-
-
-def _run(config):
-    if config['publish_ami_events']:
-        ami_client = AMIClient(**config['ami'])
-        bus_client = BusClient(config)
-        facade = EventHandlerFacade(ami_client, bus_client)
-        ami_thread = Thread(target=facade.run, name='ami_thread')
-        ami_thread.start()
-
-    rest_api.configure(config)
-    try:
-        rest_api.run(config['rest_api'])
-    finally:
-        if config['publish_ami_events']:
-            facade.stop()
-            ami_thread.join()
+        controller.run()
 
 
 if __name__ == '__main__':

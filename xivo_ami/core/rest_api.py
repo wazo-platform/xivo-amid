@@ -14,24 +14,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import json
 import logging
 import os
-import requests
-import time
 
 from cherrypy import wsgiserver
 from datetime import timedelta
 from flask import Flask
-from flask import request
 from flask_cors import CORS
 from flask_restful import Api
 from werkzeug.contrib.fixers import ProxyFix
 
 from xivo import http_helpers
-from xivo_ami.ami import parser
-from xivo_ami.auth import AuthResource
-from xivo_ami.swagger.resource import SwaggerResource
 
 VERSION = 1.0
 
@@ -41,7 +34,6 @@ api = Api(prefix='/{}'.format(VERSION))
 
 
 def configure(global_config):
-    Actions.configure(global_config)
 
     http_helpers.add_logger(app, logger)
     app.after_request(http_helpers.log_request)
@@ -54,11 +46,20 @@ def configure(global_config):
     if enabled:
         CORS(app, **cors_config)
 
-    api.add_resource(Actions, '/action/<action>')
-    SwaggerResource.add_resource(api)
+    load_resources(global_config)
     api.init_app(app)
 
     app.config['auth'] = global_config['auth']
+
+
+def load_resources(global_config):
+    from xivo_ami.resources.action.actions import Actions
+    from xivo_ami.resources.api.actions import SwaggerResource
+
+    Actions.configure(global_config)
+    api.add_resource(Actions, '/action/<action>')
+
+    SwaggerResource.add_resource(api)
 
 
 def run(config):
@@ -85,65 +86,3 @@ def run(config):
 def _check_file_readable(file_path):
     with open(file_path, 'r'):
         pass
-
-
-class Actions(AuthResource):
-
-    @classmethod
-    def configure(cls, config):
-        cls.ajam_url = 'https://{host}:{port}/rawman'.format(**config['ajam'])
-        cls.login_params = {
-            'action': 'login',
-            'username': config['ajam']['username'],
-            'secret': config['ajam']['password'],
-        }
-        cls.verify = config['ajam']['verify_certificate']
-
-    def post(self, action):
-        if action.lower() in ('queues', 'command'):
-            error = {
-                'reason': ['The action {action} is not compatible with xivo-amid'.format(action=action)],
-                'timestamp': [time.time()],
-                'status_code': 501,
-            }
-            return error, 501
-
-        extra_args = json.loads(request.data) if request.data else {}
-
-        with requests.Session() as session:
-            try:
-                session.get(self.ajam_url, params=self.login_params, verify=self.verify)
-
-                response = session.get(self.ajam_url, params=_ajam_params(action, extra_args))
-            except requests.RequestException as e:
-                message = 'Could not connect to AJAM server on {url}: {error}'.format(url=self.ajam_url, error=e)
-                logger.exception(message)
-                return {
-                    'reason': [message],
-                    'timestamp': [time.time()],
-                    'status_code': 503,
-                }, 503
-
-        return _parse_ami(response.content), 200
-
-
-def _ajam_params(action, ami_args):
-    result = [('action', action)]
-    for extra_arg_key, extra_arg_value in ami_args.iteritems():
-        if isinstance(extra_arg_value, list):
-            result.extend([(extra_arg_key, value) for value in extra_arg_value])
-        else:
-            result.append((extra_arg_key, extra_arg_value))
-
-    return result
-
-
-def _parse_ami(buffer_):
-    result = []
-
-    def aux(event_name, action_id, message):
-        result.append(message)
-
-    parser.parse_buffer(buffer_, aux, aux)
-
-    return result
