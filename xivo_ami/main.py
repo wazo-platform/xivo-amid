@@ -16,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import logging
-import signal
 
 from threading import Thread
 from xivo.daemonize import pidfile_context
@@ -54,8 +53,9 @@ def _run(config):
     try:
         rest_api.run(config['rest_api'])
     finally:
-        facade.stop()
-        ami_thread.join()
+        if config['publish_ami_events']:
+            facade.stop()
+            ami_thread.join()
 
 
 if __name__ == '__main__':

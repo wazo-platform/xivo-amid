@@ -2,10 +2,9 @@ sync:
   image: n3llyb0y/wait
   links:
     - amid
-    - asterisk-ajam
     - auth
   environment:
-    PORTS: "5040 9491 9497"
+    PORTS: "9491 9497"
 
 amid:
   image: xivo-amid-tests
@@ -17,17 +16,7 @@ amid:
     - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"
     - "../../..:/usr/src/xivo-amid"
   links:
-    - "asterisk-ajam"
     - "auth"
-
-asterisk-ajam:
-  image: asterisk-ajam-mock
-  ports:
-    - "5040:5040"
-  volumes:
-    - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
-    - "./asterisk-ajam:/usr/local/share/asterisk-ajam"
-  command: "python /usr/local/share/asterisk-ajam/mock-asterisk-ajam.py 5040"
 
 auth:
   image: xivo-auth-mock

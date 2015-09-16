@@ -1,0 +1,16 @@
+publish_ami_events: False
+
+ajam:
+    host: inexisting-ajam-server
+    port: 5040
+    username: xivo_amid
+    password: opensesame
+    verify_certificate: False
+
+auth:
+    host: auth
+    port: 9497
+
+rest_api:
+    certificate: /usr/local/share/xivo-amid-ssl/server.crt
+    private_key: /usr/local/share/xivo-amid-ssl/server.key
