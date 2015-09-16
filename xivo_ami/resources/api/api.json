@@ -91,22 +91,18 @@
         },
         "Error": {
             "properties": {
-                "status_code": {
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "timestamp": {
-                    "type": "array",
-                    "items": {
-                        "type": "number",
-                        "format": "timestamp"
-                    }
+                    "type": "number",
+                    "format": "timestamp"
                 },
-                "reason": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
+                "message": {
+                    "type": "string"
+                },
+                "error_id": {
+                    "type": "string"
+                },
+                "details": {
+                    "type": "object"
                 }
             }
         }

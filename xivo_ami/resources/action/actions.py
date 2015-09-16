@@ -17,16 +17,43 @@
 import json
 import logging
 import requests
-import time
 
 from flask import request
 
 from xivo_ami.ami import parser
-from xivo_ami.core.auth import AuthResource
+from xivo_ami.core.exceptions import APIException
+from xivo_ami.core.rest_api import AuthResource
 
 VERSION = 1.0
 
 logger = logging.getLogger(__name__)
+
+
+class AJAMUnreachable(APIException):
+
+    def __init__(self, ajam_url, error):
+        super(AJAMUnreachable, self).__init__(
+            status_code=503,
+            message='AJAM server unreachable',
+            error_id='ajam-unreachable',
+            details={
+                'ajam_url': ajam_url,
+                'original_error': str(error),
+            }
+        )
+
+
+class UnsupportedAction(APIException):
+
+    def __init__(self, action):
+        super(UnsupportedAction, self).__init__(
+            status_code=501,
+            message='Action incompatible with xivo-amid',
+            error_id='incompatible-action',
+            details={
+                'action': action
+            }
+        )
 
 
 class Actions(AuthResource):
@@ -43,12 +70,7 @@ class Actions(AuthResource):
 
     def post(self, action):
         if action.lower() in ('queues', 'command'):
-            error = {
-                'reason': ['The action {action} is not compatible with xivo-amid'.format(action=action)],
-                'timestamp': [time.time()],
-                'status_code': 501,
-            }
-            return error, 501
+            raise UnsupportedAction(action)
 
         extra_args = json.loads(request.data) if request.data else {}
 
@@ -58,13 +80,7 @@ class Actions(AuthResource):
 
                 response = session.get(self.ajam_url, params=_ajam_params(action, extra_args))
             except requests.RequestException as e:
-                message = 'Could not connect to AJAM server on {url}: {error}'.format(url=self.ajam_url, error=e)
-                logger.exception(message)
-                return {
-                    'reason': [message],
-                    'timestamp': [time.time()],
-                    'status_code': 503,
-                }, 503
+                raise AJAMUnreachable(self.ajam_url, e)
 
         return _parse_ami(response.content), 200
 

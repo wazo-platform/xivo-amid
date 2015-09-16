@@ -21,7 +21,7 @@ from pkg_resources import resource_string
 
 class SwaggerResource(Resource):
 
-    api_package = "xivo_ami.swagger"
+    api_package = "xivo_ami.resources.api"
     api_filename = "api.json"
     api_path = "/api/api.json"
 

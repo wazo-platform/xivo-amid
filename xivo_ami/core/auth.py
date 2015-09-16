@@ -19,14 +19,40 @@ import requests
 
 from flask import current_app
 from flask import request
-from flask_restful import Resource
-from flask_restful import abort
 from functools import wraps
-from time import time
 
 from xivo_auth_client import Client
+from xivo_ami.core.exceptions import APIException
 
 logger = logging.getLogger(__name__)
+
+
+class Unauthorized(APIException):
+
+    def __init__(self, token):
+        super(Unauthorized, self).__init__(
+            status_code=401,
+            message='Unauthorized',
+            error_id='unauthorized',
+            details={
+                'invalid_token': token
+            }
+        )
+
+
+class AuthServerUnreachable(APIException):
+
+    def __init__(self, host, port, error):
+        super(AuthServerUnreachable, self).__init__(
+            status_code=503,
+            message='Authentication server unreachable',
+            error_id='authentication-server-unreachable',
+            details={
+                'auth_server_host': host,
+                'auth_server_port': port,
+                'original_error': str(error),
+            }
+        )
 
 
 def verify_token(func):
@@ -37,20 +63,16 @@ def verify_token(func):
         try:
             token_is_valid = client().token.is_valid(token)
         except requests.RequestException as e:
-            auth_host = current_app.config['auth']['host']
-            auth_port = current_app.config['auth']['port']
-            message = 'Could not connect to authentication server on {host}:{port}: {error}'.format(host=auth_host, port=auth_port, error=e)
-            logger.exception(message)
-            return {
-                'reason': [message],
-                'timestamp': [time()],
-                'status_code': 503,
-            }, 503
+            raise AuthServerUnreachable(
+                current_app.config['auth']['host'],
+                current_app.config['auth']['port'],
+                e
+            )
 
         if token_is_valid:
             return func(*args, **kwargs)
 
-        abort(401)
+        raise Unauthorized(token)
     return wrapper
 
 
@@ -58,7 +80,3 @@ def client():
     auth_host = current_app.config['auth']['host']
     auth_port = current_app.config['auth']['port']
     return Client(auth_host, auth_port)
-
-
-class AuthResource(Resource):
-    method_decorators = [verify_token]

@@ -134,7 +134,7 @@ class TestHTTPError(BaseIntegrationTest):
         result = self.post_action_result('ping', token=VALID_TOKEN)
 
         assert_that(result.status_code, equal_to(503))
-        assert_that(result.json()['reason'][0], contains_string('inexisting-ajam-server:5040'))
+        assert_that(result.json()['details']['ajam_url'], contains_string('inexisting-ajam-server:5040'))
 
 
 class TestHTTPSMissingCertificate(BaseIntegrationTest):

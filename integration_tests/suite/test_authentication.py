@@ -50,4 +50,5 @@ class TestAuthenticationError(BaseIntegrationTest):
         result = self.post_action_result('ping', token=VALID_TOKEN)
 
         assert_that(result.status_code, equal_to(503))
-        assert_that(result.json()['reason'][0], contains_string('inexisting-auth-server:9497'))
+        assert_that(result.json()['details']['auth_server_host'], equal_to('inexisting-auth-server'))
+        assert_that(result.json()['details']['auth_server_port'], equal_to(9497))
