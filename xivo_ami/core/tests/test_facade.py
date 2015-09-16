@@ -16,13 +16,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import collections
+import unittest
+
 from hamcrest import assert_that, contains, equal_to
 from mock import call, Mock, patch, sentinel
-import unittest
 
 from xivo_ami.ami.client import AMIClient, AMIConnectionError
 from xivo_ami.bus.client import BusClient
-from xivo_ami.facade import EventHandlerFacade
+from xivo_ami.core.facade import EventHandlerFacade
 
 RECONNECTION_DELAY = 5
 
