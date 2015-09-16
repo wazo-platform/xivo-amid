@@ -24,7 +24,6 @@ import unittest
 
 from hamcrest import assert_that
 from hamcrest import equal_to
-from requests.packages import urllib3
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +32,12 @@ CA_CERT = os.path.join(ASSETS_ROOT, '_common', 'ssl', 'localhost', 'server.crt')
 
 VALID_TOKEN = 'valid-token'
 
-urllib3.disable_warnings()
+try:
+    from requests.packages.urllib3 import disable_warnings
+    disable_warnings()
+except ImportError:
+    # when disable_warnings did not exist, warnings also did not exist
+    pass
 
 
 class BaseIntegrationTest(unittest.TestCase):
