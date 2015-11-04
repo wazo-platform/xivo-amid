@@ -2,7 +2,7 @@
 
 test-setup:
 	docker pull python:2.7
-	docker pull nickstenning/flask
+	docker pull p0bailey/docker-flask
 	docker pull n3llyb0y/wait
 	docker build -t xivo/xivo-amid ..
 	docker build -t asterisk-ajam-mock -f Dockerfile-asterisk-ajam-mock ..
