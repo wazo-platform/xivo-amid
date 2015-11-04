@@ -19,7 +19,7 @@ amid:
     - "asterisk-ajam"
 
 asterisk-ajam:
-  image: asterisk-ajam-mock
+  image: p0bailey/docker-flask
   expose:
     - "5040"
   volumes:

@@ -19,7 +19,7 @@ amid:
     - "auth"
 
 auth:
-  image: xivo-auth-mock
+  image: p0bailey/docker-flask
   expose:
     - "9497"
   volumes:
