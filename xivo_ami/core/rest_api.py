@@ -67,15 +67,16 @@ def load_resources(global_config):
 
 
 def run(config):
-    bind_addr = (config['listen'], config['port'])
+    https_config = config['https']
+    bind_addr = (https_config['listen'], https_config['port'])
 
-    _check_file_readable(config['certificate'])
-    _check_file_readable(config['private_key'])
+    _check_file_readable(https_config['certificate'])
+    _check_file_readable(https_config['private_key'])
     wsgi_app = wsgiserver.WSGIPathInfoDispatcher({'/': app})
     server = wsgiserver.CherryPyWSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
-    server.ssl_adapter = http_helpers.ssl_adapter(config['certificate'],
-                                                  config['private_key'],
-                                                  config.get('ciphers'))
+    server.ssl_adapter = http_helpers.ssl_adapter(https_config['certificate'],
+                                                  https_config['private_key'],
+                                                  https_config.get('ciphers'))
 
     logger.debug('WSGIServer starting... uid: %s, listen: %s:%s', os.getuid(), bind_addr[0], bind_addr[1])
     for route in http_helpers.list_routes(app):

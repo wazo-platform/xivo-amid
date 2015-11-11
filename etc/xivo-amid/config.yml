@@ -14,37 +14,40 @@ publish_ami_events: True
 
 # Connection info to Asterisk AMI
 ami:
-    host: localhost
-    port: 5038
-    username: xivo_amid
-    password: eeCho8ied3u
+  host: localhost
+  port: 5038
+  username: xivo_amid
+  password: eeCho8ied3u
 
 # Connection info to Asterisk AJAM
 ajam:
-    host: localhost
-    port: 5040
-    verify_certificate: /usr/share/xivo-certs/server.crt  # True, False or CA bundle
-    username: xivo_amid
-    password: eeCho8ied3u
+  host: localhost
+  port: 5040
+  verify_certificate: /usr/share/xivo-certs/server.crt  # True, False or CA bundle
+  username: xivo_amid
+  password: eeCho8ied3u
 
 # Connection info to the authentication server
 auth:
-    host: localhost
-    port: 9497
+  host: localhost
+  port: 9497
 
 # Connection info to the event bus (AMQP)
 bus:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-    vhost: /
-    exchange_name: xivo
-    exchange_type: topic
-    exchange_durable: True
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+  vhost: /
+  exchange_name: xivo
+  exchange_type: topic
+  exchange_durable: True
 
 # REST API server
 rest_api:
+
+  # HTTPS config
+  https:
 
     # Listening address
     listen: 0.0.0.0
@@ -59,11 +62,11 @@ rest_api:
     # SSL ciphers
     ciphers: "ALL:!aNULL:!eNULL:!LOW:!EXP:!RC4:!3DES:!SEED:+HIGH:+MEDIUM"
 
-    #CORS configuration. See Flask-CORS documentation for other values.
-    cors:
+  #CORS configuration. See Flask-CORS documentation for other values.
+  cors:
 
-        #Enabled by default
-        enabled: True
+    #Enabled by default
+    enabled: True
 
-        #Allow JSON preflight requests
-        allow_headers: Content-Type, X-Auth-Token
+    #Allow JSON preflight requests
+    allow_headers: Content-Type, X-Auth-Token
