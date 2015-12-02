@@ -23,7 +23,6 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 from flask_restful import Resource
-from werkzeug.contrib.fixers import ProxyFix
 
 from xivo import http_helpers
 from xivo_ami.core import auth
@@ -41,7 +40,6 @@ def configure(global_config):
 
     http_helpers.add_logger(app, logger)
     app.after_request(http_helpers.log_request)
-    app.wsgi_app = ProxyFix(app.wsgi_app)
     app.secret_key = os.urandom(24)
     app.permanent_session_lifetime = timedelta(minutes=5)
 
