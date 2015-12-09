@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 from hamcrest import assert_that
-from hamcrest import contains_string
 from hamcrest import equal_to
 
 from .base import BaseIntegrationTest
