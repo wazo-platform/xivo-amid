@@ -27,17 +27,12 @@ from hamcrest import equal_to
 
 logger = logging.getLogger(__name__)
 
+requests.packages.urllib3.disable_warnings()
+
 ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', 'assets')
 CA_CERT = os.path.join(ASSETS_ROOT, '_common', 'ssl', 'localhost', 'server.crt')
 
 VALID_TOKEN = 'valid-token'
-
-try:
-    from requests.packages.urllib3 import disable_warnings
-    disable_warnings()
-except ImportError:
-    # when disable_warnings did not exist, warnings also did not exist
-    pass
 
 
 class BaseIntegrationTest(unittest.TestCase):
