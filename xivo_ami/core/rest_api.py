@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -68,8 +68,6 @@ def run(config):
     https_config = config['https']
     bind_addr = (https_config['listen'], https_config['port'])
 
-    _check_file_readable(https_config['certificate'])
-    _check_file_readable(https_config['private_key'])
     wsgi_app = wsgiserver.WSGIPathInfoDispatcher({'/': app})
     server = wsgiserver.CherryPyWSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
     server.ssl_adapter = http_helpers.ssl_adapter(https_config['certificate'],
@@ -84,11 +82,6 @@ def run(config):
         server.start()
     except KeyboardInterrupt:
         server.stop()
-
-
-def _check_file_readable(file_path):
-    with open(file_path, 'r'):
-        pass
 
 
 class ErrorCatchingResource(Resource):
