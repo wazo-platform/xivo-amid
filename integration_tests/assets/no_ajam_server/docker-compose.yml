@@ -5,6 +5,7 @@ sync:
     - auth
   environment:
     PORTS: "9491 9497"
+    TIMEOUT: "5"
 
 amid:
   image: xivo-amid-tests
