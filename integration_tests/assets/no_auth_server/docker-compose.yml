@@ -5,6 +5,7 @@ sync:
     - asterisk-ajam
   environment:
     PORTS: "5040 9491"
+    TIMEOUT: "5"
 
 amid:
   image: xivo-amid-tests

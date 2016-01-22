@@ -1,9 +1,11 @@
 .PHONY: test-setup test
 
-test-setup:
+test-setup: build-amid
 	docker pull python:2.7
 	docker pull p0bailey/docker-flask
 	docker pull n3llyb0y/wait
+
+build-amid:
 	docker build -t xivo/xivo-amid ..
 	docker build --no-cache -t xivo-amid-tests -f Dockerfile ..
 

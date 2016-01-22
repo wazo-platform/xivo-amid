@@ -23,17 +23,16 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 from flask_restful import Resource
-
+from xivo import auth_helpers
 from xivo import http_helpers
-from xivo_ami.core import auth
-from xivo_ami.core import exceptions
-
+from xivo import rest_api_helpers
 
 VERSION = 1.0
 
 app = Flask('xivo_amid')
 logger = logging.getLogger(__name__)
 api = Api(prefix='/{}'.format(VERSION))
+auth_verifier = auth_helpers.AuthVerifier()
 
 
 def configure(global_config):
@@ -51,7 +50,7 @@ def configure(global_config):
     load_resources(global_config)
     api.init_app(app)
 
-    app.config['auth'] = global_config['auth']
+    auth_verifier.set_config(global_config['auth'])
 
 
 def load_resources(global_config):
@@ -85,8 +84,8 @@ def run(config):
 
 
 class ErrorCatchingResource(Resource):
-    method_decorators = [exceptions.handle_api_exception] + Resource.method_decorators
+    method_decorators = [rest_api_helpers.handle_api_exception] + Resource.method_decorators
 
 
 class AuthResource(ErrorCatchingResource):
-    method_decorators = [auth.verify_token] + ErrorCatchingResource.method_decorators
+    method_decorators = [auth_verifier.verify_token] + ErrorCatchingResource.method_decorators
