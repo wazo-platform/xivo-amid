@@ -6,6 +6,7 @@ MAINTAINER XiVO Team "dev@avencall.com"
 # Install xivo-amid
 ADD . /usr/src/xivo-amid
 WORKDIR /usr/src/xivo-amid
+RUN pip install -U pip
 RUN pip install -r requirements.txt
 
 RUN python setup.py install
