@@ -4,6 +4,7 @@ flask-cors==1.10.3
 flask-restful==0.2.12
 flask==0.10.1
 git+https://github.com/xivo-pbx/xivo-lib-python.git
+git+https://github.com/xivo-pbx/xivo-lib-rest-client.git  # from xivo-auth-client
 git+https://github.com/xivo-pbx/xivo-bus.git
 requests==2.4.3
 pyyaml==3.11
