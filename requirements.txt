@@ -8,5 +8,5 @@ git+https://github.com/xivo-pbx/xivo-lib-rest-client.git  # from xivo-auth-clien
 git+https://github.com/xivo-pbx/xivo-bus.git
 kombu==3.0.26
 pyopenssl==0.14  # from xivo-lib-python
-pyyaml==3.11
+pyyaml==3.11  # from xivo-lib-python
 requests==2.4.3
