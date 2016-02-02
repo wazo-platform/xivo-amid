@@ -23,16 +23,16 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 from flask_restful import Resource
-from xivo import auth_helpers
 from xivo import http_helpers
 from xivo import rest_api_helpers
+from xivo.auth_verifier import AuthVerifier
 
 VERSION = 1.0
 
 app = Flask('xivo_amid')
 logger = logging.getLogger(__name__)
 api = Api(prefix='/{}'.format(VERSION))
-auth_verifier = auth_helpers.AuthVerifier()
+auth_verifier = AuthVerifier()
 
 
 def configure(global_config):
