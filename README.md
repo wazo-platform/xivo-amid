@@ -8,44 +8,38 @@ xivo-amid is a daemon for interacting Asterisk's AMI:
 * expose HTTP JSON interface for AMI actions
 
 
-## Docker
+Docker
+------
 
 The xivo/amid image can be built using the following command:
 
    % docker build -t xivo/xivo-amid .
 
 
-## Testing
+Testing
+-------
 
 xivo-amid contains unittests and integration tests
 
-### unittests
 
-Dependencies to run the unittests are in the `requirements.txt` file.
+Running unit tests
+------------------
 
-    % pip install -r requirements.txt -r test-requirements.txt
+```
+apt-get install libpq-dev python-dev libffi-dev libyaml-dev
+pip install tox
+tox --recreate -e py27
+```
 
-To run the unittests
 
-    % nosetests xivo_amid
+Running integration tests
+-------------------------
 
-### Integration tests
+You need Docker installed.
 
-You need:
-
-    - docker
-
-A docker image named `amid-test` is required to execute the test suite.
-To build this image execute:
-
-    % cd integration_tests
-    % pip install -r test-requirements.txt
-    % make test-setup
-
-`make test-setup` downloads a bunch of Docker images so it takes a long time,
-but it only needs to be run when dependencies of xivo-amid change in any way
-(new Python library, new server connection, etc.)
-
-To execute the integration tests execute:
-
-    % make test
+```
+cd integration_tests
+pip install -U -r test-requirements.txt
+make test-setup
+make test
+```
