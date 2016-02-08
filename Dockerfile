@@ -18,4 +18,4 @@ RUN cp -r etc/* /etc
 
 EXPOSE 9491
 
-CMD xivo-amid -d -f
+CMD ["xivo-amid", "-fd"]
