@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2015 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@ import logging
 from kombu import Connection, Exchange, Producer
 
 from xivo_bus import Marshaler
+from xivo_bus import Publisher
 from xivo_bus.resources.ami.event import AMIEvent
 
 logger = logging.getLogger(__name__)
@@ -33,16 +34,9 @@ class BusClient(object):
         bus_exchange = Exchange(config['bus']['exchange_name'],
                                 type=config['bus']['exchange_type'])
         bus_producer = Producer(bus_connection, exchange=bus_exchange, auto_declare=True)
-        self._send_bus_msg = bus_connection.ensure(bus_producer, bus_producer.publish,
-                                                   errback=self._on_bus_publish_error, max_retries=5,
-                                                   interval_start=0)
-        self._marshaler = Marshaler(config['uuid'])
+        bus_marshaler = Marshaler(config['uuid'])
+        self._publisher = Publisher(bus_producer, bus_marshaler)
 
     def publish(self, message):
         ami_event = AMIEvent(message.name, message.headers)
-        msg = self._marshaler.marshal_message(ami_event)
-        self._send_bus_msg(msg, routing_key=ami_event.routing_key)
-
-    def _on_bus_publish_error(self, exc, interval):
-        logger.error('Error: %s', exc, exc_info=1)
-        logger.info('Retry in %s seconds...', interval)
+        self._publisher.publish(ami_event)
