@@ -14,6 +14,18 @@
     ],
     "x-xivo-name": "amid",
     "x-xivo-port": 9491,
+    "securityDefinitions": {
+        "xivo_auth_token": {
+            "type": "apiKey",
+            "name": "X-Auth-Token",
+            "in": "header"
+        }
+    },
+    "security": [
+        {
+            "xivo_auth_token": []
+        }
+    ],
     "paths": {
         "/action/{action}": {
             "post": {
@@ -34,13 +46,6 @@
                         "schema": {
                             "$ref": "#/definitions/ActionArguments"
                         }
-                    },
-                    {
-                        "name": "X-Auth-Token",
-                        "in": "header",
-                        "description": "Authentication token obtained from xivo-auth",
-                        "required": true,
-                        "type": "string"
                     }
                 ],
                 "tags": [
