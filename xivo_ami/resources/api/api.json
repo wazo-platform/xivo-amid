@@ -30,7 +30,7 @@
         "/action/{action}": {
             "post": {
                 "summary": "AMI action",
-                "description": "The Action endpoint sends an action to the Asterisk Manager.\n\nSee https://wiki.asterisk.org/wiki/display/AST/Asterisk+13+AMI+Actions for more details about the AMI message parameters.\n",
+                "description": "**Required ACL:** `amid.action.{action}.create`\n\nThe Action endpoint sends an action to the Asterisk Manager.\n\nSee https://wiki.asterisk.org/wiki/display/AST/Asterisk+13+AMI+Actions for more details about the AMI message parameters.\n",
                 "parameters": [
                     {
                         "name": "action",
