@@ -25,7 +25,8 @@ from flask_restful import Api
 from flask_restful import Resource
 from xivo import http_helpers
 from xivo import rest_api_helpers
-from xivo.auth_verifier import AuthVerifier, required_acl
+from xivo.auth_verifier import AuthVerifier
+from xivo.auth_verifier import required_acl as required_acl_
 
 VERSION = 1.0
 
@@ -33,7 +34,7 @@ app = Flask('xivo_amid')
 logger = logging.getLogger(__name__)
 api = Api(prefix='/{}'.format(VERSION))
 auth_verifier = AuthVerifier()
-required_acl = required_acl
+required_acl = required_acl_
 
 
 def configure(global_config):
