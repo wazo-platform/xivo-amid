@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ from flask import request
 
 from xivo_ami.ami import parser
 from xivo_ami.core.exceptions import APIException
-from xivo_ami.core.rest_api import AuthResource
+from xivo_ami.core.rest_api import AuthResource, required_acl
 
 VERSION = 1.0
 
@@ -68,6 +68,7 @@ class Actions(AuthResource):
         }
         cls.verify = config['ajam']['verify_certificate']
 
+    @required_acl('amid.action.{action}.create')
     def post(self, action):
         if action.lower() in ('queues', 'command'):
             raise UnsupportedAction(action)
