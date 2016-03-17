@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2014-2015 Avencall
+# Copyright (C) 2014-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ from xivo.http_helpers import DEFAULT_CIPHERS
 
 _DAEMONNAME = 'xivo-amid'
 _DEFAULT_CONFIG = {
+    'user': 'xivo-amid',
     'debug': False,
     'foreground': False,
     'pidfile': '/var/run/{0}/{0}.pid'.format(_DAEMONNAME),

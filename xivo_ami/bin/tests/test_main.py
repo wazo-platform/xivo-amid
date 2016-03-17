@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2014-2015 Avencall
+# Copyright (C) 2014-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ from xivo.chain_map import ChainMap
 from xivo_ami.bin.daemon import main
 
 
-USER = 'www-data'
+USER = 'xivo-amid'
 
 default_config = {
     'logfile': 'default_logfile',

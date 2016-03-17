@@ -6,6 +6,9 @@
 # should be.
 extra_config_files: /etc/xivo-amid/conf.d/
 
+# Owner of the process
+user: xivo-amid
+
 # Enable debug level logs
 debug: False
 
