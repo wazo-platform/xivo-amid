@@ -1,21 +1,15 @@
-## Image to build from sources
-
 FROM python:2.7.9
-MAINTAINER XiVO Team "dev@avencall.com"
+MAINTAINER XiVO Team "dev@proformatique.com"
 
-# Install xivo-amid
 ADD . /usr/src/xivo-amid
-WORKDIR /usr/src/xivo-amid
-RUN pip install -r requirements.txt
-
-RUN python setup.py install
-
-# Configure environment
 ADD ./contribs/docker/certs /usr/share/xivo-certs
-RUN install -o www-data -g www-data /dev/null /var/log/xivo-amid.log
-RUN install -d -o www-data -g www-data /var/run/xivo-amid
-RUN cp -r etc/* /etc
+WORKDIR /usr/src/xivo-amid
+RUN pip install -r requirements.txt \
+    && python setup.py install \
+    && adduser --system --group --quiet --no-create-home --disabled-login xivo-amid \
+    && install -o xivo-amid -g xivo-amid /dev/null /var/log/xivo-amid.log \
+    && install -d -o xivo-amid -g xivo-amid /var/run/xivo-amid \
+    && cp -r etc/* /etc
 
 EXPOSE 9491
-
 CMD ["xivo-amid", "-fd"]

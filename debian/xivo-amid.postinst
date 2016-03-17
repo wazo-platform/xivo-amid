@@ -3,23 +3,29 @@
 set -e
 
 LOG_FILENAME='/var/log/xivo-amid.log'
+USER='xivo-amid'
+GROUP=$USER
+DAEMONNAME=xivo-amid
+PIDDIR=/var/run/$DAEMONNAME
 
 case "$1" in
 	configure)
-		# add user www-data
-		if ! getent passwd www-data > /dev/null ; then
-			echo 'Adding system user for www-data' 1>&2
+		# add user
+		if ! getent passwd $USER > /dev/null ; then
+			# remove the old pid dir that could be owned by www-data
+			rm -rf "$PIDDIR"
+
+			echo "Adding system user for $USER" 1>&2
 			adduser --system --group --quiet \
-				--home /var/www \
 				--no-create-home --disabled-login \
-				www-data
+				$USER
 		fi
 
 		if [ ! -e "$LOG_FILENAME" ]; then
 			touch "$LOG_FILENAME"
 		fi
 
-		chown www-data: "$LOG_FILENAME"
+		chown $USER:$GROUP "$LOG_FILENAME"
 
 	;;
 

@@ -14,7 +14,7 @@
 set -e
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
-USER=www-data
+USER='xivo-amid'
 GROUP=$USER
 DAEMONNAME=xivo-amid
 DAEMON=/usr/bin/$DAEMONNAME
