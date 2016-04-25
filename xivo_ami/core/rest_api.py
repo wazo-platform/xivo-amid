@@ -52,6 +52,7 @@ def configure(global_config):
     load_resources(global_config)
     api.init_app(app)
 
+    global_config['auth'].setdefault('verify_certificate', True)
     auth_verifier.set_config(global_config['auth'])
 
 
