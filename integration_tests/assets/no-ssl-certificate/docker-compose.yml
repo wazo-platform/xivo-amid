@@ -11,4 +11,5 @@ amid:
   volumes:
     - "./etc/xivo-amid:/etc/xivo-amid"
     - "../../..:/usr/src/xivo-amid"
+    - "./ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
     - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"

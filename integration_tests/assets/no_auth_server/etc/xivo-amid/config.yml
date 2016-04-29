@@ -10,6 +10,7 @@ ajam:
 auth:
   host: inexisting-auth-server
   port: 9497
+  verify_certificate: /usr/local/share/xivo-auth-ssl/server.crt
 
 rest_api:
   https:
