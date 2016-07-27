@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import logging
+import time
 
 from kombu import Connection, Exchange, Producer
 
@@ -26,16 +27,37 @@ from xivo_bus.resources.ami.event import AMIEvent
 logger = logging.getLogger(__name__)
 
 
+class BusUnreachable(Exception):
+    def __init__(self, bus_config):
+        super(BusUnreachable, self).__init__('Message bus unreachable... stopping')
+        self.bus_config = bus_config
+
+
 class BusClient(object):
 
     def __init__(self, config):
+        self._publisher = self._new_publisher_or_timeout(config)
+
+    def _new_publisher_or_timeout(self, config):
+        connection_tries = config['bus']['startup_connection_tries']
+        connection_delay = config['bus']['startup_connection_delay']
+        for _ in xrange(connection_tries):
+            try:
+                return self._new_publisher(config)
+            except Exception:
+                logger.info('Message bus is not ready yet, retrying in %s seconds...', connection_delay)
+                time.sleep(connection_delay)
+                continue
+        raise BusUnreachable(config['bus'])
+
+    def _new_publisher(self, config):
         bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config['bus'])
         bus_connection = Connection(bus_url)
         bus_exchange = Exchange(config['bus']['exchange_name'],
                                 type=config['bus']['exchange_type'])
         bus_producer = Producer(bus_connection, exchange=bus_exchange, auto_declare=True)
         bus_marshaler = Marshaler(config['uuid'])
-        self._publisher = Publisher(bus_producer, bus_marshaler)
+        return Publisher(bus_producer, bus_marshaler)
 
     def publish(self, message):
         ami_event = AMIEvent(message.name, message.headers)
