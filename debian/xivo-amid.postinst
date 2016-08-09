@@ -10,14 +10,20 @@ PIDDIR=/var/run/$DAEMONNAME
 
 case "$1" in
 	configure)
-		# add user
+		# add/update user
 		if ! getent passwd $USER > /dev/null ; then
 			# remove the old pid dir that could be owned by www-data
 			rm -rf "$PIDDIR"
 
 			echo "Adding system user $USER" 1>&2
-			adduser --system --group --quiet --no-create-home --disabled-login $USER
-			adduser $USER www-data
+			adduser --quiet --system --group --no-create-home \
+					--home /var/lib/xivo-amid \
+					$USER
+			adduser --quiet $USER www-data
+		else
+			if dpkg --compare-versions "$2" lt '16.12~'; then
+				usermod --home /var/lib/xivo-amid $USER
+			fi
 		fi
 
 		if [ ! -e "$LOG_FILENAME" ]; then
