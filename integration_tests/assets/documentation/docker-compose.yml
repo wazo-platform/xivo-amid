@@ -1,0 +1,23 @@
+sync:
+  image: n3llyb0y/wait
+  links:
+    - amid
+    - swagger-validator
+  environment:
+    PORTS: "9491 8080"
+    TIMEOUT: "5"
+
+amid:
+  image: xivo-amid-tests
+  expose:
+    - 9491
+  volumes:
+    - "./etc/xivo-amid:/etc/xivo-amid"
+    - "../../..:/usr/src/xivo-amid"
+
+swagger-validator:
+  image: swaggerapi/swagger-validator
+  ports:
+    - "18080:8080"
+  links:
+    - amid
