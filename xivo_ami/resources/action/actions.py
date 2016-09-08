@@ -86,6 +86,32 @@ class Actions(AuthResource):
         return _parse_ami(response.content), 200
 
 
+class Command(AuthResource):
+    @classmethod
+    def configure(cls, config):
+        cls.ajam_url = 'https://{host}:{port}/rawman'.format(**config['ajam'])
+        cls.login_params = {
+            'action': 'login',
+            'username': config['ajam']['username'],
+            'secret': config['ajam']['password'],
+        }
+        cls.verify = config['ajam']['verify_certificate']
+
+    @required_acl('amid.action.Command.create')
+    def post(self):
+        extra_args = json.loads(request.data) if request.data else {}
+        with requests.Session() as session:
+            try:
+                session.get(self.ajam_url, params=self.login_params, verify=self.verify)
+
+                response = session.get(self.ajam_url, params=_ajam_params('Command', extra_args))
+            except requests.RequestException as e:
+                raise AJAMUnreachable(self.ajam_url, e)
+
+        response_lines = _parse_ami_command(response.content)
+        return {'response': response_lines}, 200
+
+
 def _ajam_params(action, ami_args):
     result = [('action', action)]
     for extra_arg_key, extra_arg_value in ami_args.iteritems():
@@ -106,3 +132,7 @@ def _parse_ami(buffer_):
     parser.parse_buffer(buffer_, aux, aux)
 
     return result
+
+
+def _parse_ami_command(command_result):
+    return parser.parse_command_response(command_result)

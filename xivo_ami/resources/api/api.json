@@ -72,6 +72,45 @@
                     }
                 }
             }
+        },
+        "/action/Command": {
+            "post": {
+                "summary": "AMI command",
+                "description": "**Required ACL:** `amid.action.Command.create`\n\nThis endpoint sends a command to the Asterisk Manager.\n\nSee https://wiki.asterisk.org/wiki/display/AST/Asterisk+13+AMI+Actions for more details about the AMI message parameters.\n",
+                "parameters": [
+                    {
+                        "name": "command",
+                        "in": "body",
+                        "description": "The command to send to the manager.\n\n",
+                        "schema": {
+                            "$ref": "#/definitions/Command"
+                        }
+                    }
+                ],
+                "tags": [
+                    "command"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The Asterisk Manager response",
+                        "schema": {
+                            "$ref": "#/definitions/CommandResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid authentication token",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "503": {
+                        "description": "Another service is unavailable (e.g. xivo-auth)",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -108,6 +147,23 @@
                 },
                 "details": {
                     "type": "object"
+                }
+            }
+        },
+        "Command": {
+            "properties": {
+                "command": {
+                    "type": "string"
+                }
+            }
+        },
+        "CommandResponse": {
+            "properties": {
+                "response": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             }
         }

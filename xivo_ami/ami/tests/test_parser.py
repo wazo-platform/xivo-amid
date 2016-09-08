@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2015 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,11 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from hamcrest import assert_that, equal_to
-from mock import Mock
+import textwrap
 import unittest
 
+from hamcrest import assert_that
+from hamcrest import equal_to
+from hamcrest import contains
+from mock import Mock
+
 from xivo_ami.ami.parser import parse_buffer
+from xivo_ami.ami.parser import parse_command_response
 
 MESSAGE_DELIMITER = '\r\n\r\n'
 EVENT_DELIMITER = 'Event: '
@@ -74,3 +79,22 @@ class TestParser(unittest.TestCase):
         unparsed_buffer = parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
 
         assert_that(unparsed_buffer, equal_to(msg))
+
+    def test_given_valid_command_response_when_parse_command_response_then_command_response_returned(self):
+        msg = textwrap.dedent('''\
+            Response: Follows\r
+            Privilege: Command\r
+            Class: default
+            	Mode: files
+            	Directory: /var/lib/xivo/moh/default
+            --END COMMAND--\r
+            \r
+            ''')
+
+        response_lines = parse_command_response(msg)
+
+        assert_that(response_lines, contains(
+            'Class: default',
+            '	Mode: files',
+            '	Directory: /var/lib/xivo/moh/default'
+        ))

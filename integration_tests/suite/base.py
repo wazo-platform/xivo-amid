@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -89,5 +89,20 @@ class BaseIntegrationTest(unittest.TestCase):
     @classmethod
     def action(cls, action, params=None, token=VALID_TOKEN):
         response = cls.post_action_result(action, params, token)
+        assert_that(response.status_code, equal_to(200))
+        return response.json()
+
+    @classmethod
+    def post_command_result(cls, command, token=None):
+        url = u'https://localhost:9491/1.0/action/Command'
+        result = requests.post(url,
+                               json={'command': command},
+                               headers={'X-Auth-Token': token},
+                               verify=CA_CERT)
+        return result
+
+    @classmethod
+    def command(cls, command, token=VALID_TOKEN):
+        response = cls.post_command_result(command, token)
         assert_that(response.status_code, equal_to(200))
         return response.json()

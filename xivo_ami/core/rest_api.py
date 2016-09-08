@@ -57,10 +57,13 @@ def configure(global_config):
 
 def load_resources(global_config):
     from xivo_ami.resources.action.actions import Actions
+    from xivo_ami.resources.action.actions import Command
     from xivo_ami.resources.api.actions import SwaggerResource
 
     Actions.configure(global_config)
+    Command.configure(global_config)
     api.add_resource(Actions, '/action/<action>')
+    api.add_resource(Command, '/action/Command')
 
     SwaggerResource.add_resource(api)
 

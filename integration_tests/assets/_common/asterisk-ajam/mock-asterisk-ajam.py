@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -157,7 +157,23 @@ def originate():
         '''), 200
 
 
+def command():
+    response_body = textwrap.dedent('''\
+        Class: default
+        	Mode: files
+        	Directory: /var/lib/xivo/moh/default
+        --END COMMAND--''')
+
+    return response('''\
+        Response: Follows
+        Privilege: Command
+        {body_no_carriage_return}
+
+        ''').format(body_no_carriage_return=response_body), 200
+
+
 actions = {
+    'command': command,
     'dbget': dbget,
     'dbput': dbput,
     'login': login,
