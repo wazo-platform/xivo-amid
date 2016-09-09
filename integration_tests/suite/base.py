@@ -93,16 +93,17 @@ class BaseIntegrationTest(unittest.TestCase):
         return response.json()
 
     @classmethod
-    def post_command_result(cls, command, token=None):
+    def post_command_result(cls, body, token=None):
         url = u'https://localhost:9491/1.0/action/Command'
         result = requests.post(url,
-                               json={'command': command},
+                               json=body,
                                headers={'X-Auth-Token': token},
                                verify=CA_CERT)
         return result
 
     @classmethod
     def command(cls, command, token=VALID_TOKEN):
-        response = cls.post_command_result(command, token)
+        body = {'command': command}
+        response = cls.post_command_result(body, token)
         assert_that(response.status_code, equal_to(200))
         return response.json()

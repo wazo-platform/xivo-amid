@@ -24,6 +24,8 @@ from xivo_ami.ami import parser
 from xivo_ami.core.exceptions import APIException
 from xivo_ami.core.rest_api import AuthResource, required_acl
 
+from .schema import command_schema
+
 VERSION = 1.0
 
 logger = logging.getLogger(__name__)
@@ -99,7 +101,7 @@ class Command(AuthResource):
 
     @required_acl('amid.action.Command.create')
     def post(self):
-        extra_args = json.loads(request.data) if request.data else {}
+        extra_args = command_schema.load(request.get_json(force=True)).data
         with requests.Session() as session:
             try:
                 session.get(self.ajam_url, params=self.login_params, verify=self.verify)

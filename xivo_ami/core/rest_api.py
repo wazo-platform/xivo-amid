@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import logging
+import marshmallow
 import os
 
 from cherrypy import wsgiserver
@@ -23,10 +24,13 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 from flask_restful import Resource
+from functools import wraps
 from xivo import http_helpers
 from xivo import rest_api_helpers
 from xivo.auth_verifier import AuthVerifier
 from xivo.auth_verifier import required_acl as required_acl_
+
+from .exceptions import ValidationError
 
 VERSION = 1.0
 
@@ -88,8 +92,18 @@ def run(config):
         server.stop()
 
 
+def handle_validation_exception(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except marshmallow.ValidationError as e:
+            raise ValidationError(e.messages)
+    return wrapper
+
+
 class ErrorCatchingResource(Resource):
-    method_decorators = [rest_api_helpers.handle_api_exception] + Resource.method_decorators
+    method_decorators = [handle_validation_exception, rest_api_helpers.handle_api_exception] + Resource.method_decorators
 
 
 class AuthResource(ErrorCatchingResource):

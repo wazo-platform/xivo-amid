@@ -97,6 +97,12 @@
                             "$ref": "#/definitions/CommandResponse"
                         }
                     },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
                     "401": {
                         "description": "Invalid authentication token",
                         "schema": {

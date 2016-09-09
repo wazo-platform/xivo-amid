@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015-2016 Avencall
+
+# Copyright (C) 2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,22 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import logging
-
-from xivo import rest_api_helpers
-
-logger = logging.getLogger(__name__)
+from marshmallow import fields, Schema
+from marshmallow.validate import Length
 
 
-APIException = rest_api_helpers.APIException
+class Command(Schema):
+    command = fields.String(required=True)
 
-
-class ValidationError(APIException):
-
-    def __init__(self, errors):
-        super(ValidationError, self).__init__(
-            status_code=400,
-            message='Sent data is invalid',
-            error_id='invalid-data',
-            details=errors
-        )
+command_schema = Command(strict=True)

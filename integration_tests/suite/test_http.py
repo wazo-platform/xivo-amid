@@ -113,6 +113,13 @@ class TestHTTPCommand(BaseIntegrationTest):
 
     asset = 'http_only'
 
+    def test_given_no_command_when_action_command_then_error_400(self):
+        response = self.post_command_result({}, VALID_TOKEN)
+
+        assert_that(response.status_code, equal_to(400))
+
+        assert_that(response.json(), has_entry('error_id', equal_to('invalid-data')))
+
     def test_that_action_command_returns_command_response(self):
         result = self.command('moh show classes')
 
