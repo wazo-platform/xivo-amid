@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ from .base import BaseIntegrationTest
 from .base import VALID_TOKEN
 
 
-class TestHTTP(BaseIntegrationTest):
+class TestHTTPAction(BaseIntegrationTest):
 
     asset = 'http_only'
 
@@ -47,9 +47,6 @@ class TestHTTP(BaseIntegrationTest):
     def test_that_malformatted_actions_are_refused(self):
         # the format of Queues response is suited for display, not parsing
         result = self.post_action_result('Queues', token=VALID_TOKEN)
-        assert_that(result.status_code, equal_to(501))
-
-        result = self.post_action_result('Command', token=VALID_TOKEN)
         assert_that(result.status_code, equal_to(501))
 
     def test_that_action_with_events_returns_events(self):
@@ -110,6 +107,27 @@ class TestHTTP(BaseIntegrationTest):
                 'Key': key,
                 'Val': value,
             })))
+
+
+class TestHTTPCommand(BaseIntegrationTest):
+
+    asset = 'http_only'
+
+    def test_given_no_command_when_action_command_then_error_400(self):
+        response = self.post_command_result({}, VALID_TOKEN)
+
+        assert_that(response.status_code, equal_to(400))
+
+        assert_that(response.json(), has_entry('error_id', equal_to('invalid-data')))
+
+    def test_that_action_command_returns_command_response(self):
+        result = self.command('moh show classes')
+
+        assert_that(result, has_entry('response', contains(
+            'Class: default',
+            '	Mode: files',
+            '	Directory: /var/lib/xivo/moh/default',
+        )))
 
 
 class TestHTTPMultipleIdenticalKeys(BaseIntegrationTest):

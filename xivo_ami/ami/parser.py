@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2015 Avencall
+# Copyright (C) 2012-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,6 +39,21 @@ def parse_buffer(raw_buffer, event_callback, response_callback):
             continue
 
     return unparsed_buffer
+
+
+def parse_command_response(raw_buffer):
+    lines = raw_buffer.decode('utf8', 'replace').split('\r\n')
+    if (len(lines) < 3 or   # 2 headers + 1 body
+            lines[0] != 'Response: Follows' or
+            lines[1] != 'Privilege: Command'):
+        raise AMIParsingError()
+
+    response_body = lines[2].split('\n')
+
+    if not response_body or response_body[-1] != '--END COMMAND--':
+        raise AMIParsingError()
+
+    return response_body[:-1]
 
 
 def _parse_msg(data, event_callback, response_callback):
