@@ -1,0 +1,152 @@
+swagger: '2.0'
+info:
+  title: XiVO AMId
+  description: Send AMI actions to Asterisk, providing token based authentication.
+  version: '0.1'
+schemes:
+- https
+basePath: /1.0
+produces:
+- application/json
+x-xivo-name: amid
+x-xivo-port: 9491
+securityDefinitions:
+  xivo_auth_token:
+    type: apiKey
+    name: X-Auth-Token
+    in: header
+security:
+- xivo_auth_token: []
+paths:
+  /action/{action}:
+    post:
+      summary: AMI action
+      description: '**Required ACL:** `amid.action.{action}.create`
+
+
+        The Action endpoint sends an action to the Asterisk Manager.
+
+
+        See https://wiki.asterisk.org/wiki/display/AST/Asterisk+13+AMI+Actions for
+        more details about the AMI message parameters.
+
+        '
+      parameters:
+      - name: action
+        in: path
+        description: 'Name of the manager action. Currently not supported: Queues,
+          Command.'
+        required: true
+        type: string
+      - name: action_arguments
+        in: body
+        description: 'Arguments for the manager action.
+
+
+          Action: taken from the URL
+
+          ActionID: not necessary
+
+
+          If you need a same key multiple times, give a list of values.
+
+
+          For Action: Originate, you should always use Async: True'
+        schema:
+          $ref: '#/definitions/ActionArguments'
+      tags:
+      - action
+      responses:
+        '200':
+          description: The Asterisk Manager responses
+          schema:
+            $ref: '#/definitions/Response'
+        '401':
+          description: Invalid authentication token
+          schema:
+            $ref: '#/definitions/Error'
+        '503':
+          description: Another service is unavailable (e.g. xivo-auth)
+          schema:
+            $ref: '#/definitions/Error'
+  /action/Command:
+    post:
+      summary: AMI command
+      description: '**Required ACL:** `amid.action.Command.create`
+
+
+        This endpoint sends a command to the Asterisk Manager.
+
+
+        See https://wiki.asterisk.org/wiki/display/AST/Asterisk+13+AMI+Actions for
+        more details about the AMI message parameters.
+
+        '
+      parameters:
+      - name: command
+        in: body
+        description: 'The command to send to the manager.
+
+
+          '
+        schema:
+          $ref: '#/definitions/Command'
+      tags:
+      - command
+      responses:
+        '200':
+          description: The Asterisk Manager response
+          schema:
+            $ref: '#/definitions/CommandResponse'
+        '400':
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/Error'
+        '401':
+          description: Invalid authentication token
+          schema:
+            $ref: '#/definitions/Error'
+        '503':
+          description: Another service is unavailable (e.g. xivo-auth)
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Response:
+    properties:
+      response:
+        type: string
+        description: Name of the action response
+  ActionArguments:
+    properties: {}
+    example:
+      Channel: SIP/abcdef
+      Priority: '1'
+      Exten: '1234'
+      Context: default
+      Variable:
+      - Var1=one
+      - Var2=two
+      Async: 'True'
+  Error:
+    properties:
+      timestamp:
+        type: number
+        format: timestamp
+      message:
+        type: string
+      error_id:
+        type: string
+      details:
+        type: object
+  Command:
+    properties:
+      command:
+        type: string
+    required:
+    - command
+  CommandResponse:
+    properties:
+      response:
+        type: array
+        items:
+          type: string

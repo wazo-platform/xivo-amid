@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2015 Avencall
+# Copyright (C) 2016 Proformatique Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,8 +23,8 @@ from pkg_resources import resource_string
 class SwaggerResource(Resource):
 
     api_package = "xivo_ami.resources.api"
-    api_filename = "api.json"
-    api_path = "/api/api.json"
+    api_filename = "api.yml"
+    api_path = "/api/api.yml"
 
     @classmethod
     def add_resource(cls, api):
@@ -34,4 +35,4 @@ class SwaggerResource(Resource):
             api_spec = resource_string(self.api_package, self.api_filename)
         except IOError:
             return {'error': "API spec does not exist"}, 404
-        return make_response(api_spec, 200, {'Content-Type': 'application/json'})
+        return make_response(api_spec, 200, {'Content-Type': 'application/x-yaml'})
