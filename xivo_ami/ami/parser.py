@@ -43,17 +43,7 @@ def parse_buffer(raw_buffer, event_callback, response_callback):
 
 def parse_command_response(raw_buffer):
     lines = raw_buffer.decode('utf8', 'replace').split('\r\n')
-    if (len(lines) < 3 or   # 2 headers + 1 body
-            lines[0] != 'Response: Follows' or
-            lines[1] != 'Privilege: Command'):
-        raise AMIParsingError()
-
-    response_body = lines[2].split('\n')
-
-    if not response_body or response_body[-1] != '--END COMMAND--':
-        raise AMIParsingError()
-
-    return response_body[:-1]
+    return [line[8:] for line in lines if line.startswith('Output: ')]
 
 
 def _parse_msg(data, event_callback, response_callback):

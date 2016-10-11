@@ -82,12 +82,11 @@ class TestParser(unittest.TestCase):
 
     def test_given_valid_command_response_when_parse_command_response_then_command_response_returned(self):
         msg = textwrap.dedent('''\
-            Response: Follows\r
-            Privilege: Command\r
-            Class: default
-            	Mode: files
-            	Directory: /var/lib/xivo/moh/default
-            --END COMMAND--\r
+            Response: Success\r
+            Message: Command output follows\r
+            Output: Class: default\r
+            Output: 	Mode: files\r
+            Output: 	Directory: /var/lib/xivo/moh/default\r
             \r
             ''')
 

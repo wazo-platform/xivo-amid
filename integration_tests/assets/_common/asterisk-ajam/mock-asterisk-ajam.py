@@ -158,18 +158,14 @@ def originate():
 
 
 def command():
-    response_body = textwrap.dedent('''\
-        Class: default
-        	Mode: files
-        	Directory: /var/lib/xivo/moh/default
-        --END COMMAND--''')
-
     return response('''\
-        Response: Follows
-        Privilege: Command
-        {body_no_carriage_return}
+        Response: Success
+        Message: Command output follows
+        Output: Class: default
+        Output: 	Mode: files
+        Output: 	Directory: /var/lib/xivo/moh/default
 
-        ''').format(body_no_carriage_return=response_body), 200
+        '''), 200
 
 
 actions = {
