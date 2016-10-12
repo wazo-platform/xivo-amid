@@ -15,7 +15,7 @@ setup(
 
     packages=find_packages(),
     package_data={
-        'xivo_ami.resources.api': ['*.json'],
+        'xivo_ami.resources.api': ['*.yml'],
     },
     scripts=['bin/xivo-amid'],
 )

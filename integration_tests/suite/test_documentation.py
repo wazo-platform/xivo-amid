@@ -27,7 +27,7 @@ class TestDocumentation(BaseIntegrationTest):
     asset = 'documentation'
 
     def test_documentation_errors(self):
-        api_url = 'https://amid:9491/1.0/api/api.json'
+        api_url = 'https://amid:9491/1.0/api/api.yml'
         self.validate_api(api_url)
 
     def validate_api(self, url):
