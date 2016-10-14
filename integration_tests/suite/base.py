@@ -24,6 +24,7 @@ import unittest
 
 from hamcrest import assert_that
 from hamcrest import equal_to
+from xivo_test_helpers import asset_launching_test_case
 
 logger = logging.getLogger(__name__)
 
@@ -35,40 +36,18 @@ CA_CERT = os.path.join(ASSETS_ROOT, '_common', 'ssl', 'localhost', 'server.crt')
 VALID_TOKEN = 'valid-token'
 
 
-class BaseIntegrationTest(unittest.TestCase):
+class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
-    @staticmethod
-    def _run_cmd(cmd):
-        process = subprocess.Popen(cmd.split(' '), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        out, _ = process.communicate()
-        logger.info(out)
-        return out
+    assets_root = ASSETS_ROOT
 
-    @classmethod
-    def setUpClass(cls):
-        cls.container_name = cls.asset
-        asset_path = os.path.join(ASSETS_ROOT, cls.asset)
-        cls.cur_dir = os.getcwd()
-        os.chdir(asset_path)
-        cls._run_cmd('docker-compose rm --force')
-        cls._run_cmd('docker-compose run --rm sync')
-
-    @classmethod
-    def tearDownClass(cls):
-        cls._run_cmd('docker-compose kill')
-        os.chdir(cls.cur_dir)
 
     @classmethod
     def amid_status(cls):
-        amid_id = cls._run_cmd('docker-compose ps -q amid').strip()
-        status = cls._run_cmd('docker inspect {container}'.format(container=amid_id))
-        return json.loads(status)
+        return cls.service_status('amid')
 
     @classmethod
     def amid_logs(cls):
-        amid_id = cls._run_cmd('docker-compose ps -q amid').strip()
-        status = cls._run_cmd('docker logs {container}'.format(container=amid_id))
-        return status
+        return cls.service_logs('amid')
 
     @classmethod
     def ajam_requests(cls):
