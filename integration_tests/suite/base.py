@@ -40,6 +40,29 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     assets_root = ASSETS_ROOT
 
+    @classmethod
+    def setUpClass(cls):
+        super(BaseIntegrationTest, cls).setUpClass()
+        try:
+            cls._amid_port = cls.service_port(9491, 'amid')
+        except asset_launching_test_case.NoSuchPort:
+            cls._amid_port = None
+        try:
+            cls._ajam_port = cls.service_port(5040, 'asterisk-ajam')
+        except (asset_launching_test_case.NoSuchPort, asset_launching_test_case.NoSuchService):
+            cls._ajam_port = None
+
+    @classmethod
+    def amid_url(cls, *parts):
+        return 'https://{host}:{port}/1.0/{path}'.format(host='localhost',
+                                                         port=cls._amid_port,
+                                                         path='/'.join(parts))
+
+    @classmethod
+    def ajam_url(cls, *parts):
+        return 'https://{host}:{port}/{path}'.format(host='localhost',
+                                                     port=cls._ajam_port,
+                                                     path='/'.join(parts))
 
     @classmethod
     def amid_status(cls):
@@ -51,15 +74,13 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     @classmethod
     def ajam_requests(cls):
-        url = u'https://localhost:5040/_requests'
-        response = requests.get(url, verify=False)
+        response = requests.get(cls.ajam_url('_requests'), verify=False)
         assert_that(response.status_code, equal_to(200))
         return response.json()
 
     @classmethod
     def post_action_result(cls, action, params=None, token=None):
-        url = u'https://localhost:9491/1.0/action/{action}'
-        result = requests.post(url.format(action=action),
+        result = requests.post(cls.amid_url('action', action),
                                data=(json.dumps(params) if params else ''),
                                headers={'X-Auth-Token': token},
                                verify=CA_CERT)
@@ -73,8 +94,7 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     @classmethod
     def post_command_result(cls, body, token=None):
-        url = u'https://localhost:9491/1.0/action/Command'
-        result = requests.post(url,
+        result = requests.post(cls.amid_url('action', 'Command'),
                                json=body,
                                headers={'X-Auth-Token': token},
                                verify=CA_CERT)

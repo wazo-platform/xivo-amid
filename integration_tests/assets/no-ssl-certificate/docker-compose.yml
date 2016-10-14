@@ -7,7 +7,7 @@ sync:
 amid:
   image: xivo-amid-tests
   ports:
-    - "9491:9491"
+    - "9491"
   volumes:
     - "./etc/xivo-amid:/etc/xivo-amid"
     - "../../..:/usr/src/xivo-amid"
