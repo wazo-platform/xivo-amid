@@ -11,7 +11,7 @@ sync:
 amid:
   image: xivo-amid-tests
   ports:
-    - "9491:9491"
+    - "9491"
   volumes:
     - "./etc/xivo-amid:/etc/xivo-amid"
     - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
@@ -25,7 +25,7 @@ amid:
 asterisk-ajam:
   image: p0bailey/docker-flask
   ports:
-    - "5040:5040"
+    - "5040"
   volumes:
     - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
     - "./asterisk-ajam:/usr/local/share/asterisk-ajam"

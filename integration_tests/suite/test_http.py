@@ -161,7 +161,7 @@ class TestHTTPSMissingCertificate(BaseIntegrationTest):
 
     def test_given_inexisting_SSL_certificate_when_amid_starts_then_amid_stops(self):
         for _ in range(5):
-            status = self.amid_status()[0]
+            status = self.amid_status()
             if not status['State']['Running']:
                 break
             time.sleep(1)
@@ -178,7 +178,7 @@ class TestHTTPSMissingPrivateKey(BaseIntegrationTest):
 
     def test_given_inexisting_SSL_private_key_when_amid_starts_then_amid_stops(self):
         for _ in range(2):
-            status = self.amid_status()[0]
+            status = self.amid_status()
             if not status['State']['Running']:
                 break
             time.sleep(1)

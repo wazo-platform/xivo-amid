@@ -24,6 +24,7 @@ import unittest
 
 from hamcrest import assert_that
 from hamcrest import equal_to
+from xivo_test_helpers import asset_launching_test_case
 
 logger = logging.getLogger(__name__)
 
@@ -35,52 +36,51 @@ CA_CERT = os.path.join(ASSETS_ROOT, '_common', 'ssl', 'localhost', 'server.crt')
 VALID_TOKEN = 'valid-token'
 
 
-class BaseIntegrationTest(unittest.TestCase):
+class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
-    @staticmethod
-    def _run_cmd(cmd):
-        process = subprocess.Popen(cmd.split(' '), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        out, _ = process.communicate()
-        logger.info(out)
-        return out
+    assets_root = ASSETS_ROOT
 
     @classmethod
     def setUpClass(cls):
-        cls.container_name = cls.asset
-        asset_path = os.path.join(ASSETS_ROOT, cls.asset)
-        cls.cur_dir = os.getcwd()
-        os.chdir(asset_path)
-        cls._run_cmd('docker-compose rm --force')
-        cls._run_cmd('docker-compose run --rm sync')
+        super(BaseIntegrationTest, cls).setUpClass()
+        try:
+            cls._amid_port = cls.service_port(9491, 'amid')
+        except asset_launching_test_case.NoSuchPort:
+            cls._amid_port = None
+        try:
+            cls._ajam_port = cls.service_port(5040, 'asterisk-ajam')
+        except (asset_launching_test_case.NoSuchPort, asset_launching_test_case.NoSuchService):
+            cls._ajam_port = None
 
     @classmethod
-    def tearDownClass(cls):
-        cls._run_cmd('docker-compose kill')
-        os.chdir(cls.cur_dir)
+    def amid_url(cls, *parts):
+        return 'https://{host}:{port}/1.0/{path}'.format(host='localhost',
+                                                         port=cls._amid_port,
+                                                         path='/'.join(parts))
+
+    @classmethod
+    def ajam_url(cls, *parts):
+        return 'https://{host}:{port}/{path}'.format(host='localhost',
+                                                     port=cls._ajam_port,
+                                                     path='/'.join(parts))
 
     @classmethod
     def amid_status(cls):
-        amid_id = cls._run_cmd('docker-compose ps -q amid').strip()
-        status = cls._run_cmd('docker inspect {container}'.format(container=amid_id))
-        return json.loads(status)
+        return cls.service_status('amid')
 
     @classmethod
     def amid_logs(cls):
-        amid_id = cls._run_cmd('docker-compose ps -q amid').strip()
-        status = cls._run_cmd('docker logs {container}'.format(container=amid_id))
-        return status
+        return cls.service_logs('amid')
 
     @classmethod
     def ajam_requests(cls):
-        url = u'https://localhost:5040/_requests'
-        response = requests.get(url, verify=False)
+        response = requests.get(cls.ajam_url('_requests'), verify=False)
         assert_that(response.status_code, equal_to(200))
         return response.json()
 
     @classmethod
     def post_action_result(cls, action, params=None, token=None):
-        url = u'https://localhost:9491/1.0/action/{action}'
-        result = requests.post(url.format(action=action),
+        result = requests.post(cls.amid_url('action', action),
                                data=(json.dumps(params) if params else ''),
                                headers={'X-Auth-Token': token},
                                verify=CA_CERT)
@@ -94,8 +94,7 @@ class BaseIntegrationTest(unittest.TestCase):
 
     @classmethod
     def post_command_result(cls, body, token=None):
-        url = u'https://localhost:9491/1.0/action/Command'
-        result = requests.post(url,
+        result = requests.post(cls.amid_url('action', 'Command'),
                                json=body,
                                headers={'X-Auth-Token': token},
                                verify=CA_CERT)
