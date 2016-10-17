@@ -1,3 +1,4 @@
 docker-compose
 pyhamcrest
 nose
+git+https://github.com/xivo-pbx/xivo-test-helpers.git
