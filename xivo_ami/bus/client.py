@@ -31,7 +31,8 @@ logger = logging.getLogger(__name__)
 
 class BusUnreachable(Exception):
     def __init__(self, bus_config):
-        super(BusUnreachable, self).__init__('Message bus unreachable... stopping')
+        bus_url = 'amqp://{username}:******@{host}:{port}//'.format(**bus_config)
+        super(BusUnreachable, self).__init__('Message bus unreachable on {}... stopping'.format(bus_url))
         self.bus_config = bus_config
 
 
@@ -47,7 +48,7 @@ class BusClient(object):
             try:
                 return self._new_publisher(config)
             except (AMQPError, socket.error) as e:
-                logger.info('Message bus is not ready yet, retrying in %s seconds...', connection_delay)
+                logger.info('Error connecting to message bus (%s), retrying in %s seconds...', e, connection_delay)
                 time.sleep(connection_delay)
                 continue
         raise BusUnreachable(config['bus'])
