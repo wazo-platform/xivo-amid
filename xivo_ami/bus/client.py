@@ -16,8 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import logging
+import socket
 import time
 
+from amqp.exceptions import AMQPError
 from kombu import Connection, Exchange, Producer
 
 from xivo_bus import Marshaler
@@ -44,7 +46,7 @@ class BusClient(object):
         for _ in xrange(connection_tries):
             try:
                 return self._new_publisher(config)
-            except Exception:
+            except (AMQPError, socket.error) as e:
                 logger.info('Message bus is not ready yet, retrying in %s seconds...', connection_delay)
                 time.sleep(connection_delay)
                 continue
