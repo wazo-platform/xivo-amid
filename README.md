@@ -11,7 +11,7 @@ xivo-amid is a daemon for interacting Asterisk's AMI:
 Docker
 ------
 
-The xivo/amid image can be built using the following command:
+The wazopbx/xivo-ami image can be built using the following command:
 
    % docker build -t wazopbx/xivo-amid .
 
