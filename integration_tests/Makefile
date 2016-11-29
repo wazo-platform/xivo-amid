@@ -7,7 +7,7 @@ test-setup: build-amid
 	docker pull n3llyb0y/wait
 
 build-amid:
-	docker build -t xivo/xivo-amid ..
+	docker build -t wazopbx/xivo-amid ..
 	docker build --no-cache -t xivo-amid-tests -f Dockerfile ..
 
 test:
