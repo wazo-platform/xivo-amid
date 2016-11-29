@@ -1,4 +1,4 @@
-FROM xivo/xivo-amid
+FROM wazopbx/xivo-amid
 
 ADD . /usr/src/xivo-amid
 WORKDIR /usr/src/xivo-amid
