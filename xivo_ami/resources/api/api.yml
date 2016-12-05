@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: XiVO AMId
+  title: Wazo AMId
   description: Send AMI actions to Asterisk, providing token based authentication.
   version: '0.1'
 schemes:
