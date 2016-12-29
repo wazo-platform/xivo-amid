@@ -8,9 +8,9 @@ setup(
     name='xivo-amid',
     version='0.1',
     description='XiVO AMI adapter server',
-    author='Avencall',
-    author_email='dev@avencall.com',
-    url='https://github.com/wazo-pbx/xivo-amid',
+    author='Wazo Authors',
+    author_email='dev.wazo@gmail.com',
+    url='http://wazo.community',
     license='GPLv3',
 
     packages=find_packages(),
