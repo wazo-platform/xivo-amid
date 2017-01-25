@@ -9,43 +9,43 @@ DAEMONNAME=xivo-amid
 PIDDIR=/var/run/$DAEMONNAME
 
 case "$1" in
-	configure)
-		# add/update user
-		if ! getent passwd $USER > /dev/null ; then
-			# remove the old pid dir that could be owned by www-data
-			rm -rf "$PIDDIR"
+    configure)
+        # add/update user
+        if ! getent passwd $USER > /dev/null ; then
+            # remove the old pid dir that could be owned by www-data
+            rm -rf "$PIDDIR"
 
-			echo "Adding system user $USER" 1>&2
-			adduser --quiet --system --group --no-create-home \
-					--home /var/lib/xivo-amid \
-					$USER
-			adduser --quiet $USER www-data
-		else
-			if dpkg --compare-versions "$2" lt '16.12~'; then
-				usermod --home /var/lib/xivo-amid $USER
-			fi
-		fi
+            echo "Adding system user $USER" 1>&2
+            adduser --quiet --system --group --no-create-home \
+                    --home /var/lib/xivo-amid \
+                    $USER
+            adduser --quiet $USER www-data
+        else
+            if dpkg --compare-versions "$2" lt '16.12~'; then
+                usermod --home /var/lib/xivo-amid $USER
+            fi
+        fi
 
-		if [ ! -e "$LOG_FILENAME" ]; then
-			touch "$LOG_FILENAME"
-		fi
+        if [ ! -e "$LOG_FILENAME" ]; then
+            touch "$LOG_FILENAME"
+        fi
 
-		chown $USER:$GROUP "$LOG_FILENAME"
+        chown $USER:$GROUP "$LOG_FILENAME"
 
-		if dpkg --compare-versions "$2" lt '17.03'; then
-			ln -sf  /etc/nginx/locations/https-available/$DAEMONNAME \
-					/etc/nginx/locations/https-enabled/$DAEMONNAME
-		fi
+        if dpkg --compare-versions "$2" lt '17.03'; then
+            ln -sf  /etc/nginx/locations/https-available/$DAEMONNAME \
+                    /etc/nginx/locations/https-enabled/$DAEMONNAME
+        fi
 
-	;;
+    ;;
 
-	abort-upgrade|abort-remove|abort-deconfigure)
-	;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
 
-	*)
-		echo "postinst called with unknown argument \`$1'" >&2
-		exit 1
-	;;
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
 esac
 
 # dh_installdeb will replace this with shell code automatically
