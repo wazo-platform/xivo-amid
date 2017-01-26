@@ -27,8 +27,7 @@ Depends: ${python:Depends},
          python-requests,
          xivo-auth-client,
          xivo-bus (>= 15.05~20150311.194150.b00ca46-1),
-         xivo-lib-python (>= 13.02~20130125.161022.4959dfa-1),
-         xivo-nginx
+         xivo-lib-python (>= 13.02~20130125.161022.4959dfa-1)
 Description: Wazo amid lib
  Wazo is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.
