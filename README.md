@@ -13,7 +13,7 @@ Docker
 
 The wazopbx/xivo-ami image can be built using the following command:
 
-   % docker build -t wazopbx/xivo-amid .
+    docker build -t wazopbx/xivo-amid .
 
 
 Testing
