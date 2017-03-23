@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2014-2016 Avencall
+# Copyright 2014-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ _DEFAULT_CONFIG = {
                            'private_key': '/usr/share/xivo-certs/server.key',
                            'ciphers': DEFAULT_CIPHERS},
                  'cors': {'enabled': True,
-                          'allow_headers': 'Content-Type, X-Auth-Token'}},
+                          'allow_headers': ['Content-Type', 'X-Auth-Token']}},
 }
 
 
