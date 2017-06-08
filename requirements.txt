@@ -8,6 +8,5 @@ git+https://github.com/wazo-pbx/xivo-lib-rest-client.git  # from xivo-auth-clien
 git+https://github.com/wazo-pbx/xivo-bus.git
 kombu==3.0.34
 marshmallow==2.10.3
-pyopenssl==0.14  # from xivo-lib-python
 pyyaml==3.11  # from xivo-lib-python
 requests==2.4.3
