@@ -1,5 +1,5 @@
 FROM python:2.7.9
-MAINTAINER XiVO Team "dev@proformatique.com"
+MAINTAINER Wazo Maintainers <dev@wazo.community>
 
 ADD . /usr/src/xivo-amid
 ADD ./contribs/docker/certs /usr/share/xivo-certs

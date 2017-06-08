@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 from setuptools import setup
 from setuptools import find_packages
@@ -9,7 +9,7 @@ setup(
     version='0.1',
     description='XiVO AMI adapter server',
     author='Wazo Authors',
-    author_email='dev.wazo@gmail.com',
+    author_email='dev@wazo.community',
     url='http://wazo.community',
     license='GPLv3',
 
