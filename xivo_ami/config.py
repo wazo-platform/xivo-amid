@@ -19,7 +19,6 @@ import argparse
 
 from xivo.chain_map import ChainMap
 from xivo.config_helper import read_config_file_hierarchy
-from xivo.http_helpers import DEFAULT_CIPHERS
 
 
 _DAEMONNAME = 'xivo-amid'
@@ -57,8 +56,7 @@ _DEFAULT_CONFIG = {
     'rest_api': {'https': {'listen': '0.0.0.0',
                            'port': 9491,
                            'certificate': '/usr/share/xivo-certs/server.crt',
-                           'private_key': '/usr/share/xivo-certs/server.key',
-                           'ciphers': DEFAULT_CIPHERS},
+                           'private_key': '/usr/share/xivo-certs/server.key'},
                  'cors': {'enabled': True,
                           'allow_headers': ['Content-Type', 'X-Auth-Token']}},
 }
