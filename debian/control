@@ -18,7 +18,7 @@ Description: Wazo PBX's Proxy for Asterisk's AMI Events
 Package: xivo-libamid
 Architecture: all
 Depends: ${python:Depends},
-         python-cherrypy3,
+         python-cheroot,
          python-flask,
          python-flask-restful,
          python-flask-cors (>= 3.0.2),
