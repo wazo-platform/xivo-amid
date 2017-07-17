@@ -25,8 +25,10 @@ from flask_cors import CORS
 from flask_restful import Api
 from flask_restful import Resource
 from functools import wraps
+from werkzeug.contrib.fixers import ProxyFix
 from xivo import http_helpers
 from xivo import rest_api_helpers
+from xivo.http_helpers import ReverseProxied
 from xivo.auth_verifier import AuthVerifier
 from xivo.auth_verifier import required_acl as required_acl_
 
@@ -76,7 +78,7 @@ def run(config):
     https_config = config['https']
     bind_addr = (https_config['listen'], https_config['port'])
 
-    wsgi_app = wsgi.WSGIPathInfoDispatcher({'/': app})
+    wsgi_app = ReverseProxied(ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app})))
     server = wsgi.WSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
     server.ssl_adapter = http_helpers.ssl_adapter(https_config['certificate'],
                                                   https_config['private_key'])
