@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2015 Avencall
+# Copyright 2012-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ from mock import call, Mock, patch, sentinel
 
 from xivo_ami.ami.client import AMIClient, AMIConnectionError
 from xivo_ami.bus.client import BusClient
-from xivo_ami.core.facade import EventHandlerFacade
+from xivo_ami.facade import EventHandlerFacade
 
 RECONNECTION_DELAY = 5
 

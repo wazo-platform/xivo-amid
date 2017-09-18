@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015-2016 Avencall
+# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@ import requests
 from flask import request
 
 from xivo_ami.ami import parser
-from xivo_ami.core.exceptions import APIException
-from xivo_ami.core.rest_api import AuthResource, required_acl
+from xivo_ami.exceptions import APIException
+from xivo_ami.rest_api import AuthResource, required_acl
 
 from .schema import command_schema
 
