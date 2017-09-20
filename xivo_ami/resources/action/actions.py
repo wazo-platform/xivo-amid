@@ -18,6 +18,7 @@ import json
 import logging
 import requests
 
+from contextlib import contextmanager
 from flask import request
 
 from xivo_ami.ami import parser
@@ -26,6 +27,7 @@ from xivo_ami.rest_api import AuthResource, required_acl
 
 from .schema import command_schema
 
+LOGOFF_PARAMS = {'action': 'logoff'}
 VERSION = 1.0
 
 logger = logging.getLogger(__name__)
@@ -77,18 +79,17 @@ class Actions(AuthResource):
 
         extra_args = json.loads(request.data) if request.data else {}
 
-        with requests.Session() as session:
-            try:
-                session.get(self.ajam_url, params=self.login_params, verify=self.verify)
-
+        try:
+            with _ajam_session(self.ajam_url, self.login_params, self.verify) as session:
                 response = session.get(self.ajam_url, params=_ajam_params(action, extra_args))
-            except requests.RequestException as e:
-                raise AJAMUnreachable(self.ajam_url, e)
+        except requests.RequestException as e:
+            raise AJAMUnreachable(self.ajam_url, e)
 
         return _parse_ami(response.content), 200
 
 
 class Command(AuthResource):
+
     @classmethod
     def configure(cls, config):
         cls.ajam_url = 'https://{host}:{port}/rawman'.format(**config['ajam'])
@@ -102,13 +103,11 @@ class Command(AuthResource):
     @required_acl('amid.action.Command.create')
     def post(self):
         extra_args = command_schema.load(request.get_json(force=True)).data
-        with requests.Session() as session:
-            try:
-                session.get(self.ajam_url, params=self.login_params, verify=self.verify)
-
+        try:
+            with _ajam_session(self.ajam_url, self.login_params, self.verify) as session:
                 response = session.get(self.ajam_url, params=_ajam_params('Command', extra_args))
-            except requests.RequestException as e:
-                raise AJAMUnreachable(self.ajam_url, e)
+        except requests.RequestException as e:
+            raise AJAMUnreachable(self.ajam_url, e)
 
         response_lines = _parse_ami_command(response.content)
         return {'response': response_lines}, 200
@@ -138,3 +137,11 @@ def _parse_ami(buffer_):
 
 def _parse_ami_command(command_result):
     return parser.parse_command_response(command_result)
+
+
+@contextmanager
+def _ajam_session(ajam_url, login_params, verify):
+    with requests.Session() as session:
+        session.get(ajam_url, params=login_params, verify=verify)
+        yield session
+        session.get(ajam_url, params=LOGOFF_PARAMS, verify=verify)
