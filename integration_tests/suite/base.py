@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015-2016 Avencall
+# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@ import json
 import logging
 import os
 import requests
-import subprocess
-import unittest
 
 from hamcrest import assert_that
 from hamcrest import equal_to
@@ -39,6 +37,7 @@ VALID_TOKEN = 'valid-token'
 class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     assets_root = ASSETS_ROOT
+    service = 'amid'
 
     @classmethod
     def setUpClass(cls):
