@@ -11,12 +11,12 @@ produces:
 x-xivo-name: amid
 x-xivo-port: 9491
 securityDefinitions:
-  xivo_auth_token:
+  wazo_auth_token:
     type: apiKey
     name: X-Auth-Token
     in: header
 security:
-- xivo_auth_token: []
+- wazo_auth_token: []
 paths:
   /action/{action}:
     post:
@@ -66,7 +66,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
         '503':
-          description: Another service is unavailable (e.g. xivo-auth)
+          description: Another service is unavailable (e.g. wazo-auth)
           schema:
             $ref: '#/definitions/Error'
   /action/Command:
@@ -107,7 +107,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
         '503':
-          description: Another service is unavailable (e.g. xivo-auth)
+          description: Another service is unavailable (e.g. wazo-auth)
           schema:
             $ref: '#/definitions/Error'
 definitions:
