@@ -48,20 +48,21 @@ def parse_command_response(raw_buffer):
 
 def _parse_msg(data, event_callback, response_callback):
     lines = data.decode('utf8', 'replace').split('\r\n')
-    if not _is_valid_message(lines):
+
+    try:
+        first_header, first_value = _parse_line(lines[0])
+
+        headers = {}
+        headers[first_header] = first_value
+        for line in lines[1:]:
+            header, value = _parse_line(line)
+            if header == 'ChanVariable':
+                variable, value = _parse_chan_variable(value)
+                headers.setdefault('ChanVariable', {}).setdefault(variable, value)
+            else:
+                headers[header] = value
+    except AMIParsingError:
         raise AMIParsingError('unexpected data: %r' % data)
-
-    first_header, first_value = _parse_line(lines[0])
-
-    headers = {}
-    headers[first_header] = first_value
-    for line in lines[1:]:
-        header, value = _parse_line(line)
-        if header == 'ChanVariable':
-            variable, value = _parse_chan_variable(value)
-            headers.setdefault('ChanVariable', {}).setdefault(variable, value)
-        else:
-            headers[header] = value
 
     if first_header.startswith('Response'):
         callback = response_callback
@@ -75,20 +76,12 @@ def _parse_msg(data, event_callback, response_callback):
 
 
 def _parse_line(line):
-    header, value = line.split(':', 1)
+    try:
+        header, value = line.split(':', 1)
+    except ValueError:
+        raise AMIParsingError()
     value = value.lstrip()
     return header, value
-
-
-def _is_valid_message(lines):
-    return (lines and _is_colon_in_each_line(lines))
-
-
-def _is_colon_in_each_line(lines):
-    for line in lines:
-        if ':' not in line:
-            return False
-    return True
 
 
 def _parse_chan_variable(chan_variable):
