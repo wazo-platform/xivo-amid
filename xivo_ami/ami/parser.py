@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2016 Avencall
+# Copyright 2012-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,6 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 import logging
+
+from werkzeug.datastructures import MultiDict
 
 logger = logging.getLogger(__name__)
 
@@ -53,10 +55,14 @@ def _parse_msg(data, event_callback, response_callback):
 
     first_header, first_value = _parse_line(lines[0])
 
-    headers = {first_header: first_value}
+    headers = MultiDict()
+    headers[first_header] = first_value
     for line in lines[1:]:
         header, value = _parse_line(line)
-        headers[header] = value
+        headers.add(header, value)
+
+    if 'ChanVariable' in headers:
+        headers['ChanVariable'] = _parse_chan_variables(headers.getlist('ChanVariable'))
 
     if first_header.startswith('Response'):
         callback = response_callback
@@ -66,7 +72,7 @@ def _parse_msg(data, event_callback, response_callback):
         raise AMIParsingError('unexpected data: %r' % data)
 
     if callback:
-        callback(first_value, headers.get('ActionID'), headers)
+        callback(first_value, headers.get('ActionID'), dict(headers.iteritems()))
 
 
 def _parse_line(line):
@@ -84,3 +90,11 @@ def _is_colon_in_each_line(lines):
         if ':' not in line:
             return False
     return True
+
+
+def _parse_chan_variables(chan_variables):
+    result = {}
+    for chan_variable in chan_variables:
+        variable, value = chan_variable.split('=', 1)
+        result[variable] = value
+    return result
