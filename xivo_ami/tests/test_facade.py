@@ -19,7 +19,13 @@ import collections
 import unittest
 
 from hamcrest import assert_that, contains, equal_to
-from mock import call, Mock, patch, sentinel
+from mock import (
+    ANY,
+    call,
+    Mock,
+    patch,
+    sentinel,
+)
 
 from xivo_ami.ami.client import AMIClient, AMIConnectionError
 from xivo_ami.bus.client import BusClient
@@ -52,7 +58,7 @@ class testEventHandlerFacade(unittest.TestCase):
 
         self.assertRaises(Exception, self.facade.run)
 
-        self.ami_client_mock.disconnect.assert_called_once_with()
+        self.ami_client_mock.disconnect.assert_called_once_with(reason=ANY)
 
     @patch('time.sleep')
     def test_given_ami_connection_error_when_run_then_ami_reconnect(self, sleep_mock):

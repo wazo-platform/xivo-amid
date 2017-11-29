@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2015 Avencall
+# Copyright 2012-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,18 +37,18 @@ class EventHandlerFacade(object):
             try:
                 self._ami_client.connect_and_login()
                 self._process_messages_indefinitely()
-            except AMIConnectionError:
-                self._handle_ami_connection_error()
+            except AMIConnectionError as e:
+                self._handle_ami_connection_error(e)
             except Exception as e:
                 self._handle_unexpected_error(e)
 
-    def _handle_ami_connection_error(self):
-        self._ami_client.disconnect()
+    def _handle_ami_connection_error(self, e):
+        self._ami_client.disconnect(reason=e.error)
         if not self._should_stop:
             time.sleep(self.RECONNECTION_DELAY)
 
     def _handle_unexpected_error(self, e):
-        self._ami_client.disconnect()
+        self._ami_client.disconnect(reason='Unexpected error: {}'.format(e))
         raise
 
     def _process_messages_indefinitely(self):

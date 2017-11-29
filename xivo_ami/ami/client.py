@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2012-2015 Avencall
+# Copyright 2012-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -45,9 +45,9 @@ class AMIClient(object):
             self._connect_socket()
             self._login()
 
-    def disconnect(self):
+    def disconnect(self, reason=None):
         if self._sock is not None:
-            logger.info('Disconnecting AMI client')
+            logger.info('Disconnecting AMI client. Reason: %s', reason)
             self._disconnect_socket()
 
     def parse_next_messages(self):
@@ -61,8 +61,8 @@ class AMIClient(object):
             self._sock.connect((self._hostname, self._port))
             # discard the AMI protocol version
             self._sock.recv(self._BUFSIZE)
-        except socket.error:
-            raise AMIConnectionError()
+        except socket.error as e:
+            raise AMIConnectionError(e)
 
     def _login(self):
         data = self._build_login_msg()
@@ -103,14 +103,14 @@ class AMIClient(object):
             self._sock.sendall(data)
         except socket.error as e:
             logger.error('Could not write data to socket: %s', e)
-            raise AMIConnectionError()
+            raise AMIConnectionError(e)
 
     def _recv_data_from_socket(self):
         try:
             data = self._sock.recv(self._BUFSIZE)
         except socket.error as e:
             logger.error('Could not read data from socket: %s', e)
-            raise AMIConnectionError()
+            raise AMIConnectionError(e)
         else:
             if not data:
                 logger.error('Could not read data from socket: remote connection closed')
@@ -120,8 +120,10 @@ class AMIClient(object):
     def stop(self):
         if self._sock is not None:
             self._sock.shutdown(socket.SHUT_RDWR)
-            self.disconnect()
+            self.disconnect(reason='explicit stop')
 
 
 class AMIConnectionError(Exception):
-    pass
+
+    def __init__(self, original_error=None):
+        self.error = original_error
