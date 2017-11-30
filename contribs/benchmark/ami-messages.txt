@@ -1,0 +1,5089 @@
+Event: DeviceStateChange
+Privilege: call,all
+Device: SCCP/101
+State: INUSE
+
+Event: ExtensionStatus
+Privilege: call,all
+Exten: 101
+Context: default
+Hint: SCCP/101
+Status: 1
+StatusText: InUse
+
+Event: ExtensionStatus
+Privilege: call,all
+Exten: 99101
+Context: default
+Hint: SCCP/101
+Status: 1
+StatusText: InUse
+
+Event: Newchannel
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: WAZO_CHANNEL_DIRECTION
+Value: from-wazo
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: TRANSFER_CONTEXT
+Value: default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: PICKUPMARK
+Value: 101%default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_USERUUID
+Value: 2e752722-0864-4665-887d-a78a024cf7c7
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_USERID
+Value: 413
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_ORIGINAL_CALLER_ID
+Value: \"Alice Wuuuuuuuuuuuunderland\" <101>
+
+Event: Newstate
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: default
+Exten: 103
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_BASE_CONTEXT
+Value: default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: default
+Exten: 103
+Priority: 2
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_BASE_EXTEN
+Value: 103
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value: 923
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value: 3607
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 3
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_DSTID
+Value: 923
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 2
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_DST_EXTEN_ID
+Value: 3607
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 3
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_PRESUBR_GLOBAL_NAME
+Value: USER
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 4
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: CC_EXTEN
+Value: 103
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 5
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: CC_CONTEXT
+Value: default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 6
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_SRCNUM
+Value: 101
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 7
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_DSTNUM
+Value: 103
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 8
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_CONTEXT
+Value: default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 9
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: WAZO_CHANNEL_DIRECTION
+Value: to-wazo
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 10
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __XIVO_CALLORIGIN
+Value: intern
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 11
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __XIVO_FWD_REFERER
+Value: user:923
+
+Event: UserEvent
+Privilege: user,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 12
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+UserEvent: User
+XIVO_DSTID: 923
+CHANNEL: SCCP/101-00000004
+XIVO_USERID: 413
+XIVO_SRCNUM: 101
+XIVO_CALLORIGIN: intern
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 15
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_REFERER_TYPE
+Value: user
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 16
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_REAL_FROMGROUP
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 17
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_REAL_FROMQUEUE
+Value: 0
+
+Event: CEL
+Privilege: call,all
+EventName: CHAN_START
+AccountCode:
+CallerIDnum: 101
+CallerIDname: Alice Wuuuuuuuuuuuunderland
+CallerIDani:
+CallerIDrdnis:
+CallerIDdnid:
+Exten: 103
+Context: default
+Channel: SCCP/101-00000004
+Application:
+AppData:
+EventTime: 2017-11-29 15:38:38
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.22
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_DST_USERNUM
+Value: 103
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_DST_FIRSTNAME
+Value: Charliez
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_DST_LASTNAME
+Value: Chaplin
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_DST_REDIRECTING_NAME
+Value: Charliez Chaplin
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_DST_REDIRECTING_NUM
+Value: 103
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_INTERFACE
+Value: SIP/rku3uo&SIP/lm4w1w87
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_CALLOPTIONS
+Value: hHtTX
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_SIMULTCALLS
+Value: 5
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_RINGSECONDS
+Value: 30
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_ENABLEDND
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_ENABLEVOICEMAIL
+Value: 1
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_MAILBOX
+Value: 103
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_MAILBOX_CONTEXT
+Value: default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_USEREMAIL
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_ENABLEUNC
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_UNC_ACTION
+Value: none
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_UNC_ACTIONARG1
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_UNC_ACTIONARG2
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_BUSY_ACTION
+Value: none
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_BUSY_ISDA
+Value: 1
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_BUSY_ACTIONARG1
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_BUSY_ACTIONARG2
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_NOANSWER_ACTION
+Value: none
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_NOANSWER_ISDA
+Value: 1
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_NOANSWER_ACTIONARG1
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_NOANSWER_ACTIONARG2
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_CONGESTION_ACTION
+Value: none
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_CONGESTION_ISDA
+Value: 1
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_CONGESTION_ACTIONARG1
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_CONGESTION_ACTIONARG2
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_CHANUNAVAIL_ACTION
+Value: none
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_CHANUNAVAIL_ISDA
+Value: 1
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_CHANUNAVAIL_ACTIONARG1
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_FWD_USER_CHANUNAVAIL_ACTIONARG2
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_CALLRECORDFILE
+Value: user-101-103-1511987918.wav
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_USERPREPROCESS_SUBROUTINE
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_MOBILEPHONENUMBER
+Value: **9742309
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_MAILBOX_LANGUAGE
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_PATH
+Value: user
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_PATH_ID
+Value: 923
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 18
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: AGISTATUS
+Value: SUCCESS
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 20
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_SCHEDULE_STATUS
+Value: opened
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 20
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_PATH
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 20
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: AGISTATUS
+Value: SUCCESS
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-ring_type_set
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-ring_type_set
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-ring_type_set
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-ring_type_set
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-ring_type_set
+Exten: s
+Priority: 2
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_RINGTYPE
+Value: ring1
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-ring_type_set
+Exten: s
+Priority: 2
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_PHONETYPE
+Value: yealink
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-ring_type_set
+Exten: s
+Priority: 2
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: AGISTATUS
+Value: SUCCESS
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-ring_type_set
+Exten: s
+Priority: 7
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __SIPADDHEADER01
+Value: \"Alert-Info:<http://wazo.community>;info=ring1\"
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 22
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 22
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-subroutine
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-subroutine
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-subroutine
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-subroutine
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 23
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 23
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 24
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_RINGSECONDS
+Value: 30
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-user_rights_check
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-user_rights_check
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-user_rights_check
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-user_rights_check
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-user_rights_check
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_AUTHORIZATION
+Value: ALLOW
+
+Event: ExtensionStatus
+Privilege: call,all
+Exten: 103
+Context: default
+Hint: SIP/rku3uo&SIP/lm4w1w87
+Status: 8
+StatusText: Ringing
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-user_rights_check
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: AGISTATUS
+Value: SUCCESS
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 25
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 25
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 29
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: MIXMONITOR_FILENAME
+Value: /var/spool/asterisk/monitor/user-101-103-1511987918.wav
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 34
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: OUTBOUND_GROUP_ONCE
+Value: 923@XIVO_USER
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-connectedline
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value: 103
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-connectedline
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value: Charliez Chaplin
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-connectedline
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: fr_FR
+AccountCode:
+Context: xivo-connectedline
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 2
+
+Event: NewConnectedLine
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-connectedline
+Exten: s
+Priority: 2
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 35
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 35
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARG2
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 35
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARG1
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 35
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-global-subroutine
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-global-subroutine
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-global-subroutine
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-global-subroutine
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-subrgbl-user
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-subrgbl-user
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-subrgbl-user
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-subrgbl-user
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-global-subroutine
+Exten: s
+Priority: 5
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: xivo-global-subroutine
+Exten: s
+Priority: 5
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 36
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 36
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: originate-caller-id
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: originate-caller-id
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: originate-caller-id
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: originate-caller-id
+Exten: s
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 37
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 37
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALSTATUS
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALEDPEERNUMBER
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALEDPEERNAME
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ANSWEREDTIME
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALEDTIME
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: OUTBOUND_GROUP_ONCE
+Value:
+
+Event: Newchannel
+Privilege: call,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: SIPCALLID
+Value: 715a83f65ee9434d73a0726c0a36fbed@10.32.0.1:5060
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: WAZO_CHANNEL_DIRECTION
+Value: from-wazo
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_ORIGINAL_CALLER_ID
+Value: \"Charliez Chaplin\" <103>
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: TRANSFER_CONTEXT
+Value: default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: PICKUPMARK
+Value: 103%default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_USERID
+Value: 923
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_USERUUID
+Value: 3d540bd8-2c92-4887-bed2-f39ecf0db91b
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: PWET
+Value: pwet
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALEDPEERNUMBER
+Value: rku3uo
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __SIPADDHEADER01
+Value: \"Alert-Info:<http://wazo.community>;info=ring1\"
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __XIVO_FWD_REFERER
+Value: user:923
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __XIVO_CALLORIGIN
+Value: intern
+
+Event: NewConnectedLine
+Privilege: call,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: Newchannel
+Privilege: call,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: SIPCALLID
+Value: 38c235744bda6db54078525034143108@10.32.0.1:5060
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: WAZO_CHANNEL_DIRECTION
+Value: from-wazo
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_ORIGINAL_CALLER_ID
+Value: \"Charliez Chaplin\" <103>
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: TRANSFER_CONTEXT
+Value: default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: PICKUPMARK
+Value: 103%default
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_USERID
+Value: 923
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: XIVO_USERUUID
+Value: 3d540bd8-2c92-4887-bed2-f39ecf0db91b
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALEDPEERNUMBER
+Value: lm4w1w87
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __SIPADDHEADER01
+Value: \"Alert-Info:<http://wazo.community>;info=ring1\"
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __XIVO_FWD_REFERER
+Value: user:923
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: <unknown>
+ConnectedLineName: <unknown>
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: __XIVO_CALLORIGIN
+Value: intern
+
+Event: NewConnectedLine
+Privilege: call,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: DialBegin
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+DestChannel: SIP/rku3uo-0000000c
+DestChannelState: 0
+DestChannelStateDesc: Down
+DestCallerIDNum: 103
+DestCallerIDName: Charliez Chaplin
+DestConnectedLineNum: 101
+DestConnectedLineName: Alice Wuuuuuuuuuuuunderland
+DestLanguage: en_US
+DestAccountCode:
+DestContext: default
+DestExten: s
+DestPriority: 1
+DestUniqueid: 1511987918.23
+DestLinkedid: 1511987918.22
+DestChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+DestChanVariable: XIVO_BASE_EXTEN=
+DestChanVariable: WAZO_DEREFERENCED_USERUUID=
+DialString: rku3uo
+
+Event: DialBegin
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+DestChannel: SIP/lm4w1w87-0000000d
+DestChannelState: 0
+DestChannelStateDesc: Down
+DestCallerIDNum: 103
+DestCallerIDName: Charliez Chaplin
+DestConnectedLineNum: 101
+DestConnectedLineName: Alice Wuuuuuuuuuuuunderland
+DestLanguage: en_US
+DestAccountCode:
+DestContext: default
+DestExten: s
+DestPriority: 1
+DestUniqueid: 1511987918.24
+DestLinkedid: 1511987918.22
+DestChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+DestChanVariable: XIVO_BASE_EXTEN=
+DestChanVariable: WAZO_DEREFERENCED_USERUUID=
+DialString: lm4w1w87
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: SIP/rku3uo
+State: RINGING
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: SIP/lm4w1w87
+State: RINGING
+
+Event: QueueMemberStatus
+Privilege: agent,all
+MemberName: SIP/rku3uo
+PausedReason:
+Queue: everyone
+LastPause: 0
+Interface: SIP/rku3uo
+StateInterface: SIP/rku3uo
+Status: 6
+Membership: static
+Ringinuse: 0
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+InCall: 0
+Skills:
+Paused: 0
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: Queue:everyone_avail
+State: INUSE
+
+Event: CEL
+Privilege: call,all
+EventName: APP_START
+AccountCode:
+CallerIDnum: 101
+CallerIDname: Alice Wuuuuuuuuuuuunderland
+CallerIDani:
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: user
+Channel: SCCP/101-00000004
+Application: Dial
+AppData: SIP/rku3uo&SIP/lm4w1w87,30,hHtTX
+EventTime: 2017-11-29 15:38:38
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.22
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: CEL
+Privilege: call,all
+EventName: CHAN_START
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani:
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: default
+Channel: SIP/rku3uo-0000000c
+Application:
+AppData:
+EventTime: 2017-11-29 15:38:38
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.23
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: CEL
+Privilege: call,all
+EventName: CHAN_START
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani:
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: default
+Channel: SIP/lm4w1w87-0000000d
+Application:
+AppData:
+EventTime: 2017-11-29 15:38:38
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.24
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: SIPRinging
+Privilege: system,all
+Peer: SIP/lm4w1w87
+
+Event: Newstate
+Privilege: call,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 5
+ChannelStateDesc: Ringing
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: DialState
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+DestChannel: SIP/lm4w1w87-0000000d
+DestChannelState: 5
+DestChannelStateDesc: Ringing
+DestCallerIDNum: 103
+DestCallerIDName: Charliez Chaplin
+DestConnectedLineNum: 101
+DestConnectedLineName: Alice Wuuuuuuuuuuuunderland
+DestLanguage: en_US
+DestAccountCode:
+DestContext: default
+DestExten: s
+DestPriority: 1
+DestUniqueid: 1511987918.24
+DestLinkedid: 1511987918.22
+DestChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+DestChanVariable: XIVO_BASE_EXTEN=
+DestChanVariable: WAZO_DEREFERENCED_USERUUID=
+DialStatus: RINGING
+
+Event: SIPRinging
+Privilege: system,all
+Peer: SIP/rku3uo
+
+Event: Newstate
+Privilege: call,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 5
+ChannelStateDesc: Ringing
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: DialState
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+DestChannel: SIP/rku3uo-0000000c
+DestChannelState: 5
+DestChannelStateDesc: Ringing
+DestCallerIDNum: 103
+DestCallerIDName: Charliez Chaplin
+DestConnectedLineNum: 101
+DestConnectedLineName: Alice Wuuuuuuuuuuuunderland
+DestLanguage: en_US
+DestAccountCode:
+DestContext: default
+DestExten: s
+DestPriority: 1
+DestUniqueid: 1511987918.23
+DestLinkedid: 1511987918.22
+DestChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+DestChanVariable: XIVO_BASE_EXTEN=
+DestChanVariable: WAZO_DEREFERENCED_USERUUID=
+DialStatus: RINGING
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: SIP/rku3uo
+State: INUSE
+
+Event: ExtensionStatus
+Privilege: call,all
+Exten: 103
+Context: default
+Hint: SIP/rku3uo&SIP/lm4w1w87
+Status: 9
+StatusText: InUse&Ringing
+
+Event: Newstate
+Privilege: call,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: QueueMemberStatus
+Privilege: agent,all
+MemberName: SIP/rku3uo
+PausedReason:
+Queue: everyone
+LastPause: 0
+Interface: SIP/rku3uo
+StateInterface: SIP/rku3uo
+Status: 2
+Membership: static
+Ringinuse: 0
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+InCall: 0
+Skills:
+Paused: 0
+
+Event: DialEnd
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+DestChannel: SIP/lm4w1w87-0000000d
+DestChannelState: 5
+DestChannelStateDesc: Ringing
+DestCallerIDNum: 103
+DestCallerIDName: Charliez Chaplin
+DestConnectedLineNum: 101
+DestConnectedLineName: Alice Wuuuuuuuuuuuunderland
+DestLanguage: en_US
+DestAccountCode:
+DestContext: default
+DestExten: s
+DestPriority: 1
+DestUniqueid: 1511987918.24
+DestLinkedid: 1511987918.22
+DestChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+DestChanVariable: XIVO_BASE_EXTEN=
+DestChanVariable: WAZO_DEREFERENCED_USERUUID=
+DialStatus: CANCEL
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 5
+ChannelStateDesc: Ringing
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 0
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: UserEvent
+Privilege: user,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 5
+ChannelStateDesc: Ringing
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 4
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+UserEvent: Hangup
+XIVO_USERUUID: 3d540bd8-2c92-4887-bed2-f39ecf0db91b
+XIVO_BASE_EXTEN:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 5
+ChannelStateDesc: Ringing
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 5
+ChannelStateDesc: Ringing
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: Hangup
+Privilege: call,all
+Channel: SIP/lm4w1w87-0000000d
+ChannelState: 5
+ChannelStateDesc: Ringing
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.24
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Cause: 26
+Cause-txt: Answered elsewhere
+
+Event: ExtensionStatus
+Privilege: call,all
+Exten: 103
+Context: default
+Hint: SIP/rku3uo&SIP/lm4w1w87
+Status: 1
+StatusText: InUse
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALSTATUS
+Value: ANSWER
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALEDPEERNAME
+Value: SIP/rku3uo-0000000c
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALEDPEERNUMBER
+Value: rku3uo
+
+Event: DialEnd
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 4
+ChannelStateDesc: Ring
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+DestChannel: SIP/rku3uo-0000000c
+DestChannelState: 6
+DestChannelStateDesc: Up
+DestCallerIDNum: 103
+DestCallerIDName: Charliez Chaplin
+DestConnectedLineNum: 101
+DestConnectedLineName: Alice Wuuuuuuuuuuuunderland
+DestLanguage: en_US
+DestAccountCode:
+DestContext: default
+DestExten:
+DestPriority: 1
+DestUniqueid: 1511987918.23
+DestLinkedid: 1511987918.22
+DestChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+DestChanVariable: XIVO_BASE_EXTEN=
+DestChanVariable: WAZO_DEREFERENCED_USERUUID=
+DialStatus: ANSWER
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: SIP/lm4w1w87
+State: NOT_INUSE
+
+Event: CEL
+Privilege: call,all
+EventName: ANSWER
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani: 103
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: default
+Channel: SIP/rku3uo-0000000c
+Application: AppDial
+AppData: (Outgoing Line)
+EventTime: 2017-11-29 15:38:39
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.23
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: CEL
+Privilege: call,all
+EventName: HANGUP
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani: 103
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: default
+Channel: SIP/lm4w1w87-0000000d
+Application: AppDial
+AppData: (Outgoing Line)
+EventTime: 2017-11-29 15:38:39
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.24
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra: {"hangupcause":26,"hangupsource":"","dialstatus":""}
+
+Event: CEL
+Privilege: call,all
+EventName: CHAN_END
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani: 103
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: default
+Channel: SIP/lm4w1w87-0000000d
+Application: AppDial
+AppData: (Outgoing Line)
+EventTime: 2017-11-29 15:38:39
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.24
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: RTPAUDIOQOS
+Value: ssrc=1345082382;themssrc=0;lp=0;rxjitter=0.000000;rxcount=0;txjitter=0.000000;txcount=0;rlp=0;rtt=0.000000
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: RTPAUDIOQOSJITTER
+Value: minrxjitter=0.000000;maxrxjitter=0.000000;avgrxjitter=0.000000;stdevrxjitter=0.000000;reported_minjitter=0.000000;reported_maxjitter=0.000000;reported_avgjitter=0.000000;reported_stdevjitter=0.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: RTPAUDIOQOSLOSS
+Value: minrxlost=0.000000;maxrxlost=0.000000;avgrxlost=0.000000;stdevrxlost=0.000000;reported_minlost=0.000000;reported_maxlost=0.000000;reported_avglost=0.000000;reported_stdevlost=0.000000;
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten: s
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: RTPAUDIOQOSRTT
+Value: minrtt=0.000000;maxrtt=0.000000;avgrtt=0.000000;stdevrtt=0.000000;
+
+Event: HangupRequest
+Privilege: call,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Cause: 16
+
+Event: Newstate
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: BridgeCreate
+Privilege: call,all
+BridgeUniqueid: 822288d6-fdb0-4217-befe-595bf3cedbe2
+BridgeType: basic
+BridgeTechnology: simple_bridge
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 0
+BridgeVideoSourceMode: none
+
+Event: BridgeEnter
+Privilege: call,all
+BridgeUniqueid: 822288d6-fdb0-4217-befe-595bf3cedbe2
+BridgeType: basic
+BridgeTechnology: simple_bridge
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 1
+BridgeVideoSourceMode: none
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: BridgeLeave
+Privilege: call,all
+BridgeUniqueid: 822288d6-fdb0-4217-befe-595bf3cedbe2
+BridgeType: basic
+BridgeTechnology: simple_bridge
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 0
+BridgeVideoSourceMode: none
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 0
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: UserEvent
+Privilege: user,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 4
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+UserEvent: Hangup
+XIVO_USERUUID: 3d540bd8-2c92-4887-bed2-f39ecf0db91b
+XIVO_BASE_EXTEN:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: Hangup
+Privilege: call,all
+Channel: SIP/rku3uo-0000000c
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 103
+CallerIDName: Charliez Chaplin
+ConnectedLineNum: 101
+ConnectedLineName: Alice Wuuuuuuuuuuuunderland
+Language: en_US
+AccountCode:
+Context: default
+Exten:
+Priority: 1
+Uniqueid: 1511987918.23
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
+ChanVariable: XIVO_BASE_EXTEN=
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Cause: 16
+Cause-txt: Normal Clearing
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ANSWEREDTIME
+Value: 0
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALEDTIME
+Value: 2
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: DIALSTATUS
+Value: ANSWER
+
+Event: SoftHangupRequest
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Cause: 16
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG1)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG2)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARG3)
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 0
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: LOCAL(ARGC)
+Value: 0
+
+Event: UserEvent
+Privilege: user,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: hangup_handlers
+Exten: userevent
+Priority: 4
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+UserEvent: Hangup
+XIVO_USERUUID: 2e752722-0864-4665-887d-a78a024cf7c7
+XIVO_BASE_EXTEN: 103
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: ARGC
+Value:
+
+Event: VarSet
+Privilege: dialplan,all
+Channel: SCCP/101-00000004
+ChannelState: 6
+ChannelStateDesc: Up
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Variable: GOSUB_RETVAL
+Value:
+
+Event: BridgeDestroy
+Privilege: call,all
+BridgeUniqueid: 822288d6-fdb0-4217-befe-595bf3cedbe2
+BridgeType: basic
+BridgeTechnology: simple_bridge
+BridgeCreator: <unknown>
+BridgeName: <unknown>
+BridgeNumChannels: 0
+BridgeVideoSourceMode: none
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: SCCP/101
+State: NOT_INUSE
+
+Event: Newstate
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+
+Event: Hangup
+Privilege: call,all
+Channel: SCCP/101-00000004
+ChannelState: 0
+ChannelStateDesc: Down
+CallerIDNum: 101
+CallerIDName: Alice Wuuuuuuuuuuuunderland
+ConnectedLineNum: 103
+ConnectedLineName: Charliez Chaplin
+Language: fr_FR
+AccountCode:
+Context: user
+Exten: s
+Priority: 38
+Uniqueid: 1511987918.22
+Linkedid: 1511987918.22
+ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
+ChanVariable: XIVO_BASE_EXTEN=103
+ChanVariable: WAZO_DEREFERENCED_USERUUID=
+Cause: 16
+Cause-txt: Normal Clearing
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: SIP/rku3uo
+State: NOT_INUSE
+
+Event: ExtensionStatus
+Privilege: call,all
+Exten: 101
+Context: default
+Hint: SCCP/101
+Status: 0
+StatusText: Idle
+
+Event: QueueMemberStatus
+Privilege: agent,all
+MemberName: SIP/rku3uo
+PausedReason:
+Queue: everyone
+LastPause: 0
+Interface: SIP/rku3uo
+StateInterface: SIP/rku3uo
+Status: 1
+Membership: static
+Ringinuse: 0
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+InCall: 0
+Skills:
+Paused: 0
+
+Event: DeviceStateChange
+Privilege: call,all
+Device: Queue:everyone_avail
+State: NOT_INUSE
+
+Event: ExtensionStatus
+Privilege: call,all
+Exten: 99101
+Context: default
+Hint: SCCP/101
+Status: 0
+StatusText: Idle
+
+Event: ExtensionStatus
+Privilege: call,all
+Exten: 103
+Context: default
+Hint: SIP/rku3uo&SIP/lm4w1w87
+Status: 0
+StatusText: Idle
+
+Event: CEL
+Privilege: call,all
+EventName: ANSWER
+AccountCode:
+CallerIDnum: 101
+CallerIDname: Alice Wuuuuuuuuuuuunderland
+CallerIDani:
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: user
+Channel: SCCP/101-00000004
+Application: Dial
+AppData: SIP/rku3uo&SIP/lm4w1w87,30,hHtTX
+EventTime: 2017-11-29 15:38:40
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.22
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: CEL
+Privilege: call,all
+EventName: BRIDGE_ENTER
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani: 103
+CallerIDrdnis:
+CallerIDdnid:
+Exten:
+Context: default
+Channel: SIP/rku3uo-0000000c
+Application: AppDial
+AppData: (Outgoing Line)
+EventTime: 2017-11-29 15:38:40
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.23
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra: {"bridge_id":"822288d6-fdb0-4217-befe-595bf3cedbe2","bridge_technology":"simple_bridge"}
+
+Event: CEL
+Privilege: call,all
+EventName: BRIDGE_EXIT
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani: 103
+CallerIDrdnis:
+CallerIDdnid:
+Exten:
+Context: default
+Channel: SIP/rku3uo-0000000c
+Application: AppDial
+AppData: (Outgoing Line)
+EventTime: 2017-11-29 15:38:40
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.23
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra: {"bridge_id":"822288d6-fdb0-4217-befe-595bf3cedbe2","bridge_technology":"simple_bridge"}
+
+Event: CEL
+Privilege: call,all
+EventName: HANGUP
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani: 103
+CallerIDrdnis:
+CallerIDdnid:
+Exten:
+Context: default
+Channel: SIP/rku3uo-0000000c
+Application: AppDial
+AppData: (Outgoing Line)
+EventTime: 2017-11-29 15:38:40
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.23
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra: {"hangupcause":16,"hangupsource":"SIP/rku3uo-0000000c","dialstatus":""}
+
+Event: CEL
+Privilege: call,all
+EventName: CHAN_END
+AccountCode:
+CallerIDnum: 103
+CallerIDname: Charliez Chaplin
+CallerIDani: 103
+CallerIDrdnis:
+CallerIDdnid:
+Exten:
+Context: default
+Channel: SIP/rku3uo-0000000c
+Application: AppDial
+AppData: (Outgoing Line)
+EventTime: 2017-11-29 15:38:40
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.23
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: CEL
+Privilege: call,all
+EventName: HANGUP
+AccountCode:
+CallerIDnum: 101
+CallerIDname: Alice Wuuuuuuuuuuuunderland
+CallerIDani:
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: user
+Channel: SCCP/101-00000004
+Application:
+AppData:
+EventTime: 2017-11-29 15:38:40
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.22
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra: {"hangupcause":16,"hangupsource":"","dialstatus":"ANSWER"}
+
+Event: CEL
+Privilege: call,all
+EventName: CHAN_END
+AccountCode:
+CallerIDnum: 101
+CallerIDname: Alice Wuuuuuuuuuuuunderland
+CallerIDani:
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: user
+Channel: SCCP/101-00000004
+Application:
+AppData:
+EventTime: 2017-11-29 15:38:40
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.22
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
+Event: CEL
+Privilege: call,all
+EventName: LINKEDID_END
+AccountCode:
+CallerIDnum: 101
+CallerIDname: Alice Wuuuuuuuuuuuunderland
+CallerIDani:
+CallerIDrdnis:
+CallerIDdnid:
+Exten: s
+Context: user
+Channel: SCCP/101-00000004
+Application:
+AppData:
+EventTime: 2017-11-29 15:38:40
+AMAFlags: DOCUMENTATION
+UniqueID: 1511987918.22
+LinkedID: 1511987918.22
+Userfield:
+Peer:
+PeerAccount:
+Extra:
+
