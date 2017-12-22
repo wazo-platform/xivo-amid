@@ -1,12 +1,12 @@
-cheroot==5.5.0
-flask-cors==3.0.2
-flask-restful==0.3.5
-flask==0.10.1
 git+https://github.com/wazo-pbx/xivo-auth-client.git
 git+https://github.com/wazo-pbx/xivo-lib-python.git
 git+https://github.com/wazo-pbx/xivo-lib-rest-client.git  # from xivo-auth-client
 git+https://github.com/wazo-pbx/xivo-bus.git
-kombu==3.0.34
+cheroot==5.5.0
+flask-cors==3.0.2
+flask-restful==0.3.5
+flask==0.12.1
+kombu==3.0.35
 marshmallow==2.10.3
-pyyaml==3.11  # from xivo-lib-python
-requests==2.4.3
+pyyaml==3.12  # from xivo-lib-python
+requests==2.12.4
