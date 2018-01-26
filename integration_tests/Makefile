@@ -1,7 +1,7 @@
 .PHONY: test-setup test
 
 test-setup: build-amid
-	docker pull python:2.7
+	docker pull python:2.7.13-stretch
 	docker pull p0bailey/docker-flask
 	docker pull swaggerapi/swagger-validator
 	docker pull n3llyb0y/wait
