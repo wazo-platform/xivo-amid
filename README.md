@@ -1,6 +1,6 @@
 xivo-amid
 =========
-[![Build Status](https://travis-ci.org/wazo-pbx/xivo-amid.png?branch=master)](https://travis-ci.org/wazo-pbx/xivo-amid)
+[![Build Status](https://jenkins.wazo.community/buildStatus/icon?job=xivo-amid)](https://jenkins.wazo.community/job/xivo-amid)
 
 xivo-amid is a daemon for interacting Asterisk's AMI:
 
