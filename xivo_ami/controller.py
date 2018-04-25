@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2012-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,11 +41,19 @@ class Controller(object):
             try:
                 self._run_rest_api()
             finally:
+                logger.debug('stopping facade...')
                 facade.stop()
+                logger.debug('facade stopped.')
+                logger.debug('joining ami thread...')
                 ami_thread.join()
+                logger.debug('ami thread joined')
         else:
             self._run_rest_api()
 
     def _run_rest_api(self):
         rest_api.configure(self._config)
         rest_api.run(self._config['rest_api'])
+
+    def stop(self, reason):
+        logger.warning('Stopping xivo-amid: %s', reason)
+        rest_api.stop()

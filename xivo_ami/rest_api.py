@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2016-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2018 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ app = Flask('xivo_amid')
 logger = logging.getLogger(__name__)
 api = Api(prefix='/{}'.format(VERSION))
 auth_verifier = AuthVerifier()
+wsgi_server = None
 required_acl = required_acl_
 
 
@@ -79,18 +80,24 @@ def run(config):
     bind_addr = (https_config['listen'], https_config['port'])
 
     wsgi_app = ReverseProxied(ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app})))
-    server = wsgi.WSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
-    server.ssl_adapter = http_helpers.ssl_adapter(https_config['certificate'],
-                                                  https_config['private_key'])
+    global wsgi_server
+    wsgi_server = wsgi.WSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
+    wsgi_server.ssl_adapter = http_helpers.ssl_adapter(https_config['certificate'],
+                                                       https_config['private_key'])
 
     logger.debug('WSGIServer starting... uid: %s, listen: %s:%s', os.getuid(), bind_addr[0], bind_addr[1])
     for route in http_helpers.list_routes(app):
         logger.debug(route)
 
     try:
-        server.start()
+        wsgi_server.start()
     except KeyboardInterrupt:
-        server.stop()
+        wsgi_server.stop()
+
+
+def stop():
+    if wsgi_server:
+        wsgi_server.stop()
 
 
 def handle_validation_exception(func):
