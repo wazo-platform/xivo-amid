@@ -1,30 +1,30 @@
-sync:
-  image: n3llyb0y/wait
-  links:
-    - amid
-    - asterisk-ajam
-  environment:
-    PORTS: "5040 9491"
-    TIMEOUT: "5"
+version: '3'
+services:
+  sync:
+    image: waisbrot/wait
+    depends_on:
+      - amid
+      - asterisk-ajam
+    environment:
+      TARGETS: "asterisk_ajam:5040 amid:9491"
+      TIMEOUT: "${INTEGRATION_TEST_TIMEOUT}"
 
-amid:
-  image: xivo-amid-tests
-  ports:
-    - "9491"
-  volumes:
-    - "./etc/xivo-amid:/etc/xivo-amid"
-    - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
-    - "./ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
-    - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"
-    - "../../..:/usr/src/xivo-amid"
-  links:
-    - "asterisk-ajam"
+  amid:
+    image: xivo-amid-tests
+    ports:
+      - "9491"
+    volumes:
+      - "./etc/xivo-amid:/etc/xivo-amid"
+      - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
+      - "./ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+      - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"
+      - "../../..:/usr/src/xivo-amid"
 
-asterisk-ajam:
-  image: p0bailey/docker-flask
-  expose:
-    - "5040"
-  volumes:
-    - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
-    - "./asterisk-ajam:/usr/local/share/asterisk-ajam"
-  command: "python /usr/local/share/asterisk-ajam/mock-asterisk-ajam.py 5040"
+  asterisk-ajam:
+    image: p0bailey/docker-flask
+    expose:
+      - "5040"
+    volumes:
+      - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
+      - "./asterisk-ajam:/usr/local/share/asterisk-ajam"
+    command: "python /usr/local/share/asterisk-ajam/mock-asterisk-ajam.py 5040"
