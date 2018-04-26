@@ -1,0 +1,30 @@
+version: '3'
+services:
+  sync:
+    image: waisbrot/wait
+    depends_on:
+      - amid
+      - asterisk-ajam
+    environment:
+      TARGETS: "asterisk-ajam:5040 amid:9491"
+      TIMEOUT: "${INTEGRATION_TEST_TIMEOUT}"
+
+  amid:
+    image: xivo-amid-tests
+    ports:
+      - "9491"
+    volumes:
+      - "./no_auth_server/etc/xivo-amid:/etc/xivo-amid"
+      - "./no_auth_server/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
+      - "./no_auth_server/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+      - "./no_auth_server/ssl/localhost:/usr/local/share/xivo-amid-ssl"
+      - "../..:/usr/src/xivo-amid"
+
+  asterisk-ajam:
+    image: p0bailey/docker-flask
+    expose:
+      - "5040"
+    volumes:
+      - "./no_auth_server/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
+      - "./no_auth_server/asterisk-ajam:/usr/local/share/asterisk-ajam"
+    command: "python /usr/local/share/asterisk-ajam/mock-asterisk-ajam.py 5040"

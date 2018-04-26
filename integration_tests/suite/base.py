@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import json
@@ -37,6 +37,14 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
             cls._ajam_port = cls.service_port(5040, 'asterisk-ajam')
         except (asset_launching_test_case.NoSuchPort, asset_launching_test_case.NoSuchService):
             cls._ajam_port = None
+
+    @classmethod
+    def _docker_compose_options(cls):
+        return [
+            '--file', os.path.join(cls.assets_root, 'docker-compose.yml'),
+            '--file', os.path.join(cls.assets_root, 'docker-compose.{}.override.yml'.format(cls.asset)),
+            '--project-name', cls.service,
+        ]
 
     @classmethod
     def amid_url(cls, *parts):

@@ -1,0 +1,30 @@
+version: '3'
+services:
+  sync:
+    image: waisbrot/wait
+    depends_on:
+      - amid
+      - auth
+    environment:
+      TARGETS: "amid:9491 auth:9497"
+      TIMEOUT: "${INTEGRATION_TEST_TIMEOUT}"
+
+  amid:
+    image: xivo-amid-tests
+    ports:
+      - "9491"
+    volumes:
+      - "./no_ajam_server/etc/xivo-amid:/etc/xivo-amid"
+      - "./no_ajam_server/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
+      - "./no_ajam_server/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+      - "./no_ajam_server/ssl/localhost:/usr/local/share/xivo-amid-ssl"
+      - "../..:/usr/src/xivo-amid"
+
+  auth:
+    image: p0bailey/docker-flask
+    expose:
+      - "9497"
+    volumes:
+      - "./no_ajam_server/xivo-auth:/usr/local/share/xivo-auth"
+      - "./no_ajam_server/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+    command: "python /usr/local/share/xivo-auth/mock-xivo-auth.py 9497"
