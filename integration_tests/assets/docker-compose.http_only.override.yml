@@ -11,14 +11,8 @@ services:
   amid:
     volumes:
       - "./http_only/etc/xivo-amid:/etc/xivo-amid"
-      - "./http_only/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
       - "./http_only/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
       - "./http_only/ssl/localhost:/usr/local/share/xivo-amid-ssl"
-
-  asterisk-ajam:
-    volumes:
-      - "./http_only/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
-      - "./http_only/asterisk-ajam:/usr/local/share/asterisk-ajam"
 
   auth:
     volumes:

@@ -10,11 +10,5 @@ services:
   amid:
     volumes:
       - "./no_auth_server/etc/xivo-amid:/etc/xivo-amid"
-      - "./no_auth_server/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
       - "./no_auth_server/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
       - "./no_auth_server/ssl/localhost:/usr/local/share/xivo-amid-ssl"
-
-  asterisk-ajam:
-    volumes:
-      - "./no_auth_server/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
-      - "./no_auth_server/asterisk-ajam:/usr/local/share/asterisk-ajam"
