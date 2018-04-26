@@ -14,5 +14,5 @@ auth:
 
 rest_api:
   https:
-    certificate: /usr/local/share/xivo-amid-ssl/server.crt
+    certificate: /missing-certificate.crt
     private_key: /usr/local/share/xivo-amid-ssl/server.key

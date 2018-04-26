@@ -11,10 +11,3 @@ services:
   amid:
     volumes:
       - "./http_only/etc/xivo-amid:/etc/xivo-amid"
-      - "./http_only/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
-      - "./http_only/ssl/localhost:/usr/local/share/xivo-amid-ssl"
-
-  auth:
-    volumes:
-      - "./http_only/xivo-auth:/usr/local/share/xivo-auth"
-      - "./http_only/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"

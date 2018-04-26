@@ -6,5 +6,3 @@ services:
   amid:
     volumes:
       - "./no-ssl-certificate/etc/xivo-amid:/etc/xivo-amid"
-      - "./no-ssl-certificate/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
-      - "./no-ssl-certificate/ssl/localhost:/usr/local/share/xivo-amid-ssl"

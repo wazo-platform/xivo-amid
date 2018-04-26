@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015-2016 Avencall
+# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import random
@@ -157,7 +157,7 @@ class TestHTTPSMissingCertificate(BaseIntegrationTest):
             self.fail('xivo-amid did not stop while missing SSL certificate')
 
         log = self.amid_logs()
-        assert_that(log, contains_string("No such file or directory: '/usr/local/share/xivo-amid-ssl/server.crt'"))
+        assert_that(log, contains_string("No such file or directory: '/missing-certificate.crt'"))
 
 
 class TestHTTPSMissingPrivateKey(BaseIntegrationTest):
@@ -174,4 +174,4 @@ class TestHTTPSMissingPrivateKey(BaseIntegrationTest):
             self.fail('xivo-amid did not stop while missing SSL private key')
 
         log = self.amid_logs()
-        assert_that(log, contains_string("No such file or directory: '/usr/local/share/xivo-amid-ssl/server.key'"))
+        assert_that(log, contains_string("No such file or directory: '/missing-key.key'"))

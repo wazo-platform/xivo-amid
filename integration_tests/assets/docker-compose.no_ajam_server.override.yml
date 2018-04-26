@@ -10,10 +10,3 @@ services:
   amid:
     volumes:
       - "./no_ajam_server/etc/xivo-amid:/etc/xivo-amid"
-      - "./no_ajam_server/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
-      - "./no_ajam_server/ssl/localhost:/usr/local/share/xivo-amid-ssl"
-
-  auth:
-    volumes:
-      - "./no_ajam_server/xivo-auth:/usr/local/share/xivo-auth"
-      - "./no_ajam_server/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
