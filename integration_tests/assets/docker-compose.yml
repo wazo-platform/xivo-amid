@@ -1,0 +1,38 @@
+version: '3'
+services:
+  sync:
+    image: waisbrot/wait
+    environment:
+      TIMEOUT: "${INTEGRATION_TEST_TIMEOUT}"
+
+  amid:
+    image: xivo-amid-tests
+    ports:
+      - "9491"
+    volumes:
+      - "../..:/usr/src/xivo-amid"
+      - "./_common/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+      - "./_common/ssl/localhost:/usr/local/share/xivo-amid-ssl"
+
+  asterisk-ajam:
+    image: p0bailey/docker-flask
+    ports:
+      - "5040"
+    volumes:
+      - "./_common/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
+      - "./_common/asterisk-ajam:/usr/local/share/asterisk-ajam"
+    command: "python /usr/local/share/asterisk-ajam/mock-asterisk-ajam.py 5040"
+
+  swagger-validator:
+    image: swaggerapi/swagger-validator
+    ports:
+      - "8080"
+
+  auth:
+    image: p0bailey/docker-flask
+    expose:
+      - "9497"
+    volumes:
+      - "./_common/xivo-auth:/usr/local/share/xivo-auth"
+      - "./_common/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+    command: "python /usr/local/share/xivo-auth/mock-xivo-auth.py 9497"
