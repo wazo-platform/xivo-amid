@@ -7,7 +7,3 @@ services:
       - auth
     environment:
       TARGETS: "asterisk-ajam:5040 amid:9491 auth:9497"
-
-  amid:
-    volumes:
-      - "./http_only/etc/xivo-amid:/etc/xivo-amid"

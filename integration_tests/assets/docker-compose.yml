@@ -13,6 +13,10 @@ services:
       - "../..:/usr/src/xivo-amid"
       - "./_common/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
       - "./_common/ssl/localhost:/usr/local/share/xivo-amid-ssl"
+      - "./etc/xivo-amid/conf.d/disable-ami-events.yml:/etc/xivo-amid/conf.d/disable-ami-events.yml"
+      - "./etc/xivo-amid/conf.d/ajam.yml:/etc/xivo-amid/conf.d/ajam.yml"
+      - "./etc/xivo-amid/conf.d/auth.yml:/etc/xivo-amid/conf.d/auth.yml"
+      - "./etc/xivo-amid/conf.d/rest-api.yml:/etc/xivo-amid/conf.d/rest-api.yml"
 
   asterisk-ajam:
     image: p0bailey/docker-flask

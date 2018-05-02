@@ -5,4 +5,4 @@ services:
       - amid
   amid:
     volumes:
-      - "./no-ssl-certificate/etc/xivo-amid:/etc/xivo-amid"
+      - "./etc/xivo-amid/conf.d/asset.no-ssl-certificate.yml:/etc/xivo-amid/conf.d/0-asset.no-ssl-certificate.yml"

@@ -9,4 +9,4 @@ services:
 
   amid:
     volumes:
-      - "./no_auth_server/etc/xivo-amid:/etc/xivo-amid"
+      - "./etc/xivo-amid/conf.d/asset.no_auth_server.yml:/etc/xivo-amid/conf.d/0-asset.no_auth_server.yml"

@@ -6,7 +6,3 @@ services:
       - swagger-validator
     environment:
       TARGETS: "amid:9491 swagger-validator:8080"
-
-  amid:
-    volumes:
-      - "./documentation/etc/xivo-amid:/etc/xivo-amid"
