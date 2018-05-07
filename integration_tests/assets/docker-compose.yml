@@ -11,8 +11,8 @@ services:
       - "9491"
     volumes:
       - "../..:/usr/src/xivo-amid"
-      - "./_common/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
-      - "./_common/ssl/localhost:/usr/local/share/xivo-amid-ssl"
+      - "./ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+      - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"
       - "./etc/xivo-amid/conf.d/disable-ami-events.yml:/etc/xivo-amid/conf.d/disable-ami-events.yml"
       - "./etc/xivo-amid/conf.d/ajam.yml:/etc/xivo-amid/conf.d/ajam.yml"
       - "./etc/xivo-amid/conf.d/auth.yml:/etc/xivo-amid/conf.d/auth.yml"
@@ -23,8 +23,8 @@ services:
     ports:
       - "5040"
     volumes:
-      - "./_common/ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
-      - "./_common/asterisk-ajam:/usr/local/share/asterisk-ajam"
+      - "./ssl/asterisk-ajam:/usr/local/share/asterisk-ajam-ssl"
+      - "./asterisk-ajam:/usr/local/share/asterisk-ajam"
     command: "python /usr/local/share/asterisk-ajam/mock-asterisk-ajam.py 5040"
 
   swagger-validator:
@@ -37,6 +37,6 @@ services:
     expose:
       - "9497"
     volumes:
-      - "./_common/xivo-auth:/usr/local/share/xivo-auth"
-      - "./_common/ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+      - "./xivo-auth:/usr/local/share/xivo-auth"
+      - "./ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
     command: "python /usr/local/share/xivo-auth/mock-xivo-auth.py 9497"

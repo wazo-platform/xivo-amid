@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 requests.packages.urllib3.disable_warnings()
 
 ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', 'assets')
-CA_CERT = os.path.join(ASSETS_ROOT, '_common', 'ssl', 'localhost', 'server.crt')
+CA_CERT = os.path.join(ASSETS_ROOT, 'ssl', 'localhost', 'server.crt')
 
 VALID_TOKEN = 'valid-token'
 
