@@ -1,0 +1,8 @@
+version: '3'
+services:
+  sync:
+    depends_on:
+      - amid
+  amid:
+    volumes:
+      - "./etc/xivo-amid/conf.d/asset.no-ssl-private-key.yml:/etc/xivo-amid/conf.d/0-asset.no-ssl-private-key.yml"

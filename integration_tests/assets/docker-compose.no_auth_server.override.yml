@@ -1,0 +1,12 @@
+version: '3'
+services:
+  sync:
+    depends_on:
+      - amid
+      - asterisk-ajam
+    environment:
+      TARGETS: "asterisk-ajam:5040 amid:9491"
+
+  amid:
+    volumes:
+      - "./etc/xivo-amid/conf.d/asset.no_auth_server.yml:/etc/xivo-amid/conf.d/0-asset.no_auth_server.yml"

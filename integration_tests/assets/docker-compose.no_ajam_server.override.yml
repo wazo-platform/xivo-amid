@@ -1,0 +1,12 @@
+version: '3'
+services:
+  sync:
+    depends_on:
+      - amid
+      - auth
+    environment:
+      TARGETS: "amid:9491 auth:9497"
+
+  amid:
+    volumes:
+      - "./etc/xivo-amid/conf.d/asset.no_ajam_server.yml:/etc/xivo-amid/conf.d/0-asset.no_ajam_server.yml"
