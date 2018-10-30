@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2015 Avencall
+# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import socket
 import unittest
 
 from functools import wraps
-from hamcrest import assert_that, equal_to, instance_of
+from hamcrest import (
+    assert_that,
+    empty,
+    equal_to,
+    instance_of,
+)
 from mock import Mock, patch
 from mock import sentinel
 
@@ -150,6 +155,15 @@ class TestAMIClient(unittest.TestCase):
         mock_socket.recv.return_value = ''
 
         self.assertRaises(AMIConnectionError, self.ami_client.parse_next_messages)
+
+    @patch_return_value('socket.socket')  # must be the last decorator
+    def test_given_stopping_and_socket_recv_nothing_when_parse_next_message_then_return_nothing(self, mock_socket):
+        self.ami_client.connect_and_login()
+        self.ami_client.stopping = True
+
+        mock_socket.recv.return_value = ''
+
+        assert_that(self.ami_client.parse_next_messages(), empty())
 
     @patch_return_value('socket.socket')
     def test_when_stop_then_socket_shutdown(self, mock_socket):

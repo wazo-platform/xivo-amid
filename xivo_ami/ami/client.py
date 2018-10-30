@@ -25,8 +25,10 @@ class AMIClient(object):
         self._sock = None
         self._buffer = ''
         self._event_queue = collections.deque()
+        self.stopping = False
 
     def connect_and_login(self):
+        self.stopping = False
         if self._sock is None:
             logger.info('Connecting AMI client to %s:%s', self._hostname, self._port)
             self._connect_socket()
@@ -99,13 +101,14 @@ class AMIClient(object):
             logger.error('Could not read data from socket: %s', e)
             raise AMIConnectionError(e)
         else:
-            if not data:
+            if not data and not self.stopping:
                 logger.error('Could not read data from socket: connection closed')
-                raise AMIConnectionError()
+                raise AMIConnectionError('Connection closed from remote')
             return data
 
     def stop(self):
         if self._sock is not None:
+            self.stopping = True
             self._sock.shutdown(socket.SHUT_RDWR)
             self.disconnect(reason='explicit stop')
 
