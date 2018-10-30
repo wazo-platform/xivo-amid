@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright 2012-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import logging
-import time
+import threading
 
 from xivo_ami.ami.client import AMIConnectionError
 
@@ -17,10 +17,10 @@ class EventHandlerFacade(object):
     def __init__(self, ami_client, bus_client):
         self._ami_client = ami_client
         self._bus_client = bus_client
-        self._should_stop = False
+        self._stop_event = threading.Event()
 
     def run(self):
-        while not self._should_stop:
+        while not self._stop_event.is_set():
             try:
                 self._ami_client.connect_and_login()
                 self._process_messages_indefinitely()
@@ -31,15 +31,14 @@ class EventHandlerFacade(object):
 
     def _handle_ami_connection_error(self, e):
         self._ami_client.disconnect(reason=e.error)
-        if not self._should_stop:
-            time.sleep(self.RECONNECTION_DELAY)
+        self._stop_event.wait(timeout=self.RECONNECTION_DELAY)
 
     def _handle_unexpected_error(self, e):
         self._ami_client.disconnect(reason='Unexpected error: {}'.format(e))
         raise
 
     def _process_messages_indefinitely(self):
-        while not self._should_stop:
+        while not self._stop_event.is_set():
             new_messages = self._ami_client.parse_next_messages()
             self._process_messages(new_messages)
 
@@ -50,5 +49,5 @@ class EventHandlerFacade(object):
             self._bus_client.publish(message)
 
     def stop(self):
-        self._should_stop = True
+        self._stop_event.set()
         self._ami_client.stop()
