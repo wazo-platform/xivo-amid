@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2012-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import collections
@@ -23,10 +23,22 @@ RECONNECTION_DELAY = 5
 
 class testEventHandlerFacade(unittest.TestCase):
 
+    @patch('threading.Event')
     @patch('collections.deque')
-    def setUp(self, deque_mock):
+    def setUp(self, deque_mock, event_mock):
         self.deque_mock = deque_mock
         self.queue = self.deque_mock.return_value = Mock()
+
+        self.event_mock = event_mock
+        self.event_set = False
+
+        def is_set_fn():
+            return self.event_set
+
+        def set_fn():
+            self.event_set = True
+        self.event_wait = Mock()
+        self.event_mock.return_value = Mock(set=set_fn, is_set=is_set_fn, wait=self.event_wait)
 
         self.bus_client_mock = Mock(BusClient)
 
@@ -47,18 +59,16 @@ class testEventHandlerFacade(unittest.TestCase):
 
         self.ami_client_mock.disconnect.assert_called_once_with(reason=ANY)
 
-    @patch('time.sleep')
-    def test_given_ami_connection_error_when_run_then_ami_reconnect(self, sleep_mock):
+    def test_given_ami_connection_error_when_run_then_ami_reconnect(self):
         self.ami_client_mock.connect_and_login.side_effect = [AMIConnectionError(), None]
 
         self.assertRaises(Exception, self.facade.run)
 
-        sleep_mock.assert_called_once_with(RECONNECTION_DELAY)
+        self.event_wait.assert_called_once_with(timeout=RECONNECTION_DELAY)
         assert_that(self.ami_client_mock.disconnect.call_count, equal_to(2))
         assert_that(self.ami_client_mock.connect_and_login.call_count, equal_to(2))
 
-    @patch('time.sleep')
-    def test_given_ami_connection_error_when_run_then_new_messages_processed(self, sleep_mock):
+    def test_given_ami_connection_error_when_run_then_new_messages_processed(self):
         self.ami_client_mock.connect_and_login.side_effect = [AMIConnectionError(), None]
 
         self.ami_client_mock.parse_next_messages.side_effect = [[sentinel.message], Exception()]
