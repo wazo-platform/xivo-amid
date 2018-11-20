@@ -39,14 +39,6 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
             cls._ajam_port = None
 
     @classmethod
-    def _docker_compose_options(cls):
-        return [
-            '--file', os.path.join(cls.assets_root, 'docker-compose.yml'),
-            '--file', os.path.join(cls.assets_root, 'docker-compose.{}.override.yml'.format(cls.asset)),
-            '--project-name', cls.service,
-        ]
-
-    @classmethod
     def amid_url(cls, *parts):
         return 'https://{host}:{port}/1.0/{path}'.format(host='localhost',
                                                          port=cls._amid_port,
