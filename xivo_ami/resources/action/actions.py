@@ -2,7 +2,6 @@
 # Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-import json
 import logging
 import requests
 
@@ -65,7 +64,7 @@ class Actions(AuthResource):
         if action.lower() in ('queues', 'command'):
             raise UnsupportedAction(action)
 
-        extra_args = json.loads(request.data) if request.data else {}
+        extra_args = request.get_json(force=True, silent=True) or {}
 
         try:
             with _ajam_session(self.ajam_url, self.login_params, self.verify) as session:
