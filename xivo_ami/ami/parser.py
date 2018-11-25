@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2012-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import logging
@@ -14,7 +14,7 @@ class AMIParsingError(Exception):
 def parse_buffer(raw_buffer, event_callback, response_callback):
     unparsed_buffer = raw_buffer
     while unparsed_buffer:
-        head, sep, unparsed_buffer = unparsed_buffer.partition('\r\n\r\n')
+        head, sep, unparsed_buffer = unparsed_buffer.partition(b'\r\n\r\n')
         if not sep:
             unparsed_buffer = head
             break
@@ -59,7 +59,7 @@ def _parse_msg(data, event_callback, response_callback):
         raise AMIParsingError('unexpected data: %r' % data)
 
     if callback:
-        callback(first_value, headers.get('ActionID'), dict(headers.iteritems()))
+        callback(first_value, headers.get('ActionID'), dict(headers.items()))
 
 
 def _parse_line(line):

@@ -104,7 +104,7 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_complete_message_when_parse_next_messages_then_return_messages_queue(self, mock_socket):
-        data = 'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'
+        data = b'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'
         mock_socket.recv.return_value = data
         self.ami_client.connect_and_login()
 
@@ -116,7 +116,7 @@ class TestAMIClient(unittest.TestCase):
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_incomplete_message_when_parse_next_messages_then_return_empty_queue(self, mock_socket):
         self.ami_client.connect_and_login()
-        mock_socket.recv.return_value = 'incomplete'
+        mock_socket.recv.return_value = b'incomplete'
 
         messages = self.ami_client.parse_next_messages()
 
@@ -125,8 +125,8 @@ class TestAMIClient(unittest.TestCase):
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_remaining_message_when_parse_next_messages_then_return_messages_queue(self, mock_socket):
         self.ami_client.connect_and_login()
-        self.ami_client._buffer = 'Event: '
-        mock_socket.recv.return_value = 'complete\r\n\r\ndata\r\n\r\n'
+        self.ami_client._buffer = b'Event: '
+        mock_socket.recv.return_value = b'complete\r\n\r\ndata\r\n\r\n'
 
         messages = self.ami_client.parse_next_messages()
 
@@ -134,13 +134,13 @@ class TestAMIClient(unittest.TestCase):
         self.assertEqual('complete', messages[0].name)
 
     @patch_return_value('socket.socket')
-    def test_given_non_utf8_message_when_parse_next_messages_then_return_unicode_messages(self, mock_socket):
+    def test_given_non_utf8_message_when_parse_next_messages_then_return_str_messages(self, mock_socket):
         self.ami_client.connect_and_login()
-        mock_socket.recv.return_value = 'Event: complete\r\ndata: \xE9\r\n\r\n'
+        mock_socket.recv.return_value = b'Event: complete\r\ndata: \xE9\r\n\r\n'
 
         messages = self.ami_client.parse_next_messages()
 
-        assert_that(messages[0].headers['data'], instance_of(unicode))
+        assert_that(messages[0].headers['data'], instance_of(str))
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_recv_socket_error_when_parse_next_messages_then_raise_amiconnectionerror(self, mock_socket):
@@ -152,7 +152,7 @@ class TestAMIClient(unittest.TestCase):
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_socket_recv_nothing_when_parse_next_message_then_raise_amiconnectionerror(self, mock_socket):
         self.ami_client.connect_and_login()
-        mock_socket.recv.return_value = ''
+        mock_socket.recv.return_value = b''
 
         self.assertRaises(AMIConnectionError, self.ami_client.parse_next_messages)
 
@@ -161,7 +161,7 @@ class TestAMIClient(unittest.TestCase):
         self.ami_client.connect_and_login()
         self.ami_client.stopping = True
 
-        mock_socket.recv.return_value = ''
+        mock_socket.recv.return_value = b''
 
         assert_that(self.ami_client.parse_next_messages(), empty())
 

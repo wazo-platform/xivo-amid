@@ -23,7 +23,7 @@ class AMIClient(object):
         self._password = password
         self._port = port
         self._sock = None
-        self._buffer = ''
+        self._buffer = b''
         self._event_queue = collections.deque()
         self.stopping = False
 
@@ -68,7 +68,7 @@ class AMIClient(object):
     def _disconnect_socket(self):
         self._sock.close()
         self._sock = None
-        self._buffer = ''
+        self._buffer = b''
 
     def _add_data_to_buffer(self):
         data = self._recv_data_from_socket()

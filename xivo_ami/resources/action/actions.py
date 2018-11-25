@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import json
@@ -103,7 +103,7 @@ class Command(AuthResource):
 
 def _ajam_params(action, ami_args):
     result = [('action', action)]
-    for extra_arg_key, extra_arg_value in ami_args.iteritems():
+    for extra_arg_key, extra_arg_value in ami_args.items():
         if isinstance(extra_arg_value, list):
             result.extend([(extra_arg_key, value) for value in extra_arg_value])
         else:

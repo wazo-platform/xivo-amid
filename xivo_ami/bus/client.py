@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2012-2016 Avencall
+# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import logging
@@ -31,7 +31,7 @@ class BusClient(object):
     def _new_publisher_or_timeout(self, config):
         connection_tries = config['bus']['startup_connection_tries']
         connection_delay = config['bus']['startup_connection_delay']
-        for _ in xrange(connection_tries):
+        for _ in range(connection_tries):
             try:
                 return self._new_publisher(config)
             except (AMQPError, socket.error) as e:
