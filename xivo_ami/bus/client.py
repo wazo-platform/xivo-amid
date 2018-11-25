@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 class BusUnreachable(Exception):
     def __init__(self, bus_config):
         bus_url = 'amqp://{username}:******@{host}:{port}//'.format(**bus_config)
-        super(BusUnreachable, self).__init__('Message bus unreachable on {}... stopping'.format(bus_url))
+        super().__init__('Message bus unreachable on {}... stopping'.format(bus_url))
         self.bus_config = bus_config
 
 

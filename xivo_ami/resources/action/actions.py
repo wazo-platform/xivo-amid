@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class AJAMUnreachable(APIException):
 
     def __init__(self, ajam_url, error):
-        super(AJAMUnreachable, self).__init__(
+        super().__init__(
             status_code=503,
             message='AJAM server unreachable',
             error_id='ajam-unreachable',
@@ -36,7 +36,7 @@ class AJAMUnreachable(APIException):
 class UnsupportedAction(APIException):
 
     def __init__(self, action):
-        super(UnsupportedAction, self).__init__(
+        super().__init__(
             status_code=501,
             message='Action incompatible with xivo-amid',
             error_id='incompatible-action',

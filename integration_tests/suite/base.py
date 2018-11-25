@@ -27,7 +27,7 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(BaseIntegrationTest, cls).setUpClass()
+        super().setUpClass()
         try:
             cls._amid_port = cls.service_port(9491, 'amid')
         except asset_launching_test_case.NoSuchPort:
