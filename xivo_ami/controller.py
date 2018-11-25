@@ -12,7 +12,7 @@ from xivo_ami.facade import EventHandlerFacade
 logger = logging.getLogger(__name__)
 
 
-class Controller(object):
+class Controller:
 
     def __init__(self, config):
         self._config = config

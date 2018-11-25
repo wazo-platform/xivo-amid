@@ -22,7 +22,7 @@ class BusUnreachable(Exception):
         self.bus_config = bus_config
 
 
-class BusClient(object):
+class BusClient:
 
     def __init__(self, config):
         self._publisher = self._new_publisher_or_timeout(config)

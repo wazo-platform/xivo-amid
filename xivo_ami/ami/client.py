@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 Message = collections.namedtuple('Message', ['name', 'headers'])
 
 
-class AMIClient(object):
+class AMIClient:
 
     _BUFSIZE = 4096
 

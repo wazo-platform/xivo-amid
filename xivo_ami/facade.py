@@ -9,7 +9,7 @@ from xivo_ami.ami.client import AMIConnectionError
 logger = logging.getLogger(__name__)
 
 
-class EventHandlerFacade(object):
+class EventHandlerFacade:
 
     RECONNECTION_DELAY = 5
 

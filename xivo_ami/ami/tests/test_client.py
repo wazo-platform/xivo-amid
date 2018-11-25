@@ -17,7 +17,7 @@ from mock import sentinel
 from xivo_ami.ami.client import AMIClient, AMIConnectionError
 
 
-class patch_return_value(object):
+class patch_return_value:
     def __init__(self, patched, *mock_args, **mock_kwargs):
         self.patched = patched
         self.mock_args = mock_args
