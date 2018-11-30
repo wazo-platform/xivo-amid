@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-import json
 import logging
 import requests
 
@@ -24,7 +22,7 @@ logger = logging.getLogger(__name__)
 class AJAMUnreachable(APIException):
 
     def __init__(self, ajam_url, error):
-        super(AJAMUnreachable, self).__init__(
+        super().__init__(
             status_code=503,
             message='AJAM server unreachable',
             error_id='ajam-unreachable',
@@ -38,7 +36,7 @@ class AJAMUnreachable(APIException):
 class UnsupportedAction(APIException):
 
     def __init__(self, action):
-        super(UnsupportedAction, self).__init__(
+        super().__init__(
             status_code=501,
             message='Action incompatible with xivo-amid',
             error_id='incompatible-action',
@@ -65,7 +63,7 @@ class Actions(AuthResource):
         if action.lower() in ('queues', 'command'):
             raise UnsupportedAction(action)
 
-        extra_args = json.loads(request.data) if request.data else {}
+        extra_args = request.get_json(force=True, silent=True) or {}
 
         try:
             with _ajam_session(self.ajam_url, self.login_params, self.verify) as session:
@@ -103,7 +101,7 @@ class Command(AuthResource):
 
 def _ajam_params(action, ami_args):
     result = [('action', action)]
-    for extra_arg_key, extra_arg_value in ami_args.iteritems():
+    for extra_arg_key, extra_arg_value in ami_args.items():
         if isinstance(extra_arg_value, list):
             result.extend([(extra_arg_key, value) for value in extra_arg_value])
         else:

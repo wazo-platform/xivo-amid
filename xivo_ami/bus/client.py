@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright (C) 2012-2016 Avencall
+# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 import logging
@@ -19,11 +18,11 @@ logger = logging.getLogger(__name__)
 class BusUnreachable(Exception):
     def __init__(self, bus_config):
         bus_url = 'amqp://{username}:******@{host}:{port}//'.format(**bus_config)
-        super(BusUnreachable, self).__init__('Message bus unreachable on {}... stopping'.format(bus_url))
+        super().__init__('Message bus unreachable on {}... stopping'.format(bus_url))
         self.bus_config = bus_config
 
 
-class BusClient(object):
+class BusClient:
 
     def __init__(self, config):
         self._publisher = self._new_publisher_or_timeout(config)
@@ -31,7 +30,7 @@ class BusClient(object):
     def _new_publisher_or_timeout(self, config):
         connection_tries = config['bus']['startup_connection_tries']
         connection_delay = config['bus']['startup_connection_delay']
-        for _ in xrange(connection_tries):
+        for _ in range(connection_tries):
             try:
                 return self._new_publisher(config)
             except (AMQPError, socket.error) as e:

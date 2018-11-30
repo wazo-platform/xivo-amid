@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
@@ -67,7 +66,7 @@ class TestHTTPAction(BaseIntegrationTest):
             })))
 
     def test_that_action_with_parameters_sends_parameters(self):
-        key = ''.join(random.choice(string.letters) for _ in range(10))
+        key = ''.join(random.choice(string.ascii_letters) for _ in range(10))
 
         self.action('DBPut', {'Family': key, 'Key': key, 'Val': key})
         result = self.action('DBGet', {'Family': key, 'Key': key})
@@ -83,7 +82,7 @@ class TestHTTPAction(BaseIntegrationTest):
     def test_that_action_can_send_and_receive_non_ascii(self):
         family = 'my-family'
         key = 'my-key'
-        value = u'non-ascii-value äåéëþüü'
+        value = 'non-ascii-value äåéëþüü'
 
         self.action('DBPut', {'Family': family, 'Key': key, 'Val': value})
         result = self.action('DBGet', {'Family': family, 'Key': key})

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
@@ -10,7 +9,7 @@ from xivo_ami.ami.client import AMIConnectionError
 logger = logging.getLogger(__name__)
 
 
-class EventHandlerFacade(object):
+class EventHandlerFacade:
 
     RECONNECTION_DELAY = 5
 

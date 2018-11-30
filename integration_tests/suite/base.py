@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
@@ -28,7 +27,7 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(BaseIntegrationTest, cls).setUpClass()
+        super().setUpClass()
         try:
             cls._amid_port = cls.service_port(9491, 'amid')
         except asset_launching_test_case.NoSuchPort:
