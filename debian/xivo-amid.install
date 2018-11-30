@@ -1,2 +1,2 @@
-debian/tmp/usr/bin/xivo-amid usr/bin/
+debian/python3-xivo-amid/usr/bin/xivo-amid usr/bin/
 etc/* etc/
