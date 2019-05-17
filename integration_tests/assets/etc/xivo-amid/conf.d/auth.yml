@@ -1,4 +1,4 @@
 auth:
   host: auth
   port: 9497
-  verify_certificate: /usr/local/share/xivo-auth-ssl/server.crt
+  verify_certificate: /usr/local/share/wazo-auth-ssl/server.crt

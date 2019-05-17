@@ -11,7 +11,7 @@ services:
       - "9491"
     volumes:
       - "../..:/usr/src/xivo-amid"
-      - "./ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
+      - "./ssl/wazo-auth:/usr/local/share/wazo-auth-ssl"
       - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"
       - "./etc/xivo-amid/conf.d/disable-ami-events.yml:/etc/xivo-amid/conf.d/disable-ami-events.yml"
       - "./etc/xivo-amid/conf.d/ajam.yml:/etc/xivo-amid/conf.d/ajam.yml"
@@ -37,6 +37,6 @@ services:
     expose:
       - "9497"
     volumes:
-      - "./xivo-auth:/usr/local/share/xivo-auth"
-      - "./ssl/xivo-auth:/usr/local/share/xivo-auth-ssl"
-    command: "python /usr/local/share/xivo-auth/mock-xivo-auth.py 9497"
+      - "./wazo-auth:/usr/local/share/wazo-auth"
+      - "./ssl/wazo-auth:/usr/local/share/wazo-auth-ssl"
+    command: "python /usr/local/share/wazo-auth/mock-wazo-auth.py 9497"
