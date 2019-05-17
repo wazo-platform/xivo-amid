@@ -34,7 +34,7 @@ Depends:
  python3-kombu,
  python3-marshmallow,
  python3-requests,
- xivo-auth-client-python3,
+ wazo-auth-client-python3,
  xivo-bus-python3,
  xivo-lib-python-python3
 Description: Wazo amid lib
