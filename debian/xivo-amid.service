@@ -1,6 +1,6 @@
 [Unit]
 Description=xivo-amid server
-ConditionPathExists=!/var/lib/xivo/disabled
+ConditionPathExists=!/var/lib/wazo/disabled
 After=network-online.target asterisk.service rabbitmq-server.service xivo-confgend.service
 Before=monit.service
 

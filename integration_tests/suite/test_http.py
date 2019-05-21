@@ -1,4 +1,4 @@
-# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import random
@@ -113,7 +113,7 @@ class TestHTTPCommand(BaseIntegrationTest):
         assert_that(result, has_entry('response', contains(
             'Class: default',
             '	Mode: files',
-            '	Directory: /var/lib/xivo/moh/default',
+            '	Directory: /var/lib/wazo/moh/default',
         )))
 
 

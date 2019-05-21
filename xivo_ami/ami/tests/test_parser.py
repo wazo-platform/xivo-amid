@@ -1,4 +1,4 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import textwrap
@@ -75,7 +75,7 @@ class TestParser(unittest.TestCase):
             Message: Command output follows\r
             Output: Class: default\r
             Output: 	Mode: files\r
-            Output: 	Directory: /var/lib/xivo/moh/default\r
+            Output: 	Directory: /var/lib/wazo/moh/default\r
             \r
             ''').encode('utf-8')
 
@@ -84,7 +84,7 @@ class TestParser(unittest.TestCase):
         assert_that(response_lines, contains(
             'Class: default',
             '	Mode: files',
-            '	Directory: /var/lib/xivo/moh/default'
+            '	Directory: /var/lib/wazo/moh/default'
         ))
 
     def test_given_event_with_chan_variables_when_parse_buffer_then_chan_variables_are_parsed(self):
