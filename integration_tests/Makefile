@@ -2,7 +2,6 @@
 
 test-setup: build-amid
 	docker pull p0bailey/docker-flask
-	docker pull swaggerapi/swagger-validator
 	docker pull wazopbx/wait
 
 build-amid:

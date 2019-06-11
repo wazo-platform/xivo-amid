@@ -3,6 +3,5 @@ services:
   sync:
     depends_on:
       - amid
-      - swagger-validator
     environment:
-      TARGETS: "amid:9491 swagger-validator:8080"
+      TARGETS: "amid:9491"
