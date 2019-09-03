@@ -1,4 +1,4 @@
-# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -88,7 +88,7 @@ class Command(AuthResource):
 
     @required_acl('amid.action.Command.create')
     def post(self):
-        extra_args = command_schema.load(request.get_json(force=True)).data
+        extra_args = command_schema.load(request.get_json(force=True))
         try:
             with _ajam_session(self.ajam_url, self.login_params, self.verify) as session:
                 response = session.get(self.ajam_url, params=_ajam_params('Command', extra_args))
