@@ -7,9 +7,9 @@ from xivo.chain_map import ChainMap
 from xivo.config_helper import read_config_file_hierarchy
 
 
-_DAEMONNAME = 'xivo-amid'
+_DAEMONNAME = 'wazo-amid'
 _DEFAULT_CONFIG = {
-    'user': 'xivo-amid',
+    'user': 'wazo-amid',
     'debug': False,
     'foreground': False,
     'pidfile': '/var/run/{0}/{0}.pid'.format(_DAEMONNAME),

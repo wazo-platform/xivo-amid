@@ -8,7 +8,7 @@ from xivo.chain_map import ChainMap
 from wazo_amid.bin.daemon import main
 
 
-USER = 'xivo-amid'
+USER = 'wazo-amid'
 
 default_config = {
     'logfile': 'default_logfile',

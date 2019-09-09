@@ -1,15 +1,15 @@
 FROM python:3.7-buster
 MAINTAINER Wazo Maintainers <dev@wazo.community>
 
-ADD . /usr/src/xivo-amid
+ADD . /usr/src/wazo-amid
 ADD ./contribs/docker/certs /usr/share/xivo-certs
-WORKDIR /usr/src/xivo-amid
+WORKDIR /usr/src/wazo-amid
 RUN pip install -r requirements.txt \
     && python setup.py install \
-    && adduser --quiet --system --group --no-create-home xivo-amid \
-    && install -o xivo-amid -g xivo-amid /dev/null /var/log/xivo-amid.log \
-    && install -d -o xivo-amid -g xivo-amid /var/run/xivo-amid \
+    && adduser --quiet --system --group --no-create-home wazo-amid \
+    && install -o wazo-amid -g wazo-amid /dev/null /var/log/wazo-amid.log \
+    && install -d -o wazo-amid -g wazo-amid /var/run/wazo-amid \
     && cp -r etc/* /etc
 
 EXPOSE 9491
-CMD ["xivo-amid", "-fd"]
+CMD ["wazo-amid", "-fd"]
