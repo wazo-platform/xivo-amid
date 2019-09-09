@@ -2,10 +2,10 @@
 
 set -e
 
-LOG_FILENAME='/var/log/xivo-amid.log'
-USER='xivo-amid'
+LOG_FILENAME='/var/log/wazo-amid.log'
+USER='wazo-amid'
 GROUP=$USER
-DAEMONNAME=xivo-amid
+DAEMONNAME=wazo-amid
 PIDDIR=/var/run/$DAEMONNAME
 
 case "$1" in
@@ -19,10 +19,25 @@ case "$1" in
 
             echo "Adding system user $USER" 1>&2
             adduser --quiet --system --group --no-create-home \
-                    --home /var/lib/xivo-amid \
+                    --home /var/lib/wazo-amid \
                     $USER
             adduser --quiet $USER www-data
         fi
+
+        # move files from xivo-amid
+        rm -f /etc/nginx/locations/https-enabled/xivo-amid
+        if [ -f /var/log/xivo-amid.log ] ; then
+            rename 's/xivo-amid/wazo-amid/g' /var/log/xivo-amid.log*
+        fi
+        rm -rf /var/run/xivo-amid
+        if [ -d /etc/xivo-amid/conf.d ] ; then
+            find /etc/xivo-amid/conf.d/ -mindepth 1 -exec mv {} /etc/wazo-amid/conf.d/ \;
+            rmdir --ignore-fail-on-non-empty -p /etc/xivo-amid/conf.d
+        fi
+        if getent passwd xivo-amid > /dev/null; then
+            deluser --quiet --system --remove-home xivo-amid
+        fi
+        # End of move files from xivo-amid
 
         if [ ! -e "$LOG_FILENAME" ]; then
             touch "$LOG_FILENAME"

@@ -1,4 +1,4 @@
-/var/log/xivo-amid.log {
+/var/log/wazo-amid.log {
     daily
     rotate 15
     compress
