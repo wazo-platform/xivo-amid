@@ -1,7 +1,7 @@
-FROM wazopbx/xivo-amid
+FROM wazopbx/wazo-amid
 
 ENV PYTHONDONTWRITEBYTECODE='true'
 
-ADD . /usr/src/xivo-amid
-WORKDIR /usr/src/xivo-amid
+ADD . /usr/src/wazo-amid
+WORKDIR /usr/src/wazo-amid
 RUN python setup.py develop

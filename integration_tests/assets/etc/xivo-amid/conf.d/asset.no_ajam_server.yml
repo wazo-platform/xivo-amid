@@ -1,6 +1,6 @@
 ajam:
   host: inexisting-ajam-server
   port: 5040
-  username: xivo_amid
+  username: wazo_amid
   password: opensesame
   verify_certificate: False

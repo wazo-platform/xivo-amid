@@ -1,4 +1,4 @@
 rest_api:
   https:
-    certificate: /usr/local/share/xivo-amid-ssl/server.crt
-    private_key: /usr/local/share/xivo-amid-ssl/server.key
+    certificate: /usr/local/share/wazo-amid-ssl/server.crt
+    private_key: /usr/local/share/wazo-amid-ssl/server.key
