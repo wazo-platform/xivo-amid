@@ -1,8 +1,8 @@
-xivo-amid
+wazo-amid
 =========
-[![Build Status](https://jenkins.wazo.community/buildStatus/icon?job=xivo-amid)](https://jenkins.wazo.community/job/xivo-amid)
+[![Build Status](https://jenkins.wazo.community/buildStatus/icon?job=wazo-amid)](https://jenkins.wazo.community/job/wazo-amid)
 
-xivo-amid is a daemon for interacting Asterisk's AMI:
+wazo-amid is a daemon for interacting Asterisk's AMI:
 
 * forward AMI events to RabbitMQ
 * expose HTTP JSON interface for AMI actions
@@ -11,15 +11,15 @@ xivo-amid is a daemon for interacting Asterisk's AMI:
 Docker
 ------
 
-The wazopbx/xivo-ami image can be built using the following command:
+The wazopbx/wazo-ami image can be built using the following command:
 
-    docker build -t wazopbx/xivo-amid .
+    docker build -t wazopbx/wazo-amid .
 
 
 Testing
 -------
 
-xivo-amid contains unittests and integration tests
+wazo-amid contains unittests and integration tests
 
 
 Running unit tests
