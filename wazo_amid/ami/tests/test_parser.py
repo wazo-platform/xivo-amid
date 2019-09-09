@@ -9,8 +9,8 @@ from hamcrest import equal_to
 from hamcrest import contains
 from mock import Mock
 
-from xivo_ami.ami.parser import parse_buffer
-from xivo_ami.ami.parser import parse_command_response
+from wazo_amid.ami.parser import parse_buffer
+from wazo_amid.ami.parser import parse_command_response
 
 MESSAGE_DELIMITER = b'\r\n\r\n'
 EVENT_DELIMITER = b'Event: '

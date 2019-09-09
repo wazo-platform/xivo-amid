@@ -7,9 +7,9 @@ import requests
 from contextlib import contextmanager
 from flask import request
 
-from xivo_ami.ami import parser
-from xivo_ami.exceptions import APIException
-from xivo_ami.rest_api import AuthResource, required_acl
+from wazo_amid.ami import parser
+from wazo_amid.exceptions import APIException
+from wazo_amid.rest_api import AuthResource, required_acl
 
 from .schema import command_schema
 

@@ -1,10 +1,10 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
 import threading
 
-from xivo_ami.ami.client import AMIConnectionError
+from wazo_amid.ami.client import AMIConnectionError
 
 logger = logging.getLogger(__name__)
 

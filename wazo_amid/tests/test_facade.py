@@ -1,4 +1,4 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import collections
@@ -13,9 +13,9 @@ from mock import (
     sentinel,
 )
 
-from xivo_ami.ami.client import AMIClient, AMIConnectionError
-from xivo_ami.bus.client import BusClient
-from xivo_ami.facade import EventHandlerFacade
+from wazo_amid.ami.client import AMIClient, AMIConnectionError
+from wazo_amid.bus.client import BusClient
+from wazo_amid.facade import EventHandlerFacade
 
 RECONNECTION_DELAY = 5
 

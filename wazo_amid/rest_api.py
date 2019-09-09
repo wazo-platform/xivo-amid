@@ -1,4 +1,4 @@
-# Copyright 2016-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -23,7 +23,7 @@ from .exceptions import ValidationError
 
 VERSION = 1.0
 
-app = Flask('xivo_amid')
+app = Flask('wazo_amidd')
 logger = logging.getLogger(__name__)
 api = Api(prefix='/{}'.format(VERSION))
 auth_verifier = AuthVerifier()
@@ -50,9 +50,9 @@ def configure(global_config):
 
 
 def load_resources(global_config):
-    from xivo_ami.resources.action.actions import Actions
-    from xivo_ami.resources.action.actions import Command
-    from xivo_ami.resources.api.actions import SwaggerResource
+    from wazo_amid.resources.action.actions import Actions
+    from wazo_amid.resources.action.actions import Command
+    from wazo_amid.resources.api.actions import SwaggerResource
 
     Actions.configure(global_config)
     Command.configure(global_config)

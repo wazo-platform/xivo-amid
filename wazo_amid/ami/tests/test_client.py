@@ -1,4 +1,4 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import socket
@@ -14,7 +14,7 @@ from hamcrest import (
 from mock import Mock, patch
 from mock import sentinel
 
-from xivo_ami.ami.client import AMIClient, AMIConnectionError
+from wazo_amid.ami.client import AMIClient, AMIConnectionError
 
 
 class patch_return_value:

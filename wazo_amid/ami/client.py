@@ -1,11 +1,11 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import collections
 import logging
 import socket
 
-from xivo_ami.ami import parser
+from wazo_amid.ami import parser
 
 logger = logging.getLogger(__name__)
 

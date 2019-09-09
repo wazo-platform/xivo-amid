@@ -1,11 +1,11 @@
-# Copyright (C) 2014-2016 Avencall
+# Copyright 2014-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from mock import Mock, patch, ANY
 from unittest import TestCase
 
 from xivo.chain_map import ChainMap
-from xivo_ami.bin.daemon import main
+from wazo_amid.bin.daemon import main
 
 
 USER = 'xivo-amid'
@@ -24,8 +24,8 @@ class TestMain(TestCase):
         self.daemon_patch = patch('xivo.daemonize.daemonize')
         self.daemon_lock_patch = patch('xivo.daemonize.lock_pidfile_or_die')
         self.daemon_unlock_patch = patch('xivo.daemonize.unlock_pidfile')
-        self.log_patch = patch('xivo_ami.bin.daemon.setup_logging')
-        self.user_patch = patch('xivo_ami.bin.daemon.change_user')
+        self.log_patch = patch('wazo_amid.bin.daemon.setup_logging')
+        self.user_patch = patch('wazo_amid.bin.daemon.change_user')
 
         self.daemonize = self.daemon_patch.start()
         self.daemon_lock = self.daemon_lock_patch.start()
@@ -40,9 +40,9 @@ class TestMain(TestCase):
         self.daemon_lock_patch.stop()
         self.daemon_patch.stop()
 
-    @patch('xivo_ami.bin.daemon.load_config',
+    @patch('wazo_amid.bin.daemon.load_config',
            Mock(return_value=ChainMap({'pidfile': 'pidfile'}, default_config)))
-    @patch('xivo_ami.bin.daemon.Controller')
+    @patch('wazo_amid.bin.daemon.Controller')
     def test_that_amid_has_a_pid_file(self, controller_init_mock):
         main()
 
@@ -51,9 +51,9 @@ class TestMain(TestCase):
         controller_init_mock.return_value.run.assert_called_once_with()
         self.daemon_unlock.asssert_called_once_with('pidfile')
 
-    @patch('xivo_ami.bin.daemon.load_config',
+    @patch('wazo_amid.bin.daemon.load_config',
            Mock(return_value=ChainMap({'user': 'foobar'}, default_config)))
-    @patch('xivo_ami.bin.daemon.Controller', Mock())
+    @patch('wazo_amid.bin.daemon.Controller', Mock())
     def test_when_arg_user_is_given_then_change_user(self):
         main()
 

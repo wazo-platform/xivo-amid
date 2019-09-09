@@ -1,13 +1,13 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
 
 from threading import Thread
-from xivo_ami.ami.client import AMIClient
-from xivo_ami.bus.client import BusClient
-from xivo_ami import rest_api
-from xivo_ami.facade import EventHandlerFacade
+from wazo_amid.ami.client import AMIClient
+from wazo_amid.bus.client import BusClient
+from wazo_amid import rest_api
+from wazo_amid.facade import EventHandlerFacade
 
 logger = logging.getLogger(__name__)
 

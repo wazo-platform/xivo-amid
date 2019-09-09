@@ -1,4 +1,4 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -8,8 +8,8 @@ from functools import partial
 from xivo.daemonize import pidfile_context
 from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
-from xivo_ami.config import load_config
-from xivo_ami.controller import Controller
+from wazo_amid.config import load_config
+from wazo_amid.controller import Controller
 
 logger = logging.getLogger(__name__)
 

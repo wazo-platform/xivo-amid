@@ -1,4 +1,4 @@
-# Copyright 2014-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2014-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import argparse
@@ -20,11 +20,11 @@ _DEFAULT_CONFIG = {
     'ajam': {'host': 'localhost',
              'port': 5040,
              'verify_certificate': '/usr/share/xivo-certs/server.crt',
-             'username': 'xivo_amid',
+             'username': 'wazo_amidd',
              'password': 'default_password'},
     'ami': {'host': 'localhost',
             'port': 5038,
-            'username': 'xivo_amid',
+            'username': 'wazo_amidd',
             'password': 'default'},
     'auth': {'host': 'localhost',
              'port': 9497,
