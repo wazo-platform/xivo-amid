@@ -38,7 +38,7 @@ class UnsupportedAction(APIException):
     def __init__(self, action):
         super().__init__(
             status_code=501,
-            message='Action incompatible with xivo-amid',
+            message='Action incompatible with wazo-amid',
             error_id='incompatible-action',
             details={
                 'action': action

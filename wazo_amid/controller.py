@@ -41,5 +41,5 @@ class Controller:
         rest_api.run(self._config['rest_api'])
 
     def stop(self, reason):
-        logger.warning('Stopping xivo-amid: %s', reason)
+        logger.warning('Stopping wazo-amid: %s', reason)
         rest_api.stop()
