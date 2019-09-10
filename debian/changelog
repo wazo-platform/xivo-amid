@@ -1,3 +1,9 @@
+wazo-amid (19.13~20190909) wazo-dev-buster; urgency=medium
+
+  * rename xivo-amid to wazo-amid
+
+ -- Wazo Maintainers <dev@wazo.community>  Mon, 09 Sep 2019 13:57:48 -0400
+
 xivo-amid (13.25~20131212.215449.40c177a) xivo-dev; urgency=low
 
   * Initial release.

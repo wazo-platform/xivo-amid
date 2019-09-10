@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-export PYBUILD_NAME=xivo-amid
+export PYBUILD_NAME=wazo-amid
 export PYBUILD_DISABLE=test
 
 %:

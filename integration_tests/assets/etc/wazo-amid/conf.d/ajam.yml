@@ -1,0 +1,6 @@
+ajam:
+  host: asterisk-ajam
+  port: 5040
+  username: wazo_amid
+  password: opensesame
+  verify_certificate: False

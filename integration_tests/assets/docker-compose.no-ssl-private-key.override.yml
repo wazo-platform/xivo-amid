@@ -5,4 +5,4 @@ services:
       - amid
   amid:
     volumes:
-      - "./etc/xivo-amid/conf.d/asset.no-ssl-private-key.yml:/etc/xivo-amid/conf.d/0-asset.no-ssl-private-key.yml"
+      - "./etc/wazo-amid/conf.d/asset.no-ssl-private-key.yml:/etc/wazo-amid/conf.d/0-asset.no-ssl-private-key.yml"

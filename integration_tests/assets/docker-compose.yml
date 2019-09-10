@@ -6,17 +6,17 @@ services:
       TIMEOUT: "${INTEGRATION_TEST_TIMEOUT}"
 
   amid:
-    image: xivo-amid-tests
+    image: wazo-amid-tests
     ports:
       - "9491"
     volumes:
-      - "../..:/usr/src/xivo-amid"
+      - "../..:/usr/src/wazo-amid"
       - "./ssl/wazo-auth:/usr/local/share/wazo-auth-ssl"
-      - "./ssl/localhost:/usr/local/share/xivo-amid-ssl"
-      - "./etc/xivo-amid/conf.d/disable-ami-events.yml:/etc/xivo-amid/conf.d/disable-ami-events.yml"
-      - "./etc/xivo-amid/conf.d/ajam.yml:/etc/xivo-amid/conf.d/ajam.yml"
-      - "./etc/xivo-amid/conf.d/auth.yml:/etc/xivo-amid/conf.d/auth.yml"
-      - "./etc/xivo-amid/conf.d/rest-api.yml:/etc/xivo-amid/conf.d/rest-api.yml"
+      - "./ssl/localhost:/usr/local/share/wazo-amid-ssl"
+      - "./etc/wazo-amid/conf.d/disable-ami-events.yml:/etc/wazo-amid/conf.d/disable-ami-events.yml"
+      - "./etc/wazo-amid/conf.d/ajam.yml:/etc/wazo-amid/conf.d/ajam.yml"
+      - "./etc/wazo-amid/conf.d/auth.yml:/etc/wazo-amid/conf.d/auth.yml"
+      - "./etc/wazo-amid/conf.d/rest-api.yml:/etc/wazo-amid/conf.d/rest-api.yml"
 
   asterisk-ajam:
     image: p0bailey/docker-flask

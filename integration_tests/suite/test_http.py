@@ -153,7 +153,7 @@ class TestHTTPSMissingCertificate(BaseIntegrationTest):
                 break
             time.sleep(1)
         else:
-            self.fail('xivo-amid did not stop while missing SSL certificate')
+            self.fail('wazo-amid did not stop while missing SSL certificate')
 
         log = self.amid_logs()
         assert_that(log, contains_string("No such file or directory: '/missing-certificate.crt'"))
@@ -170,7 +170,7 @@ class TestHTTPSMissingPrivateKey(BaseIntegrationTest):
                 break
             time.sleep(1)
         else:
-            self.fail('xivo-amid did not stop while missing SSL private key')
+            self.fail('wazo-amid did not stop while missing SSL private key')
 
         log = self.amid_logs()
         assert_that(log, contains_string("No such file or directory: '/missing-key.key'"))
