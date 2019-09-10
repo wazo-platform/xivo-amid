@@ -23,7 +23,7 @@ from .exceptions import ValidationError
 
 VERSION = 1.0
 
-app = Flask('wazo_amidd')
+app = Flask('wazo_amid')
 logger = logging.getLogger(__name__)
 api = Api(prefix='/{}'.format(VERSION))
 auth_verifier = AuthVerifier()
