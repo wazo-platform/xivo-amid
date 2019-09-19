@@ -1,2 +1,2 @@
 !exec
-command: xivo-confgen xivo/uuid.yml
+command: wazo-confgen xivo/uuid.yml
