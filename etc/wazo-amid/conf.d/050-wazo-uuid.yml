@@ -1,0 +1,2 @@
+!exec
+command: wazo-confgen wazo/uuid.yml
