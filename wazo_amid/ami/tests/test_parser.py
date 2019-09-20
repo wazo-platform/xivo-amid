@@ -43,8 +43,9 @@ class TestParser(unittest.TestCase):
         first_msg = "first complete message"
         second_msg = "second complete message"
         raw_buffer = (
-            EVENT_DELIMITER + first_msg.encode('utf-8') + MESSAGE_DELIMITER +
-            RESPONSE_DELIMITER + second_msg.encode('utf-8') + MESSAGE_DELIMITER
+            EVENT_DELIMITER + first_msg.encode('utf-8') + MESSAGE_DELIMITER
+            + RESPONSE_DELIMITER + second_msg.encode('utf-8')
+            + MESSAGE_DELIMITER
         )
 
         unparsed_buffer = parse_buffer(raw_buffer, self.mock_event_callback, self.mock_response_callback)
