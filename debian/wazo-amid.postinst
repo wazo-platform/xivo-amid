@@ -6,7 +6,7 @@ LOG_FILENAME='/var/log/wazo-amid.log'
 USER='wazo-amid'
 GROUP=$USER
 DAEMONNAME=wazo-amid
-PIDDIR=/var/run/$DAEMONNAME
+PIDDIR=/run/$DAEMONNAME
 
 case "$1" in
     configure)
@@ -29,7 +29,7 @@ case "$1" in
         if [ -f /var/log/xivo-amid.log ] ; then
             rename 's/xivo-amid/wazo-amid/g' /var/log/xivo-amid.log*
         fi
-        rm -rf /var/run/xivo-amid
+        rm -rf /run/xivo-amid
         if [ -d /etc/xivo-amid/conf.d ] ; then
             find /etc/xivo-amid/conf.d/ -mindepth 1 -exec mv {} /etc/wazo-amid/conf.d/ \;
             rmdir --ignore-fail-on-non-empty -p /etc/xivo-amid/conf.d

@@ -8,7 +8,7 @@ RUN pip install -r requirements.txt \
     && python setup.py install \
     && adduser --quiet --system --group --no-create-home wazo-amid \
     && install -o wazo-amid -g wazo-amid /dev/null /var/log/wazo-amid.log \
-    && install -d -o wazo-amid -g wazo-amid /var/run/wazo-amid \
+    && install -d -o wazo-amid -g wazo-amid /run/wazo-amid \
     && cp -r etc/* /etc
 
 EXPOSE 9491
