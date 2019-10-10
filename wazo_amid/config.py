@@ -12,7 +12,7 @@ _DEFAULT_CONFIG = {
     'user': 'wazo-amid',
     'debug': False,
     'foreground': False,
-    'pidfile': '/var/run/{0}/{0}.pid'.format(_DAEMONNAME),
+    'pidfile': '/run/{0}/{0}.pid'.format(_DAEMONNAME),
     'logfile': '/var/log/{}.log'.format(_DAEMONNAME),
     'config_file': '/etc/{}/config.yml'.format(_DAEMONNAME),
     'extra_config_files': '/etc/{}/conf.d/'.format(_DAEMONNAME),
