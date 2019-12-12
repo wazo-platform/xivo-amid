@@ -4,3 +4,4 @@
       - wazo-tox-py37
       - wazo-tox-integration
       - debian-packaging-template
+    auto-merge:
