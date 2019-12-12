@@ -7,8 +7,9 @@ Before=monit.service
 [Service]
 Type=forking
 ExecStartPre=/usr/bin/install -d -o wazo-amid -g wazo-amid /run/wazo-amid
-ExecStart=/usr/bin/wazo-amid
+ExecStart=/usr/bin/python3 -u /usr/bin/wazo-amid
 PIDFile=/run/wazo-amid/wazo-amid.pid
+SyslogIdentifier=wazo-amid
 
 [Install]
 WantedBy=multi-user.target
