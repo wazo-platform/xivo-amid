@@ -2,7 +2,7 @@ wazo-amid
 =========
 [![Build Status](https://jenkins.wazo.community/buildStatus/icon?job=wazo-amid)](https://jenkins.wazo.community/job/wazo-amid)
 
-wazo-amid is a daemon for interacting Asterisk's AMI:
+wazo-amid is a daemon for interacting with Asterisk's AMI:
 
 * forward AMI events to RabbitMQ
 * expose HTTP JSON interface for AMI actions
@@ -23,7 +23,7 @@ wazo-amid contains unittests and integration tests
 
 
 Running unit tests
-------------------
+++++++++++++++++++
 
 ```
 apt-get install libpq-dev python-dev libffi-dev libyaml-dev
@@ -33,7 +33,7 @@ tox --recreate -e py27
 
 
 Running integration tests
--------------------------
++++++++++++++++++++++++++
 
 You need Docker installed.
 
