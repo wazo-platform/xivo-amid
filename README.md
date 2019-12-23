@@ -1,5 +1,4 @@
-wazo-amid
-=========
+# wazo-amid
 [![Build Status](https://jenkins.wazo.community/buildStatus/icon?job=wazo-amid)](https://jenkins.wazo.community/job/wazo-amid)
 
 wazo-amid is a daemon for interacting with Asterisk's AMI:
@@ -8,22 +7,19 @@ wazo-amid is a daemon for interacting with Asterisk's AMI:
 * expose HTTP JSON interface for AMI actions
 
 
-Docker
-------
+## Docker
 
 The wazopbx/wazo-ami image can be built using the following command:
 
     docker build -t wazopbx/wazo-amid .
 
 
-Testing
--------
+## Testing
 
 wazo-amid contains unittests and integration tests
 
 
-Running unit tests
-++++++++++++++++++
+### Running unit tests
 
 ```
 apt-get install libpq-dev python-dev libffi-dev libyaml-dev
@@ -32,8 +28,7 @@ tox --recreate -e py27
 ```
 
 
-Running integration tests
-+++++++++++++++++++++++++
+### Running integration tests
 
 You need Docker installed.
 
