@@ -10,4 +10,4 @@ kombu==4.2.1
 marshmallow==3.0.0b14
 pyyaml==3.13  # from xivo-lib-python
 requests==2.21.0
-werkzeug==0.14.1
+werkzeug==0.15.3
