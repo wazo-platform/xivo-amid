@@ -6,3 +6,4 @@ services:
   amid:
     volumes:
       - "./etc/wazo-amid/conf.d/asset.no-ssl-certificate.yml:/etc/wazo-amid/conf.d/0-asset.no-ssl-certificate.yml"
+      - "./ssl/localhost:/usr/local/share/wazo-amid-ssl"

@@ -1,2 +1,3 @@
 rest_api:
+  certificate: /usr/local/share/wazo-amid-ssl/server.crt
   private_key: /missing-key.key

@@ -15,7 +15,6 @@ logger = logging.getLogger(__name__)
 requests.packages.urllib3.disable_warnings()
 
 ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', 'assets')
-CA_CERT = os.path.join(ASSETS_ROOT, 'ssl', 'localhost', 'server.crt')
 
 VALID_TOKEN = 'valid-token'
 
@@ -42,7 +41,7 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     @classmethod
     def amid_url(cls, *parts):
-        return 'https://{host}:{port}/1.0/{path}'.format(
+        return 'http://{host}:{port}/1.0/{path}'.format(
             host='localhost', port=cls._amid_port, path='/'.join(parts)
         )
 
@@ -72,7 +71,6 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
             cls.amid_url('action', action),
             data=(json.dumps(params) if params else ''),
             headers={'X-Auth-Token': token},
-            verify=CA_CERT,
         )
         return result
 
@@ -88,7 +86,6 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
             cls.amid_url('action', 'Command'),
             json=body,
             headers={'X-Auth-Token': token},
-            verify=CA_CERT,
         )
         return result
 

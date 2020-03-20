@@ -6,3 +6,4 @@ services:
   amid:
     volumes:
       - "./etc/wazo-amid/conf.d/asset.no-ssl-private-key.yml:/etc/wazo-amid/conf.d/0-asset.no-ssl-private-key.yml"
+      - "./ssl/localhost:/usr/local/share/wazo-amid-ssl"

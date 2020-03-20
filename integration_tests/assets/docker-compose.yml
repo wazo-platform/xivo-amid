@@ -12,7 +12,6 @@ services:
     volumes:
       - "../..:/usr/src/wazo-amid"
       - "./ssl/wazo-auth:/usr/local/share/wazo-auth-ssl"
-      - "./ssl/localhost:/usr/local/share/wazo-amid-ssl"
       - "./etc/wazo-amid/conf.d/50-default.yml:/etc/wazo-amid/conf.d/50-default.yml"
 
   asterisk-ajam:
