@@ -13,10 +13,7 @@ services:
       - "../..:/usr/src/wazo-amid"
       - "./ssl/wazo-auth:/usr/local/share/wazo-auth-ssl"
       - "./ssl/localhost:/usr/local/share/wazo-amid-ssl"
-      - "./etc/wazo-amid/conf.d/disable-ami-events.yml:/etc/wazo-amid/conf.d/disable-ami-events.yml"
-      - "./etc/wazo-amid/conf.d/ajam.yml:/etc/wazo-amid/conf.d/ajam.yml"
-      - "./etc/wazo-amid/conf.d/auth.yml:/etc/wazo-amid/conf.d/auth.yml"
-      - "./etc/wazo-amid/conf.d/rest-api.yml:/etc/wazo-amid/conf.d/rest-api.yml"
+      - "./etc/wazo-amid/conf.d/50-default.yml:/etc/wazo-amid/conf.d/50-default.yml"
 
   asterisk-ajam:
     image: p0bailey/docker-flask
