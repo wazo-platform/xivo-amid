@@ -1,4 +1,4 @@
-# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import collections
@@ -57,11 +57,12 @@ class AMIClient:
         self._send_data_to_socket(data)
 
     def _build_login_msg(self):
-        lines = ['Action: Login',
-                 'Username: %s' % self._username,
-                 'Secret: %s' % self._password,
-                 '\r\n'
-                 ]
+        lines = [
+            'Action: Login',
+            'Username: %s' % self._username,
+            'Secret: %s' % self._password,
+            '\r\n',
+        ]
         return '\r\n'.join(lines).encode('UTF-8')
 
     def _disconnect_socket(self):
@@ -78,7 +79,9 @@ class AMIClient:
         self._event_queue.append(message)
 
     def _parse_buffer(self):
-        self._buffer = parser.parse_buffer(self._buffer, self.event_parser_callback, None)
+        self._buffer = parser.parse_buffer(
+            self._buffer, self.event_parser_callback, None
+        )
 
     def _pop_messages(self):
         messages = collections.deque()
@@ -113,6 +116,5 @@ class AMIClient:
 
 
 class AMIConnectionError(Exception):
-
     def __init__(self, original_error=None):
         self.error = original_error

@@ -1,4 +1,4 @@
-# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import collections
@@ -21,7 +21,6 @@ RECONNECTION_DELAY = 5
 
 
 class testEventHandlerFacade(unittest.TestCase):
-
     @patch('threading.Event')
     @patch('collections.deque')
     def setUp(self, deque_mock, event_mock):
@@ -36,8 +35,11 @@ class testEventHandlerFacade(unittest.TestCase):
 
         def set_fn():
             self.event_set = True
+
         self.event_wait = Mock()
-        self.event_mock.return_value = Mock(set=set_fn, is_set=is_set_fn, wait=self.event_wait)
+        self.event_mock.return_value = Mock(
+            set=set_fn, is_set=is_set_fn, wait=self.event_wait
+        )
 
         self.bus_client_mock = Mock(BusClient)
 
@@ -59,7 +61,10 @@ class testEventHandlerFacade(unittest.TestCase):
         self.ami_client_mock.disconnect.assert_called_once_with(reason=ANY)
 
     def test_given_ami_connection_error_when_run_then_ami_reconnect(self):
-        self.ami_client_mock.connect_and_login.side_effect = [AMIConnectionError(), None]
+        self.ami_client_mock.connect_and_login.side_effect = [
+            AMIConnectionError(),
+            None,
+        ]
 
         self.assertRaises(Exception, self.facade.run)
 
@@ -68,19 +73,29 @@ class testEventHandlerFacade(unittest.TestCase):
         assert_that(self.ami_client_mock.connect_and_login.call_count, equal_to(2))
 
     def test_given_ami_connection_error_when_run_then_new_messages_processed(self):
-        self.ami_client_mock.connect_and_login.side_effect = [AMIConnectionError(), None]
+        self.ami_client_mock.connect_and_login.side_effect = [
+            AMIConnectionError(),
+            None,
+        ]
 
-        self.ami_client_mock.parse_next_messages.side_effect = [[sentinel.message], Exception()]
+        self.ami_client_mock.parse_next_messages.side_effect = [
+            [sentinel.message],
+            Exception(),
+        ]
 
         self.assertRaises(Exception, self.facade.run)
 
         assert_that(self.bus_client_mock.publish.call_count, equal_to(1))
         self.bus_client_mock.publish.assert_any_call(sentinel.message)
 
-    def test_given_multiple_messages_fetched_when_run_then_all_messages_orderly_processed(self):
-        self.ami_client_mock.parse_next_messages.side_effect = [[sentinel.first_message],
-                                                                [sentinel.second_message],
-                                                                Exception()]
+    def test_given_multiple_messages_fetched_when_run_then_all_messages_orderly_processed(
+        self,
+    ):
+        self.ami_client_mock.parse_next_messages.side_effect = [
+            [sentinel.first_message],
+            [sentinel.second_message],
+            Exception(),
+        ]
         expected_calls = [call(sentinel.first_message), call(sentinel.second_message)]
 
         self.assertRaises(Exception, self.facade.run)

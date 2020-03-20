@@ -1,4 +1,4 @@
-# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import json
@@ -34,20 +34,23 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
             cls._amid_port = None
         try:
             cls._ajam_port = cls.service_port(5040, 'asterisk-ajam')
-        except (asset_launching_test_case.NoSuchPort, asset_launching_test_case.NoSuchService):
+        except (
+            asset_launching_test_case.NoSuchPort,
+            asset_launching_test_case.NoSuchService,
+        ):
             cls._ajam_port = None
 
     @classmethod
     def amid_url(cls, *parts):
-        return 'https://{host}:{port}/1.0/{path}'.format(host='localhost',
-                                                         port=cls._amid_port,
-                                                         path='/'.join(parts))
+        return 'https://{host}:{port}/1.0/{path}'.format(
+            host='localhost', port=cls._amid_port, path='/'.join(parts)
+        )
 
     @classmethod
     def ajam_url(cls, *parts):
-        return 'https://{host}:{port}/{path}'.format(host='localhost',
-                                                     port=cls._ajam_port,
-                                                     path='/'.join(parts))
+        return 'https://{host}:{port}/{path}'.format(
+            host='localhost', port=cls._ajam_port, path='/'.join(parts)
+        )
 
     @classmethod
     def amid_status(cls):
@@ -65,10 +68,12 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     @classmethod
     def post_action_result(cls, action, params=None, token=None):
-        result = requests.post(cls.amid_url('action', action),
-                               data=(json.dumps(params) if params else ''),
-                               headers={'X-Auth-Token': token},
-                               verify=CA_CERT)
+        result = requests.post(
+            cls.amid_url('action', action),
+            data=(json.dumps(params) if params else ''),
+            headers={'X-Auth-Token': token},
+            verify=CA_CERT,
+        )
         return result
 
     @classmethod
@@ -79,10 +84,12 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     @classmethod
     def post_command_result(cls, body, token=None):
-        result = requests.post(cls.amid_url('action', 'Command'),
-                               json=body,
-                               headers={'X-Auth-Token': token},
-                               verify=CA_CERT)
+        result = requests.post(
+            cls.amid_url('action', 'Command'),
+            json=body,
+            headers={'X-Auth-Token': token},
+            verify=CA_CERT,
+        )
         return result
 
     @classmethod

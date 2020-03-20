@@ -1,4 +1,4 @@
-# Copyright 2014-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2014-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import argparse
@@ -17,60 +17,75 @@ _DEFAULT_CONFIG = {
     'config_file': '/etc/{}/config.yml'.format(_DAEMONNAME),
     'extra_config_files': '/etc/{}/conf.d/'.format(_DAEMONNAME),
     'publish_ami_events': True,
-    'ajam': {'host': 'localhost',
-             'port': 5040,
-             'verify_certificate': '/usr/share/xivo-certs/server.crt',
-             'username': 'wazo_amid',
-             'password': 'default_password'},
-    'ami': {'host': 'localhost',
-            'port': 5038,
-            'username': 'wazo_amid',
-            'password': 'default'},
-    'auth': {'host': 'localhost',
-             'port': 9497,
-             'verify_certificate': '/usr/share/xivo-certs/server.crt'},
-    'bus': {'host': 'localhost',
-            'port': 5672,
-            'username': 'guest',
-            'password': 'guest',
-            'vhost': '/',
-            'exchange_name': 'xivo',
-            'exchange_type': 'topic',
-            'exchange_durable': True,
-            'startup_connection_tries': 5,
-            'startup_connection_delay': 1},
-    'rest_api': {'https': {'listen': '0.0.0.0',
-                           'port': 9491,
-                           'certificate': '/usr/share/xivo-certs/server.crt',
-                           'private_key': '/usr/share/xivo-certs/server.key'},
-                 'cors': {'enabled': True,
-                          'allow_headers': ['Content-Type', 'X-Auth-Token']}},
+    'ajam': {
+        'host': 'localhost',
+        'port': 5040,
+        'verify_certificate': '/usr/share/xivo-certs/server.crt',
+        'username': 'wazo_amid',
+        'password': 'default_password',
+    },
+    'ami': {
+        'host': 'localhost',
+        'port': 5038,
+        'username': 'wazo_amid',
+        'password': 'default',
+    },
+    'auth': {
+        'host': 'localhost',
+        'port': 9497,
+        'verify_certificate': '/usr/share/xivo-certs/server.crt',
+    },
+    'bus': {
+        'host': 'localhost',
+        'port': 5672,
+        'username': 'guest',
+        'password': 'guest',
+        'vhost': '/',
+        'exchange_name': 'xivo',
+        'exchange_type': 'topic',
+        'exchange_durable': True,
+        'startup_connection_tries': 5,
+        'startup_connection_delay': 1,
+    },
+    'rest_api': {
+        'https': {
+            'listen': '0.0.0.0',
+            'port': 9491,
+            'certificate': '/usr/share/xivo-certs/server.crt',
+            'private_key': '/usr/share/xivo-certs/server.key',
+        },
+        'cors': {'enabled': True, 'allow_headers': ['Content-Type', 'X-Auth-Token']},
+    },
 }
 
 
 def _get_cli_config():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-f',
-                        '--foreground',
-                        action='store_true',
-                        help="Foreground, don't daemonize. Default: %(default)s")
-    parser.add_argument('-d',
-                        '--debug',
-                        action='store_true',
-                        help="Enable debug messages. Default: %(default)s")
+    parser.add_argument(
+        '-f',
+        '--foreground',
+        action='store_true',
+        help="Foreground, don't daemonize. Default: %(default)s",
+    )
+    parser.add_argument(
+        '-d',
+        '--debug',
+        action='store_true',
+        help="Enable debug messages. Default: %(default)s",
+    )
     parser.add_argument('--logfile', action='store', help='The path of the logfile')
     parser.add_argument('--pidfile', action='store', help='The path of the pidfile')
-    parser.add_argument('-u',
-                        '--user',
-                        action='store',
-                        help="The owner of the process.")
-    parser.add_argument('-c',
-                        '--config-file',
-                        action='store',
-                        help="The path where is the config file.")
-    parser.add_argument('--disable-bus',
-                        action='store_true',
-                        help="Disable AMI message to BUS. Default: %(default)s")
+    parser.add_argument(
+        '-u', '--user', action='store', help="The owner of the process."
+    )
+    parser.add_argument(
+        '-c', '--config-file', action='store', help="The path where is the config file."
+    )
+    parser.add_argument(
+        '--disable-bus',
+        action='store_true',
+        help="Disable AMI message to BUS. Default: %(default)s",
+    )
     parsed_args = parser.parse_args()
 
     config = {}
