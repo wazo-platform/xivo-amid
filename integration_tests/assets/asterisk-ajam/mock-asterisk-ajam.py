@@ -1,4 +1,4 @@
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -15,7 +15,10 @@ app = Flask(__name__)
 
 port = int(sys.argv[1])
 
-context = ('/usr/local/share/asterisk-ajam-ssl/server.crt', '/usr/local/share/asterisk-ajam-ssl/server.key')
+context = (
+    '/usr/local/share/asterisk-ajam-ssl/server.crt',
+    '/usr/local/share/asterisk-ajam-ssl/server.key',
+)
 
 _db = {}
 _requests = []
@@ -37,11 +40,13 @@ def response(body):
 def log_request():
     if not request.path.startswith('/_requests'):
         path = request.path
-        log = {'method': request.method,
-               'path': path,
-               'query': request.args.items(multi=True),
-               'body': request.data,
-               'headers': dict(request.headers)}
+        log = {
+            'method': request.method,
+            'path': path,
+            'query': request.args.items(multi=True),
+            'body': request.data,
+            'headers': dict(request.headers),
+        }
         _requests.append(log)
 
 
@@ -61,24 +66,36 @@ def rawman():
 
 
 def login():
-    return response('''\
+    return (
+        response(
+            '''\
         Response: Success
         Message: Authentication accepted
 
-        '''), 200
+        '''
+        ),
+        200,
+    )
 
 
 def ping():
-    return response('''\
+    return (
+        response(
+            '''\
         Response: Success
         Ping: Pong
         Timestamp: 1234567890.123456
 
-        '''), 200
+        '''
+        ),
+        200,
+    )
 
 
 def queuestatus():
-    return response('''\
+    return (
+        response(
+            '''\
         Response: Success
         EventList: start
         Message: Queue status will follow
@@ -100,14 +117,19 @@ def queuestatus():
         EventList: Complete
         ListItems: 1
 
-        '''), 200
+        '''
+        ),
+        200,
+    )
 
 
 def dbget():
     args = request.args
     family = args['Family']
     key = args['Key']
-    return response('''\
+    return (
+        response(
+            '''\
         Response: Success
         Message: Result will follow
         EventList: start
@@ -121,38 +143,58 @@ def dbget():
         Event: DBGetComplete
         ListItems: 1
 
-        ''').format(family=family.encode('utf-8'),
-                    key=key.encode('utf-8'),
-                    value=_db_get(family, key).encode('utf-8')), 200
+        '''
+        ).format(
+            family=family.encode('utf-8'),
+            key=key.encode('utf-8'),
+            value=_db_get(family, key).encode('utf-8'),
+        ),
+        200,
+    )
 
 
 def dbput():
     args = request.args
     _db_put(args['Family'], args['Key'], args['Val'])
-    return response('''\
+    return (
+        response(
+            '''\
         Response: Success
         Message: Updated database successfully
 
-        '''), 200
+        '''
+        ),
+        200,
+    )
 
 
 def originate():
-    return response('''\
+    return (
+        response(
+            '''\
         Response: Success
         Message: Originate successfully queued
 
-        '''), 200
+        '''
+        ),
+        200,
+    )
 
 
 def command():
-    return response('''\
+    return (
+        response(
+            '''\
         Response: Success
         Message: Command output follows
         Output: Class: default
         Output: 	Mode: files
         Output: 	Directory: /var/lib/wazo/moh/default
 
-        '''), 200
+        '''
+        ),
+        200,
+    )
 
 
 actions = {

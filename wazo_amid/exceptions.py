@@ -1,4 +1,4 @@
-# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -12,11 +12,10 @@ APIException = rest_api_helpers.APIException
 
 
 class ValidationError(APIException):
-
     def __init__(self, errors):
         super().__init__(
             status_code=400,
             message='Sent data is invalid',
             error_id='invalid-data',
-            details=errors
+            details=errors,
         )

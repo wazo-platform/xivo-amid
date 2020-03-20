@@ -1,4 +1,4 @@
-# Copyright (C) 2015 Avencall
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
@@ -36,5 +36,8 @@ class TestAuthenticationError(BaseIntegrationTest):
         result = self.post_action_result('ping', token=VALID_TOKEN)
 
         assert_that(result.status_code, equal_to(503))
-        assert_that(result.json()['details']['auth_server_host'], equal_to('inexisting-auth-server'))
+        assert_that(
+            result.json()['details']['auth_server_host'],
+            equal_to('inexisting-auth-server'),
+        )
         assert_that(result.json()['details']['auth_server_port'], equal_to(9497))

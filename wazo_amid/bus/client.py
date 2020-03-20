@@ -1,4 +1,4 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -23,7 +23,6 @@ class BusUnreachable(Exception):
 
 
 class BusClient:
-
     def __init__(self, config):
         self._publisher = self._new_publisher_or_timeout(config)
 
@@ -34,7 +33,11 @@ class BusClient:
             try:
                 return self._new_publisher(config)
             except (AMQPError, socket.error) as e:
-                logger.info('Error connecting to message bus (%s), retrying in %s seconds...', e, connection_delay)
+                logger.info(
+                    'Error connecting to message bus (%s), retrying in %s seconds...',
+                    e,
+                    connection_delay,
+                )
                 time.sleep(connection_delay)
                 continue
         raise BusUnreachable(config['bus'])
@@ -42,9 +45,12 @@ class BusClient:
     def _new_publisher(self, config):
         bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config['bus'])
         bus_connection = Connection(bus_url)
-        bus_exchange = Exchange(config['bus']['exchange_name'],
-                                type=config['bus']['exchange_type'])
-        bus_producer = Producer(bus_connection, exchange=bus_exchange, auto_declare=True)
+        bus_exchange = Exchange(
+            config['bus']['exchange_name'], type=config['bus']['exchange_type']
+        )
+        bus_producer = Producer(
+            bus_connection, exchange=bus_exchange, auto_declare=True
+        )
         bus_marshaler = Marshaler(config['uuid'])
         return Publisher(bus_producer, bus_marshaler)
 

@@ -1,4 +1,4 @@
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -20,34 +20,26 @@ logger = logging.getLogger(__name__)
 
 
 class AJAMUnreachable(APIException):
-
     def __init__(self, ajam_url, error):
         super().__init__(
             status_code=503,
             message='AJAM server unreachable',
             error_id='ajam-unreachable',
-            details={
-                'ajam_url': ajam_url,
-                'original_error': str(error),
-            }
+            details={'ajam_url': ajam_url, 'original_error': str(error)},
         )
 
 
 class UnsupportedAction(APIException):
-
     def __init__(self, action):
         super().__init__(
             status_code=501,
             message='Action incompatible with wazo-amid',
             error_id='incompatible-action',
-            details={
-                'action': action
-            }
+            details={'action': action},
         )
 
 
 class Actions(AuthResource):
-
     @classmethod
     def configure(cls, config):
         cls.ajam_url = 'https://{host}:{port}/rawman'.format(**config['ajam'])
@@ -66,8 +58,12 @@ class Actions(AuthResource):
         extra_args = request.get_json(force=True, silent=True) or {}
 
         try:
-            with _ajam_session(self.ajam_url, self.login_params, self.verify) as session:
-                response = session.get(self.ajam_url, params=_ajam_params(action, extra_args))
+            with _ajam_session(
+                self.ajam_url, self.login_params, self.verify
+            ) as session:
+                response = session.get(
+                    self.ajam_url, params=_ajam_params(action, extra_args)
+                )
         except requests.RequestException as e:
             raise AJAMUnreachable(self.ajam_url, e)
 
@@ -75,7 +71,6 @@ class Actions(AuthResource):
 
 
 class Command(AuthResource):
-
     @classmethod
     def configure(cls, config):
         cls.ajam_url = 'https://{host}:{port}/rawman'.format(**config['ajam'])
@@ -90,8 +85,12 @@ class Command(AuthResource):
     def post(self):
         extra_args = command_schema.load(request.get_json(force=True))
         try:
-            with _ajam_session(self.ajam_url, self.login_params, self.verify) as session:
-                response = session.get(self.ajam_url, params=_ajam_params('Command', extra_args))
+            with _ajam_session(
+                self.ajam_url, self.login_params, self.verify
+            ) as session:
+                response = session.get(
+                    self.ajam_url, params=_ajam_params('Command', extra_args)
+                )
         except requests.RequestException as e:
             raise AJAMUnreachable(self.ajam_url, e)
 

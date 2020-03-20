@@ -1,4 +1,4 @@
-# Copyright 2016-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -69,10 +69,16 @@ def run(config):
     wsgi_app = ReverseProxied(ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app})))
     global wsgi_server
     wsgi_server = wsgi.WSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
-    wsgi_server.ssl_adapter = http_helpers.ssl_adapter(https_config['certificate'],
-                                                       https_config['private_key'])
+    wsgi_server.ssl_adapter = http_helpers.ssl_adapter(
+        https_config['certificate'], https_config['private_key']
+    )
 
-    logger.debug('WSGIServer starting... uid: %s, listen: %s:%s', os.getuid(), bind_addr[0], bind_addr[1])
+    logger.debug(
+        'WSGIServer starting... uid: %s, listen: %s:%s',
+        os.getuid(),
+        bind_addr[0],
+        bind_addr[1],
+    )
     for route in http_helpers.list_routes(app):
         logger.debug(route)
 
@@ -94,12 +100,18 @@ def handle_validation_exception(func):
             return func(*args, **kwargs)
         except marshmallow.ValidationError as e:
             raise ValidationError(e.messages)
+
     return wrapper
 
 
 class ErrorCatchingResource(Resource):
-    method_decorators = [handle_validation_exception, rest_api_helpers.handle_api_exception] + Resource.method_decorators
+    method_decorators = [
+        handle_validation_exception,
+        rest_api_helpers.handle_api_exception,
+    ] + Resource.method_decorators
 
 
 class AuthResource(ErrorCatchingResource):
-    method_decorators = [auth_verifier.verify_token] + ErrorCatchingResource.method_decorators
+    method_decorators = [
+        auth_verifier.verify_token
+    ] + ErrorCatchingResource.method_decorators

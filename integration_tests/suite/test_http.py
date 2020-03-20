@@ -1,4 +1,4 @@
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import random
@@ -25,11 +25,18 @@ class TestHTTPAction(BaseIntegrationTest):
     def test_that_action_ping_returns_pong(self):
         result = self.action('Ping')
 
-        assert_that(result, contains(has_entries({
-            'Response': 'Success',
-            'Ping': 'Pong',
-            'Timestamp': matches_regexp('.*')
-        })))
+        assert_that(
+            result,
+            contains(
+                has_entries(
+                    {
+                        'Response': 'Success',
+                        'Ping': 'Pong',
+                        'Timestamp': matches_regexp('.*'),
+                    }
+                )
+            ),
+        )
 
     def test_that_malformatted_actions_are_refused(self):
         # the format of Queues response is suited for display, not parsing
@@ -39,31 +46,41 @@ class TestHTTPAction(BaseIntegrationTest):
     def test_that_action_with_events_returns_events(self):
         result = self.action('QueueStatus')
 
-        assert_that(result, contains(
-            has_entries({
-                'Response': 'Success',
-                'EventList': 'start',
-                'Message': 'Queue status will follow'
-            }),
-            has_entries({
-                'Event': 'QueueParams',
-                'Queue': 'my_queue',
-                'Max': '0',
-                'Strategy': 'ringall',
-                'Calls': '0',
-                'Holdtime': '0',
-                'TalkTime': '0',
-                'Completed': '0',
-                'Abandoned': '0',
-                'ServiceLevel': '0',
-                'ServicelevelPerf': '0.0',
-                'Weight': '0',
-            }),
-            has_entries({
-                'Event': 'QueueStatusComplete',
-                'EventList': 'Complete',
-                'ListItems': '1'
-            })))
+        assert_that(
+            result,
+            contains(
+                has_entries(
+                    {
+                        'Response': 'Success',
+                        'EventList': 'start',
+                        'Message': 'Queue status will follow',
+                    }
+                ),
+                has_entries(
+                    {
+                        'Event': 'QueueParams',
+                        'Queue': 'my_queue',
+                        'Max': '0',
+                        'Strategy': 'ringall',
+                        'Calls': '0',
+                        'Holdtime': '0',
+                        'TalkTime': '0',
+                        'Completed': '0',
+                        'Abandoned': '0',
+                        'ServiceLevel': '0',
+                        'ServicelevelPerf': '0.0',
+                        'Weight': '0',
+                    }
+                ),
+                has_entries(
+                    {
+                        'Event': 'QueueStatusComplete',
+                        'EventList': 'Complete',
+                        'ListItems': '1',
+                    }
+                ),
+            ),
+        )
 
     def test_that_action_with_parameters_sends_parameters(self):
         key = ''.join(random.choice(string.ascii_letters) for _ in range(10))
@@ -71,13 +88,14 @@ class TestHTTPAction(BaseIntegrationTest):
         self.action('DBPut', {'Family': key, 'Key': key, 'Val': key})
         result = self.action('DBGet', {'Family': key, 'Key': key})
 
-        assert_that(result, has_item(
-            has_entries({
-                'Event': 'DBGetResponse',
-                'Family': key,
-                'Key': key,
-                'Val': key,
-            })))
+        assert_that(
+            result,
+            has_item(
+                has_entries(
+                    {'Event': 'DBGetResponse', 'Family': key, 'Key': key, 'Val': key}
+                )
+            ),
+        )
 
     def test_that_action_can_send_and_receive_non_ascii(self):
         family = 'my-family'
@@ -87,13 +105,19 @@ class TestHTTPAction(BaseIntegrationTest):
         self.action('DBPut', {'Family': family, 'Key': key, 'Val': value})
         result = self.action('DBGet', {'Family': family, 'Key': key})
 
-        assert_that(result, has_item(
-            has_entries({
-                'Event': 'DBGetResponse',
-                'Family': family,
-                'Key': key,
-                'Val': value,
-            })))
+        assert_that(
+            result,
+            has_item(
+                has_entries(
+                    {
+                        'Event': 'DBGetResponse',
+                        'Family': family,
+                        'Key': key,
+                        'Val': value,
+                    }
+                )
+            ),
+        )
 
 
 class TestHTTPCommand(BaseIntegrationTest):
@@ -110,11 +134,17 @@ class TestHTTPCommand(BaseIntegrationTest):
     def test_that_action_command_returns_command_response(self):
         result = self.command('moh show classes')
 
-        assert_that(result, has_entry('response', contains(
-            'Class: default',
-            '	Mode: files',
-            '	Directory: /var/lib/wazo/moh/default',
-        )))
+        assert_that(
+            result,
+            has_entry(
+                'response',
+                contains(
+                    'Class: default',
+                    '	Mode: files',
+                    '	Directory: /var/lib/wazo/moh/default',
+                ),
+            ),
+        )
 
 
 class TestHTTPMultipleIdenticalKeys(BaseIntegrationTest):
@@ -124,11 +154,25 @@ class TestHTTPMultipleIdenticalKeys(BaseIntegrationTest):
     def test_when_action_with_multiple_identical_keys_then_all_keys_are_sent(self):
         self.action('Originate', {'Variable': ('Var1=one', 'Var2=two')})
 
-        assert_that(self.ajam_requests(), has_entry('requests', has_item(has_entries({
-            'method': 'GET',
-            'path': '/rawman',
-            'query': contains(['action', 'Originate'], ['Variable', 'Var1=one'], ['Variable', 'Var2=two']),
-        }))))
+        assert_that(
+            self.ajam_requests(),
+            has_entry(
+                'requests',
+                has_item(
+                    has_entries(
+                        {
+                            'method': 'GET',
+                            'path': '/rawman',
+                            'query': contains(
+                                ['action', 'Originate'],
+                                ['Variable', 'Var1=one'],
+                                ['Variable', 'Var2=two'],
+                            ),
+                        }
+                    )
+                ),
+            ),
+        )
 
 
 class TestHTTPError(BaseIntegrationTest):
@@ -139,7 +183,10 @@ class TestHTTPError(BaseIntegrationTest):
         result = self.post_action_result('ping', token=VALID_TOKEN)
 
         assert_that(result.status_code, equal_to(503))
-        assert_that(result.json()['details']['ajam_url'], contains_string('inexisting-ajam-server:5040'))
+        assert_that(
+            result.json()['details']['ajam_url'],
+            contains_string('inexisting-ajam-server:5040'),
+        )
 
 
 class TestHTTPSMissingCertificate(BaseIntegrationTest):
@@ -156,7 +203,10 @@ class TestHTTPSMissingCertificate(BaseIntegrationTest):
             self.fail('wazo-amid did not stop while missing SSL certificate')
 
         log = self.amid_logs()
-        assert_that(log, contains_string("No such file or directory: '/missing-certificate.crt'"))
+        assert_that(
+            log,
+            contains_string("No such file or directory: '/missing-certificate.crt'"),
+        )
 
 
 class TestHTTPSMissingPrivateKey(BaseIntegrationTest):
@@ -173,4 +223,6 @@ class TestHTTPSMissingPrivateKey(BaseIntegrationTest):
             self.fail('wazo-amid did not stop while missing SSL private key')
 
         log = self.amid_logs()
-        assert_that(log, contains_string("No such file or directory: '/missing-key.key'"))
+        assert_that(
+            log, contains_string("No such file or directory: '/missing-key.key'")
+        )
