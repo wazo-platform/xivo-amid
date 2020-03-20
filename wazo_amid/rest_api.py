@@ -63,14 +63,13 @@ def load_resources(global_config):
 
 
 def run(config):
-    https_config = config['https']
-    bind_addr = (https_config['listen'], https_config['port'])
+    bind_addr = (config['listen'], config['port'])
 
     wsgi_app = ReverseProxied(ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app})))
     global wsgi_server
     wsgi_server = wsgi.WSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
     wsgi_server.ssl_adapter = http_helpers.ssl_adapter(
-        https_config['certificate'], https_config['private_key']
+        config['certificate'], config['private_key']
     )
 
     logger.debug(
