@@ -14,9 +14,6 @@ case "$1" in
 
         # add/update user
         if ! getent passwd $USER > /dev/null ; then
-            # remove the old pid dir that could be owned by www-data
-            rm -rf "$PIDDIR"
-
             echo "Adding system user $USER" 1>&2
             adduser --quiet --system --group --no-create-home \
                     --home /var/lib/wazo-amid \
