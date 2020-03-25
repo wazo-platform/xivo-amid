@@ -18,7 +18,6 @@ case "$1" in
             adduser --quiet --system --group --no-create-home \
                     --home /var/lib/wazo-amid \
                     $USER
-            adduser --quiet $USER www-data
         fi
 
         # move files from xivo-amid
@@ -45,6 +44,8 @@ case "$1" in
         if [[ -z "${previous_version}" ]]; then
             ln -sf  /etc/nginx/locations/https-available/$DAEMONNAME \
                     /etc/nginx/locations/https-enabled/$DAEMONNAME
+        elif dpkg --compare-versions "${previous_version}" lt '20.05'; then
+            deluser --quiet $USER www-data
         fi
 
     ;;
