@@ -6,7 +6,7 @@ import unittest
 
 from hamcrest import assert_that
 from hamcrest import equal_to
-from hamcrest import contains
+from hamcrest import contains_exactly
 from mock import Mock
 
 from wazo_amid.ami.parser import parse_buffer
@@ -112,7 +112,7 @@ class TestParser(unittest.TestCase):
 
         assert_that(
             response_lines,
-            contains(
+            contains_exactly(
                 'Class: default',
                 '	Mode: files',
                 '	Directory: /var/lib/wazo/moh/default',

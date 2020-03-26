@@ -1,0 +1,17 @@
+auth:
+  host: auth
+  port: 9497
+  verify_certificate: /usr/local/share/wazo-auth-ssl/server.crt
+
+ajam:
+  host: asterisk-ajam
+  port: 5040
+  username: wazo_amid
+  password: opensesame
+  verify_certificate: False
+
+rest_api:
+  certificate: /usr/local/share/wazo-amid-ssl/server.crt
+  private_key: /usr/local/share/wazo-amid-ssl/server.key
+
+publish_ami_events: False

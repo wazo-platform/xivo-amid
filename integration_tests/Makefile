@@ -3,6 +3,6 @@ test-setup:
 	docker build --no-cache -t wazo-amid-tests -f Dockerfile ..
 
 test:
-	nosetests
+	pytest
 
 .PHONY: test-setup test
