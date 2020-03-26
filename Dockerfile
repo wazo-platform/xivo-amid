@@ -2,7 +2,6 @@ FROM python:3.7-buster
 MAINTAINER Wazo Maintainers <dev@wazo.community>
 
 ADD . /usr/src/wazo-amid
-ADD ./contribs/docker/certs /usr/share/xivo-certs
 WORKDIR /usr/src/wazo-amid
 RUN pip install -r requirements.txt \
     && python setup.py install \

@@ -6,11 +6,6 @@ app = Flask(__name__)
 
 port = int(sys.argv[1])
 
-context = (
-    '/usr/local/share/wazo-auth-ssl/server.crt',
-    '/usr/local/share/wazo-auth-ssl/server.key',
-)
-
 tokens = {'valid-token': 'uuid', 'valid-token-1': 'uuid-1', 'valid-token-2': 'uuid-2'}
 
 
@@ -30,4 +25,4 @@ def token_get(token):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=port, ssl_context=context, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)

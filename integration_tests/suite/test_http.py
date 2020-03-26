@@ -3,7 +3,6 @@
 
 import random
 import string
-import time
 
 from hamcrest import assert_that
 from hamcrest import contains
@@ -186,43 +185,4 @@ class TestHTTPError(BaseIntegrationTest):
         assert_that(
             result.json()['details']['ajam_url'],
             contains_string('inexisting-ajam-server:5040'),
-        )
-
-
-class TestHTTPSMissingCertificate(BaseIntegrationTest):
-
-    asset = 'no-ssl-certificate'
-
-    def test_given_inexisting_SSL_certificate_when_amid_starts_then_amid_stops(self):
-        for _ in range(5):
-            status = self.amid_status()
-            if not status['State']['Running']:
-                break
-            time.sleep(1)
-        else:
-            self.fail('wazo-amid did not stop while missing SSL certificate')
-
-        log = self.amid_logs()
-        assert_that(
-            log,
-            contains_string("No such file or directory: '/missing-certificate.crt'"),
-        )
-
-
-class TestHTTPSMissingPrivateKey(BaseIntegrationTest):
-
-    asset = 'no-ssl-private-key'
-
-    def test_given_inexisting_SSL_private_key_when_amid_starts_then_amid_stops(self):
-        for _ in range(2):
-            status = self.amid_status()
-            if not status['State']['Running']:
-                break
-            time.sleep(1)
-        else:
-            self.fail('wazo-amid did not stop while missing SSL private key')
-
-        log = self.amid_logs()
-        assert_that(
-            log, contains_string("No such file or directory: '/missing-key.key'")
         )

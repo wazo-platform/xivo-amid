@@ -1,7 +1,7 @@
 auth:
   host: auth
   port: 9497
-  verify_certificate: /usr/local/share/wazo-auth-ssl/server.crt
+  https: False
 
 ajam:
   host: asterisk-ajam
@@ -11,7 +11,6 @@ ajam:
   verify_certificate: False
 
 rest_api:
-  certificate: /usr/local/share/wazo-amid-ssl/server.crt
-  private_key: /usr/local/share/wazo-amid-ssl/server.key
+  listen: 0.0.0.0
 
 publish_ami_events: False

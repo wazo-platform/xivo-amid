@@ -48,10 +48,10 @@ _DEFAULT_CONFIG = {
         'startup_connection_delay': 1,
     },
     'rest_api': {
-        'listen': '0.0.0.0',
+        'listen': '127.0.0.1',
         'port': 9491,
-        'certificate': '/usr/share/xivo-certs/server.crt',
-        'private_key': '/usr/share/xivo-certs/server.key',
+        'certificate': None,
+        'private_key': None,
         'cors': {'enabled': True, 'allow_headers': ['Content-Type', 'X-Auth-Token']},
     },
 }
