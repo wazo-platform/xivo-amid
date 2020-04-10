@@ -1,7 +1,6 @@
 auth:
   host: auth
   port: 9497
-  https: False
 
 ajam:
   host: asterisk-ajam

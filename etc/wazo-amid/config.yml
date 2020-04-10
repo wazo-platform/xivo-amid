@@ -34,7 +34,8 @@ ajam:
 auth:
   host: localhost
   port: 9497
-  verify_certificate: /usr/share/xivo-certs/server.crt  # True, False or CA bundle
+  prefix: null
+  https: false
 
 # Connection info to the event bus (AMQP)
 bus:
