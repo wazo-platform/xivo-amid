@@ -30,11 +30,7 @@ _DEFAULT_CONFIG = {
         'username': 'wazo_amid',
         'password': 'default',
     },
-    'auth': {
-        'host': 'localhost',
-        'port': 9497,
-        'verify_certificate': '/usr/share/xivo-certs/server.crt',
-    },
+    'auth': {'host': 'localhost', 'port': 9497, 'prefix': None, 'https': False},
     'bus': {
         'host': 'localhost',
         'port': 5672,
