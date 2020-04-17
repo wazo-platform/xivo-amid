@@ -721,30 +721,8 @@ Linkedid: 1511987918.22
 ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
 ChanVariable: XIVO_BASE_EXTEN=103
 ChanVariable: WAZO_DEREFERENCED_USERUUID=
-Variable: XIVO_DST_FIRSTNAME
-Value: Charliez
-
-Event: VarSet
-Privilege: dialplan,all
-Channel: SCCP/101-00000004
-ChannelState: 4
-ChannelStateDesc: Ring
-CallerIDNum: 101
-CallerIDName: Alice Wuuuuuuuuuuuunderland
-ConnectedLineNum: <unknown>
-ConnectedLineName: <unknown>
-Language: fr_FR
-AccountCode:
-Context: user
-Exten: s
-Priority: 18
-Uniqueid: 1511987918.22
-Linkedid: 1511987918.22
-ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
-ChanVariable: XIVO_BASE_EXTEN=103
-ChanVariable: WAZO_DEREFERENCED_USERUUID=
-Variable: XIVO_DST_LASTNAME
-Value: Chaplin
+Variable: WAZO_DST_NAME
+Value: Charliez Chaplin
 
 Event: VarSet
 Privilege: dialplan,all
