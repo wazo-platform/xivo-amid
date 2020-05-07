@@ -12,7 +12,6 @@ USER = 'wazo-amid'
 
 default_config = {
     'logfile': 'default_logfile',
-    'foreground': False,
     'debug': False,
     'pidfile': 'default_pidfile',
 }

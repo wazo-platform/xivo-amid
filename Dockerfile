@@ -11,4 +11,4 @@ RUN pip install -r requirements.txt \
     && cp -r etc/* /etc
 
 EXPOSE 9491
-CMD ["wazo-amid", "-fd"]
+CMD ["wazo-amid", "-d"]
