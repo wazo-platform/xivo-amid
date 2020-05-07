@@ -11,7 +11,6 @@ _DAEMONNAME = 'wazo-amid'
 _DEFAULT_CONFIG = {
     'user': 'wazo-amid',
     'debug': False,
-    'foreground': False,
     'pidfile': '/run/{0}/{0}.pid'.format(_DAEMONNAME),
     'logfile': '/var/log/{}.log'.format(_DAEMONNAME),
     'config_file': '/etc/{}/config.yml'.format(_DAEMONNAME),
@@ -56,12 +55,6 @@ _DEFAULT_CONFIG = {
 def _get_cli_config():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-f',
-        '--foreground',
-        action='store_true',
-        help="Foreground, don't daemonize. Default: %(default)s",
-    )
-    parser.add_argument(
         '-d',
         '--debug',
         action='store_true',
@@ -88,8 +81,6 @@ def _get_cli_config():
         config['logfile'] = parsed_args.logfile
     if parsed_args.pidfile:
         config['pidfile'] = parsed_args.pidfile
-    if parsed_args.foreground:
-        config['foreground'] = parsed_args.foreground
     if parsed_args.debug:
         config['debug'] = parsed_args.debug
     if parsed_args.user:

@@ -5,7 +5,6 @@ After=network-online.target asterisk.service rabbitmq-server.service wazo-confge
 Before=monit.service
 
 [Service]
-Type=forking
 ExecStartPre=/usr/bin/install -d -o wazo-amid -g wazo-amid /run/wazo-amid
 ExecStart=/usr/bin/python3 -u /usr/bin/wazo-amid
 PIDFile=/run/wazo-amid/wazo-amid.pid
