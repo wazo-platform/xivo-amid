@@ -4,7 +4,7 @@ info:
   description: Send AMI actions to Asterisk, providing token based authentication.
   version: '0.1'
 schemes:
-- https
+- http
 basePath: /1.0
 produces:
 - application/json
