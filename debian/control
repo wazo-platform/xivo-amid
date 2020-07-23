@@ -13,20 +13,9 @@ X-Python-Version: >= 3.5
 
 Package: wazo-amid
 Architecture: all
-Pre-Depends: wazo-libamid (= ${binary:Version})
 Depends:
  ${python3:Depends},
  adduser,
- python3-kombu
-Description: Wazo PBX's Proxy for Asterisk's AMI Events
- Wazo is a system based on a powerful IPBX, to bring an easy to
- install solution for telephony and related services.
- .
-
-Package: wazo-libamid
-Architecture: all
-Depends:
- ${python3:Depends},
  python3-cheroot,
  python3-flask,
  python3-flask-cors (>= 3.0.2),
@@ -38,7 +27,7 @@ Depends:
  wazo-auth-client-python3,
  xivo-bus-python3,
  xivo-lib-python-python3
-Description: Wazo amid lib
+Description: Wazo PBX's Proxy for Asterisk's AMI Events
  Wazo is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.
  .
