@@ -11,7 +11,6 @@ _DAEMONNAME = 'wazo-amid'
 _DEFAULT_CONFIG = {
     'user': 'wazo-amid',
     'debug': False,
-    'pidfile': '/run/{0}/{0}.pid'.format(_DAEMONNAME),
     'logfile': '/var/log/{}.log'.format(_DAEMONNAME),
     'config_file': '/etc/{}/config.yml'.format(_DAEMONNAME),
     'extra_config_files': '/etc/{}/conf.d/'.format(_DAEMONNAME),
@@ -61,7 +60,6 @@ def _get_cli_config():
         help="Enable debug messages. Default: %(default)s",
     )
     parser.add_argument('--logfile', action='store', help='The path of the logfile')
-    parser.add_argument('--pidfile', action='store', help='The path of the pidfile')
     parser.add_argument(
         '-u', '--user', action='store', help="The owner of the process."
     )
@@ -79,8 +77,6 @@ def _get_cli_config():
 
     if parsed_args.logfile:
         config['logfile'] = parsed_args.logfile
-    if parsed_args.pidfile:
-        config['pidfile'] = parsed_args.pidfile
     if parsed_args.debug:
         config['debug'] = parsed_args.debug
     if parsed_args.user:
