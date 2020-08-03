@@ -5,20 +5,18 @@ import logging
 import signal
 
 from functools import partial
-from xivo.daemonize import pidfile_context
 from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
 from wazo_amid.config import load_config
 from wazo_amid.controller import Controller
 
 logger = logging.getLogger(__name__)
-FOREGROUND = True  # Always in foreground systemd takes care of daemonizing
 
 
 def main():
     config = load_config()
 
-    setup_logging(config['logfile'], FOREGROUND, config['debug'])
+    setup_logging(config['logfile'], debug=config['debug'])
 
     if config.get('user'):
         change_user(config['user'])
@@ -26,8 +24,7 @@ def main():
     controller = Controller(config)
     signal.signal(signal.SIGTERM, partial(sigterm, controller))
 
-    with pidfile_context(config['pidfile'], FOREGROUND):
-        controller.run()
+    controller.run()
 
 
 def sigterm(controller, signum, frame):

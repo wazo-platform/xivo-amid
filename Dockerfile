@@ -16,8 +16,7 @@ COPY --from=compile-image /opt/venv /opt/venv
 COPY ./etc/wazo-amid /etc/wazo-amid
 RUN true \
     && adduser --quiet --system --group --no-create-home wazo-amid \
-    && install -o wazo-amid -g wazo-amid /dev/null /var/log/wazo-amid.log \
-    && install -d -o wazo-amid -g wazo-amid /run/wazo-amid
+    && install -o wazo-amid -g wazo-amid /dev/null /var/log/wazo-amid.log
 
 EXPOSE 9491
 

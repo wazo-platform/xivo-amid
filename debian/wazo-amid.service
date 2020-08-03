@@ -2,13 +2,14 @@
 Description=wazo-amid server
 ConditionPathExists=!/var/lib/wazo/disabled
 After=network-online.target asterisk.service rabbitmq-server.service wazo-confgend.service
-Before=monit.service
+StartLimitBurst=15
+StartLimitIntervalSec=150
 
 [Service]
-ExecStartPre=/usr/bin/install -d -o wazo-amid -g wazo-amid /run/wazo-amid
 ExecStart=/usr/bin/python3 -u /usr/bin/wazo-amid
-PIDFile=/run/wazo-amid/wazo-amid.pid
 SyslogIdentifier=wazo-amid
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
