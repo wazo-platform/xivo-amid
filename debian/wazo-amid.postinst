@@ -6,7 +6,6 @@ LOG_FILENAME='/var/log/wazo-amid.log'
 USER='wazo-amid'
 GROUP=$USER
 DAEMONNAME=wazo-amid
-PIDDIR=/run/$DAEMONNAME
 
 case "$1" in
     configure)
