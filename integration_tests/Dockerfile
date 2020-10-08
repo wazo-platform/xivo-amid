@@ -1,4 +1,4 @@
-FROM wazopbx/wazo-amid
+FROM wazoplatform/wazo-amid
 
 ENV PYTHONDONTWRITEBYTECODE='true'
 

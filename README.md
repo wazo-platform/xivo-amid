@@ -9,9 +9,9 @@ wazo-amid is a daemon for interacting with Asterisk's AMI:
 
 ## Docker
 
-The wazopbx/wazo-ami image can be built using the following command:
+The wazoplatform/wazo-ami image can be built using the following command:
 
-    docker build -t wazopbx/wazo-amid .
+    docker build -t wazoplatform/wazo-amid .
 
 
 ## Testing
