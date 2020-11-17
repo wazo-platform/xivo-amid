@@ -9,7 +9,7 @@ from amqp.exceptions import AMQPError
 from kombu import Connection, Exchange, Producer
 
 from xivo_bus import Marshaler
-from xivo_bus import Publisher
+from xivo_bus import LongLivedPublisher
 from xivo_bus.resources.ami.event import AMIEvent
 
 logger = logging.getLogger(__name__)
@@ -52,7 +52,7 @@ class BusClient:
             bus_connection, exchange=bus_exchange, auto_declare=True
         )
         bus_marshaler = Marshaler(config['uuid'])
-        return Publisher(bus_producer, bus_marshaler)
+        return LongLivedPublisher(bus_producer, bus_marshaler)
 
     def publish(self, message):
         ami_event = AMIEvent(message.name, message.headers)
