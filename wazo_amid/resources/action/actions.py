@@ -9,7 +9,7 @@ from flask import request
 
 from wazo_amid.ami import parser
 from wazo_amid.exceptions import APIException
-from wazo_amid.rest_api import AuthResource, required_acl
+from wazo_amid.rest_api import AuthResource, required_acl, required_master_tenant
 
 from .schema import command_schema
 
@@ -50,6 +50,7 @@ class Actions(AuthResource):
         }
         cls.verify = config['ajam']['verify_certificate']
 
+    @required_master_tenant()
     @required_acl('amid.action.{action}.create')
     def post(self, action):
         if action.lower() in ('queues', 'command'):
@@ -81,6 +82,7 @@ class Command(AuthResource):
         }
         cls.verify = config['ajam']['verify_certificate']
 
+    @required_master_tenant()
     @required_acl('amid.action.Command.create')
     def post(self):
         extra_args = command_schema.load(request.get_json(force=True))

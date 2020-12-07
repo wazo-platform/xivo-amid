@@ -13,13 +13,18 @@ from flask_restful import Api
 from flask_restful import Resource
 from functools import wraps
 from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.local import LocalProxy as Proxy
 from xivo import http_helpers
 from xivo import rest_api_helpers
 from xivo.http_helpers import ReverseProxied
-from xivo.auth_verifier import AuthVerifier
-from xivo.auth_verifier import required_acl as required_acl_
+from xivo.auth_verifier import (
+    AuthVerifier,
+    required_acl as required_acl_,
+    required_tenant,
+)
 
-from .exceptions import ValidationError
+
+from .exceptions import ValidationError, NotInitializedException
 
 VERSION = 1.0
 
@@ -35,6 +40,7 @@ def configure(global_config):
 
     http_helpers.add_logger(app, logger)
     app.after_request(http_helpers.log_request)
+    app.config.update(global_config)
     app.secret_key = os.urandom(24)
     app.permanent_session_lifetime = timedelta(minutes=5)
 
@@ -96,6 +102,28 @@ def stop():
         wsgi_server.stop()
 
 
+def init_master_tenant(token):
+    tenant_uuid = token['metadata']['tenant_uuid']
+    app.config['auth']['master_tenant_uuid'] = tenant_uuid
+
+
+def get_master_tenant_uuid(self):
+    if not app:
+        raise Exception('Flask application not configured')
+
+    tenant_uuid = app.config['auth'].get('master_tenant_uuid')
+    if not tenant_uuid:
+        raise NotInitializedException()
+    return tenant_uuid
+
+
+master_tenant_uuid = Proxy(get_master_tenant_uuid)
+
+
+def required_master_tenant():
+    return required_tenant(master_tenant_uuid)
+
+
 def handle_validation_exception(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
@@ -116,5 +144,5 @@ class ErrorCatchingResource(Resource):
 
 class AuthResource(ErrorCatchingResource):
     method_decorators = [
-        auth_verifier.verify_token
+        auth_verifier.verify_tenant, auth_verifier.verify_token
     ] + ErrorCatchingResource.method_decorators
