@@ -9,7 +9,8 @@ from flask import request
 
 from wazo_amid.ami import parser
 from wazo_amid.exceptions import APIException
-from wazo_amid.rest_api import AuthResource, required_acl, required_master_tenant
+from wazo_amid.rest_api import AuthResource
+from wazo_amid.auth import required_acl, required_master_tenant
 
 from .schema import command_schema
 
