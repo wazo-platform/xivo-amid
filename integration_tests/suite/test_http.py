@@ -16,7 +16,6 @@ from hamcrest import (
     matches_regexp,
 )
 from .helpers.base import (
-    APIAssetLaunchingTestCase,
     APIIntegrationTest,
     VALID_TOKEN,
 )
@@ -177,13 +176,11 @@ class TestHTTPMultipleIdenticalKeys(APIIntegrationTest):
 @pytest.mark.usefixtures('base')
 class TestHTTPError(APIIntegrationTest):
     def test_given_no_ajam_when_http_request_then_status_code_503(self):
-        APIAssetLaunchingTestCase.stop_service('asterisk-ajam')
-        result = self.post_action_result('ping', token=VALID_TOKEN)
+        with self.ajam_stopped():
+            result = self.post_action_result('ping', token=VALID_TOKEN)
 
-        assert_that(result.status_code, equal_to(503))
-        assert_that(
-            result.json()['details']['ajam_url'],
-            contains_string('asterisk-ajam:5040'),
-        )
-        APIAssetLaunchingTestCase.start_service('asterisk-ajam')
-        self.reset_clients()
+            assert_that(result.status_code, equal_to(503))
+            assert_that(
+                result.json()['details']['ajam_url'],
+                contains_string('asterisk-ajam:5040'),
+            )

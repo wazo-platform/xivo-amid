@@ -42,20 +42,18 @@ class TestAuthentication(APIIntegrationTest):
 
     def test_restrict_on_with_slow_wazo_auth(self):
         APIAssetLaunchingTestCase.stop_service('amid')
-        APIAssetLaunchingTestCase.stop_service('auth')
-        APIAssetLaunchingTestCase.start_service('amid')
-        self.reset_clients()
+        with self.auth_stopped():
+            APIAssetLaunchingTestCase.start_service('amid')
+            self.reset_clients()
 
-        def _amid_returns_503():
-            try:
-                result = self.post_action_result('ping', token=VALID_TOKEN)
-                assert_that(result.status_code, equal_to(503))
-            except ConnectionError:
-                raise AssertionError
+            def _amid_returns_503():
+                try:
+                    result = self.post_action_result('ping', token=VALID_TOKEN)
+                    assert_that(result.status_code, equal_to(503))
+                except ConnectionError:
+                    raise AssertionError
 
-        until.assert_(_amid_returns_503, tries=10)
-
-        APIAssetLaunchingTestCase.start_service('auth')
+            until.assert_(_amid_returns_503, tries=10)
 
         def _amid_does_not_return_503():
             result = self.post_action_result('ping', token=VALID_TOKEN)
@@ -64,11 +62,9 @@ class TestAuthentication(APIIntegrationTest):
         until.assert_(_amid_does_not_return_503, tries=10)
 
     def test_no_auth_server_gives_503(self):
-        APIAssetLaunchingTestCase.stop_service('auth')
-        result = self.post_action_result('ping', token=VALID_TOKEN)
+        with self.auth_stopped():
+            result = self.post_action_result('ping', token=VALID_TOKEN)
 
-        assert_that(result.status_code, equal_to(503))
-        assert_that(result.json()['details']['auth_server_host'], equal_to('auth'))
-        assert_that(result.json()['details']['auth_server_port'], equal_to(9497))
-        APIAssetLaunchingTestCase.start_service('auth')
-        self.reset_clients()
+            assert_that(result.status_code, equal_to(503))
+            assert_that(result.json()['details']['auth_server_host'], equal_to('auth'))
+            assert_that(result.json()['details']['auth_server_port'], equal_to(9497))

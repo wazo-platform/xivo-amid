@@ -7,8 +7,8 @@ import logging
 import os
 import requests
 
-from hamcrest import assert_that
-from hamcrest import equal_to
+from contextlib import contextmanager
+from hamcrest import assert_that, equal_to
 from xivo_test_helpers.asset_launching_test_case import (
     AssetLaunchingTestCase,
     NoSuchPort,
@@ -30,6 +30,22 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
     asset = 'base'
     service = 'amid'
 
+    @classmethod
+    def make_amid_base_url(cls):
+        try:
+            amid_port = cls.service_port(9491, 'amid')
+        except (NoSuchPort, NoSuchService):
+            amid_port = None
+        return 'http://localhost:{port}/1.0'.format(port=amid_port)
+
+    @classmethod
+    def make_ajam_base_url(cls):
+        try:
+            ajam_port = cls.service_port(5040, 'asterisk-ajam')
+        except (NoSuchPort, NoSuchService):
+            ajam_port = None
+        return 'https://localhost:{port}'.format(port=ajam_port)
+
 
 class APIIntegrationTest(unittest.TestCase):
     @classmethod
@@ -39,25 +55,19 @@ class APIIntegrationTest(unittest.TestCase):
 
     @classmethod
     def reset_clients(cls):
-        try:
-            cls._amid_port = APIAssetLaunchingTestCase.service_port(9491, 'amid')
-        except NoSuchPort:
-            cls._amid_port = None
-        try:
-            cls._ajam_port = APIAssetLaunchingTestCase.service_port(5040, 'asterisk-ajam')
-        except (NoSuchPort, NoSuchService):
-            cls._ajam_port = None
+        cls.amid_base_url = APIAssetLaunchingTestCase.make_amid_base_url()
+        cls.ajam_base_url = APIAssetLaunchingTestCase.make_ajam_base_url()
 
     @classmethod
     def amid_url(cls, *parts):
-        return 'http://{host}:{port}/1.0/{path}'.format(
-            host='localhost', port=cls._amid_port, path='/'.join(parts)
+        return '{base_url}/{path}'.format(
+            base_url=cls.amid_base_url, path='/'.join(parts)
         )
 
     @classmethod
     def ajam_url(cls, *parts):
-        return 'https://{host}:{port}/{path}'.format(
-            host='localhost', port=cls._ajam_port, path='/'.join(parts)
+        return '{base_url}/{path}'.format(
+            base_url=cls.ajam_base_url, path='/'.join(parts)
         )
 
     @classmethod
@@ -67,6 +77,26 @@ class APIIntegrationTest(unittest.TestCase):
     @classmethod
     def amid_logs(cls):
         return APIAssetLaunchingTestCase.service_logs('amid')
+
+    @classmethod
+    @contextmanager
+    def auth_stopped(cls):
+        APIAssetLaunchingTestCase.stop_service('auth')
+        try:
+            yield
+        finally:
+            APIAssetLaunchingTestCase.start_service('auth')
+            cls.reset_clients()
+
+    @classmethod
+    @contextmanager
+    def ajam_stopped(cls):
+        APIAssetLaunchingTestCase.stop_service('asterisk-ajam')
+        try:
+            yield
+        finally:
+            APIAssetLaunchingTestCase.start_service('asterisk-ajam')
+            cls.reset_clients()
 
     @classmethod
     def ajam_requests(cls):
