@@ -4,7 +4,7 @@
 import argparse
 
 from xivo.chain_map import ChainMap
-from xivo.config_helper import read_config_file_hierarchy
+from xivo.config_helper import parse_config_file, read_config_file_hierarchy
 
 
 _DAEMONNAME = 'wazo-amid'
@@ -28,7 +28,13 @@ _DEFAULT_CONFIG = {
         'username': 'wazo_amid',
         'password': 'default',
     },
-    'auth': {'host': 'localhost', 'port': 9497, 'prefix': None, 'https': False},
+    'auth': {
+        'host': 'localhost',
+        'port': 9497,
+        'prefix': None,
+        'https': False,
+        'key_file': '/var/lib/wazo-auth-keys/wazo-amid-key.yml',
+    },
     'bus': {
         'host': 'localhost',
         'port': 5672,
@@ -89,7 +95,18 @@ def _get_cli_config():
     return config
 
 
+def _load_key_file(config):
+    key_file = parse_config_file(config['auth']['key_file'])
+    return {
+        'auth': {
+            'username': key_file['service_id'],
+            'password': key_file['service_key'],
+        }
+    }
+
+
 def load_config():
     cli_config = _get_cli_config()
     file_config = read_config_file_hierarchy(ChainMap(cli_config, _DEFAULT_CONFIG))
-    return ChainMap(cli_config, file_config, _DEFAULT_CONFIG)
+    service_key = _load_key_file(ChainMap(cli_config, file_config, _DEFAULT_CONFIG))
+    return ChainMap(cli_config, service_key, file_config, _DEFAULT_CONFIG)

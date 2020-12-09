@@ -12,6 +12,7 @@ services:
     volumes:
       - "../..:/usr/src/wazo-amid"
       - "./etc/wazo-amid/conf.d/50-default.yml:/etc/wazo-amid/conf.d/50-default.yml"
+      - "./etc/wazo-amid/key.yml:/etc/wazo-amid/key.yml"
 
   asterisk-ajam:
     image: p0bailey/docker-flask
