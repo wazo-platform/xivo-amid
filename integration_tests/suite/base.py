@@ -16,7 +16,8 @@ requests.packages.urllib3.disable_warnings()
 
 ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', 'assets')
 
-VALID_TOKEN = 'valid-token'
+VALID_TOKEN = 'valid-token-multitenant'
+TOKEN_SUB_TENANT = 'valid-token-sub-tenant'
 
 
 class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
@@ -27,6 +28,10 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.reset_clients()
+
+    @classmethod
+    def reset_clients(cls):
         try:
             cls._amid_port = cls.service_port(9491, 'amid')
         except asset_launching_test_case.NoSuchPort:
