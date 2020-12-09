@@ -4,17 +4,17 @@
 import random
 import string
 
-from hamcrest import assert_that
-from hamcrest import contains
-from hamcrest import contains_string
-from hamcrest import equal_to
-from hamcrest import has_entry
-from hamcrest import has_entries
-from hamcrest import has_item
-from hamcrest import matches_regexp
-
-from .base import BaseIntegrationTest
-from .base import VALID_TOKEN
+from hamcrest import (
+    assert_that,
+    contains,
+    contains_string,
+    equal_to,
+    has_entry,
+    has_entries,
+    has_item,
+    matches_regexp,
+)
+from .helpers.base import BaseIntegrationTest, VALID_TOKEN
 
 
 class TestHTTPAction(BaseIntegrationTest):

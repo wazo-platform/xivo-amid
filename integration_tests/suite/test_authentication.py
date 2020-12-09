@@ -7,8 +7,11 @@ from hamcrest import equal_to
 from requests.exceptions import ConnectionError
 from xivo_test_helpers import until
 
-from .base import BaseIntegrationTest
-from .base import VALID_TOKEN, TOKEN_SUB_TENANT
+from .helpers.base import (
+    BaseIntegrationTest,
+    VALID_TOKEN,
+    TOKEN_SUB_TENANT,
+)
 
 
 class TestAuthentication(BaseIntegrationTest):

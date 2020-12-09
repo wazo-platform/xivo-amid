@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 requests.packages.urllib3.disable_warnings()
 
-ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', 'assets')
+ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', '..', 'assets')
 
 VALID_TOKEN = 'valid-token-multitenant'
 TOKEN_SUB_TENANT = 'valid-token-sub-tenant'
