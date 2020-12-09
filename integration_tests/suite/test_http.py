@@ -1,6 +1,7 @@
 # Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import pytest
 import random
 import string
 
@@ -14,13 +15,15 @@ from hamcrest import (
     has_item,
     matches_regexp,
 )
-from .helpers.base import BaseIntegrationTest, VALID_TOKEN
+from .helpers.base import (
+    APIAssetLaunchingTestCase,
+    APIIntegrationTest,
+    VALID_TOKEN,
+)
 
 
-class TestHTTPAction(BaseIntegrationTest):
-
-    asset = 'http_only'
-
+@pytest.mark.usefixtures('base')
+class TestHTTPAction(APIIntegrationTest):
     def test_that_action_ping_returns_pong(self):
         result = self.action('Ping')
 
@@ -119,10 +122,8 @@ class TestHTTPAction(BaseIntegrationTest):
         )
 
 
-class TestHTTPCommand(BaseIntegrationTest):
-
-    asset = 'http_only'
-
+@pytest.mark.usefixtures('base')
+class TestHTTPCommand(APIIntegrationTest):
     def test_given_no_command_when_action_command_then_error_400(self):
         response = self.post_command_result({}, VALID_TOKEN)
 
@@ -146,9 +147,8 @@ class TestHTTPCommand(BaseIntegrationTest):
         )
 
 
-class TestHTTPMultipleIdenticalKeys(BaseIntegrationTest):
-
-    asset = 'http_only'
+@pytest.mark.usefixtures('base')
+class TestHTTPMultipleIdenticalKeys(APIIntegrationTest):
 
     def test_when_action_with_multiple_identical_keys_then_all_keys_are_sent(self):
         self.action('Originate', {'Variable': ('Var1=one', 'Var2=two')})
@@ -174,15 +174,16 @@ class TestHTTPMultipleIdenticalKeys(BaseIntegrationTest):
         )
 
 
-class TestHTTPError(BaseIntegrationTest):
-
-    asset = 'no_ajam_server'
-
+@pytest.mark.usefixtures('base')
+class TestHTTPError(APIIntegrationTest):
     def test_given_no_ajam_when_http_request_then_status_code_503(self):
+        APIAssetLaunchingTestCase.stop_service('asterisk-ajam')
         result = self.post_action_result('ping', token=VALID_TOKEN)
 
         assert_that(result.status_code, equal_to(503))
         assert_that(
             result.json()['details']['ajam_url'],
-            contains_string('inexisting-ajam-server:5040'),
+            contains_string('asterisk-ajam:5040'),
         )
+        APIAssetLaunchingTestCase.start_service('asterisk-ajam')
+        self.reset_clients()

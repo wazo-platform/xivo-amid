@@ -1,6 +1,7 @@
 # Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import unittest
 import json
 import logging
 import os
@@ -8,7 +9,11 @@ import requests
 
 from hamcrest import assert_that
 from hamcrest import equal_to
-from xivo_test_helpers import asset_launching_test_case
+from xivo_test_helpers.asset_launching_test_case import (
+    AssetLaunchingTestCase,
+    NoSuchPort,
+    NoSuchService,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -20,11 +25,13 @@ VALID_TOKEN = 'valid-token-multitenant'
 TOKEN_SUB_TENANT = 'valid-token-sub-tenant'
 
 
-class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
-
+class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
     assets_root = ASSETS_ROOT
+    asset = 'base'
     service = 'amid'
 
+
+class APIIntegrationTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -33,15 +40,12 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
     @classmethod
     def reset_clients(cls):
         try:
-            cls._amid_port = cls.service_port(9491, 'amid')
-        except asset_launching_test_case.NoSuchPort:
+            cls._amid_port = APIAssetLaunchingTestCase.service_port(9491, 'amid')
+        except NoSuchPort:
             cls._amid_port = None
         try:
-            cls._ajam_port = cls.service_port(5040, 'asterisk-ajam')
-        except (
-            asset_launching_test_case.NoSuchPort,
-            asset_launching_test_case.NoSuchService,
-        ):
+            cls._ajam_port = APIAssetLaunchingTestCase.service_port(5040, 'asterisk-ajam')
+        except (NoSuchPort, NoSuchService):
             cls._ajam_port = None
 
     @classmethod
@@ -58,11 +62,11 @@ class BaseIntegrationTest(asset_launching_test_case.AssetLaunchingTestCase):
 
     @classmethod
     def amid_status(cls):
-        return cls.service_status('amid')
+        return APIAssetLaunchingTestCase.service_status('amid')
 
     @classmethod
     def amid_logs(cls):
-        return cls.service_logs('amid')
+        return APIAssetLaunchingTestCase.service_logs('amid')
 
     @classmethod
     def ajam_requests(cls):

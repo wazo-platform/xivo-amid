@@ -1,22 +1,22 @@
 # Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from hamcrest import assert_that
-from hamcrest import equal_to
+import pytest
+from hamcrest import assert_that, equal_to
 
 from requests.exceptions import ConnectionError
 from xivo_test_helpers import until
 
 from .helpers.base import (
-    BaseIntegrationTest,
+    APIAssetLaunchingTestCase,
+    APIIntegrationTest,
     VALID_TOKEN,
     TOKEN_SUB_TENANT,
 )
 
 
-class TestAuthentication(BaseIntegrationTest):
-
-    asset = 'http_only'
+@pytest.mark.usefixtures('base')
+class TestAuthentication(APIIntegrationTest):
 
     def test_no_auth_gives_401(self):
         result = self.post_action_result('ping', token=None)
@@ -41,9 +41,9 @@ class TestAuthentication(BaseIntegrationTest):
         assert_that(result.status_code, equal_to(401))
 
     def test_restrict_on_with_slow_wazo_auth(self):
-        self.stop_service('amid')
-        self.stop_service('auth')
-        self.start_service('amid')
+        APIAssetLaunchingTestCase.stop_service('amid')
+        APIAssetLaunchingTestCase.stop_service('auth')
+        APIAssetLaunchingTestCase.start_service('amid')
         self.reset_clients()
 
         def _amid_returns_503():
@@ -55,7 +55,7 @@ class TestAuthentication(BaseIntegrationTest):
 
         until.assert_(_amid_returns_503, tries=10)
 
-        self.start_service('auth')
+        APIAssetLaunchingTestCase.start_service('auth')
 
         def _amid_does_not_return_503():
             result = self.post_action_result('ping', token=VALID_TOKEN)
@@ -63,17 +63,12 @@ class TestAuthentication(BaseIntegrationTest):
 
         until.assert_(_amid_does_not_return_503, tries=10)
 
-
-class TestAuthenticationError(BaseIntegrationTest):
-
-    asset = 'no_auth_server'
-
     def test_no_auth_server_gives_503(self):
+        APIAssetLaunchingTestCase.stop_service('auth')
         result = self.post_action_result('ping', token=VALID_TOKEN)
 
         assert_that(result.status_code, equal_to(503))
-        assert_that(
-            result.json()['details']['auth_server_host'],
-            equal_to('inexisting-auth-server'),
-        )
+        assert_that(result.json()['details']['auth_server_host'], equal_to('auth'))
         assert_that(result.json()['details']['auth_server_port'], equal_to(9497))
+        APIAssetLaunchingTestCase.start_service('auth')
+        self.reset_clients()
