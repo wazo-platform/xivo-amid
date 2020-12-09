@@ -2,17 +2,18 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import unittest
-import json
 import logging
 import os
 import requests
 
+from wazo_amid_client import Client as AmidClient
 from contextlib import contextmanager
 from hamcrest import assert_that, equal_to
 from xivo_test_helpers.asset_launching_test_case import (
     AssetLaunchingTestCase,
     NoSuchPort,
     NoSuchService,
+    WrongClient,
 )
 
 logger = logging.getLogger(__name__)
@@ -31,12 +32,18 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
     service = 'amid'
 
     @classmethod
-    def make_amid_base_url(cls):
+    def make_amid(cls, token=VALID_TOKEN):
         try:
-            amid_port = cls.service_port(9491, 'amid')
-        except (NoSuchPort, NoSuchService):
-            amid_port = None
-        return 'http://localhost:{port}/1.0'.format(port=amid_port)
+            port = cls.service_port(9491, 'amid')
+        except NoSuchService:
+            return WrongClient('amid')
+        return AmidClient(
+            'localhost',
+            port=port,
+            prefix=None,
+            https=False,
+            token=token,
+        )
 
     @classmethod
     def make_ajam_base_url(cls):
@@ -53,16 +60,14 @@ class APIIntegrationTest(unittest.TestCase):
         super().setUpClass()
         cls.reset_clients()
 
-    @classmethod
-    def reset_clients(cls):
-        cls.amid_base_url = APIAssetLaunchingTestCase.make_amid_base_url()
-        cls.ajam_base_url = APIAssetLaunchingTestCase.make_ajam_base_url()
+    def setUp(self):
+        super().setUp()
+        self.amid.set_token(VALID_TOKEN)
 
     @classmethod
-    def amid_url(cls, *parts):
-        return '{base_url}/{path}'.format(
-            base_url=cls.amid_base_url, path='/'.join(parts)
-        )
+    def reset_clients(cls):
+        cls.amid = APIAssetLaunchingTestCase.make_amid()
+        cls.ajam_base_url = APIAssetLaunchingTestCase.make_ajam_base_url()
 
     @classmethod
     def ajam_url(cls, *parts):
@@ -101,36 +106,5 @@ class APIIntegrationTest(unittest.TestCase):
     @classmethod
     def ajam_requests(cls):
         response = requests.get(cls.ajam_url('_requests'), verify=False)
-        assert_that(response.status_code, equal_to(200))
-        return response.json()
-
-    @classmethod
-    def post_action_result(cls, action, params=None, token=None):
-        result = requests.post(
-            cls.amid_url('action', action),
-            data=(json.dumps(params) if params else ''),
-            headers={'X-Auth-Token': token},
-        )
-        return result
-
-    @classmethod
-    def action(cls, action, params=None, token=VALID_TOKEN):
-        response = cls.post_action_result(action, params, token)
-        assert_that(response.status_code, equal_to(200))
-        return response.json()
-
-    @classmethod
-    def post_command_result(cls, body, token=None):
-        result = requests.post(
-            cls.amid_url('action', 'Command'),
-            json=body,
-            headers={'X-Auth-Token': token},
-        )
-        return result
-
-    @classmethod
-    def command(cls, command, token=VALID_TOKEN):
-        body = {'command': command}
-        response = cls.post_command_result(body, token)
         assert_that(response.status_code, equal_to(200))
         return response.json()

@@ -2,10 +2,23 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import pytest
-from hamcrest import assert_that, equal_to
+from hamcrest import (
+    assert_that,
+    calling,
+    equal_to,
+    empty,
+    has_entries,
+    has_property,
+    has_properties,
+    not_,
+)
 
-from requests.exceptions import ConnectionError
+
+from wazo_amid_client.exceptions import AmidError
+from requests.exceptions import HTTPError
 from xivo_test_helpers import until
+from xivo_test_helpers.hamcrest.raises import raises
+
 
 from .helpers.base import (
     APIAssetLaunchingTestCase,
@@ -18,27 +31,37 @@ from .helpers.base import (
 @pytest.mark.usefixtures('base')
 class TestAuthentication(APIIntegrationTest):
 
-    def test_no_auth_gives_401(self):
-        result = self.post_action_result('ping', token=None)
+    def _assert_unauthorized(self, url, *args):
+        assert_that(
+            calling(url).with_args(*args),
+            raises(HTTPError).matching(
+                has_property('response', has_property('status_code', 401))
+            ),
+        )
 
-        assert_that(result.status_code, equal_to(401))
+    def test_no_auth_gives_401(self):
+        self.amid.set_token(None)
+        url = self.amid.action
+        self._assert_unauthorized(url, 'ping')
 
     def test_valid_auth_gives_result(self):
-        result = self.post_action_result('ping', token=VALID_TOKEN)
-
-        assert_that(result.status_code, equal_to(200))
+        self.amid.set_token(VALID_TOKEN)
+        result = self.amid.action('ping')
+        assert_that(result, not_(empty()))
 
     def test_invalid_auth_gives_401(self):
-        result = self.post_action_result('ping', token='invalid-token')
-
-        assert_that(result.status_code, equal_to(401))
+        self.amid.set_token('invalid-token')
+        url = self.amid.action
+        self._assert_unauthorized(url, 'ping')
 
     def test_restrict_only_master_tenant(self):
-        result = self.post_command_result('ping', token=TOKEN_SUB_TENANT)
-        assert_that(result.status_code, equal_to(401))
+        self.amid.set_token(TOKEN_SUB_TENANT)
 
-        result = self.post_action_result('ping', token=TOKEN_SUB_TENANT)
-        assert_that(result.status_code, equal_to(401))
+        url = self.amid.command
+        self._assert_unauthorized(url, 'ping')
+
+        url = self.amid.action
+        self._assert_unauthorized(url, 'ping')
 
     def test_restrict_on_with_slow_wazo_auth(self):
         APIAssetLaunchingTestCase.stop_service('amid')
@@ -47,24 +70,34 @@ class TestAuthentication(APIIntegrationTest):
             self.reset_clients()
 
             def _amid_returns_503():
-                try:
-                    result = self.post_action_result('ping', token=VALID_TOKEN)
-                    assert_that(result.status_code, equal_to(503))
-                except ConnectionError:
-                    raise AssertionError
+                assert_that(
+                    calling(self.amid.action).with_args('ping'),
+                    raises(HTTPError).matching(
+                        has_property('response', has_property('status_code', 503))
+                    ),
+                )
 
             until.assert_(_amid_returns_503, tries=10)
 
         def _amid_does_not_return_503():
-            result = self.post_action_result('ping', token=VALID_TOKEN)
-            assert_that(result.status_code, equal_to(200))
+            assert_that(
+                calling(self.amid.action).with_args('ping'),
+                not_(raises(HTTPError)),
+            )
 
         until.assert_(_amid_does_not_return_503, tries=10)
 
     def test_no_auth_server_gives_503(self):
         with self.auth_stopped():
-            result = self.post_action_result('ping', token=VALID_TOKEN)
-
-            assert_that(result.status_code, equal_to(503))
-            assert_that(result.json()['details']['auth_server_host'], equal_to('auth'))
-            assert_that(result.json()['details']['auth_server_port'], equal_to(9497))
+            assert_that(
+                calling(self.amid.action).with_args('ping'),
+                raises(AmidError).matching(
+                    has_properties(
+                        status_code=503,
+                        details=has_entries(
+                            auth_server_host=equal_to('auth'),
+                            auth_server_port=equal_to(9497),
+                        )
+                    )
+                )
+            )
