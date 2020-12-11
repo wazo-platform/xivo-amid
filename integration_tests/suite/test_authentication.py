@@ -30,7 +30,6 @@ from .helpers.base import (
 
 @pytest.mark.usefixtures('base')
 class TestAuthentication(APIIntegrationTest):
-
     def _assert_unauthorized(self, url, *args):
         assert_that(
             calling(url).with_args(*args),
@@ -97,7 +96,7 @@ class TestAuthentication(APIIntegrationTest):
                         details=has_entries(
                             auth_server_host=equal_to('auth'),
                             auth_server_port=equal_to(9497),
-                        )
+                        ),
                     )
-                )
+                ),
             )

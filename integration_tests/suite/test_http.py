@@ -134,7 +134,7 @@ class TestHTTPCommand(APIIntegrationTest):
                     status_code=400,
                     error_id='invalid-data',
                 )
-            )
+            ),
         )
 
     def test_that_action_command_returns_command_response(self):
@@ -155,7 +155,6 @@ class TestHTTPCommand(APIIntegrationTest):
 
 @pytest.mark.usefixtures('base')
 class TestHTTPMultipleIdenticalKeys(APIIntegrationTest):
-
     def test_when_action_with_multiple_identical_keys_then_all_keys_are_sent(self):
         self.amid.action('Originate', {'Variable': ('Var1=one', 'Var2=two')})
 
@@ -191,7 +190,7 @@ class TestHTTPError(APIIntegrationTest):
                         status_code=503,
                         details=has_entries(
                             ajam_url=contains_string('asterisk-ajam:5040'),
-                        )
+                        ),
                     )
-                )
+                ),
             )
