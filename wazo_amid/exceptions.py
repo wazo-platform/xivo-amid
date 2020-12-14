@@ -19,3 +19,9 @@ class ValidationError(APIException):
             error_id='invalid-data',
             details=errors,
         )
+
+
+class NotInitializedException(APIException):
+    def __init__(self):
+        msg = 'wazo-amid is not initialized'
+        super().__init__(503, msg, 'not-initialized')

@@ -17,7 +17,6 @@ from xivo import http_helpers
 from xivo import rest_api_helpers
 from xivo.http_helpers import ReverseProxied
 from xivo.auth_verifier import AuthVerifier
-from xivo.auth_verifier import required_acl as required_acl_
 
 from .exceptions import ValidationError
 
@@ -28,13 +27,13 @@ logger = logging.getLogger(__name__)
 api = Api(prefix='/{}'.format(VERSION))
 auth_verifier = AuthVerifier()
 wsgi_server = None
-required_acl = required_acl_
 
 
 def configure(global_config):
 
     http_helpers.add_logger(app, logger)
     app.after_request(http_helpers.log_request)
+    app.config.update(global_config)
     app.secret_key = os.urandom(24)
     app.permanent_session_lifetime = timedelta(minutes=5)
 
@@ -116,5 +115,6 @@ class ErrorCatchingResource(Resource):
 
 class AuthResource(ErrorCatchingResource):
     method_decorators = [
-        auth_verifier.verify_token
+        auth_verifier.verify_tenant,
+        auth_verifier.verify_token,
     ] + ErrorCatchingResource.method_decorators

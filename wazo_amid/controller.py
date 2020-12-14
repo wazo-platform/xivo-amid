@@ -6,8 +6,12 @@ import logging
 from threading import Thread
 from wazo_amid.ami.client import AMIClient
 from wazo_amid.bus.client import BusClient
+from wazo_amid import auth
 from wazo_amid import rest_api
 from wazo_amid.facade import EventHandlerFacade
+
+from xivo.token_renewer import TokenRenewer
+from wazo_auth_client import Client as AuthClient
 
 logger = logging.getLogger(__name__)
 
@@ -36,8 +40,17 @@ class Controller:
             self._run_rest_api()
 
     def _run_rest_api(self):
+        self._token_renewer = TokenRenewer(AuthClient(**self._config['auth']))
         rest_api.configure(self._config)
-        rest_api.run(self._config['rest_api'])
+        if not rest_api.app.config['auth'].get('master_tenant_uuid'):
+            self._token_renewer.subscribe_to_next_token_details_change(
+                auth.init_master_tenant
+            )
+        self._token_renewer.subscribe_to_next_token_details_change(
+            lambda t: self._token_renewer.emit_stop()
+        )
+        with self._token_renewer:
+            rest_api.run(self._config['rest_api'])
 
     def stop(self, reason):
         logger.warning('Stopping wazo-amid: %s', reason)

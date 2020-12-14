@@ -12,6 +12,7 @@ services:
     volumes:
       - "../..:/usr/src/wazo-amid"
       - "./etc/wazo-amid/conf.d/50-default.yml:/etc/wazo-amid/conf.d/50-default.yml"
+      - "./etc/wazo-amid/key.yml:/etc/wazo-amid/key.yml"
 
   asterisk-ajam:
     image: p0bailey/docker-flask
@@ -23,9 +24,6 @@ services:
     command: "python /usr/local/share/asterisk-ajam/mock-asterisk-ajam.py 5040"
 
   auth:
-    image: p0bailey/docker-flask
-    expose:
+    image: "wazoplatform/wazo-auth-mock"
+    ports:
       - "9497"
-    volumes:
-      - "./wazo-auth:/usr/local/share/wazo-auth"
-    command: "python /usr/local/share/wazo-auth/mock-wazo-auth.py 9497"

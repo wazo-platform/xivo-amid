@@ -1,6 +1,7 @@
 auth:
   host: auth
   port: 9497
+  key_file: /etc/wazo-amid/key.yml
 
 ajam:
   host: asterisk-ajam
