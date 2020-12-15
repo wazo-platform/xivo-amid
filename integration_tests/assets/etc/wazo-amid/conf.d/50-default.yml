@@ -1,7 +1,8 @@
 auth:
   host: auth
   port: 9497
-  key_file: /etc/wazo-amid/key.yml
+  username: wazo-amid
+  password: opensesame
 
 ajam:
   host: asterisk-ajam
