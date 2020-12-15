@@ -96,6 +96,9 @@ def _get_cli_config():
 
 
 def _load_key_file(config):
+    if config['auth'].get('username') and config['auth'].get('password'):
+        return {}
+
     key_file = parse_config_file(config['auth']['key_file'])
     return {
         'auth': {
