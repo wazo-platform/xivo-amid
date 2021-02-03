@@ -36,18 +36,22 @@ def parse_command_response(raw_buffer):
 def _parse_msg(data, event_callback, response_callback):
     lines = data.decode('utf8', 'replace').split('\r\n')
 
+    headers = {}
+    chan_variables = {}
     try:
         first_header, first_value = _parse_line(lines[0])
 
-        headers = {}
         headers[first_header] = first_value
         for line in lines[1:]:
             header, value = _parse_line(line)
             if header == 'ChanVariable':
                 variable, value = _parse_chan_variable(value)
-                headers.setdefault('ChanVariable', {}).setdefault(variable, value)
+                chan_variables[variable] = value
             else:
                 headers[header] = value
+        if chan_variables:
+            headers['ChanVariable'] = chan_variables
+
     except AMIParsingError:
         raise AMIParsingError('unexpected data: %r' % data)
 
