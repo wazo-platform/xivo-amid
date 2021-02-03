@@ -69,10 +69,12 @@ def _parse_msg(data, event_callback, response_callback):
 @functools.lru_cache(maxsize=8192)
 def _parse_line(line):
     try:
-        header, value = line.split(':', 1)
+        header, value = line.split(': ', 1)
     except ValueError:
-        raise AMIParsingError()
-    value = value.lstrip()
+        try:
+            header, value = line.split(':', 1)
+        except ValueError:
+            raise AMIParsingError
     return header, value
 
 
