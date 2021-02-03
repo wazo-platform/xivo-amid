@@ -39,10 +39,10 @@ def _parse_msg(data, event_callback, response_callback):
     headers = {}
     chan_variables = {}
     try:
-        first_header, first_value = _parse_line(lines[0])
+        first_header, first_value = _parse_line(lines.pop(0))
 
         headers[first_header] = first_value
-        for line in lines[1:]:
+        for line in lines:
             header, value = _parse_line(line)
             if header == 'ChanVariable':
                 variable, value = _parse_chan_variable(value)
