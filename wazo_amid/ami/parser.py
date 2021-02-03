@@ -55,10 +55,10 @@ def _parse_msg(data, event_callback, response_callback):
     except AMIParsingError:
         raise AMIParsingError('unexpected data: %r' % data)
 
-    if first_header.startswith('Response'):
-        callback = response_callback
-    elif first_header.startswith('Event'):
+    if first_header.startswith('Event'):
         callback = event_callback
+    elif first_header.startswith('Response'):
+        callback = response_callback
     else:
         raise AMIParsingError('unexpected data: %r' % data)
 
