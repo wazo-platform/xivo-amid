@@ -36,22 +36,9 @@ def parse_command_response(raw_buffer):
 def _parse_msg(data, event_callback, response_callback):
     lines = data.decode('utf8', 'replace').split('\r\n')
 
-    headers = {}
-    chan_variables = {}
     try:
         first_header, first_value = _parse_line(lines.pop(0))
-
-        headers[first_header] = first_value
-        for line in lines:
-            header, value = _parse_line(line)
-            if header == 'ChanVariable':
-                variable, value = _parse_chan_variable(value)
-                chan_variables[variable] = value
-            else:
-                headers[header] = value
-        if chan_variables:
-            headers['ChanVariable'] = chan_variables
-
+        headers = _parse_msg_body(lines, first_header, first_value)
     except AMIParsingError:
         raise AMIParsingError('unexpected data: %r' % data)
 
@@ -64,6 +51,25 @@ def _parse_msg(data, event_callback, response_callback):
 
     if callback:
         callback(first_value, headers.get('ActionID'), dict(headers.items()))
+
+
+def _parse_msg_body(lines, first_header, first_value):
+    headers = {}
+    chan_variables = {}
+
+    headers[first_header] = first_value
+    for line in lines:
+        header, value = _parse_line(line)
+        if header == 'ChanVariable':
+            variable, value = _parse_chan_variable(value)
+            chan_variables[variable] = value
+        else:
+            headers[header] = value
+
+    if chan_variables:
+        headers['ChanVariable'] = chan_variables
+
+    return headers
 
 
 @functools.lru_cache(maxsize=8192)
