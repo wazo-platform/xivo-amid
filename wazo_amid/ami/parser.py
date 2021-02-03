@@ -1,6 +1,7 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import functools
 import logging
 
 logger = logging.getLogger(__name__)
@@ -61,6 +62,7 @@ def _parse_msg(data, event_callback, response_callback):
         callback(first_value, headers.get('ActionID'), dict(headers.items()))
 
 
+@functools.lru_cache(maxsize=8192)
 def _parse_line(line):
     try:
         header, value = line.split(':', 1)
@@ -70,5 +72,6 @@ def _parse_line(line):
     return header, value
 
 
+@functools.lru_cache(maxsize=8192)
 def _parse_chan_variable(chan_variable):
     return chan_variable.split('=', 1)
