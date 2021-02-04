@@ -1,6 +1,7 @@
-# Copyright 2012-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import functools
 import logging
 
 logger = logging.getLogger(__name__)
@@ -36,24 +37,15 @@ def _parse_msg(data, event_callback, response_callback):
     lines = data.decode('utf8', 'replace').split('\r\n')
 
     try:
-        first_header, first_value = _parse_line(lines[0])
-
-        headers = {}
-        headers[first_header] = first_value
-        for line in lines[1:]:
-            header, value = _parse_line(line)
-            if header == 'ChanVariable':
-                variable, value = _parse_chan_variable(value)
-                headers.setdefault('ChanVariable', {}).setdefault(variable, value)
-            else:
-                headers[header] = value
+        first_header, first_value = _parse_line(lines.pop(0))
+        headers = _parse_msg_body(lines, first_header, first_value)
     except AMIParsingError:
         raise AMIParsingError('unexpected data: %r' % data)
 
-    if first_header.startswith('Response'):
-        callback = response_callback
-    elif first_header.startswith('Event'):
+    if first_header.startswith('Event'):
         callback = event_callback
+    elif first_header.startswith('Response'):
+        callback = response_callback
     else:
         raise AMIParsingError('unexpected data: %r' % data)
 
@@ -61,14 +53,37 @@ def _parse_msg(data, event_callback, response_callback):
         callback(first_value, headers.get('ActionID'), dict(headers.items()))
 
 
+def _parse_msg_body(lines, first_header, first_value):
+    headers = {}
+    chan_variables = {}
+
+    headers[first_header] = first_value
+    for line in lines:
+        header, value = _parse_line(line)
+        if header == 'ChanVariable':
+            variable, value = _parse_chan_variable(value)
+            chan_variables[variable] = value
+        else:
+            headers[header] = value
+
+    if chan_variables:
+        headers['ChanVariable'] = chan_variables
+
+    return headers
+
+
+@functools.lru_cache(maxsize=8192)
 def _parse_line(line):
     try:
-        header, value = line.split(':', 1)
+        header, value = line.split(': ', 1)
     except ValueError:
-        raise AMIParsingError()
-    value = value.lstrip()
+        try:
+            header, value = line.split(':', 1)
+        except ValueError:
+            raise AMIParsingError
     return header, value
 
 
+@functools.lru_cache(maxsize=8192)
 def _parse_chan_variable(chan_variable):
     return chan_variable.split('=', 1)
