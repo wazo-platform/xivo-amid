@@ -1,4 +1,4 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import collections
@@ -14,7 +14,7 @@ from mock import (
 )
 
 from wazo_amid.ami.client import AMIClient, AMIConnectionError
-from wazo_amid.bus.client import BusClient
+from wazo_amid.bus.client import BusPublisher
 from wazo_amid.facade import EventHandlerFacade
 
 RECONNECTION_DELAY = 5
@@ -41,7 +41,7 @@ class testEventHandlerFacade(unittest.TestCase):
             set=set_fn, is_set=is_set_fn, wait=self.event_wait
         )
 
-        self.bus_client_mock = Mock(BusClient)
+        self.bus_client_mock = Mock(BusPublisher)
 
         self.ami_client_mock = Mock(AMIClient)
         self.ami_client_mock.parse_next_messages.side_effect = [Exception()]

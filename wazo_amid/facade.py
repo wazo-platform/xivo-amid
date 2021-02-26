@@ -1,4 +1,4 @@
-# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -13,9 +13,9 @@ class EventHandlerFacade:
 
     RECONNECTION_DELAY = 5
 
-    def __init__(self, ami_client, bus_client):
+    def __init__(self, ami_client, bus_publisher):
         self._ami_client = ami_client
-        self._bus_client = bus_client
+        self._bus_publisher = bus_publisher
         self._stop_event = threading.Event()
 
     def run(self):
@@ -45,7 +45,7 @@ class EventHandlerFacade:
         while len(messages):
             message = messages.pop()
             logger.debug('Processing message %s', message)
-            self._bus_client.publish(message)
+            self._bus_publisher.publish(message)
 
     def stop(self):
         self._stop_event.set()
