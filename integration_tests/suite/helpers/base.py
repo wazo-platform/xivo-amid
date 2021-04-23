@@ -38,7 +38,7 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
         except NoSuchService:
             return WrongClient('amid')
         return AmidClient(
-            'localhost',
+            '127.0.0.1',
             port=port,
             prefix=None,
             https=False,
@@ -51,7 +51,7 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
             ajam_port = cls.service_port(5040, 'asterisk-ajam')
         except (NoSuchPort, NoSuchService):
             ajam_port = None
-        return 'https://localhost:{port}'.format(port=ajam_port)
+        return 'https://127.0.0.1:{port}'.format(port=ajam_port)
 
 
 class APIIntegrationTest(unittest.TestCase):
