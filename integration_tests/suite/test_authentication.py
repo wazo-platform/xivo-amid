@@ -71,8 +71,11 @@ class TestAuthentication(APIIntegrationTest):
             def _amid_returns_503():
                 assert_that(
                     calling(self.amid.action).with_args('ping'),
-                    raises(HTTPError).matching(
-                        has_property('response', has_property('status_code', 503))
+                    raises(AmidError).matching(
+                        has_properties(
+                            status_code=503,
+                            error_id='not-initialized',
+                        )
                     ),
                 )
 
