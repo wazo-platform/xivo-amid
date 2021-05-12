@@ -39,15 +39,15 @@ def _parse_msg(data, event_callback, response_callback):
     try:
         first_header, first_value = _parse_line(lines.pop(0))
         headers = _parse_msg_body(lines, first_header, first_value)
-    except AMIParsingError:
-        raise AMIParsingError('unexpected data: %r' % data)
+    except AMIParsingError as e:
+        raise AMIParsingError('unexpected data: %r. Details: %s' % (data, e))
 
     if first_header.startswith('Event'):
         callback = event_callback
     elif first_header.startswith('Response'):
         callback = response_callback
     else:
-        raise AMIParsingError('unexpected data: %r' % data)
+        raise AMIParsingError('unexpected first header: %r' % data)
 
     if callback:
         callback(first_value, headers.get('ActionID'), dict(headers.items()))
@@ -80,7 +80,7 @@ def _parse_line(line):
         try:
             header, value = line.split(':', 1)
         except ValueError:
-            raise AMIParsingError
+            raise AMIParsingError('unexpected line: %r' % line)
     return header, value
 
 
