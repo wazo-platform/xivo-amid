@@ -86,4 +86,8 @@ def _parse_line(line):
 
 @functools.lru_cache(maxsize=8192)
 def _parse_chan_variable(chan_variable):
-    return chan_variable.split('=', 1)
+    try:
+        variable, value = chan_variable.split('=', 1)
+    except ValueError:
+        raise AMIParsingError('unexpected channel variable: %r' % chan_variable)
+    return variable, value

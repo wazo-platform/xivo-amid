@@ -1,4 +1,4 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import textwrap
@@ -138,3 +138,54 @@ class TestParser(unittest.TestCase):
         parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
 
         self.mock_event_callback.assert_any_call('some-event', None, expected_event)
+
+    def test_incomplete_channel_variables_is_ignored(self):
+        msg = textwrap.dedent(
+            '''\
+            Event: some-event\r
+            ChanVariable: FOO\r
+            \r
+            '''
+        ).encode('utf-8')
+
+        parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
+
+        assert_that(self.mock_event_callback.call_count, equal_to(0))
+        assert_that(self.mock_response_callback.call_count, equal_to(0))
+
+    def test_channel_variables_with_newline_is_ignored(self):
+        msg = textwrap.dedent(
+            '''\
+            Event: some-event\r
+            ChanVariable: FOO=newline\r
+            newline\r
+            newline\r
+            ChanVariable: BAZ=inga\r
+            \r
+            '''
+        ).encode('utf-8')
+
+        parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
+
+        assert_that(self.mock_event_callback.call_count, equal_to(0))
+        assert_that(self.mock_response_callback.call_count, equal_to(0))
+
+    def test_channel_variables_with_double_newline_is_ignored(self):
+        msg = textwrap.dedent(
+            '''\
+            Event: some-event\r
+            ChanVariable: FOO=newline\r
+            \r
+            newline\r
+            \r
+            newline\r
+            \r
+            ChanVariable: BAZ=inga\r
+            \r
+            '''
+        ).encode('utf-8')
+
+        parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
+
+        assert_that(self.mock_event_callback.call_count, equal_to(1))
+        assert_that(self.mock_response_callback.call_count, equal_to(0))
