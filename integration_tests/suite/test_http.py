@@ -17,7 +17,7 @@ from hamcrest import (
     matches_regexp,
 )
 from wazo_amid_client.exceptions import AmidError
-from xivo_test_helpers.hamcrest.raises import raises
+from wazo_test_helpers.hamcrest.raises import raises
 
 from .helpers.base import APIIntegrationTest
 

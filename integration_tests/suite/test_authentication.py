@@ -16,8 +16,8 @@ from hamcrest import (
 
 from wazo_amid_client.exceptions import AmidError
 from requests.exceptions import HTTPError
-from xivo_test_helpers import until
-from xivo_test_helpers.hamcrest.raises import raises
+from wazo_test_helpers import until
+from wazo_test_helpers.hamcrest.raises import raises
 
 
 from .helpers.base import (
