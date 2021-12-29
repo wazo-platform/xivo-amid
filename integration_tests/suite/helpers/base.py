@@ -9,7 +9,7 @@ import requests
 from wazo_amid_client import Client as AmidClient
 from contextlib import contextmanager
 from hamcrest import assert_that, equal_to
-from xivo_test_helpers.asset_launching_test_case import (
+from wazo_test_helpers.asset_launching_test_case import (
     AssetLaunchingTestCase,
     NoSuchPort,
     NoSuchService,
