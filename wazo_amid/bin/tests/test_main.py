@@ -20,13 +20,16 @@ class TestMain(TestCase):
     def setUp(self):
         self.log_patch = patch('wazo_amid.bin.daemon.setup_logging')
         self.user_patch = patch('wazo_amid.bin.daemon.change_user')
+        self.set_xivo_uuid = patch('wazo_amid.bin.daemon.set_xivo_uuid')
 
         self.log = self.log_patch.start()
         self.change_user = self.user_patch.start()
+        self.set_xivo_uuid = self.set_xivo_uuid.start()
 
     def tearDown(self):
         self.user_patch.stop()
         self.log_patch.stop()
+        self.set_xivo_uuid.stop()
 
     @patch(
         'wazo_amid.bin.daemon.load_config',
