@@ -21,4 +21,4 @@ RUN true \
 EXPOSE 9491
 
 ENV PATH="/opt/venv/bin:$PATH"
-CMD ["wazo-amid", "-d"]
+CMD ["wazo-amid"]
