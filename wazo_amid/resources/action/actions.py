@@ -48,16 +48,17 @@ class AJAMClient:
         port,
         username=None,
         password=None,
+        https=True,
         verify_certificate=True,
     ):
-        scheme = 'http'
+        scheme = 'https' if https else 'http'
         self.url = f'{scheme}://{host}:{port}/rawman'
         self.login_params = {
             'action': 'login',
             'username': username,
             'secret': password,
         }
-        self.verify = verify_certificate
+        self.verify = verify_certificate if https else None
 
     def get(self, action, ami_args):
         params = self._build_params(action, ami_args)

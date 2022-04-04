@@ -19,6 +19,7 @@ _DEFAULT_CONFIG = {
         'host': 'localhost',
         'port': 5040,
         'verify_certificate': '/usr/share/xivo-certs/server.crt',
+        'https': True,
         'username': 'wazo_amid',
         'password': 'default_password',
     },
