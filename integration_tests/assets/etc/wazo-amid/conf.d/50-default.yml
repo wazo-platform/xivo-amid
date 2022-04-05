@@ -1,3 +1,4 @@
+debug: true
 auth:
   host: auth
   port: 9497

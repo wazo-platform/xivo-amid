@@ -9,6 +9,8 @@ services:
     image: wazo-amid-tests
     ports:
       - "9491"
+    environment:
+      XIVO_UUID: "00000000-0000-4000-8000-0000000AA450"
     volumes:
       - "../..:/usr/src/wazo-amid"
       - "./etc/wazo-amid/conf.d/50-default.yml:/etc/wazo-amid/conf.d/50-default.yml"

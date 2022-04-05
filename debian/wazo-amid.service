@@ -1,7 +1,7 @@
 [Unit]
 Description=wazo-amid server
 ConditionPathExists=!/var/lib/wazo/disabled
-After=network-online.target asterisk.service rabbitmq-server.service wazo-confgend.service
+After=network-online.target asterisk.service rabbitmq-server.service
 StartLimitBurst=15
 StartLimitIntervalSec=150
 

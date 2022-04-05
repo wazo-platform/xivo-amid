@@ -5,6 +5,7 @@ import logging
 import signal
 
 from functools import partial
+from xivo.config_helper import set_xivo_uuid
 from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
 from wazo_amid.config import load_config
@@ -20,6 +21,8 @@ def main():
 
     if config.get('user'):
         change_user(config['user'])
+
+    set_xivo_uuid(config, logger)
 
     controller = Controller(config)
     signal.signal(signal.SIGTERM, partial(sigterm, controller))
