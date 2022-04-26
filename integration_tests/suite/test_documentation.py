@@ -19,5 +19,5 @@ class TestDocumentation(APIIntegrationTest):
     def test_documentation_errors(self):
         port = APIAssetLaunchingTestCase.service_port(9491, 'amid')
         api_url = 'http://127.0.0.1:{port}/1.0/api/api.yml'.format(port=port)
-        api = requests.get(api_url, verify=False)
+        api = requests.get(api_url)
         validate_v2_spec(yaml.safe_load(api.text))
