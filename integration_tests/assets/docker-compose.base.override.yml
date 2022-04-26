@@ -6,4 +6,4 @@ services:
       - asterisk-ajam
       - auth
     environment:
-      TARGETS: "asterisk-ajam:5040 amid:9491 auth:9497"
+      TARGETS: "asterisk-ajam:5039 amid:9491 auth:9497"

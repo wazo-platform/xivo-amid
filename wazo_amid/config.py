@@ -17,9 +17,8 @@ _DEFAULT_CONFIG = {
     'publish_ami_events': True,
     'ajam': {
         'host': 'localhost',
-        'port': 5040,
-        'verify_certificate': '/usr/share/xivo-certs/server.crt',
-        'https': True,
+        'port': 5039,
+        'https': False,
         'username': 'wazo_amid',
         'password': 'default_password',
     },

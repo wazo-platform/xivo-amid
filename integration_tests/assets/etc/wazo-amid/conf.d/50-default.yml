@@ -8,7 +8,6 @@ ajam:
   host: asterisk-ajam
   username: wazo_amid
   password: opensesame
-  verify_certificate: False
 
 rest_api:
   listen: 0.0.0.0
