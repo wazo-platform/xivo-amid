@@ -1,13 +1,11 @@
 debug: true
 auth:
   host: auth
-  port: 9497
   username: wazo-amid
   password: opensesame
 
 ajam:
   host: asterisk-ajam
-  port: 5040
   username: wazo_amid
   password: opensesame
   verify_certificate: False
