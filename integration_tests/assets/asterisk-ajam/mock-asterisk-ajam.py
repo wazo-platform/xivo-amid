@@ -15,11 +15,6 @@ app = Flask(__name__)
 
 port = int(sys.argv[1])
 
-context = (
-    '/usr/local/share/asterisk-ajam-ssl/server.crt',
-    '/usr/local/share/asterisk-ajam-ssl/server.key',
-)
-
 _db = {}
 _requests = []
 
@@ -209,4 +204,4 @@ actions = {
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=port, ssl_context=context, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)

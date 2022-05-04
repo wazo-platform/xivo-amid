@@ -48,10 +48,10 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
     @classmethod
     def make_ajam_base_url(cls):
         try:
-            ajam_port = cls.service_port(5040, 'asterisk-ajam')
+            ajam_port = cls.service_port(5039, 'asterisk-ajam')
         except (NoSuchPort, NoSuchService):
             ajam_port = None
-        return 'https://127.0.0.1:{port}'.format(port=ajam_port)
+        return 'http://127.0.0.1:{port}'.format(port=ajam_port)
 
 
 class APIIntegrationTest(unittest.TestCase):
@@ -105,6 +105,6 @@ class APIIntegrationTest(unittest.TestCase):
 
     @classmethod
     def ajam_requests(cls):
-        response = requests.get(cls.ajam_url('_requests'), verify=False)
+        response = requests.get(cls.ajam_url('_requests'))
         assert_that(response.status_code, equal_to(200))
         return response.json()

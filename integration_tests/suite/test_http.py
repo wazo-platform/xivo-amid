@@ -189,7 +189,7 @@ class TestHTTPError(APIIntegrationTest):
                     has_properties(
                         status_code=503,
                         details=has_entries(
-                            ajam_url=contains_string('asterisk-ajam:5040'),
+                            ajam_url=contains_string('asterisk-ajam:5039'),
                         ),
                     )
                 ),
