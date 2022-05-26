@@ -11,8 +11,7 @@ from hamcrest import (
     equal_to,
     instance_of,
 )
-from mock import Mock, patch
-from mock import sentinel
+from unittest.mock import Mock, patch, sentinel
 
 from wazo_amid.ami.client import AMIClient, AMIConnectionError
 

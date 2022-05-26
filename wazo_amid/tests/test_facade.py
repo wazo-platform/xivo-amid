@@ -3,15 +3,15 @@
 
 import collections
 import unittest
-
-from hamcrest import assert_that, contains, equal_to
-from mock import (
+from unittest.mock import (
     ANY,
     call,
     Mock,
     patch,
     sentinel,
 )
+
+from hamcrest import assert_that, contains, equal_to
 
 from wazo_amid.ami.client import AMIClient, AMIConnectionError
 from wazo_amid.bus.client import BusClient
