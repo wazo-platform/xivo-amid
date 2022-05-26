@@ -7,7 +7,7 @@ import unittest
 from hamcrest import assert_that
 from hamcrest import equal_to
 from hamcrest import contains_exactly
-from mock import Mock
+from unittest.mock import Mock
 
 from wazo_amid.ami.parser import parse_buffer
 from wazo_amid.ami.parser import parse_command_response
