@@ -4,6 +4,8 @@ services:
     depends_on:
       - amid
       - asterisk-ajam
+      - asterisk-ami
       - auth
+      - rabbitmq
     environment:
-      TARGETS: "asterisk-ajam:5039 amid:9491 auth:9497"
+      TARGETS: "asterisk-ajam:5039 asterisk-ami:5038 asterisk-ami:8123 amid:9491 auth:9497 rabbitmq:5672"

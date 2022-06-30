@@ -1,9 +1,11 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import collections
 import logging
 import socket
+
+from xivo.status import Status
 
 from wazo_amid.ami import parser
 
@@ -13,7 +15,6 @@ Message = collections.namedtuple('Message', ['name', 'headers'])
 
 
 class AMIClient:
-
     _BUFSIZE = 4096
 
     def __init__(self, host, username, password, port):
@@ -29,9 +30,12 @@ class AMIClient:
     def connect_and_login(self):
         self.stopping = False
         if self._sock is None:
-            logger.info('Connecting AMI client to %s:%s', self._hostname, self._port)
+            logger.info(
+                'Connecting AMI client to %s:%s', self._hostname, self._port)
             self._connect_socket()
             self._login()
+            logger.info(
+                'AMI client connected to %s:%s', self._hostname, self._port)
 
     def disconnect(self, reason=None):
         if self._sock is not None:
@@ -104,7 +108,8 @@ class AMIClient:
             raise AMIConnectionError(e)
         else:
             if not data and not self.stopping:
-                logger.error('Could not read data from socket: connection closed')
+                logger.error(
+                    'Could not read data from socket: connection closed')
                 raise AMIConnectionError('Connection closed from remote')
             return data
 
@@ -113,6 +118,10 @@ class AMIClient:
             self.stopping = True
             self._sock.shutdown(socket.SHUT_RDWR)
             self.disconnect(reason='explicit stop')
+
+    def provide_status(self, status):
+        status['ami_socket']['status'] = (
+            Status.ok if self._sock else Status.fail)
 
 
 class AMIConnectionError(Exception):

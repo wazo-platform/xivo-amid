@@ -8,7 +8,7 @@ services:
   amid:
     image: wazo-amid-tests
     ports:
-      - "9491"
+      - 9491
     environment:
       XIVO_UUID: "00000000-0000-4000-8000-0000000AA450"
     volumes:
@@ -19,12 +19,29 @@ services:
   asterisk-ajam:
     image: p0bailey/docker-flask
     ports:
-      - "5039"
+      - 5039
     volumes:
       - "./asterisk-ajam:/usr/local/share/asterisk-ajam"
     command: "python /usr/local/share/asterisk-ajam/mock-asterisk-ajam.py 5039"
 
+  asterisk-ami:
+    image: wazoplatform/flask
+    ports:
+      - 5038
+      - 8123
+    volumes:
+      - "./asterisk-ajam:/usr/local/share/asterisk-ajam"
+    command: "python /usr/local/share/asterisk-ami/mock-asterisk-ami.py --http_port 8123 --ami_port 5038"
+
   auth:
     image: "wazoplatform/wazo-auth-mock"
     ports:
-      - "9497"
+      - 9497
+
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - 5672
+    volumes:
+      - type: tmpfs
+        target: /var/lib/rabbitmq

@@ -1,4 +1,4 @@
-# Copyright 2016-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -29,8 +29,7 @@ auth_verifier = AuthVerifier()
 wsgi_server = None
 
 
-def configure(global_config):
-
+def configure(global_config, status_aggregator):
     http_helpers.add_logger(app, logger)
     app.after_request(http_helpers.log_request)
     app.config.update(global_config)
@@ -42,21 +41,25 @@ def configure(global_config):
     if enabled:
         CORS(app, **cors_config)
 
-    load_resources(global_config)
+    load_resources(global_config, status_aggregator)
     api.init_app(app)
 
     auth_verifier.set_config(global_config['auth'])
 
 
-def load_resources(global_config):
+def load_resources(global_config, status_aggregator):
     from wazo_amid.resources.action.actions import Actions
     from wazo_amid.resources.action.actions import Command
+    from wazo_amid.resources.status import Status
     from wazo_amid.resources.api.actions import SwaggerResource
 
     Actions.configure(global_config)
     Command.configure(global_config)
+    Status.configure(status_aggregator)
+
     api.add_resource(Actions, '/action/<action>')
     api.add_resource(Command, '/action/Command')
+    api.add_resource(Status, '/status')
 
     SwaggerResource.add_resource(api)
 
@@ -64,12 +67,15 @@ def load_resources(global_config):
 def run(config):
     bind_addr = (config['listen'], config['port'])
 
-    wsgi_app = ReverseProxied(ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app})))
+    wsgi_app = ReverseProxied(
+        ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app}))
+    )
     global wsgi_server
     wsgi_server = wsgi.WSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
     if config['certificate'] and config['private_key']:
         logger.warning(
-            'Using service SSL configuration is deprecated. Please use NGINX instead.'
+            'Using service SSL configuration is deprecated. '
+            'Please use NGINX instead.'
         )
         wsgi_server.ssl_adapter = http_helpers.ssl_adapter(
             config['certificate'], config['private_key']
@@ -108,13 +114,13 @@ def handle_validation_exception(func):
 
 class ErrorCatchingResource(Resource):
     method_decorators = [
-        handle_validation_exception,
-        rest_api_helpers.handle_api_exception,
-    ] + Resource.method_decorators
+                            handle_validation_exception,
+                            rest_api_helpers.handle_api_exception,
+                        ] + Resource.method_decorators
 
 
 class AuthResource(ErrorCatchingResource):
     method_decorators = [
-        auth_verifier.verify_token,
-        auth_verifier.verify_tenant,
-    ] + ErrorCatchingResource.method_decorators
+                            auth_verifier.verify_token,
+                            auth_verifier.verify_tenant,
+                        ] + ErrorCatchingResource.method_decorators
