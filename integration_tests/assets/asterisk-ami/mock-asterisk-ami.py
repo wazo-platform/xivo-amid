@@ -49,7 +49,7 @@ class MockedAsteriskAMI(Thread):
         while True:
             data = client.recv(size)
             logging.debug(
-                f'Data received ({data}) from ' f'client ({client} - {address})'
+                f'Data received ({data}) from client ({client} - {address})'
             )
             if data:
                 if data.decode().startswith("Action: Login"):
@@ -82,7 +82,7 @@ class MockedAsteriskAMI(Thread):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='Fake Asterisk AMI with /send_event endpoint ' 'to emulate event.'
+        description='Fake Asterisk AMI with /send_event endpoint to emulate event.'
     )
     parser.add_argument(
         '--http_port', type=int, required=True, help='port for /send_event endpoint'
