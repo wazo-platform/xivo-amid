@@ -1,14 +1,14 @@
 # Copyright 2015-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import unittest
 import logging
 import os
 import requests
+import unittest
 
-from wazo_amid_client import Client as AmidClient
 from contextlib import contextmanager
 from hamcrest import assert_that, equal_to
+from wazo_amid_client import Client as AmidClient
 from wazo_test_helpers.asset_launching_test_case import (
     AssetLaunchingTestCase,
     NoSuchPort,
@@ -24,7 +24,7 @@ ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', '..', 'assets')
 
 VALID_TOKEN = 'valid-token-multitenant'
 TOKEN_SUB_TENANT = 'valid-token-sub-tenant'
-SERVICE_RABBIT_MQ = 'rabbitmq'
+SERVICE_RABBITMQ = 'rabbitmq'
 SERVICE_ASTERISK_AMI = 'asterisk-ami'
 SERVICE_ASTERISK_AJAM = 'asterisk-ajam'
 SERVICE_AUTH = 'auth'
@@ -127,11 +127,11 @@ class APIIntegrationTest(unittest.TestCase):
     @classmethod
     @contextmanager
     def rabbitmq_stopped(cls):
-        APIAssetLaunchingTestCase.stop_service(SERVICE_RABBIT_MQ)
+        APIAssetLaunchingTestCase.stop_service(SERVICE_RABBITMQ)
         try:
             yield
         finally:
-            APIAssetLaunchingTestCase.start_service(SERVICE_RABBIT_MQ)
+            APIAssetLaunchingTestCase.start_service(SERVICE_RABBITMQ)
 
     @classmethod
     def ajam_requests(cls):

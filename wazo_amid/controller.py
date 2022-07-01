@@ -25,8 +25,7 @@ class Controller:
         self._status_aggregator = StatusAggregator()
 
     def run(self):
-        self._token_renewer.subscribe_to_token_change(
-            self._token_status.token_change_callback)
+        self._token_renewer.subscribe_to_token_change(self._token_status.token_change_callback)
         self._status_aggregator.add_provider(self._token_status.provide_status)
         if self._config['publish_ami_events']:
             ami_client = AMIClient(**self._config['ami'])
@@ -51,9 +50,7 @@ class Controller:
     def _run_rest_api(self):
         rest_api.configure(self._config, self._status_aggregator)
         if not rest_api.app.config['auth'].get('master_tenant_uuid'):
-            self._token_renewer.subscribe_to_next_token_details_change(
-                auth.init_master_tenant
-            )
+            self._token_renewer.subscribe_to_next_token_details_change(auth.init_master_tenant)
         self._token_renewer.subscribe_to_next_token_details_change(
             lambda t: self._token_renewer.emit_stop()
         )

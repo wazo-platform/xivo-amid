@@ -20,7 +20,7 @@ from wazo_amid.facade import EventHandlerFacade
 RECONNECTION_DELAY = 5
 
 
-class testEventHandlerFacade(unittest.TestCase):
+class TestEventHandlerFacade(unittest.TestCase):
     @patch('threading.Event')
     @patch('collections.deque')
     def setUp(self, deque_mock, event_mock):
@@ -37,9 +37,7 @@ class testEventHandlerFacade(unittest.TestCase):
             self.event_set = True
 
         self.event_wait = Mock()
-        self.event_mock.return_value = Mock(
-            set=set_fn, is_set=is_set_fn, wait=self.event_wait
-        )
+        self.event_mock.return_value = Mock(set=set_fn, is_set=is_set_fn, wait=self.event_wait)
 
         self.bus_client_mock = Mock(BusClient)
 

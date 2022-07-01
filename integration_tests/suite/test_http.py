@@ -95,9 +95,7 @@ class TestHTTPAction(APIIntegrationTest):
         assert_that(
             result,
             has_item(
-                has_entries(
-                    {'Event': 'DBGetResponse', 'Family': key, 'Key': key, 'Val': key}
-                )
+                has_entries({'Event': 'DBGetResponse', 'Family': key, 'Key': key, 'Val': key})
             ),
         )
 

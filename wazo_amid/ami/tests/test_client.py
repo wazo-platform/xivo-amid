@@ -40,17 +40,13 @@ class TestAMIClient(unittest.TestCase):
         self.username = 'username'
         self.password = 'password'
         self.port = sentinel.port
-        self.ami_client = AMIClient(
-            self.hostname, self.username, self.password, self.port
-        )
+        self.ami_client = AMIClient(self.hostname, self.username, self.password, self.port)
 
     @patch('socket.socket')
     def test_when_connect_socket_then_socket_created(self, mock_socket_constructor):
         self.ami_client.connect_and_login()
 
-        mock_socket_constructor.assert_called_once_with(
-            socket.AF_INET, socket.SOCK_STREAM
-        )
+        mock_socket_constructor.assert_called_once_with(socket.AF_INET, socket.SOCK_STREAM)
 
     @patch('socket.socket')
     def test_when_connect_and_login_twice_then_only_one_socket_is_created(
@@ -59,9 +55,7 @@ class TestAMIClient(unittest.TestCase):
         self.ami_client.connect_and_login()
         self.ami_client.connect_and_login()
 
-        mock_socket_constructor.assert_called_once_with(
-            socket.AF_INET, socket.SOCK_STREAM
-        )
+        mock_socket_constructor.assert_called_once_with(socket.AF_INET, socket.SOCK_STREAM)
 
     @patch_return_value('socket.socket')
     def test_when_connect_and_login_then_login_data_sent_to_socket(self, mock_socket):
@@ -105,9 +99,7 @@ class TestAMIClient(unittest.TestCase):
         mock_socket.close.assert_called_once_with()
 
     @patch_return_value('socket.socket')
-    def test_given_connected_when_disconnect_twice_then_socket_closed_only_once(
-        self, mock_socket
-    ):
+    def test_given_connected_when_disconnect_twice_then_socket_closed_only_once(self, mock_socket):
         self.ami_client.connect_and_login()
 
         self.ami_client.disconnect()

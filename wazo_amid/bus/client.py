@@ -18,20 +18,14 @@ logger = logging.getLogger(__name__)
 
 class BusUnreachable(Exception):
     def __init__(self, bus_config):
-        bus_url = (
-            f"amqp://"
-            f"{bus_config['username']}"
-            f":******"
-            f"@{bus_config['host']}"
-            f":{bus_config['port']}//")
+        bus_url = 'amqp://{username}:******@{host}:{port}//'.format(**bus_config)
         super().__init__(f'Message bus unreachable on {bus_url}... stopping')
         self.bus_config = bus_config
 
 
 class BusClient:
     def __init__(self, config):
-        self._publisher = self._new_publisher_or_timeout(
-            config)
+        self._publisher = self._new_publisher_or_timeout(config)
 
     def _new_publisher_or_timeout(self, config):
         connection_tries = config['bus']['startup_connection_tries']
@@ -41,8 +35,7 @@ class BusClient:
                 return self._new_publisher(config)
             except (AMQPError, socket.error) as e:
                 logger.info(
-                    'Error connecting to message bus (%s), '
-                    'retrying in %s seconds...',
+                    'Error connecting to message bus (%s), retrying in %s seconds...',
                     e,
                     connection_delay,
                 )
@@ -50,20 +43,13 @@ class BusClient:
                 continue
         raise BusUnreachable(config['bus'])
 
-    def _new_publisher(self, config)->LongLivedPublisher:
-        bus_url = (
-            f"amqp://"
-            f"{config['bus']['username']}"
-            f":{config['bus']['password']}"
-            f"@{config['bus']['host']}"
-            f":{config['bus']['port']}//")
+    def _new_publisher(self, config) -> LongLivedPublisher:
+        bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config['bus'])
         bus_connection = Connection(bus_url)
         bus_exchange = Exchange(
             config['bus']['exchange_name'], type=config['bus']['exchange_type']
         )
-        bus_producer = Producer(
-            bus_connection, exchange=bus_exchange, auto_declare=True
-        )
+        bus_producer = Producer(bus_connection, exchange=bus_exchange, auto_declare=True)
         bus_marshaler = Marshaler(config['uuid'])
         return LongLivedPublisher(bus_producer, bus_marshaler)
 

@@ -30,12 +30,10 @@ class AMIClient:
     def connect_and_login(self):
         self.stopping = False
         if self._sock is None:
-            logger.info(
-                'Connecting AMI client to %s:%s', self._hostname, self._port)
+            logger.info('Connecting AMI client to %s:%s', self._hostname, self._port)
             self._connect_socket()
             self._login()
-            logger.info(
-                'AMI client connected to %s:%s', self._hostname, self._port)
+            logger.info('AMI client connected to %s:%s', self._hostname, self._port)
 
     def disconnect(self, reason=None):
         if self._sock is not None:
@@ -83,9 +81,7 @@ class AMIClient:
         self._event_queue.append(message)
 
     def _parse_buffer(self):
-        self._buffer = parser.parse_buffer(
-            self._buffer, self.event_parser_callback, None
-        )
+        self._buffer = parser.parse_buffer(self._buffer, self.event_parser_callback, None)
 
     def _pop_messages(self):
         messages = collections.deque()
@@ -108,8 +104,7 @@ class AMIClient:
             raise AMIConnectionError(e)
         else:
             if not data and not self.stopping:
-                logger.error(
-                    'Could not read data from socket: connection closed')
+                logger.error('Could not read data from socket: connection closed')
                 raise AMIConnectionError('Connection closed from remote')
             return data
 
@@ -120,8 +115,7 @@ class AMIClient:
             self.disconnect(reason='explicit stop')
 
     def provide_status(self, status):
-        status['ami_socket']['status'] = (
-            Status.ok if self._sock else Status.fail)
+        status['ami_socket']['status'] = Status.ok if self._sock else Status.fail
 
 
 class AMIConnectionError(Exception):

@@ -67,15 +67,12 @@ def load_resources(global_config, status_aggregator):
 def run(config):
     bind_addr = (config['listen'], config['port'])
 
-    wsgi_app = ReverseProxied(
-        ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app}))
-    )
+    wsgi_app = ReverseProxied(ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app})))
     global wsgi_server
     wsgi_server = wsgi.WSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
     if config['certificate'] and config['private_key']:
         logger.warning(
-            'Using service SSL configuration is deprecated. '
-            'Please use NGINX instead.'
+            'Using service SSL configuration is deprecated. Please use NGINX instead.'
         )
         wsgi_server.ssl_adapter = http_helpers.ssl_adapter(
             config['certificate'], config['private_key']
@@ -114,13 +111,13 @@ def handle_validation_exception(func):
 
 class ErrorCatchingResource(Resource):
     method_decorators = [
-                            handle_validation_exception,
-                            rest_api_helpers.handle_api_exception,
-                        ] + Resource.method_decorators
+        handle_validation_exception,
+        rest_api_helpers.handle_api_exception,
+    ] + Resource.method_decorators
 
 
 class AuthResource(ErrorCatchingResource):
     method_decorators = [
-                            auth_verifier.verify_token,
-                            auth_verifier.verify_tenant,
-                        ] + ErrorCatchingResource.method_decorators
+        auth_verifier.verify_token,
+        auth_verifier.verify_tenant,
+    ] + ErrorCatchingResource.method_decorators

@@ -33,9 +33,7 @@ class TestAuthentication(APIIntegrationTest):
     def _assert_unauthorized(self, url, *args):
         assert_that(
             calling(url).with_args(*args),
-            raises(HTTPError).matching(
-                has_property('response', has_property('status_code', 401))
-            ),
+            raises(HTTPError).matching(has_property('response', has_property('status_code', 401))),
         )
 
     def test_no_auth_gives_401(self):
