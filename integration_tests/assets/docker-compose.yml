@@ -30,7 +30,7 @@ services:
       - 5038
       - 8123
     volumes:
-      - "./asterisk-ajam:/usr/local/share/asterisk-ajam"
+      - "./asterisk-ami:/usr/local/share/asterisk-ami"
     command: "python /usr/local/share/asterisk-ami/mock-asterisk-ami.py --http_port 8123 --ami_port 5038"
 
   auth:
