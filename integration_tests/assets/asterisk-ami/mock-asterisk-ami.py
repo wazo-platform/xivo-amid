@@ -31,7 +31,7 @@ class MockedAsteriskAMI(Thread):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.bind((self.host, self.port))
         self.clients_addresses = {}
-        super().__init__()
+        super(MockedAsteriskAMI, self).__init__()
 
     def run(self):
         self.listen()
