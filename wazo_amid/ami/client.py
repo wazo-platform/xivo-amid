@@ -81,7 +81,9 @@ class AMIClient:
         self._event_queue.append(message)
 
     def _parse_buffer(self):
-        self._buffer = parser.parse_buffer(self._buffer, self.event_parser_callback, None)
+        self._buffer = parser.parse_buffer(
+            self._buffer, self.event_parser_callback, None
+        )
 
     def _pop_messages(self):
         messages = collections.deque()

@@ -48,7 +48,9 @@ class MockedAsteriskAMI(Thread):
         client.send('Asterisk Call Manager/1.1\r\n\r\n'.encode())
         while True:
             data = client.recv(size)
-            logging.debug(f'Data received ({data}) from ' f'client ({client} - {address})')
+            logging.debug(
+                f'Data received ({data}) from ' f'client ({client} - {address})'
+            )
             if data:
                 if data.decode().startswith("Action: Login"):
                     client.send(
@@ -60,7 +62,8 @@ class MockedAsteriskAMI(Thread):
                     client.send('Response: Success\r\n\r\n')
             else:
                 logging.exception(
-                    'Wrong data received, so client is closed ' 'and removed from list of clients'
+                    'Wrong data received, so client is closed '
+                    'and removed from list of clients'
                 )
                 client.close()
                 del self.clients_addresses[client]
@@ -72,7 +75,7 @@ class MockedAsteriskAMI(Thread):
                 d = msg['data'].encode()
                 logging.info(f'send data ({d}) to connected client ({c})')
                 c.send(d)
-            except BrokenPipeError as e:
+            except BrokenPipeError:
                 logging.exception('Cannot send')
                 del self.clients_addresses[c]
 
@@ -84,7 +87,9 @@ if __name__ == '__main__':
     parser.add_argument(
         '--http_port', type=int, required=True, help='port for /send_event endpoint'
     )
-    parser.add_argument('--ami_port', type=int, required=True, help='port of the AMI socket')
+    parser.add_argument(
+        '--ami_port', type=int, required=True, help='port of the AMI socket'
+    )
     args = parser.parse_args()
     mock_ami = MockedAsteriskAMI('0.0.0.0', args.ami_port)
     mock_ami.start()

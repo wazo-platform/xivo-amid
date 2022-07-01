@@ -34,7 +34,9 @@ class TestStatusAMISocket(APIIntegrationTest):
 @pytest.mark.usefixtures('base')
 class TestStatusRabbitMQ(APIIntegrationTest):
     def test_status_ami_rabbitmq(self):
-        requests.post(APIAssetLaunchingTestCase.make_send_event_ami_url(), json=FAKE_EVENT)
+        requests.post(
+            APIAssetLaunchingTestCase.make_send_event_ami_url(), json=FAKE_EVENT
+        )
 
         def assert_status_ok():
             result = self.amid.status()
@@ -43,10 +45,14 @@ class TestStatusRabbitMQ(APIIntegrationTest):
         until.assert_(assert_status_ok, timeout=10)
 
         with self.rabbitmq_stopped():
-            requests.post(APIAssetLaunchingTestCase.make_send_event_ami_url(), json=FAKE_EVENT)
+            requests.post(
+                APIAssetLaunchingTestCase.make_send_event_ami_url(), json=FAKE_EVENT
+            )
 
             result = self.amid.status()
             assert_that(result['bus_publisher']['status'], equal_to('fail'))
 
-        requests.post(APIAssetLaunchingTestCase.make_send_event_ami_url(), json=FAKE_EVENT)
+        requests.post(
+            APIAssetLaunchingTestCase.make_send_event_ami_url(), json=FAKE_EVENT
+        )
         until.assert_(assert_status_ok, tries=10, interval=1)

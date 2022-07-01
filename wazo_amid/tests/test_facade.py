@@ -37,7 +37,9 @@ class TestEventHandlerFacade(unittest.TestCase):
             self.event_set = True
 
         self.event_wait = Mock()
-        self.event_mock.return_value = Mock(set=set_fn, is_set=is_set_fn, wait=self.event_wait)
+        self.event_mock.return_value = Mock(
+            set=set_fn, is_set=is_set_fn, wait=self.event_wait
+        )
 
         self.bus_client_mock = Mock(BusClient)
 

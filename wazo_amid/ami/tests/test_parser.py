@@ -68,12 +68,16 @@ class TestParser(unittest.TestCase):
 
         assert_that(unparsed_buffer, equal_to(b''))
         self.mock_event_callback.assert_any_call(first_msg, None, {'Event': first_msg})
-        self.mock_response_callback.assert_any_call(second_msg, None, {'Response': second_msg})
+        self.mock_response_callback.assert_any_call(
+            second_msg, None, {'Response': second_msg}
+        )
 
     def test_given_unknown_message_when_parse_buffer_then_no_callback(self):
         msg = b"unknown: message" + MESSAGE_DELIMITER
 
-        unparsed_buffer = parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
+        unparsed_buffer = parse_buffer(
+            msg, self.mock_event_callback, self.mock_response_callback
+        )
 
         assert_that(unparsed_buffer, equal_to(b''))
         assert_that(self.mock_event_callback.call_count, equal_to(0))
@@ -84,7 +88,9 @@ class TestParser(unittest.TestCase):
     ):
         msg = b"foo\xc3"
 
-        unparsed_buffer = parse_buffer(msg, self.mock_event_callback, self.mock_response_callback)
+        unparsed_buffer = parse_buffer(
+            msg, self.mock_event_callback, self.mock_response_callback
+        )
 
         assert_that(unparsed_buffer, equal_to(msg))
 

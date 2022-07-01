@@ -66,7 +66,9 @@ def _get_cli_config():
         help="Enable debug messages. Default: %(default)s",
     )
     parser.add_argument('--logfile', action='store', help='The path of the logfile')
-    parser.add_argument('-u', '--user', action='store', help="The owner of the process.")
+    parser.add_argument(
+        '-u', '--user', action='store', help="The owner of the process."
+    )
     parser.add_argument(
         '-c', '--config-file', action='store', help="The path where is the config file."
     )

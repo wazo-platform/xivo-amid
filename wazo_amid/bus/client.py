@@ -49,7 +49,9 @@ class BusClient:
         bus_exchange = Exchange(
             config['bus']['exchange_name'], type=config['bus']['exchange_type']
         )
-        bus_producer = Producer(bus_connection, exchange=bus_exchange, auto_declare=True)
+        bus_producer = Producer(
+            bus_connection, exchange=bus_exchange, auto_declare=True
+        )
         bus_marshaler = Marshaler(config['uuid'])
         return LongLivedPublisher(bus_producer, bus_marshaler)
 

@@ -6,7 +6,6 @@ from wazo_amid.rest_api import AuthResource
 
 
 class Status(AuthResource):
-
     @classmethod
     def configure(cls, status_aggregator):
         cls.status_aggregator = status_aggregator
