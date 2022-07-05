@@ -48,9 +48,7 @@ class MockedAsteriskAMI(Thread):
         client.send('Asterisk Call Manager/1.1\r\n\r\n'.encode())
         while True:
             data = client.recv(size)
-            logging.debug(
-                f'Data received ({data}) from client ({client} - {address})'
-            )
+            logging.debug(f'Data received ({data}) from client ({client} - {address})')
             if data:
                 if data.decode().startswith("Action: Login"):
                     client.send(
