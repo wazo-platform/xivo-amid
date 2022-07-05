@@ -4,13 +4,14 @@
 import pytest
 import requests
 
-from hamcrest import assert_that, equal_to
-
+from hamcrest import assert_that, equal_to, calling, has_property
+from requests.exceptions import HTTPError
 from time import sleep
 from wazo_amid.facade import EventHandlerFacade
 from wazo_test_helpers import until
 
 from .helpers.base import APIIntegrationTest, APIAssetLaunchingTestCase
+from wazo_test_helpers.hamcrest.raises import raises
 
 FAKE_EVENT = {'data': 'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'}
 
@@ -56,3 +57,24 @@ class TestStatusRabbitMQ(APIIntegrationTest):
             APIAssetLaunchingTestCase.make_send_event_ami_url(), json=FAKE_EVENT
         )
         until.assert_(assert_status_ok, tries=10, interval=1)
+
+
+@pytest.mark.usefixtures('base')
+class TestStatusAuthentication(APIIntegrationTest):
+    def _assert_unauthorized(self, url, *args):
+        assert_that(
+            calling(url).with_args(*args),
+            raises(HTTPError).matching(
+                has_property('response', has_property('status_code', 401))
+            ),
+        )
+
+    def test_no_token_gives_401(self):
+        self.amid.set_token(None)
+        url = self.amid.status
+        self._assert_unauthorized(url)
+
+    def test_invalid_token_gives_401(self):
+        self.amid.set_token('invalid-acl-token')
+        url = self.amid.status
+        self._assert_unauthorized(url)
