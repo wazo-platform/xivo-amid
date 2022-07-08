@@ -56,7 +56,7 @@ class TestStatusRabbitMQ(APIIntegrationTest):
         requests.post(
             APIAssetLaunchingTestCase.make_send_event_ami_url(), json=FAKE_EVENT
         )
-        until.assert_(assert_status_ok, tries=10, interval=1)
+        until.assert_(assert_status_ok, tries=5, interval=10)
 
 
 @pytest.mark.usefixtures('base')
