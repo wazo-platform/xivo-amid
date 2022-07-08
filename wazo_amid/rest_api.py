@@ -1,4 +1,4 @@
-# Copyright 2016-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -29,8 +29,7 @@ auth_verifier = AuthVerifier()
 wsgi_server = None
 
 
-def configure(global_config):
-
+def configure(global_config, status_aggregator):
     http_helpers.add_logger(app, logger)
     app.after_request(http_helpers.log_request)
     app.config.update(global_config)
@@ -42,21 +41,25 @@ def configure(global_config):
     if enabled:
         CORS(app, **cors_config)
 
-    load_resources(global_config)
+    load_resources(global_config, status_aggregator)
     api.init_app(app)
 
     auth_verifier.set_config(global_config['auth'])
 
 
-def load_resources(global_config):
+def load_resources(global_config, status_aggregator):
     from wazo_amid.resources.action.actions import Actions
     from wazo_amid.resources.action.actions import Command
+    from wazo_amid.resources.status import Status
     from wazo_amid.resources.api.actions import SwaggerResource
 
     Actions.configure(global_config)
     Command.configure(global_config)
+    Status.configure(status_aggregator)
+
     api.add_resource(Actions, '/action/<action>')
     api.add_resource(Command, '/action/Command')
+    api.add_resource(Status, '/status')
 
     SwaggerResource.add_resource(api)
 

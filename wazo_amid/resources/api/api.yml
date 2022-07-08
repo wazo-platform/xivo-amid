@@ -110,6 +110,17 @@ paths:
           description: Another service is unavailable (e.g. wazo-auth)
           schema:
             $ref: '#/definitions/Error'
+  /status:
+    get:
+      summary: Print infos about internal status of wazo-amid
+      description: '**Required ACL:** `amid.status.read`'
+      tags:
+        - status
+      responses:
+        '200':
+          description: The internal infos of wazo-amid
+          schema:
+            $ref: '#/definitions/StatusSummary'
 definitions:
   Response:
     properties:
@@ -150,3 +161,18 @@ definitions:
         type: array
         items:
           type: string
+  StatusSummary:
+    type: object
+    properties:
+      rest_api:
+        $ref: '#/definitions/ComponentWithStatus'
+  ComponentWithStatus:
+    type: object
+    properties:
+      status:
+        $ref: '#/definitions/StatusValue'
+  StatusValue:
+    type: string
+    enum:
+      - fail
+      - ok

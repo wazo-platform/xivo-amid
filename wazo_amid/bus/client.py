@@ -1,4 +1,4 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -8,6 +8,7 @@ import time
 from amqp.exceptions import AMQPError
 from kombu import Connection, Exchange, Producer
 
+from xivo.status import Status
 from xivo_bus import Marshaler
 from xivo_bus import LongLivedPublisher
 from xivo_bus.resources.ami.event import AMIEvent
@@ -18,7 +19,7 @@ logger = logging.getLogger(__name__)
 class BusUnreachable(Exception):
     def __init__(self, bus_config):
         bus_url = 'amqp://{username}:******@{host}:{port}//'.format(**bus_config)
-        super().__init__('Message bus unreachable on {}... stopping'.format(bus_url))
+        super().__init__(f'Message bus unreachable on {bus_url}... stopping')
         self.bus_config = bus_config
 
 
@@ -42,7 +43,7 @@ class BusClient:
                 continue
         raise BusUnreachable(config['bus'])
 
-    def _new_publisher(self, config):
+    def _new_publisher(self, config) -> LongLivedPublisher:
         bus_url = 'amqp://{username}:{password}@{host}:{port}//'.format(**config['bus'])
         bus_connection = Connection(bus_url)
         bus_exchange = Exchange(
@@ -57,3 +58,8 @@ class BusClient:
     def publish(self, message):
         ami_event = AMIEvent(message.name, message.headers)
         self._publisher.publish(ami_event)
+
+    def provide_status(self, status):
+        status['bus_publisher']['status'] = (
+            Status.ok if self._publisher.is_connected() else Status.fail
+        )

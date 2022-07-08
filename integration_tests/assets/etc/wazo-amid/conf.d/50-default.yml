@@ -1,4 +1,6 @@
-debug: true
+debug: True
+publish_ami_events: True
+
 auth:
   host: auth
   username: wazo-amid
@@ -9,7 +11,16 @@ ajam:
   username: wazo_amid
   password: opensesame
 
+ami:
+  host: asterisk-ami
+  username: wazo_amid
+  password: opensesame
+
 rest_api:
   listen: 0.0.0.0
 
-publish_ami_events: False
+bus:
+  host: rabbitmq
+  username: guest
+  password: guest
+  startup_connection_delay: 1
