@@ -1,4 +1,4 @@
-# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import pytest
@@ -79,7 +79,7 @@ class TestAuthentication(APIIntegrationTest):
                     ),
                 )
 
-            until.assert_(_amid_returns_503, tries=10)
+            until.assert_(_amid_returns_503, timeout=10)
 
         def _amid_does_not_return_503():
             assert_that(
@@ -87,7 +87,7 @@ class TestAuthentication(APIIntegrationTest):
                 not_(raises(HTTPError)),
             )
 
-        until.assert_(_amid_does_not_return_503, tries=10)
+        until.assert_(_amid_does_not_return_503, timeout=10)
 
     def test_no_auth_server_gives_503(self):
         with self.auth_stopped():
