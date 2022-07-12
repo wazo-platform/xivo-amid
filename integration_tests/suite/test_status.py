@@ -7,13 +7,14 @@ import requests
 from hamcrest import assert_that, equal_to, calling, has_property
 from requests.exceptions import HTTPError
 from time import sleep
-from wazo_amid.facade import EventHandlerFacade
 from wazo_test_helpers import until
 
 from .helpers.base import APIIntegrationTest, APIAssetLaunchingTestCase
 from wazo_test_helpers.hamcrest.raises import raises
 
 FAKE_EVENT = {'data': 'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'}
+
+DEFAULT_RECONNECTION_DELAY = 5
 
 
 @pytest.mark.usefixtures('base')
@@ -26,7 +27,7 @@ class TestStatusAMISocket(APIIntegrationTest):
             result = self.amid.status()
             assert_that(result['ami_socket']['status'], equal_to('fail'))
 
-        sleep(EventHandlerFacade.RECONNECTION_DELAY + 1)
+        sleep(DEFAULT_RECONNECTION_DELAY + 1)
 
         result = self.amid.status()
         assert_that(result['ami_socket']['status'], equal_to('ok'))
