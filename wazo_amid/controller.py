@@ -1,4 +1,4 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -30,8 +30,9 @@ class Controller:
         )
         self._status_aggregator.add_provider(self._token_status.provide_status)
         if self._config['publish_ami_events']:
+            uuid = self._config['uuid']
             ami_client = AMIClient(**self._config['ami'])
-            bus_client = BusClient(self._config)
+            bus_client = BusClient.from_config(uuid, self._config['bus'])
             facade = EventHandlerFacade(ami_client, bus_client)
             self._status_aggregator.add_provider(ami_client.provide_status)
             self._status_aggregator.add_provider(bus_client.provide_status)
