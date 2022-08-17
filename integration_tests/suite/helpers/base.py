@@ -7,6 +7,7 @@ import requests
 import unittest
 
 from contextlib import contextmanager
+from kombu import Exchange
 from hamcrest import assert_that, equal_to
 from wazo_amid_client import Client as AmidClient
 from wazo_test_helpers.asset_launching_test_case import (
@@ -15,6 +16,7 @@ from wazo_test_helpers.asset_launching_test_case import (
     NoSuchService,
     WrongClient,
 )
+from wazo_test_helpers.bus import BusClient
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +51,22 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
             https=False,
             token=token,
         )
+
+    @classmethod
+    def make_bus(cls):
+        try:
+            port = cls.service_port(5672, SERVICE_RABBITMQ)
+        except NoSuchService:
+            return WrongClient(SERVICE_RABBITMQ)
+        bus = BusClient.from_connection_fields(
+            host='127.0.0.1',
+            port=port,
+            exchange_name='wazo-headers',
+            exchange_type='headers',
+        )
+        upstream = Exchange('xivo', 'topic')
+        bus.downstream_exchange_declare('wazo-headers', 'headers', upstream)
+        return bus
 
     @classmethod
     def make_ajam_base_url(cls):
