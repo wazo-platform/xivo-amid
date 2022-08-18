@@ -7,6 +7,12 @@ from xivo.status import Status
 
 
 class BusClient(BusPublisher):
+    publisher_args = {
+        'max_retries': 5,
+        'interval_start': 1,
+        'interval_step': 0,
+    }
+
     @classmethod
     def from_config(cls, service_uuid, bus_config):
         name = 'wazo-amid'
