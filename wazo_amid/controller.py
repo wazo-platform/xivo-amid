@@ -39,7 +39,8 @@ class Controller:
             ami_thread = Thread(target=facade.run, name='ami_thread')
             ami_thread.start()
             try:
-                self._run_rest_api()
+                with bus_client:
+                    self._run_rest_api()
             finally:
                 logger.debug('stopping facade...')
                 facade.stop()
