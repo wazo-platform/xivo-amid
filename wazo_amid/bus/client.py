@@ -12,14 +12,9 @@ class BusClient(BusPublisherWithQueue):
         name = 'wazo-amid'
         return cls(name=name, service_uuid=service_uuid, **bus_config)
 
-    @property
-    def is_running(self):
-        is_connected = self.is_connected['publishing_queue']
-        return super().is_running and is_connected
-
     def provide_status(self, status):
         status['bus_publisher']['status'] = (
-            Status.ok if self.is_running else Status.fail
+            Status.ok if self.queue_publisher_connected() else Status.fail
         )
 
     def publish(self, *messages):
