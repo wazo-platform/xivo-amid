@@ -14,6 +14,7 @@ services:
     volumes:
       - "../..:/usr/src/wazo-amid"
       - "./etc/wazo-amid/conf.d/50-default.yml:/etc/wazo-amid/conf.d/50-default.yml"
+      # - "${LOCAL_GIT_REPOS}/xivo-bus/xivo_bus:/opt/venv/lib/python3.7/site-packages/xivo_bus"
       # - "${LOCAL_GIT_REPOS}/xivo-lib-python/xivo:/opt/venv/lib/python3.7/site-packages/xivo"
 
   asterisk-ajam:

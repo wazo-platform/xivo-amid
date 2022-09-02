@@ -9,7 +9,10 @@ from requests.exceptions import HTTPError
 from time import sleep
 from wazo_test_helpers import until
 
-from .helpers.base import APIIntegrationTest, APIAssetLaunchingTestCase
+from .helpers.base import (
+    APIIntegrationTest,
+    APIAssetLaunchingTestCase,
+)
 from wazo_test_helpers.hamcrest.raises import raises
 
 FAKE_EVENT = {'data': 'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'}
