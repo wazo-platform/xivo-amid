@@ -1,9 +1,9 @@
 https://github.com/wazo-platform/wazo-amid-client/archive/master.zip
 https://github.com/wazo-platform/wazo-lib-rest-client/archive/master.zip
 https://github.com/wazo-platform/wazo-test-helpers/archive/master.zip
-openapi-spec-validator
 https://github.com/wazo-platform/wazo-test-helpers/archive/master.zip
 https://github.com/wazo-platform/xivo-lib-python/archive/master.zip
+kombu
+openapi-spec-validator
 pyhamcrest
 pytest
-kombu
