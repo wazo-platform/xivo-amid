@@ -7,7 +7,6 @@ import requests
 import unittest
 
 from contextlib import contextmanager
-from kombu import Exchange
 from hamcrest import assert_that, equal_to
 from wazo_amid_client import Client as AmidClient
 from wazo_test_helpers.asset_launching_test_case import (
@@ -64,8 +63,6 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
             exchange_name='wazo-headers',
             exchange_type='headers',
         )
-        upstream = Exchange('xivo', 'topic')
-        bus.downstream_exchange_declare('wazo-headers', 'headers', upstream)
         return bus
 
     @classmethod

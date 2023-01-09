@@ -44,14 +44,7 @@ bus:
   username: guest
   password: guest
   vhost: /
-  exchange_name: xivo
-  exchange_type: topic
-  exchange_durable: True
-
-  # How many times should we try to connect to the bus at startup
-  startup_connection_tries: 5
-  # How many seconds between each try to connect to the bus at startup
-  startup_connection_delay: 1
+  exchange_name: wazo-headers
 
 # REST API server
 rest_api:

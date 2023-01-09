@@ -1,4 +1,4 @@
-# Copyright 2014-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2014-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import argparse
@@ -41,11 +41,8 @@ _DEFAULT_CONFIG = {
         'username': 'guest',
         'password': 'guest',
         'vhost': '/',
-        'exchange_name': 'xivo',
-        'exchange_type': 'topic',
-        'exchange_durable': True,
-        'startup_connection_tries': 5,
-        'startup_connection_delay': 1,
+        'exchange_name': 'wazo-headers',
+        'exchange_type': 'headers',
     },
     'rest_api': {
         'listen': '127.0.0.1',
