@@ -1,10 +1,13 @@
+#!/usr/bin/env python3
 # Copyright 2022-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
 import argparse
 import logging
 import socket
 import threading
+from typing import Any
 
 from flask import Flask
 from flask import request
@@ -18,14 +21,14 @@ app = Flask(__name__)
 
 
 @app.route('/send_event', methods=['POST'])
-def send_event():
-    event = request.get_json()
+def send_event() -> tuple[str, int]:
+    event: dict[str, Any] = request.get_json()
     mock_ami.send_all_clients(event)
     return "", HTTPStatus.OK
 
 
 class MockedAsteriskAMI(Thread):
-    def __init__(self, host, port):
+    def __init__(self, host: str, port: int) -> None:
         self.host = host
         self.port = port
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -33,17 +36,17 @@ class MockedAsteriskAMI(Thread):
         self.clients_addresses = {}
         super().__init__()
 
-    def run(self):
+    def run(self) -> None:
         self.listen()
 
-    def listen(self):
+    def listen(self) -> None:
         self.sock.listen()
         while True:
             client, address = self.sock.accept()
             self.clients_addresses[client] = address
             threading.Thread(target=self.listen_client, args=(client, address)).start()
 
-    def listen_client(self, client, address):
+    def listen_client(self, client: socket.socket, address: str) -> None:
         size = 1024
         client.send(b'Asterisk Call Manager/1.1\r\n\r\n')
         while True:
@@ -67,8 +70,8 @@ class MockedAsteriskAMI(Thread):
                 del self.clients_addresses[client]
                 break
 
-    def send_all_clients(self, msg):
-        for c in list(self.clients_addresses.keys()):
+    def send_all_clients(self, msg: dict[str, Any]) -> None:
+        for c in list(self.clients_addresses):
             try:
                 d = msg['data'].encode()
                 logging.info(f'send data ({d}) to connected client ({c})')
