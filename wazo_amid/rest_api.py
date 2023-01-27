@@ -12,7 +12,7 @@ from flask_cors import CORS
 from flask_restful import Api
 from flask_restful import Resource
 from functools import wraps
-from werkzeug.contrib.fixers import ProxyFix
+from werkzeug.middleware.proxy_fix import ProxyFix
 from xivo import http_helpers
 from xivo import plugin_helpers
 from xivo import rest_api_helpers
