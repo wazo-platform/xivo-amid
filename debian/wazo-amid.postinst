@@ -19,21 +19,6 @@ case "$1" in
                     $USER
         fi
 
-        # move files from xivo-amid
-        rm -f /etc/nginx/locations/https-enabled/xivo-amid
-        if [ -f /var/log/xivo-amid.log ] ; then
-            rename 's/xivo-amid/wazo-amid/g' /var/log/xivo-amid.log*
-        fi
-        rm -rf /run/xivo-amid
-        if [ -d /etc/xivo-amid/conf.d ] ; then
-            find /etc/xivo-amid/conf.d/ -mindepth 1 -exec mv {} /etc/wazo-amid/conf.d/ \;
-            rmdir --ignore-fail-on-non-empty -p /etc/xivo-amid/conf.d
-        fi
-        if getent passwd xivo-amid > /dev/null; then
-            deluser --quiet --system --remove-home xivo-amid
-        fi
-        # End of move files from xivo-amid
-
         if [ ! -e "$LOG_FILENAME" ]; then
             touch "$LOG_FILENAME"
         fi
@@ -43,12 +28,7 @@ case "$1" in
         if [[ -z "${previous_version}" ]]; then
             ln -sf  /etc/nginx/locations/https-available/$DAEMONNAME \
                     /etc/nginx/locations/https-enabled/$DAEMONNAME
-        elif dpkg --compare-versions "${previous_version}" lt '20.05'; then
-            if getent group www-data | grep -q $USER; then
-                deluser --quiet $USER www-data
-            fi
         fi
-
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
