@@ -51,20 +51,16 @@ def configure(global_config, status_aggregator):
 
 
 def load_resources(global_config, status_aggregator):
-    from wazo_amid.resources.status import Status
-
-    Status.configure(status_aggregator)
-
-    api.add_resource(Status, '/status')
-
     plugin_helpers.load(
         namespace='wazo_amid.plugins',
         names=global_config['enabled_plugins'],
         dependencies={
             'api': api,
             'ajam_client': AJAMClient(**global_config['ajam']),
+            'status_aggregator': status_aggregator,
         },
     )
+
 
 def run(config):
     bind_addr = (config['listen'], config['port'])

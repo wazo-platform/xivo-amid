@@ -55,7 +55,8 @@ _DEFAULT_CONFIG = {
         'api': True,
         'actions': True,
         'commands': True,
-    }
+        'status': True,
+    },
 }
 
 
