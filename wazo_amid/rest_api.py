@@ -51,13 +51,10 @@ def configure(global_config, status_aggregator):
 
 
 def load_resources(global_config, status_aggregator):
-    from wazo_amid.resources.action.actions import Command
     from wazo_amid.resources.status import Status
 
-    Command.configure(global_config)
     Status.configure(status_aggregator)
 
-    api.add_resource(Command, '/action/Command')
     api.add_resource(Status, '/status')
 
     plugin_helpers.load(
