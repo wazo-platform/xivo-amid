@@ -19,6 +19,8 @@ from xivo import rest_api_helpers
 from xivo.http_helpers import ReverseProxied
 from xivo.auth_verifier import AuthVerifier
 
+from wazo_amid.plugin_helpers.ajam import AJAMClient
+
 from .exceptions import ValidationError
 
 VERSION = 1.0
@@ -49,15 +51,12 @@ def configure(global_config, status_aggregator):
 
 
 def load_resources(global_config, status_aggregator):
-    from wazo_amid.resources.action.actions import Actions
     from wazo_amid.resources.action.actions import Command
     from wazo_amid.resources.status import Status
 
-    Actions.configure(global_config)
     Command.configure(global_config)
     Status.configure(status_aggregator)
 
-    api.add_resource(Actions, '/action/<action>')
     api.add_resource(Command, '/action/Command')
     api.add_resource(Status, '/status')
 
@@ -66,6 +65,7 @@ def load_resources(global_config, status_aggregator):
         names=global_config['enabled_plugins'],
         dependencies={
             'api': api,
+            'ajam_client': AJAMClient(**global_config['ajam']),
         },
     )
 

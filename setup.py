@@ -19,6 +19,7 @@ setup(
     entry_points={
         'wazo_amid.plugins': [
             'api = wazo_amid.plugins.api.plugin:Plugin',
+            'actions = wazo_amid.plugins.actions.plugin:Plugin',
         ],
     }
 )
