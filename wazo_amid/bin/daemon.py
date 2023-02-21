@@ -1,4 +1,4 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -25,13 +25,14 @@ def main():
     set_xivo_uuid(config, logger)
 
     controller = Controller(config)
-    signal.signal(signal.SIGTERM, partial(sigterm, controller))
+    signal.signal(signal.SIGTERM, partial(_signal_handler, controller))
+    signal.signal(signal.SIGINT, partial(_signal_handler, controller))
 
     controller.run()
 
 
-def sigterm(controller, signum, frame):
-    controller.stop(reason='SIGTERM')
+def _signal_handler(controller, signum, frame):
+    controller.stop(reason=signal.Signals(signum).name)
 
 
 if __name__ == '__main__':
