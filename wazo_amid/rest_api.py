@@ -86,10 +86,7 @@ def run(config):
     for route in http_helpers.list_routes(app):
         logger.debug(route)
 
-    try:
-        wsgi_server.start()
-    except KeyboardInterrupt:
-        wsgi_server.stop()
+    wsgi_server.start()
 
 
 def stop():

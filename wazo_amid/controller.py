@@ -1,4 +1,4 @@
-# Copyright 2012-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -23,6 +23,7 @@ class Controller:
         self._token_renewer = TokenRenewer(AuthClient(**self._config['auth']))
         self._token_status = TokenStatus()
         self._status_aggregator = StatusAggregator()
+        self._stopping_thread = None
 
     def run(self):
         self._token_renewer.subscribe_to_token_change(
@@ -60,9 +61,14 @@ class Controller:
         self._token_renewer.subscribe_to_next_token_details_change(
             lambda t: self._token_renewer.emit_stop()
         )
-        with self._token_renewer:
-            rest_api.run(self._config['rest_api'])
+        try:
+            with self._token_renewer:
+                rest_api.run(self._config['rest_api'])
+        finally:
+            if self._stopping_thread:
+                self._stopping_thread.join()
 
     def stop(self, reason):
         logger.warning('Stopping wazo-amid: %s', reason)
-        rest_api.stop()
+        self._stopping_thread = Thread(target=rest_api.stop, name=reason)
+        self._stopping_thread.start()
