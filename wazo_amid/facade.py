@@ -1,4 +1,4 @@
-# Copyright 2012-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 
 
 class EventHandlerFacade:
-
     RECONNECTION_DELAY = 5
 
     def __init__(self, ami_client, bus_client):
