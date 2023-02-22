@@ -1,4 +1,4 @@
-# Copyright 2014-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2014-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import argparse
@@ -50,6 +50,12 @@ _DEFAULT_CONFIG = {
         'certificate': None,
         'private_key': None,
         'cors': {'enabled': True, 'allow_headers': ['Content-Type', 'X-Auth-Token']},
+    },
+    'enabled_plugins': {
+        'api': True,
+        'actions': True,
+        'commands': True,
+        'status': True,
     },
 }
 

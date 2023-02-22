@@ -1,4 +1,4 @@
-# Copyright 2016-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -14,9 +14,12 @@ from flask_restful import Resource
 from functools import wraps
 from werkzeug.contrib.fixers import ProxyFix
 from xivo import http_helpers
+from xivo import plugin_helpers
 from xivo import rest_api_helpers
 from xivo.http_helpers import ReverseProxied
 from xivo.auth_verifier import AuthVerifier
+
+from wazo_amid.plugin_helpers.ajam import AJAMClient
 
 from .exceptions import ValidationError
 
@@ -48,20 +51,15 @@ def configure(global_config, status_aggregator):
 
 
 def load_resources(global_config, status_aggregator):
-    from wazo_amid.resources.action.actions import Actions
-    from wazo_amid.resources.action.actions import Command
-    from wazo_amid.resources.status import Status
-    from wazo_amid.resources.api.actions import SwaggerResource
-
-    Actions.configure(global_config)
-    Command.configure(global_config)
-    Status.configure(status_aggregator)
-
-    api.add_resource(Actions, '/action/<action>')
-    api.add_resource(Command, '/action/Command')
-    api.add_resource(Status, '/status')
-
-    SwaggerResource.add_resource(api)
+    plugin_helpers.load(
+        namespace='wazo_amid.plugins',
+        names=global_config['enabled_plugins'],
+        dependencies={
+            'api': api,
+            'ajam_client': AJAMClient(**global_config['ajam']),
+            'status_aggregator': status_aggregator,
+        },
+    )
 
 
 def run(config):
