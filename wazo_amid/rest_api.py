@@ -34,6 +34,7 @@ wsgi_server = None
 
 def configure(global_config, status_aggregator):
     http_helpers.add_logger(app, logger)
+    app.before_request(http_helpers.log_before_request)
     app.after_request(http_helpers.log_request)
     app.config.update(global_config)
     app.secret_key = os.urandom(24)
