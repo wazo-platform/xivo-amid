@@ -24,7 +24,7 @@ wazo-amid contains unittests and integration tests
 ```
 apt-get install libpq-dev python3-dev libffi-dev libyaml-dev
 pip install tox
-tox --recreate -e py37
+tox --recreate -e py39
 ```
 
 
