@@ -38,8 +38,8 @@ def log_request():
         log = {
             'method': request.method,
             'path': path,
-            'query': request.args.items(multi=True),
-            'body': request.data,
+            'query': list(request.args.items(multi=True)),
+            'body': request.data.json() if request.is_json else request.data.decode(),
             'headers': dict(request.headers),
         }
         _requests.append(log)
@@ -124,7 +124,7 @@ def dbget():
     key = args['Key']
     return (
         response(
-            '''\
+            f'''\
         Response: Success
         Message: Result will follow
         EventList: start
@@ -132,17 +132,13 @@ def dbget():
         Event: DBGetResponse
         Family: {family}
         Key: {key}
-        Val: {value}
+        Val: {_db_get(family, key)}
 
         EventList: Complete
         Event: DBGetComplete
         ListItems: 1
 
         '''
-        ).format(
-            family=family.encode('utf-8'),
-            key=key.encode('utf-8'),
-            value=_db_get(family, key).encode('utf-8'),
         ),
         200,
     )

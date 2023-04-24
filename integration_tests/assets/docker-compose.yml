@@ -18,7 +18,7 @@ services:
       # - "${LOCAL_GIT_REPOS}/xivo-lib-python/xivo:/opt/venv/lib/python3.9/site-packages/xivo"
 
   asterisk-ajam:
-    image: p0bailey/docker-flask
+    image: wazoplatform/flask
     ports:
       - 5039
     volumes:
