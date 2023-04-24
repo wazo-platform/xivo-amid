@@ -1,4 +1,4 @@
-# Copyright 2012-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import collections
@@ -51,7 +51,7 @@ class AMIClient:
             self._sock.connect((self._hostname, self._port))
             # discard the AMI protocol version
             self._sock.recv(self._BUFSIZE)
-        except socket.error as e:
+        except OSError as e:
             raise AMIConnectionError(e)
 
     def _login(self):
@@ -94,14 +94,14 @@ class AMIClient:
     def _send_data_to_socket(self, data):
         try:
             self._sock.sendall(data)
-        except socket.error as e:
+        except OSError as e:
             logger.error('Could not write data to socket: %s', e)
             raise AMIConnectionError(e)
 
     def _recv_data_from_socket(self):
         try:
             data = self._sock.recv(self._BUFSIZE)
-        except socket.error as e:
+        except OSError as e:
             logger.error('Could not read data from socket: %s', e)
             raise AMIConnectionError(e)
         else:
