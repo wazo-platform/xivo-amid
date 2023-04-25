@@ -1,4 +1,4 @@
-# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import functools
@@ -40,7 +40,7 @@ def _parse_msg(data, event_callback, response_callback):
         first_header, first_value = _parse_line(lines.pop(0))
         headers = _parse_msg_body(lines, first_header, first_value)
     except AMIParsingError as e:
-        raise AMIParsingError('unexpected data: %r. Details: %s' % (data, e))
+        raise AMIParsingError(f'unexpected data: {data!r}. Details: {e}')
 
     if first_header.startswith('Event'):
         callback = event_callback

@@ -1,4 +1,4 @@
-# Copyright 2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2022-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import argparse
@@ -31,7 +31,7 @@ class MockedAsteriskAMI(Thread):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.bind((self.host, self.port))
         self.clients_addresses = {}
-        super(MockedAsteriskAMI, self).__init__()
+        super().__init__()
 
     def run(self):
         self.listen()
@@ -45,16 +45,16 @@ class MockedAsteriskAMI(Thread):
 
     def listen_client(self, client, address):
         size = 1024
-        client.send('Asterisk Call Manager/1.1\r\n\r\n'.encode())
+        client.send(b'Asterisk Call Manager/1.1\r\n\r\n')
         while True:
             data = client.recv(size)
             logging.debug(f'Data received ({data}) from client ({client} - {address})')
             if data:
                 if data.decode().startswith("Action: Login"):
                     client.send(
-                        'Response: Success\r\n'
-                        'Message: Authentication accepted\r\n'
-                        '\r\n'.encode()
+                        b'Response: Success\r\n'
+                        b'Message: Authentication accepted\r\n'
+                        b'\r\n'
                     )
                 else:
                     client.send('Response: Success\r\n\r\n')

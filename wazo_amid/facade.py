@@ -32,7 +32,7 @@ class EventHandlerFacade:
         self._stop_event.wait(timeout=self.RECONNECTION_DELAY)
 
     def _handle_unexpected_error(self, e):
-        self._ami_client.disconnect(reason='Unexpected error: {}'.format(e))
+        self._ami_client.disconnect(reason=f'Unexpected error: {e}')
         raise
 
     def _process_messages_indefinitely(self):

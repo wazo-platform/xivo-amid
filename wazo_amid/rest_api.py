@@ -27,7 +27,7 @@ VERSION = 1.0
 
 app = Flask('wazo_amid')
 logger = logging.getLogger(__name__)
-api = Api(prefix='/{}'.format(VERSION))
+api = Api(prefix=f'/{VERSION}')
 auth_verifier = AuthVerifier()
 wsgi_server = None
 

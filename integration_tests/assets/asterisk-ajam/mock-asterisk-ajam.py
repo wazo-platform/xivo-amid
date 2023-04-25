@@ -1,4 +1,4 @@
-# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
@@ -20,11 +20,11 @@ _requests = []
 
 
 def _db_get(family, key):
-    return _db['{family}/{key}'.format(family=family, key=key)]
+    return _db[f'{family}/{key}']
 
 
 def _db_put(family, key, value):
-    _db['{family}/{key}'.format(family=family, key=key)] = value
+    _db[f'{family}/{key}'] = value
 
 
 def response(body):
@@ -38,8 +38,8 @@ def log_request():
         log = {
             'method': request.method,
             'path': path,
-            'query': request.args.items(multi=True),
-            'body': request.data,
+            'query': list(request.args.items(multi=True)),
+            'body': request.data.json() if request.is_json else request.data.decode(),
             'headers': dict(request.headers),
         }
         _requests.append(log)
@@ -124,7 +124,7 @@ def dbget():
     key = args['Key']
     return (
         response(
-            '''\
+            f'''\
         Response: Success
         Message: Result will follow
         EventList: start
@@ -132,17 +132,13 @@ def dbget():
         Event: DBGetResponse
         Family: {family}
         Key: {key}
-        Val: {value}
+        Val: {_db_get(family, key)}
 
         EventList: Complete
         Event: DBGetComplete
         ListItems: 1
 
         '''
-        ).format(
-            family=family.encode('utf-8'),
-            key=key.encode('utf-8'),
-            value=_db_get(family, key).encode('utf-8'),
         ),
         200,
     )

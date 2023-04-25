@@ -11,9 +11,9 @@ _DAEMONNAME = 'wazo-amid'
 _DEFAULT_CONFIG = {
     'user': 'wazo-amid',
     'debug': False,
-    'logfile': '/var/log/{}.log'.format(_DAEMONNAME),
-    'config_file': '/etc/{}/config.yml'.format(_DAEMONNAME),
-    'extra_config_files': '/etc/{}/conf.d/'.format(_DAEMONNAME),
+    'logfile': f'/var/log/{_DAEMONNAME}.log',
+    'config_file': f'/etc/{_DAEMONNAME}/config.yml',
+    'extra_config_files': f'/etc/{_DAEMONNAME}/conf.d/',
     'publish_ami_events': True,
     'ajam': {
         'host': 'localhost',
