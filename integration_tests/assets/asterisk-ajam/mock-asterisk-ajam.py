@@ -1,13 +1,23 @@
+#!/usr/bin/env python3
 # Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
 import logging
 import textwrap
 import sys
+from typing import Any, Callable, TypedDict, Union
 
-from flask import Flask
-from flask import jsonify
-from flask import request
+from flask import Flask, jsonify, request, Response
+
+
+class RequestDict(TypedDict):
+    method: str
+    path: str
+    query: list[str]
+    body: Union[dict[str, str], list[str, Any]]
+    headers: dict[str, str]
+
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -15,24 +25,24 @@ app = Flask(__name__)
 
 port = int(sys.argv[1])
 
-_db = {}
-_requests = []
+_db: dict[str, str] = {}
+_requests: list[RequestDict] = []
 
 
-def _db_get(family, key):
+def _db_get(family: str, key: str) -> str:
     return _db[f'{family}/{key}']
 
 
-def _db_put(family, key, value):
+def _db_put(family: str, key: str, value: str) -> None:
     _db[f'{family}/{key}'] = value
 
 
-def response(body):
+def response(body: str) -> str:
     return textwrap.dedent(body).replace('\n', '\r\n')
 
 
 @app.before_request
-def log_request():
+def log_request() -> None:
     if not request.path.startswith('/_requests'):
         path = request.path
         log = {
@@ -46,12 +56,12 @@ def log_request():
 
 
 @app.route('/_requests', methods=['GET'])
-def list_requests():
+def list_requests() -> Response:
     return jsonify(requests=_requests)
 
 
 @app.route('/rawman')
-def rawman():
+def rawman() -> tuple[str, int]:
     action = request.args['action'].lower()
     try:
         return actions[action]()
@@ -60,7 +70,7 @@ def rawman():
         raise
 
 
-def login():
+def login() -> tuple[str, int]:
     return (
         response(
             '''\
@@ -73,7 +83,7 @@ def login():
     )
 
 
-def ping():
+def ping() -> tuple[str, int]:
     return (
         response(
             '''\
@@ -87,7 +97,7 @@ def ping():
     )
 
 
-def queuestatus():
+def queuestatus() -> tuple[str, int]:
     return (
         response(
             '''\
@@ -118,7 +128,7 @@ def queuestatus():
     )
 
 
-def dbget():
+def dbget() -> tuple[str, int]:
     args = request.args
     family = args['Family']
     key = args['Key']
@@ -144,7 +154,7 @@ def dbget():
     )
 
 
-def dbput():
+def dbput() -> tuple[str, int]:
     args = request.args
     _db_put(args['Family'], args['Key'], args['Val'])
     return (
@@ -159,7 +169,7 @@ def dbput():
     )
 
 
-def originate():
+def originate() -> tuple[str, int]:
     return (
         response(
             '''\
@@ -172,7 +182,7 @@ def originate():
     )
 
 
-def command():
+def command() -> tuple[str, int]:
     return (
         response(
             '''\
@@ -188,7 +198,7 @@ def command():
     )
 
 
-actions = {
+actions: dict[str, Callable[[], tuple[str, int]]] = {
     'command': command,
     'dbget': dbget,
     'dbput': dbput,
