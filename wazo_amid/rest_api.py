@@ -68,7 +68,11 @@ def run(config):
 
     wsgi_app = ReverseProxied(ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app})))
     global wsgi_server
-    wsgi_server = wsgi.WSGIServer(bind_addr=bind_addr, wsgi_app=wsgi_app)
+    wsgi_server = wsgi.WSGIServer(
+        bind_addr=bind_addr,
+        wsgi_app=wsgi_app,
+        numthreads=config['max_threads'],
+    )
     if config['certificate'] and config['private_key']:
         logger.warning(
             'Using service SSL configuration is deprecated. Please use NGINX instead.'
