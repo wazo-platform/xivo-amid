@@ -50,6 +50,7 @@ _DEFAULT_CONFIG = {
         'certificate': None,
         'private_key': None,
         'cors': {'enabled': True, 'allow_headers': ['Content-Type', 'X-Auth-Token']},
+        'max_threads': 10,
     },
     'enabled_plugins': {
         'api': True,
