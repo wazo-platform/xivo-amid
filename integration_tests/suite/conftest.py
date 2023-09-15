@@ -1,4 +1,4 @@
-# Copyright 2020 Wazo Authors  (see the AUTHORS file)
+# Copyright 2020-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import pytest
@@ -21,3 +21,11 @@ def base():
         yield
     finally:
         asset.APIAssetLaunchingTestCase.tearDownClass()
+
+
+@pytest.fixture(autouse=True, scope='function')
+def mark_logs(request):
+    test_name = f'{request.cls.__name__}.{request.function.__name__}'
+    asset.APIAssetLaunchingTestCase.mark_logs_test_start(test_name)
+    yield
+    asset.APIAssetLaunchingTestCase.mark_logs_test_end(test_name)
