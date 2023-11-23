@@ -1,5 +1,6 @@
 # Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
 import textwrap
 import unittest
@@ -18,13 +19,13 @@ RESPONSE_DELIMITER = b'Response: '
 
 
 class TestParser(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.mock_event_callback = Mock()
         self.mock_response_callback = Mock()
 
     def test_given_incomplete_message_when_parse_buffer_then_whole_buffer_returned(
         self,
-    ):
+    ) -> None:
         raw_buffer = b'incomplete'
 
         unparsed_buffer = parse_buffer(
@@ -35,7 +36,7 @@ class TestParser(unittest.TestCase):
 
     def test_given_complete_message_when_parse_buffer_then_callback_and_buffer_emptied(
         self,
-    ):
+    ) -> None:
         complete_msg = 'complete message'
         raw_buffer = EVENT_DELIMITER + complete_msg.encode('utf-8') + MESSAGE_DELIMITER
 
@@ -50,7 +51,7 @@ class TestParser(unittest.TestCase):
 
     def test_given_complete_messages_when_parse_buffer_then_multiple_callback_and_buffer_emptied(
         self,
-    ):
+    ) -> None:
         first_msg = "first complete message"
         second_msg = "second complete message"
         raw_buffer = (
@@ -72,7 +73,7 @@ class TestParser(unittest.TestCase):
             second_msg, None, {'Response': second_msg}
         )
 
-    def test_given_unknown_message_when_parse_buffer_then_no_callback(self):
+    def test_given_unknown_message_when_parse_buffer_then_no_callback(self) -> None:
         msg = b"unknown: message" + MESSAGE_DELIMITER
 
         unparsed_buffer = parse_buffer(
@@ -85,7 +86,7 @@ class TestParser(unittest.TestCase):
 
     def test_given_incomplete_character_when_parse_buffer_then_incomplete_character_returned(
         self,
-    ):
+    ) -> None:
         msg = b"foo\xc3"
 
         unparsed_buffer = parse_buffer(
@@ -96,7 +97,7 @@ class TestParser(unittest.TestCase):
 
     def test_given_valid_command_response_when_parse_command_response_then_command_response_returned(
         self,
-    ):
+    ) -> None:
         msg = textwrap.dedent(
             '''\
             Response: Success\r
@@ -121,7 +122,7 @@ class TestParser(unittest.TestCase):
 
     def test_given_event_with_chan_variables_when_parse_buffer_then_chan_variables_are_parsed(
         self,
-    ):
+    ) -> None:
         msg = textwrap.dedent(
             '''\
             Event: some-event\r
@@ -139,7 +140,7 @@ class TestParser(unittest.TestCase):
 
         self.mock_event_callback.assert_any_call('some-event', None, expected_event)
 
-    def test_incomplete_channel_variables_is_ignored(self):
+    def test_incomplete_channel_variables_is_ignored(self) -> None:
         msg = textwrap.dedent(
             '''\
             Event: some-event\r
@@ -153,7 +154,7 @@ class TestParser(unittest.TestCase):
         assert_that(self.mock_event_callback.call_count, equal_to(0))
         assert_that(self.mock_response_callback.call_count, equal_to(0))
 
-    def test_channel_variables_with_newline_is_ignored(self):
+    def test_channel_variables_with_newline_is_ignored(self) -> None:
         msg = textwrap.dedent(
             '''\
             Event: some-event\r
@@ -170,7 +171,7 @@ class TestParser(unittest.TestCase):
         assert_that(self.mock_event_callback.call_count, equal_to(0))
         assert_that(self.mock_response_callback.call_count, equal_to(0))
 
-    def test_channel_variables_with_double_newline_is_ignored(self):
+    def test_channel_variables_with_double_newline_is_ignored(self) -> None:
         msg = textwrap.dedent(
             '''\
             Event: some-event\r

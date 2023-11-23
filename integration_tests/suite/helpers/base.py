@@ -3,6 +3,8 @@
 
 import logging
 import os
+from typing import Generator, Any
+
 import requests
 import unittest
 
@@ -19,7 +21,7 @@ from wazo_test_helpers.bus import BusClient
 
 logger = logging.getLogger(__name__)
 
-requests.packages.urllib3.disable_warnings()
+requests.packages.urllib3.disable_warnings()  # type: ignore
 
 ASSETS_ROOT = os.path.join(os.path.dirname(__file__), '..', '..', 'assets')
 
@@ -38,7 +40,7 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
     service = SERVICE_AMID
 
     @classmethod
-    def make_amid(cls, token=VALID_TOKEN):
+    def make_amid(cls, token: str = VALID_TOKEN) -> AmidClient:
         try:
             port = cls.service_port(9491, SERVICE_AMID)
         except NoSuchService:
@@ -52,7 +54,7 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
         )
 
     @classmethod
-    def make_bus(cls):
+    def make_bus(cls) -> BusClient:
         try:
             port = cls.service_port(5672, SERVICE_RABBITMQ)
         except NoSuchService:
@@ -66,7 +68,7 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
         return bus
 
     @classmethod
-    def make_ajam_base_url(cls):
+    def make_ajam_base_url(cls) -> str:
         try:
             ajam_port = cls.service_port(5039, SERVICE_ASTERISK_AJAM)
         except (NoSuchPort, NoSuchService):
@@ -74,7 +76,7 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
         return f'http://127.0.0.1:{ajam_port}'
 
     @classmethod
-    def make_send_event_ami_url(cls):
+    def make_send_event_ami_url(cls) -> str:
         try:
             send_event_ami_port = cls.service_port(8123, SERVICE_ASTERISK_AMI)
         except (NoSuchPort, NoSuchService):
@@ -83,36 +85,31 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
 
 
 class APIIntegrationTest(unittest.TestCase):
+    amid: AmidClient
+    ajam_base_url: str
+
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         cls.reset_clients()
 
-    def setUp(self):
+    def setUp(self) -> None:
         super().setUp()
         self.amid.set_token(VALID_TOKEN)
 
     @classmethod
-    def reset_clients(cls):
+    def reset_clients(cls) -> None:
         cls.amid = APIAssetLaunchingTestCase.make_amid()
         cls.ajam_base_url = APIAssetLaunchingTestCase.make_ajam_base_url()
 
     @classmethod
-    def ajam_url(cls, *parts):
+    def ajam_url(cls, *parts: str) -> str:
         path = '/'.join(parts)
         return f'{cls.ajam_base_url}/{path}'
 
     @classmethod
-    def amid_status(cls):
-        return APIAssetLaunchingTestCase.service_status(SERVICE_AMID)
-
-    @classmethod
-    def amid_logs(cls):
-        return APIAssetLaunchingTestCase.service_logs(SERVICE_AMID)
-
-    @classmethod
     @contextmanager
-    def auth_stopped(cls):
+    def auth_stopped(cls) -> Generator[None, None, None]:
         APIAssetLaunchingTestCase.stop_service(SERVICE_AUTH)
         try:
             yield
@@ -122,7 +119,7 @@ class APIIntegrationTest(unittest.TestCase):
 
     @classmethod
     @contextmanager
-    def ajam_stopped(cls):
+    def ajam_stopped(cls) -> Generator[None, None, None]:
         APIAssetLaunchingTestCase.stop_service(SERVICE_ASTERISK_AJAM)
         try:
             yield
@@ -132,7 +129,7 @@ class APIIntegrationTest(unittest.TestCase):
 
     @classmethod
     @contextmanager
-    def ami_stopped(cls):
+    def ami_stopped(cls) -> Generator[None, None, None]:
         APIAssetLaunchingTestCase.stop_service(SERVICE_ASTERISK_AMI)
         try:
             yield
@@ -141,7 +138,7 @@ class APIIntegrationTest(unittest.TestCase):
 
     @classmethod
     @contextmanager
-    def rabbitmq_stopped(cls):
+    def rabbitmq_stopped(cls) -> Generator[None, None, None]:
         APIAssetLaunchingTestCase.stop_service(SERVICE_RABBITMQ)
         try:
             yield
@@ -149,7 +146,7 @@ class APIIntegrationTest(unittest.TestCase):
             APIAssetLaunchingTestCase.start_service(SERVICE_RABBITMQ)
 
     @classmethod
-    def ajam_requests(cls):
+    def ajam_requests(cls) -> dict[str, Any]:
         response = requests.get(cls.ajam_url('_requests'))
         assert_that(response.status_code, equal_to(200))
         return response.json()

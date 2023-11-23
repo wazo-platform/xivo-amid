@@ -10,3 +10,14 @@ repos:
     rev: 22.12.0
     hooks:
       - id: black
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.6.1
+    hooks:
+      - id: mypy
+        language_version: "3.10"
+        additional_dependencies:
+          - "types-requests"
+          - "types-pyyaml"
+          - "wazo_auth_client@https://github.com/wazo-platform/wazo-auth-client/archive/master.zip"
+          - "xivo@https://github.com/wazo-platform/xivo-lib-python/archive/master.zip"
+          - "xivo_bus@https://github.com/wazo-platform/xivo-bus/archive/master.zip"

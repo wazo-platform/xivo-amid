@@ -1,6 +1,9 @@
 # Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
+from typing import Any, TYPE_CHECKING
+from collections.abc import Callable
 import socket
 import unittest
 
@@ -15,27 +18,32 @@ from unittest.mock import Mock, patch, sentinel
 
 from wazo_amid.ami.client import AMIClient, AMIConnectionError
 
+if TYPE_CHECKING:
+    from typing import ParamSpec, TYPE_CHECKING
+
+    P = ParamSpec('P')
+
 
 class patch_return_value:
-    def __init__(self, patched, *mock_args, **mock_kwargs):
+    def __init__(self, patched: str, *mock_args: Any, **mock_kwargs: Any) -> None:
         self.patched = patched
-        self.mock_args = mock_args
-        self.mock_kwargs = mock_kwargs
+        self.mock_args: tuple[Any, ...] = mock_args
+        self.mock_kwargs: dict[str, Any] = mock_kwargs
 
-    def __call__(self, wrapped):
+    def __call__(self, wrapped: Callable[P, None]) -> Callable[P, None]:
         @wraps(wrapped)
-        def wrapper(*wrapped_args, **wrapped_kwargs):
+        def wrapper(*wrapped_args: P.args, **wrapped_kwargs: P.kwargs) -> None:
             with patch(self.patched) as patched:
                 patched.return_value = Mock(*self.mock_args, **self.mock_kwargs)
-                wrapped_args = list(wrapped_args)
-                wrapped_args.insert(1, patched.return_value)  # insert after self
-                wrapped(*wrapped_args, **wrapped_kwargs)
+                args_list: list[Any] = list(wrapped_args)
+                args_list.insert(1, patched.return_value)  # insert after self
+                return wrapped(*args_list, **wrapped_kwargs)
 
         return wrapper
 
 
 class TestAMIClient(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.hostname = 'example.org'
         self.username = 'username'
         self.password = 'password'
@@ -45,7 +53,9 @@ class TestAMIClient(unittest.TestCase):
         )
 
     @patch('socket.socket')
-    def test_when_connect_socket_then_socket_created(self, mock_socket_constructor):
+    def test_when_connect_socket_then_socket_created(
+        self, mock_socket_constructor: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
 
         mock_socket_constructor.assert_called_once_with(
@@ -54,8 +64,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch('socket.socket')
     def test_when_connect_and_login_twice_then_only_one_socket_is_created(
-        self, mock_socket_constructor
-    ):
+        self, mock_socket_constructor: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
         self.ami_client.connect_and_login()
 
@@ -64,7 +74,9 @@ class TestAMIClient(unittest.TestCase):
         )
 
     @patch_return_value('socket.socket')
-    def test_when_connect_and_login_then_login_data_sent_to_socket(self, mock_socket):
+    def test_when_connect_and_login_then_login_data_sent_to_socket(
+        self, mock_socket: Mock
+    ) -> None:
         lines = [
             'Action: Login',
             'Username: %s' % self.username,
@@ -79,25 +91,27 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')
     def test_given_recv_socket_error_when_connect_and_login_then_amiconnectionerror_raised(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         mock_socket.sendall.side_effect = socket.error
 
         self.assertRaises(AMIConnectionError, self.ami_client.connect_and_login)
 
     @patch_return_value('socket.socket')
     def test_given_send_socket_error_when_connect_and_login_then_amiconnectionerror_raised(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         mock_socket.recv.side_effect = socket.error
 
         self.assertRaises(AMIConnectionError, self.ami_client.connect_and_login)
 
-    def test_given_not_connected_when_disconnect_then_no_error(self):
+    def test_given_not_connected_when_disconnect_then_no_error(self) -> None:
         self.ami_client.disconnect()
 
     @patch_return_value('socket.socket')
-    def test_given_connected_when_disconnect_then_socket_closed(self, mock_socket):
+    def test_given_connected_when_disconnect_then_socket_closed(
+        self, mock_socket: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
 
         self.ami_client.disconnect()
@@ -106,8 +120,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')
     def test_given_connected_when_disconnect_twice_then_socket_closed_only_once(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
 
         self.ami_client.disconnect()
@@ -117,8 +131,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_complete_message_when_parse_next_messages_then_return_messages_queue(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         data = b'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'
         mock_socket.recv.return_value = data
         self.ami_client.connect_and_login()
@@ -130,8 +144,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_incomplete_message_when_parse_next_messages_then_return_empty_queue(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
         mock_socket.recv.return_value = b'incomplete'
 
@@ -141,8 +155,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_remaining_message_when_parse_next_messages_then_return_messages_queue(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
         self.ami_client._buffer = b'Event: '
         mock_socket.recv.return_value = b'complete\r\n\r\ndata\r\n\r\n'
@@ -154,8 +168,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')
     def test_given_non_utf8_message_when_parse_next_messages_then_return_str_messages(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
         mock_socket.recv.return_value = b'Event: complete\r\ndata: \xE9\r\n\r\n'
 
@@ -165,8 +179,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_recv_socket_error_when_parse_next_messages_then_raise_amiconnectionerror(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
         mock_socket.recv.side_effect = socket.error
 
@@ -174,8 +188,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_socket_recv_nothing_when_parse_next_message_then_raise_amiconnectionerror(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
         mock_socket.recv.return_value = b''
 
@@ -183,8 +197,8 @@ class TestAMIClient(unittest.TestCase):
 
     @patch_return_value('socket.socket')  # must be the last decorator
     def test_given_stopping_and_socket_recv_nothing_when_parse_next_message_then_return_nothing(
-        self, mock_socket
-    ):
+        self, mock_socket: Mock
+    ) -> None:
         self.ami_client.connect_and_login()
         self.ami_client.stopping = True
 
@@ -193,7 +207,7 @@ class TestAMIClient(unittest.TestCase):
         assert_that(self.ami_client.parse_next_messages(), empty())
 
     @patch_return_value('socket.socket')
-    def test_when_stop_then_socket_shutdown(self, mock_socket):
+    def test_when_stop_then_socket_shutdown(self, mock_socket: Mock) -> None:
         self.ami_client.connect_and_login()
 
         self.ami_client.stop()
