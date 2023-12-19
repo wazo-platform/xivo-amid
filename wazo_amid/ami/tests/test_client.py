@@ -19,7 +19,7 @@ from unittest.mock import Mock, patch, sentinel
 from wazo_amid.ami.client import AMIClient, AMIConnectionError
 
 if TYPE_CHECKING:
-    from typing import ParamSpec, TYPE_CHECKING
+    from typing import ParamSpec
 
     P = ParamSpec('P')
 
