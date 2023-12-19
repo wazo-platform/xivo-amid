@@ -1,9 +1,11 @@
 # Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
 import logging
 
 from threading import Thread
+from typing import TYPE_CHECKING
 
 from wazo_auth_client import Client as AuthClient
 from wazo_amid.ami.client import AMIClient
@@ -14,18 +16,21 @@ from wazo_amid.facade import EventHandlerFacade
 from xivo.status import StatusAggregator, TokenStatus
 from xivo.token_renewer import TokenRenewer
 
+if TYPE_CHECKING:
+    from wazo_amid.config import AmidConfigDict
+
 logger = logging.getLogger(__name__)
 
 
 class Controller:
-    def __init__(self, config):
+    def __init__(self, config: AmidConfigDict) -> None:
         self._config = config
         self._token_renewer = TokenRenewer(AuthClient(**self._config['auth']))
         self._token_status = TokenStatus()
         self._status_aggregator = StatusAggregator()
-        self._stopping_thread = None
+        self._stopping_thread: Thread | None = None
 
-    def run(self):
+    def run(self) -> None:
         self._token_renewer.subscribe_to_token_change(
             self._token_status.token_change_callback
         )
@@ -52,7 +57,7 @@ class Controller:
         else:
             self._run_rest_api()
 
-    def _run_rest_api(self):
+    def _run_rest_api(self) -> None:
         rest_api.configure(self._config, self._status_aggregator)
         if not rest_api.app.config['auth'].get('master_tenant_uuid'):
             self._token_renewer.subscribe_to_next_token_details_change(
@@ -68,7 +73,7 @@ class Controller:
             if self._stopping_thread:
                 self._stopping_thread.join()
 
-    def stop(self, reason):
+    def stop(self, reason: str) -> None:
         logger.warning('Stopping wazo-amid: %s', reason)
         self._stopping_thread = Thread(target=rest_api.stop, name=reason)
         self._stopping_thread.start()

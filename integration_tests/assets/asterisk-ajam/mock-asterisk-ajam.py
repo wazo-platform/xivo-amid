@@ -15,7 +15,7 @@ class RequestDict(TypedDict):
     method: str
     path: str
     query: list[str]
-    body: Union[dict[str, str], list[str, Any]]
+    body: Union[dict[str, str], list[Union[str, Any]]]
     headers: dict[str, str]
 
 
@@ -45,7 +45,7 @@ def response(body: str) -> str:
 def log_request() -> None:
     if not request.path.startswith('/_requests'):
         path = request.path
-        log = {
+        log: RequestDict = {
             'method': request.method,
             'path': path,
             'query': list(request.args.items(multi=True)),

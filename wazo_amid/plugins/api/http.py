@@ -1,9 +1,10 @@
 # Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
 import yaml
 
-from flask import make_response
+from flask import make_response, Response
 from flask_restful import Resource
 from xivo.chain_map import ChainMap
 from xivo.http_helpers import reverse_proxy_fix_api_spec
@@ -13,7 +14,7 @@ from xivo.rest_api_helpers import load_all_api_specs
 class APIResource(Resource):
     api_filename = "api.yml"
 
-    def get(self):
+    def get(self) -> Response | tuple[dict[str, str], int]:
         api_spec = ChainMap(*load_all_api_specs('wazo_amid.plugins', self.api_filename))
 
         if not api_spec.get('info'):

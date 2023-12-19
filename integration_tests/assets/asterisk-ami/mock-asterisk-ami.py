@@ -16,7 +16,7 @@ from threading import Thread
 
 logging.basicConfig(level=logging.DEBUG)
 
-mock_ami = None
+mock_ami: MockedAsteriskAMI = None  # type: ignore[assignment]
 app = Flask(__name__)
 
 
@@ -33,7 +33,7 @@ class MockedAsteriskAMI(Thread):
         self.port = port
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.bind((self.host, self.port))
-        self.clients_addresses = {}
+        self.clients_addresses: dict[socket.socket, tuple[str, int]] = {}
         super().__init__()
 
     def run(self) -> None:
@@ -51,7 +51,9 @@ class MockedAsteriskAMI(Thread):
         client.send(b'Asterisk Call Manager/1.1\r\n\r\n')
         while True:
             data = client.recv(size)
-            logging.debug(f'Data received ({data}) from client ({client} - {address})')
+            logging.debug(
+                'Data received (%s) from client (%s - %s)', data, client, address
+            )
             if data:
                 if data.decode().startswith("Action: Login"):
                     client.send(
@@ -60,7 +62,7 @@ class MockedAsteriskAMI(Thread):
                         b'\r\n'
                     )
                 else:
-                    client.send('Response: Success\r\n\r\n')
+                    client.send(b'Response: Success\r\n\r\n')
             else:
                 logging.exception(
                     'Wrong data received, so client is closed '

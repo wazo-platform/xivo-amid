@@ -1,7 +1,8 @@
 # Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
-import collections
+from collections import deque
 import unittest
 from unittest.mock import (
     ANY,
@@ -13,7 +14,7 @@ from unittest.mock import (
 
 from hamcrest import assert_that, contains, equal_to
 
-from wazo_amid.ami.client import AMIClient, AMIConnectionError
+from wazo_amid.ami.client import AMIClient, AMIConnectionError, Message
 from wazo_amid.bus.client import BusClient
 from wazo_amid.facade import EventHandlerFacade
 
@@ -23,7 +24,7 @@ RECONNECTION_DELAY = 5
 class TestEventHandlerFacade(unittest.TestCase):
     @patch('threading.Event')
     @patch('collections.deque')
-    def setUp(self, deque_mock, event_mock):
+    def setUp(self, deque_mock: Mock, event_mock: Mock) -> None:
         self.deque_mock = deque_mock
         self.queue = self.deque_mock.return_value = Mock()
 
@@ -48,19 +49,19 @@ class TestEventHandlerFacade(unittest.TestCase):
 
         self.facade = EventHandlerFacade(self.ami_client_mock, self.bus_client_mock)
 
-    def test_when_run_then_ami_client_connect_and_login(self):
+    def test_when_run_then_ami_client_connect_and_login(self) -> None:
         self.assertRaises(Exception, self.facade.run)
 
         self.ami_client_mock.connect_and_login.assert_called_once_with()
 
-    def test_given_unexpected_error_when_run_then_stop(self):
+    def test_given_unexpected_error_when_run_then_stop(self) -> None:
         self.ami_client_mock.connect_and_login.side_effect = Exception()
 
         self.assertRaises(Exception, self.facade.run)
 
         self.ami_client_mock.disconnect.assert_called_once_with(reason=ANY)
 
-    def test_given_ami_connection_error_when_run_then_ami_reconnect(self):
+    def test_given_ami_connection_error_when_run_then_ami_reconnect(self) -> None:
         self.ami_client_mock.connect_and_login.side_effect = [
             AMIConnectionError(),
             None,
@@ -72,7 +73,9 @@ class TestEventHandlerFacade(unittest.TestCase):
         assert_that(self.ami_client_mock.disconnect.call_count, equal_to(2))
         assert_that(self.ami_client_mock.connect_and_login.call_count, equal_to(2))
 
-    def test_given_ami_connection_error_when_run_then_new_messages_processed(self):
+    def test_given_ami_connection_error_when_run_then_new_messages_processed(
+        self,
+    ) -> None:
         self.ami_client_mock.connect_and_login.side_effect = [
             AMIConnectionError(),
             None,
@@ -90,7 +93,7 @@ class TestEventHandlerFacade(unittest.TestCase):
 
     def test_given_multiple_messages_fetched_when_run_then_all_messages_orderly_processed(
         self,
-    ):
+    ) -> None:
         self.ami_client_mock.parse_next_messages.side_effect = [
             [sentinel.first_message],
             [sentinel.second_message],
@@ -104,8 +107,10 @@ class TestEventHandlerFacade(unittest.TestCase):
         mock_calls = self.bus_client_mock.publish.mock_calls
         assert_that(mock_calls, contains(*expected_calls))
 
-    def test_given_events_in_queue_when_process_messages_then_queue_is_emptied(self):
-        queue = collections.deque()
+    def test_given_events_in_queue_when_process_messages_then_queue_is_emptied(
+        self,
+    ) -> None:
+        queue: deque[Message] = deque()
         queue.append(sentinel.event1)
         queue.append(sentinel.event2)
 
@@ -113,7 +118,7 @@ class TestEventHandlerFacade(unittest.TestCase):
 
         self.assertFalse(queue)
 
-    def test_when_stop_then_ami_client_stop_is_called(self):
+    def test_when_stop_then_ami_client_stop_is_called(self) -> None:
         self.facade.stop()
 
         self.ami_client_mock.stop.assert_called_once_with()

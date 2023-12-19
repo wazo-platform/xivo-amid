@@ -24,7 +24,7 @@ from .helpers.base import APIIntegrationTest
 
 @pytest.mark.usefixtures('base')
 class TestHTTPAction(APIIntegrationTest):
-    def test_that_action_ping_returns_pong(self):
+    def test_that_action_ping_returns_pong(self) -> None:
         result = self.amid.action('Ping')
 
         assert_that(
@@ -40,14 +40,14 @@ class TestHTTPAction(APIIntegrationTest):
             ),
         )
 
-    def test_that_malformatted_actions_are_refused(self):
+    def test_that_malformatted_actions_are_refused(self) -> None:
         # the format of Queues response is suited for display, not parsing
         assert_that(
             calling(self.amid.action).with_args('Queues'),
             raises(AmidError).matching(has_properties(status_code=501)),
         )
 
-    def test_that_action_with_events_returns_events(self):
+    def test_that_action_with_events_returns_events(self) -> None:
         result = self.amid.action('QueueStatus')
 
         assert_that(
@@ -86,7 +86,7 @@ class TestHTTPAction(APIIntegrationTest):
             ),
         )
 
-    def test_that_action_with_parameters_sends_parameters(self):
+    def test_that_action_with_parameters_sends_parameters(self) -> None:
         key = ''.join(random.choice(string.ascii_letters) for _ in range(10))
 
         self.amid.action('DBPut', {'Family': key, 'Key': key, 'Val': key})
@@ -101,7 +101,7 @@ class TestHTTPAction(APIIntegrationTest):
             ),
         )
 
-    def test_that_action_can_send_and_receive_non_ascii(self):
+    def test_that_action_can_send_and_receive_non_ascii(self) -> None:
         family = 'my-family'
         key = 'my-key'
         value = 'non-ascii-value äåéëþüü'
@@ -126,7 +126,7 @@ class TestHTTPAction(APIIntegrationTest):
 
 @pytest.mark.usefixtures('base')
 class TestHTTPCommand(APIIntegrationTest):
-    def test_given_no_command_when_action_command_then_error_400(self):
+    def test_given_no_command_when_action_command_then_error_400(self) -> None:
         assert_that(
             calling(self.amid.command).with_args({}),
             raises(AmidError).matching(
@@ -137,7 +137,7 @@ class TestHTTPCommand(APIIntegrationTest):
             ),
         )
 
-    def test_that_action_command_returns_command_response(self):
+    def test_that_action_command_returns_command_response(self) -> None:
         result = self.amid.command('moh show classes')
 
         assert_that(
@@ -155,7 +155,9 @@ class TestHTTPCommand(APIIntegrationTest):
 
 @pytest.mark.usefixtures('base')
 class TestHTTPMultipleIdenticalKeys(APIIntegrationTest):
-    def test_when_action_with_multiple_identical_keys_then_all_keys_are_sent(self):
+    def test_when_action_with_multiple_identical_keys_then_all_keys_are_sent(
+        self,
+    ) -> None:
         self.amid.action('Originate', {'Variable': ('Var1=one', 'Var2=two')})
 
         assert_that(
@@ -181,7 +183,7 @@ class TestHTTPMultipleIdenticalKeys(APIIntegrationTest):
 
 @pytest.mark.usefixtures('base')
 class TestHTTPError(APIIntegrationTest):
-    def test_given_no_ajam_when_http_request_then_status_code_503(self):
+    def test_given_no_ajam_when_http_request_then_status_code_503(self) -> None:
         with self.ajam_stopped():
             assert_that(
                 calling(self.amid.action).with_args('ping'),

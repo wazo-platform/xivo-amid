@@ -1,14 +1,71 @@
 # Copyright 2014-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
+from typing import TypedDict, Union, Literal, Any
 import argparse
 
 from xivo.chain_map import ChainMap
 from xivo.config_helper import parse_config_file, read_config_file_hierarchy
 
 
+class ServiceConfigDict(TypedDict):
+    host: str
+    port: int
+    username: str
+    password: str
+
+
+class AjamCofigDict(ServiceConfigDict):
+    https: bool
+
+
+class AuthConfigDict(TypedDict):
+    host: str
+    port: int
+    prefix: Union[str, None]
+    https: bool
+    key_file: str
+
+
+class BusConfigDict(ServiceConfigDict):
+    vhost: str
+    exchange_name: str
+    exchange_type: Literal['headers']
+
+
+class CorsConfigDict(TypedDict):
+    enabled: bool
+    allow_headers: list[str]
+
+
+class RestApiConfigDict(TypedDict):
+    listen: str
+    port: int
+    certificate: Union[str, None]
+    private_key: Union[str, None]
+    cors: CorsConfigDict
+    max_threads: int
+
+
+class AmidConfigDict(TypedDict):
+    uuid: str
+    user: str
+    debug: bool
+    logfile: str
+    config_file: str
+    extra_config_files: str
+    publish_ami_events: bool
+    ajam: AjamCofigDict
+    ami: ServiceConfigDict
+    auth: AuthConfigDict
+    bus: BusConfigDict
+    rest_api: RestApiConfigDict
+    enabled_plugins: dict[str, bool]
+
+
 _DAEMONNAME = 'wazo-amid'
-_DEFAULT_CONFIG = {
+_DEFAULT_CONFIG: AmidConfigDict = {  # type: ignore
     'user': 'wazo-amid',
     'debug': False,
     'logfile': f'/var/log/{_DAEMONNAME}.log',
@@ -61,7 +118,7 @@ _DEFAULT_CONFIG = {
 }
 
 
-def _get_cli_config():
+def _get_cli_config() -> dict[str, Any]:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-d',
@@ -99,7 +156,7 @@ def _get_cli_config():
     return config
 
 
-def _load_key_file(config):
+def _load_key_file(config: dict[str, Any]) -> dict[str, Any]:
     if config['auth'].get('username') and config['auth'].get('password'):
         return {}
 
@@ -112,7 +169,7 @@ def _load_key_file(config):
     }
 
 
-def load_config():
+def load_config() -> AmidConfigDict:
     cli_config = _get_cli_config()
     file_config = read_config_file_hierarchy(ChainMap(cli_config, _DEFAULT_CONFIG))
     service_key = _load_key_file(ChainMap(cli_config, file_config, _DEFAULT_CONFIG))

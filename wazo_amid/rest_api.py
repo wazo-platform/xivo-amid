@@ -1,7 +1,10 @@
 # Copyright 2016-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
 import logging
+from typing import TYPE_CHECKING, TypedDict
+
 import marshmallow
 import os
 
@@ -23,16 +26,35 @@ from wazo_amid.plugin_helpers.ajam import AJAMClient
 
 from .exceptions import ValidationError
 
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import ParamSpec, TypeVar
+    from xivo.status import StatusAggregator
+
+    from .config import AmidConfigDict, RestApiConfigDict
+
+    P = ParamSpec('P')
+    R = TypeVar('R')
+
+
 VERSION = 1.0
 
 app = Flask('wazo_amid')
 logger = logging.getLogger(__name__)
 api = Api(prefix=f'/{VERSION}')
 auth_verifier = AuthVerifier()
-wsgi_server = None
+wsgi_server: wsgi.WSGIServer = None
 
 
-def configure(global_config, status_aggregator):
+class PluginDependencies(TypedDict):
+    api: Api
+    ajam_client: AJAMClient
+    status_aggregator: StatusAggregator
+
+
+def configure(
+    global_config: AmidConfigDict, status_aggregator: StatusAggregator
+) -> None:
     http_helpers.add_logger(app, logger)
     app.before_request(http_helpers.log_before_request)
     app.after_request(http_helpers.log_request)
@@ -51,7 +73,9 @@ def configure(global_config, status_aggregator):
     auth_verifier.set_config(global_config['auth'])
 
 
-def load_resources(global_config, status_aggregator):
+def load_resources(
+    global_config: AmidConfigDict, status_aggregator: StatusAggregator
+) -> None:
     plugin_helpers.load(
         namespace='wazo_amid.plugins',
         names=global_config['enabled_plugins'],
@@ -63,7 +87,7 @@ def load_resources(global_config, status_aggregator):
     )
 
 
-def run(config):
+def run(config: RestApiConfigDict) -> None:
     bind_addr = (config['listen'], config['port'])
 
     wsgi_app = ReverseProxied(ProxyFix(wsgi.WSGIPathInfoDispatcher({'/': app})))
@@ -93,14 +117,14 @@ def run(config):
     wsgi_server.start()
 
 
-def stop():
+def stop() -> None:
     if wsgi_server:
         wsgi_server.stop()
 
 
-def handle_validation_exception(func):
+def handle_validation_exception(func: Callable[P, R]) -> Callable[P, R]:
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
         try:
             return func(*args, **kwargs)
         except marshmallow.ValidationError as e:
