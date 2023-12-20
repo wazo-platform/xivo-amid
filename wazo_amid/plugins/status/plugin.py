@@ -10,6 +10,7 @@ from .http import StatusResource
 
 if TYPE_CHECKING:
     from collections import defaultdict
+
     from wazo_amid.rest_api import PluginDependencies
 
 

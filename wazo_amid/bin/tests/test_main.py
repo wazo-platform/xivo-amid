@@ -1,12 +1,12 @@
-# Copyright 2014-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2014-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
 from xivo.chain_map import ChainMap
-from wazo_amid.bin.daemon import main
 
+from wazo_amid.bin.daemon import main
 
 USER = 'wazo-amid'
 

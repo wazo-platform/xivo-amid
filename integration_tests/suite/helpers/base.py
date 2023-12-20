@@ -1,14 +1,14 @@
-# Copyright 2015-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
 import os
-from typing import Generator, Any
+import unittest
+from collections.abc import Generator
+from contextlib import contextmanager
+from typing import Any
 
 import requests
-import unittest
-
-from contextlib import contextmanager
 from hamcrest import assert_that, equal_to
 from wazo_amid_client import Client as AmidClient
 from wazo_test_helpers.asset_launching_test_case import (

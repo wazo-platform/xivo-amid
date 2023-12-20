@@ -2,13 +2,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
+
 import pytest
 import requests
 import yaml
+from openapi_spec_validator import openapi_v2_spec_validator, validate_spec
 
-from openapi_spec_validator import validate_spec, openapi_v2_spec_validator
-
-from .helpers.base import APIIntegrationTest, APIAssetLaunchingTestCase
+from .helpers.base import APIAssetLaunchingTestCase, APIIntegrationTest
 
 logger = logging.getLogger('openapi_spec_validator')
 logger.setLevel(logging.INFO)

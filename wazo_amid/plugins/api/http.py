@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 import yaml
-
-from flask import make_response, Response
+from flask import Response, make_response
 from flask_restful import Resource
 from xivo.chain_map import ChainMap
 from xivo.http_helpers import reverse_proxy_fix_api_spec

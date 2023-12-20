@@ -5,7 +5,7 @@ from __future__ import annotations
 import functools
 import logging
 from collections.abc import Callable
-from typing import Union, Any, TypedDict
+from typing import Any, TypedDict, Union
 
 logger = logging.getLogger(__name__)
 

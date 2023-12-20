@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from collections.abc import Generator
+from contextlib import contextmanager
 
 import requests
-
-from contextlib import contextmanager
 
 from wazo_amid.exceptions import APIException
 

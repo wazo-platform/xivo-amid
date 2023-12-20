@@ -3,18 +3,17 @@
 from __future__ import annotations
 
 import logging
-
 from threading import Thread
 from typing import TYPE_CHECKING
 
 from wazo_auth_client import Client as AuthClient
-from wazo_amid.ami.client import AMIClient
-from wazo_amid.bus.client import BusClient
-from wazo_amid import auth
-from wazo_amid import rest_api
-from wazo_amid.facade import EventHandlerFacade
 from xivo.status import StatusAggregator, TokenStatus
 from xivo.token_renewer import TokenRenewer
+
+from wazo_amid import auth, rest_api
+from wazo_amid.ami.client import AMIClient
+from wazo_amid.bus.client import BusClient
+from wazo_amid.facade import EventHandlerFacade
 
 if TYPE_CHECKING:
     from wazo_amid.config import AmidConfigDict

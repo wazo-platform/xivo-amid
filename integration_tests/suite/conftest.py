@@ -6,10 +6,11 @@ from collections.abc import Generator
 from typing import TYPE_CHECKING
 
 import pytest
+
 from .helpers import base as asset
 
 if TYPE_CHECKING:
-    from pytest import Config, Item, FixtureRequest, Session
+    from pytest import Config, FixtureRequest, Item, Session
 
 
 def pytest_collection_modifyitems(

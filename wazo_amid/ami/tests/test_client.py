@@ -1,20 +1,15 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
-from typing import Any, TYPE_CHECKING
-from collections.abc import Callable
 import socket
 import unittest
-
+from collections.abc import Callable
 from functools import wraps
-from hamcrest import (
-    assert_that,
-    empty,
-    equal_to,
-    instance_of,
-)
+from typing import TYPE_CHECKING, Any
 from unittest.mock import Mock, patch, sentinel
+
+from hamcrest import assert_that, empty, equal_to, instance_of
 
 from wazo_amid.ami.client import AMIClient, AMIConnectionError
 

@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
-from typing import TypedDict, Union, Literal, Any
 import argparse
+from typing import Any, Literal, TypedDict
 
 from xivo.chain_map import ChainMap
 from xivo.config_helper import parse_config_file, read_config_file_hierarchy
@@ -23,7 +23,7 @@ class AjamCofigDict(ServiceConfigDict):
 class AuthConfigDict(TypedDict):
     host: str
     port: int
-    prefix: Union[str, None]
+    prefix: str | None
     https: bool
     key_file: str
 
@@ -42,8 +42,8 @@ class CorsConfigDict(TypedDict):
 class RestApiConfigDict(TypedDict):
     listen: str
     port: int
-    certificate: Union[str, None]
-    private_key: Union[str, None]
+    certificate: str | None
+    private_key: str | None
     cors: CorsConfigDict
     max_threads: int
 

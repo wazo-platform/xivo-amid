@@ -1,14 +1,13 @@
-# Copyright 2022-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2022-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import pytest
 import requests
-
-from hamcrest import assert_that, has_items, has_entries
+from hamcrest import assert_that, has_entries, has_items
 from wazo_test_helpers import until
 from wazo_test_helpers.bus import BusClient, BusMessageAccumulator
-from .helpers.base import APIIntegrationTest, APIAssetLaunchingTestCase
 
+from .helpers.base import APIAssetLaunchingTestCase, APIIntegrationTest
 
 FAKE_EVENT = {'data': 'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'}
 

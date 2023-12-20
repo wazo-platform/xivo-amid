@@ -3,24 +3,20 @@
 from __future__ import annotations
 
 import logging
+import os
+from datetime import timedelta
+from functools import wraps
 from typing import TYPE_CHECKING, TypedDict
 
 import marshmallow
-import os
-
 from cheroot import wsgi
-from datetime import timedelta
 from flask import Flask
 from flask_cors import CORS
-from flask_restful import Api
-from flask_restful import Resource
-from functools import wraps
+from flask_restful import Api, Resource
 from werkzeug.middleware.proxy_fix import ProxyFix
-from xivo import http_helpers
-from xivo import plugin_helpers
-from xivo import rest_api_helpers
-from xivo.http_helpers import ReverseProxied
+from xivo import http_helpers, plugin_helpers, rest_api_helpers
 from xivo.auth_verifier import AuthVerifier
+from xivo.http_helpers import ReverseProxied
 
 from wazo_amid.plugin_helpers.ajam import AJAMClient
 
@@ -29,6 +25,7 @@ from .exceptions import ValidationError
 if TYPE_CHECKING:
     from collections.abc import Callable
     from typing import ParamSpec, TypeVar
+
     from xivo.status import StatusAggregator
 
     from .config import AmidConfigDict, RestApiConfigDict
