@@ -2,9 +2,9 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
-from collections import deque, defaultdict
 import logging
 import socket
+from collections import defaultdict, deque
 from typing import NamedTuple
 
 from xivo.status import Status

@@ -4,18 +4,18 @@
 from __future__ import annotations
 
 import logging
-import textwrap
 import sys
-from typing import Any, Callable, TypedDict, Union
+import textwrap
+from typing import Any, Callable, TypedDict
 
-from flask import Flask, jsonify, request, Response
+from flask import Flask, Response, jsonify, request
 
 
 class RequestDict(TypedDict):
     method: str
     path: str
     query: list[str]
-    body: Union[dict[str, str], list[Union[str, Any]]]
+    body: dict[str, str] | list[str | Any]
     headers: dict[str, str]
 
 

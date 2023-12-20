@@ -1,17 +1,17 @@
-# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import pytest
 import random
 import string
 
+import pytest
 from hamcrest import (
     assert_that,
     calling,
     contains,
     contains_string,
-    has_entry,
     has_entries,
+    has_entry,
     has_item,
     has_properties,
     matches_regexp,

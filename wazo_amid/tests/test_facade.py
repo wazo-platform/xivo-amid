@@ -1,16 +1,10 @@
-# Copyright 2012-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
-from collections import deque
 import unittest
-from unittest.mock import (
-    ANY,
-    call,
-    Mock,
-    patch,
-    sentinel,
-)
+from collections import deque
+from unittest.mock import ANY, Mock, call, patch, sentinel
 
 from hamcrest import assert_that, contains, equal_to
 

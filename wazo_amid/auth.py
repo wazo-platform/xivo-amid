@@ -1,17 +1,16 @@
-# Copyright 2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2020-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
 from collections.abc import Callable
 from typing import TYPE_CHECKING, TypeVar
-from xivo.auth_verifier import (
-    required_acl as required_acl_,
-    required_tenant,
-)
-from werkzeug.local import LocalProxy as Proxy
 
-from .rest_api import app
+from werkzeug.local import LocalProxy as Proxy
+from xivo.auth_verifier import required_acl as required_acl_
+from xivo.auth_verifier import required_tenant
+
 from .exceptions import NotInitializedException
+from .rest_api import app
 
 if TYPE_CHECKING:
     from wazo_auth_client.types import TokenDict

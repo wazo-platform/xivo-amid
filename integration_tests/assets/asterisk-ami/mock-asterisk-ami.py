@@ -7,12 +7,11 @@ import argparse
 import logging
 import socket
 import threading
-from typing import Any
-
-from flask import Flask
-from flask import request
 from http import HTTPStatus
 from threading import Thread
+from typing import Any
+
+from flask import Flask, request
 
 logging.basicConfig(level=logging.DEBUG)
 

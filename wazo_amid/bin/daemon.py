@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import logging
 import signal
-
 from functools import partial
 from types import FrameType
 
 from xivo.config_helper import set_xivo_uuid
 from xivo.user_rights import change_user
 from xivo.xivo_logging import setup_logging
+
 from wazo_amid.config import load_config
 from wazo_amid.controller import Controller
 

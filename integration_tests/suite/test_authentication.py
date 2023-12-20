@@ -1,4 +1,4 @@
-# Copyright 2015-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
@@ -8,26 +8,23 @@ import pytest
 from hamcrest import (
     assert_that,
     calling,
-    equal_to,
     empty,
+    equal_to,
     has_entries,
-    has_property,
     has_properties,
+    has_property,
     not_,
 )
-
-
-from wazo_amid_client.exceptions import AmidError
 from requests.exceptions import HTTPError
+from wazo_amid_client.exceptions import AmidError
 from wazo_test_helpers import until
 from wazo_test_helpers.hamcrest.raises import raises
 
-
 from .helpers.base import (
+    TOKEN_SUB_TENANT,
+    VALID_TOKEN,
     APIAssetLaunchingTestCase,
     APIIntegrationTest,
-    VALID_TOKEN,
-    TOKEN_SUB_TENANT,
 )
 
 

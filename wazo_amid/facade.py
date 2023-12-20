@@ -7,7 +7,7 @@ import threading
 from collections import deque
 from typing import NoReturn
 
-from wazo_amid.ami.client import AMIConnectionError, AMIClient, Message
+from wazo_amid.ami.client import AMIClient, AMIConnectionError, Message
 from wazo_amid.bus.client import BusClient
 
 logger = logging.getLogger(__name__)

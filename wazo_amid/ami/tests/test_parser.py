@@ -1,17 +1,14 @@
-# Copyright 2012-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
 import textwrap
 import unittest
-
-from hamcrest import assert_that
-from hamcrest import equal_to
-from hamcrest import contains_exactly
 from unittest.mock import Mock
 
-from wazo_amid.ami.parser import parse_buffer
-from wazo_amid.ami.parser import parse_command_response
+from hamcrest import assert_that, contains_exactly, equal_to
+
+from wazo_amid.ami.parser import parse_buffer, parse_command_response
 
 MESSAGE_DELIMITER = b'\r\n\r\n'
 EVENT_DELIMITER = b'Event: '
