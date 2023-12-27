@@ -1857,7 +1857,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-subroutine
+Context: wazo-subroutine
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -1879,7 +1879,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-subroutine
+Context: wazo-subroutine
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -1901,7 +1901,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-subroutine
+Context: wazo-subroutine
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -1923,7 +1923,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-subroutine
+Context: wazo-subroutine
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
