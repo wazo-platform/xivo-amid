@@ -2435,7 +2435,7 @@ ConnectedLineNum: 103
 ConnectedLineName: Charliez Chaplin
 Language: fr_FR
 AccountCode:
-Context: xivo-global-subroutine
+Context: wazo-global-subroutine
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2457,7 +2457,7 @@ ConnectedLineNum: 103
 ConnectedLineName: Charliez Chaplin
 Language: fr_FR
 AccountCode:
-Context: xivo-global-subroutine
+Context: wazo-global-subroutine
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2479,7 +2479,7 @@ ConnectedLineNum: 103
 ConnectedLineName: Charliez Chaplin
 Language: fr_FR
 AccountCode:
-Context: xivo-global-subroutine
+Context: wazo-global-subroutine
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2501,7 +2501,7 @@ ConnectedLineNum: 103
 ConnectedLineName: Charliez Chaplin
 Language: fr_FR
 AccountCode:
-Context: xivo-global-subroutine
+Context: wazo-global-subroutine
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2611,7 +2611,7 @@ ConnectedLineNum: 103
 ConnectedLineName: Charliez Chaplin
 Language: fr_FR
 AccountCode:
-Context: xivo-global-subroutine
+Context: wazo-global-subroutine
 Exten: s
 Priority: 5
 Uniqueid: 1511987918.22
@@ -2633,7 +2633,7 @@ ConnectedLineNum: 103
 ConnectedLineName: Charliez Chaplin
 Language: fr_FR
 AccountCode:
-Context: xivo-global-subroutine
+Context: wazo-global-subroutine
 Exten: s
 Priority: 5
 Uniqueid: 1511987918.22
