@@ -540,7 +540,7 @@ Linkedid: 1511987918.22
 ChanVariable: XIVO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
 ChanVariable: XIVO_BASE_EXTEN=103
 ChanVariable: WAZO_DEREFERENCED_USERUUID=
-Variable: __XIVO_CALLORIGIN
+Variable: __WAZO_CALLORIGIN
 Value: intern
 
 Event: VarSet
@@ -589,7 +589,7 @@ XIVO_DSTID: 923
 CHANNEL: SCCP/101-00000004
 XIVO_USERID: 413
 XIVO_SRCNUM: 101
-XIVO_CALLORIGIN: intern
+WAZO_CALLORIGIN: intern
 
 Event: VarSet
 Privilege: dialplan,all
@@ -3233,7 +3233,7 @@ Linkedid: 1511987918.22
 ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
 ChanVariable: XIVO_BASE_EXTEN=
 ChanVariable: WAZO_DEREFERENCED_USERUUID=
-Variable: __XIVO_CALLORIGIN
+Variable: __WAZO_CALLORIGIN
 Value: intern
 
 Event: NewConnectedLine
@@ -3515,7 +3515,7 @@ Linkedid: 1511987918.22
 ChanVariable: XIVO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
 ChanVariable: XIVO_BASE_EXTEN=
 ChanVariable: WAZO_DEREFERENCED_USERUUID=
-Variable: __XIVO_CALLORIGIN
+Variable: __WAZO_CALLORIGIN
 Value: intern
 
 Event: NewConnectedLine
