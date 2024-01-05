@@ -2011,7 +2011,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-user_rights_check
+Context: wazo-user_permission_check
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2033,7 +2033,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-user_rights_check
+Context: wazo-user_permission_check
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2055,7 +2055,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-user_rights_check
+Context: wazo-user_permission_check
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2077,7 +2077,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-user_rights_check
+Context: wazo-user_permission_check
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2099,7 +2099,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-user_rights_check
+Context: wazo-user_permission_check
 Exten: s
 Priority: 1
 Uniqueid: 1511987918.22
@@ -2129,7 +2129,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-user_rights_check
+Context: wazo-user_permission_check
 Exten: s
 Priority: 1
 Uniqueid: 1511987918.22
