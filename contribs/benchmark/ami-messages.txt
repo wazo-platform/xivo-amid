@@ -562,7 +562,7 @@ Linkedid: 1511987918.22
 ChanVariable: WAZO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
 ChanVariable: XIVO_BASE_EXTEN=103
 ChanVariable: WAZO_DEREFERENCED_USERUUID=
-Variable: __XIVO_FWD_REFERER
+Variable: WAZO_FWD_REFERER
 Value: user:923
 
 Event: UserEvent
@@ -3211,7 +3211,7 @@ Linkedid: 1511987918.22
 ChanVariable: WAZO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
 ChanVariable: XIVO_BASE_EXTEN=
 ChanVariable: WAZO_DEREFERENCED_USERUUID=
-Variable: __XIVO_FWD_REFERER
+Variable: __WAZO_FWD_REFERER
 Value: user:923
 
 Event: VarSet
@@ -3493,7 +3493,7 @@ Linkedid: 1511987918.22
 ChanVariable: WAZO_USERUUID=3d540bd8-2c92-4887-bed2-f39ecf0db91b
 ChanVariable: XIVO_BASE_EXTEN=
 ChanVariable: WAZO_DEREFERENCED_USERUUID=
-Variable: __XIVO_FWD_REFERER
+Variable: __WAZO_FWD_REFERER
 Value: user:923
 
 Event: VarSet
