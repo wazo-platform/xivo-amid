@@ -2239,7 +2239,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-connectedline
+Context: wazo-connectedline
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2261,7 +2261,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-connectedline
+Context: wazo-connectedline
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2283,7 +2283,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-connectedline
+Context: wazo-connectedline
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2305,7 +2305,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-connectedline
+Context: wazo-connectedline
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -2327,7 +2327,7 @@ ConnectedLineNum: 103
 ConnectedLineName: Charliez Chaplin
 Language: fr_FR
 AccountCode:
-Context: xivo-connectedline
+Context: wazo-connectedline
 Exten: s
 Priority: 2
 Uniqueid: 1511987918.22
