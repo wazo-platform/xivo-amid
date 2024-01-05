@@ -1637,7 +1637,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-ring_type_set
+Context: wazo-ring_type_set
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -1659,7 +1659,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-ring_type_set
+Context: wazo-ring_type_set
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -1681,7 +1681,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-ring_type_set
+Context: wazo-ring_type_set
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -1703,7 +1703,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-ring_type_set
+Context: wazo-ring_type_set
 Exten: s
 Priority: 0
 Uniqueid: 1511987918.22
@@ -1725,7 +1725,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-ring_type_set
+Context: wazo-ring_type_set
 Exten: s
 Priority: 2
 Uniqueid: 1511987918.22
@@ -1747,7 +1747,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-ring_type_set
+Context: wazo-ring_type_set
 Exten: s
 Priority: 2
 Uniqueid: 1511987918.22
@@ -1769,7 +1769,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-ring_type_set
+Context: wazo-ring_type_set
 Exten: s
 Priority: 2
 Uniqueid: 1511987918.22
@@ -1791,7 +1791,7 @@ ConnectedLineNum: <unknown>
 ConnectedLineName: <unknown>
 Language: fr_FR
 AccountCode:
-Context: xivo-ring_type_set
+Context: wazo-ring_type_set
 Exten: s
 Priority: 7
 Uniqueid: 1511987918.22
