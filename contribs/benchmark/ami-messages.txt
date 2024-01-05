@@ -2226,7 +2226,7 @@ ChanVariable: WAZO_USERUUID=2e752722-0864-4665-887d-a78a024cf7c7
 ChanVariable: XIVO_BASE_EXTEN=103
 ChanVariable: WAZO_DEREFERENCED_USERUUID=
 Variable: OUTBOUND_GROUP_ONCE
-Value: 923@XIVO_USER
+Value: 923@WAZO_USER
 
 Event: VarSet
 Privilege: dialplan,all
