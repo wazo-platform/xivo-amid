@@ -1,12 +1,12 @@
-# Copyright 2012-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2012-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from wazo_bus.publisher import BusPublisherWithQueue
+from wazo_bus.resources.ami.event import AMIEvent
 from xivo.status import Status, StatusDict
-from xivo_bus.publisher import BusPublisherWithQueue
-from xivo_bus.resources.ami.event import AMIEvent
 
 if TYPE_CHECKING:
     from ..ami.client import Message
