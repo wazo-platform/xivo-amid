@@ -1,2 +1,0 @@
-rm_conffile /etc/wazo-amid/conf.d/050-xivo-uuid.yml 19.13
-rm_conffile /etc/wazo-amid/conf.d/050-wazo-uuid.yml 22.05
