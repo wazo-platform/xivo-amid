@@ -113,6 +113,7 @@ _DEFAULT_CONFIG: AmidConfigDict = {  # type: ignore
         'api': True,
         'actions': True,
         'commands': True,
+        'config': True,
         'status': True,
     },
 }

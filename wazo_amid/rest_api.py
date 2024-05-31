@@ -79,6 +79,7 @@ def load_resources(
         dependencies={
             'api': api,
             'ajam_client': AJAMClient(**global_config['ajam']),
+            'config': global_config,
             'status_aggregator': status_aggregator,
         },
     )

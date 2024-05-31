@@ -73,6 +73,6 @@ class Controller:
                 self._stopping_thread.join()
 
     def stop(self, reason: str) -> None:
-        logger.warning('Stopping wazo-amid: %s', reason)
+        logger.warning('Hello world. Stopping wazo-amid: %s', reason)
         self._stopping_thread = Thread(target=rest_api.stop, name=reason)
         self._stopping_thread.start()

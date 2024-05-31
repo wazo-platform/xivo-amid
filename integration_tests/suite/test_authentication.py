@@ -62,6 +62,9 @@ class TestAuthentication(APIIntegrationTest):
         url = self.amid.action
         self._assert_unauthorized(url, 'ping')
 
+        url = self.amid.config
+        self._assert_unauthorized(url)
+
     def test_restrict_on_with_slow_wazo_auth(self) -> None:
         APIAssetLaunchingTestCase.stop_service('amid')
         with self.auth_stopped():
@@ -103,3 +106,8 @@ class TestAuthentication(APIIntegrationTest):
                     )
                 ),
             )
+
+    def test_config_auth(self) -> None:
+        self.amid.set_token(None)
+        url = self.amid.config
+        self._assert_unauthorized(url)

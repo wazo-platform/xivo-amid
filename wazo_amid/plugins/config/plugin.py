@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from .http import ActionResource
+from .http import ConfigResource
+from .service import ConfigService
 
 if TYPE_CHECKING:
     from wazo_amid.rest_api import PluginDependencies
@@ -13,11 +14,10 @@ if TYPE_CHECKING:
 class Plugin:
     def load(self, dependencies: PluginDependencies) -> None:
         api = dependencies['api']
-        ajam_client = dependencies['ajam_client']
-
+        config = dependencies['config']
+        config_service = ConfigService(config)
         api.add_resource(
-            ActionResource,
-            '/action/<action>',
-            resource_class_args=[ajam_client],
+            ConfigResource,
+            '/config',
+            resource_class_args=[config_service]
         )
-
