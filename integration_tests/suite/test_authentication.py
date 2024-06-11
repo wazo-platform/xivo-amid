@@ -40,8 +40,15 @@ class TestAuthentication(APIIntegrationTest):
 
     def test_no_auth_gives_401(self) -> None:
         self.amid.set_token(None)
+
         url = self.amid.action
         self._assert_unauthorized(url, 'ping')
+
+        url = self.amid.config
+        self._assert_unauthorized(url)
+
+        url = self.amid.config.patch
+        self._assert_unauthorized(url, {})
 
     def test_valid_auth_gives_result(self) -> None:
         self.amid.set_token(VALID_TOKEN)
@@ -64,6 +71,9 @@ class TestAuthentication(APIIntegrationTest):
 
         url = self.amid.config
         self._assert_unauthorized(url)
+
+        url = self.amid.config.patch
+        self._assert_unauthorized(url, {})
 
     def test_restrict_on_with_slow_wazo_auth(self) -> None:
         APIAssetLaunchingTestCase.stop_service('amid')
@@ -106,8 +116,3 @@ class TestAuthentication(APIIntegrationTest):
                     )
                 ),
             )
-
-    def test_config_auth(self) -> None:
-        self.amid.set_token(None)
-        url = self.amid.config
-        self._assert_unauthorized(url)

@@ -20,4 +20,3 @@ class Plugin:
             '/action/<action>',
             resource_class_args=[ajam_client],
         )
-
