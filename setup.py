@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright 2013-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2013-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from setuptools import find_packages, setup
@@ -13,7 +13,7 @@ setup(
     url="http://wazo.community",
     license="GPLv3",
     packages=find_packages(),
-    package_data={"wazo_amid.resources.api": ["*.yml"]},
+    package_data={"wazo_amid.plugins": ["*/api.yml"]},
     scripts=["bin/wazo-amid"],
     entry_points={
         'wazo_amid.plugins': [
