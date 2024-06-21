@@ -3,6 +3,7 @@
 
 import pytest
 from hamcrest import assert_that, equal_to, has_entry
+
 from .helpers.base import APIIntegrationTest
 
 FAKE_EVENT = {'data': 'Event: foo\r\nAnswerToTheUniverse: 42\r\n\r\n'}
@@ -20,20 +21,20 @@ class TestConfigAPI(APIIntegrationTest):
 
     def test_update_config(self) -> None:
         debug_true_config = [
-                {
-                    'op': 'replace',
-                    'path': '/debug',
-                    'value': "True",
-                }
-            ]
+            {
+                'op': 'replace',
+                'path': '/debug',
+                'value': "True",
+            }
+        ]
 
         debug_false_config = [
-                {
-                    'op': 'replace',
-                    'path': '/debug',
-                    'value': "False",
-                }
-            ]
+            {
+                'op': 'replace',
+                'path': '/debug',
+                'value': "False",
+            }
+        ]
 
         debug_true_patched_config = self.amid.config.patch(debug_true_config)
         debug_true_config = self.amid.config()

@@ -1,7 +1,10 @@
 # Copyright 2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
-import threading
+
 import logging
+import threading
+
+from wazo_amid.config import AmidConfigDict
 
 
 class ConfigService:
@@ -10,8 +13,8 @@ class ConfigService:
     # This lock will be shared across all instances.
     _lock = threading.Lock()
 
-    def __init__(self, config: dict) -> None:
-        self._config = dict(config)
+    def __init__(self, config: AmidConfigDict) -> None:
+        self._config = AmidConfigDict(**config)
         self._enabled = False
 
     def get_config(self) -> dict:

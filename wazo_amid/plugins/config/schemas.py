@@ -3,7 +3,6 @@
 
 from marshmallow import Schema
 from marshmallow.validate import Equal
-
 from xivo.mallow import fields
 
 

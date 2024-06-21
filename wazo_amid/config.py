@@ -54,6 +54,7 @@ class AmidConfigDict(TypedDict):
     user: str
     debug: bool
     logfile: str
+    log_level: str
     config_file: str
     extra_config_files: str
     publish_ami_events: bool
@@ -179,49 +180,12 @@ def load_config() -> AmidConfigDict:
         ChainMap(cli_config, file_config, _DEFAULT_CONFIG)
     )
     service_key = _load_key_file(ChainMap(cli_config, file_config, _DEFAULT_CONFIG))
-    return ChainMap(reinterpreted_config, cli_config, service_key, file_config, _DEFAULT_CONFIG)
-
-
-def _parse_cli_args(argv):
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '-c',
-        '--config-file',
-        action='store',
-        help="The path where is the config file. Default: %(default)s",
+    return ChainMap(
+        reinterpreted_config, cli_config, service_key, file_config, _DEFAULT_CONFIG
     )
-    parser.add_argument(
-        '-d',
-        '--debug',
-        action='store_true',
-        help="Log debug messages. Overrides log_level. Default: %(default)s",
-    )
-    parser.add_argument(
-        '-l',
-        '--log-level',
-        action='store',
-        help="Logs messages with LOG_LEVEL details. Must be one of:\n"
-        "critical, error, warning, info, debug. Default: %(default)s",
-    )
-    parser.add_argument(
-        '-u', '--user', action='store', help="The owner of the process."
-    )
-    parsed_args = parser.parse_args(argv)
-
-    result = {}
-    if parsed_args.config_file:
-        result['config_file'] = parsed_args.config_file
-    if parsed_args.debug:
-        result['debug'] = parsed_args.debug
-    if parsed_args.log_level:
-        result['log_level'] = parsed_args.log_level
-    if parsed_args.user:
-        result['user'] = parsed_args.user
-
-    return result
 
 
-def _get_reinterpreted_raw_values(config):
+def _get_reinterpreted_raw_values(config: dict[str, Any]) -> dict[str, Any]:
     result = {}
 
     log_level = config.get('log_level')

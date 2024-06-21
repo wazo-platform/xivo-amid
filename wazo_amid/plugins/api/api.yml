@@ -31,7 +31,7 @@ paths:
       produces:
         - application/json
       summary: Show the current configuration
-      description: '**Required ACL:** `phoned.config.read`'
+      description: '**Required ACL:** `amid.config.read`'
       operationId: getConfig
       tags:
         - config
@@ -43,7 +43,7 @@ paths:
         - application/json
       summary: Update the current configuration.
       description: |
-        **Required ACL:** `phoned.config.update`
+        **Required ACL:** `amid.config.update`
         Changes are not persistent across service restart.
       operationId: patchConfig
       tags:
@@ -55,7 +55,7 @@ paths:
           description: The updated configuration of the service
         '400':
           description: The given configuration is invalid
-  
+
   /action/{action}:
     post:
       summary: AMI action
@@ -231,7 +231,7 @@ definitions:
     enum:
       - fail
       - ok
-  
+
 parameters:
   ConfigPatch:
     name: ConfigPatch

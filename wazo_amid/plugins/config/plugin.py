@@ -17,7 +17,5 @@ class Plugin:
         config = dependencies['config']
         config_service = ConfigService(config)
         api.add_resource(
-            ConfigResource,
-            '/config',
-            resource_class_args=[config_service]
+            ConfigResource, '/config', resource_class_args=[config_service]
         )
