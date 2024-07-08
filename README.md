@@ -21,6 +21,10 @@ wazo-amid contains unittests and integration tests
 
 ### Running unit tests
 
+You need the following installed:
+    - python3.9
+    - python3.9-distutils
+
 ```
 apt-get install libpq-dev python3-dev libffi-dev libyaml-dev
 pip install tox
@@ -30,7 +34,10 @@ tox --recreate -e py39
 
 ### Running integration tests
 
-You need Docker installed.
+You need the following installed:
+    - Docker
+    - python3.9
+    - python3.9-distutils
 
 ```
 cd integration_tests

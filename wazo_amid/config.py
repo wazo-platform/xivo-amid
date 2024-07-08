@@ -7,6 +7,7 @@ from typing import Any, Literal, TypedDict
 
 from xivo.chain_map import ChainMap
 from xivo.config_helper import parse_config_file, read_config_file_hierarchy
+from xivo.xivo_logging import get_log_level_by_name
 
 
 class ServiceConfigDict(TypedDict):
@@ -53,6 +54,7 @@ class AmidConfigDict(TypedDict):
     user: str
     debug: bool
     logfile: str
+    log_level: str
     config_file: str
     extra_config_files: str
     publish_ami_events: bool
@@ -68,6 +70,7 @@ _DAEMONNAME = 'wazo-amid'
 _DEFAULT_CONFIG: AmidConfigDict = {  # type: ignore
     'user': 'wazo-amid',
     'debug': False,
+    'log_level': 'info',
     'logfile': f'/var/log/{_DAEMONNAME}.log',
     'config_file': f'/etc/{_DAEMONNAME}/config.yml',
     'extra_config_files': f'/etc/{_DAEMONNAME}/conf.d/',
@@ -113,6 +116,7 @@ _DEFAULT_CONFIG: AmidConfigDict = {  # type: ignore
         'api': True,
         'actions': True,
         'commands': True,
+        'config': True,
         'status': True,
     },
 }
@@ -172,5 +176,20 @@ def _load_key_file(config: dict[str, Any]) -> dict[str, Any]:
 def load_config() -> AmidConfigDict:
     cli_config = _get_cli_config()
     file_config = read_config_file_hierarchy(ChainMap(cli_config, _DEFAULT_CONFIG))
+    reinterpreted_config = _get_reinterpreted_raw_values(
+        ChainMap(cli_config, file_config, _DEFAULT_CONFIG)
+    )
     service_key = _load_key_file(ChainMap(cli_config, file_config, _DEFAULT_CONFIG))
-    return ChainMap(cli_config, service_key, file_config, _DEFAULT_CONFIG)
+    return ChainMap(
+        reinterpreted_config, cli_config, service_key, file_config, _DEFAULT_CONFIG
+    )
+
+
+def _get_reinterpreted_raw_values(config: dict[str, Any]) -> dict[str, Any]:
+    result = {}
+
+    log_level = config.get('log_level')
+    if log_level:
+        result['log_level'] = get_log_level_by_name(log_level)
+
+    return result

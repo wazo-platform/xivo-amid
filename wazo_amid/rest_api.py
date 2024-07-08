@@ -46,6 +46,7 @@ wsgi_server: wsgi.WSGIServer = None
 class PluginDependencies(TypedDict):
     api: Api
     ajam_client: AJAMClient
+    config: AmidConfigDict
     status_aggregator: StatusAggregator
 
 
@@ -79,6 +80,7 @@ def load_resources(
         dependencies={
             'api': api,
             'ajam_client': AJAMClient(**global_config['ajam']),
+            'config': global_config,
             'status_aggregator': status_aggregator,
         },
     )

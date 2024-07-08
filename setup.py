@@ -20,6 +20,7 @@ setup(
             'api = wazo_amid.plugins.api.plugin:Plugin',
             'actions = wazo_amid.plugins.actions.plugin:Plugin',
             'commands = wazo_amid.plugins.commands.plugin:Plugin',
+            'config = wazo_amid.plugins.config.plugin:Plugin',
             'status = wazo_amid.plugins.status.plugin:Plugin',
         ],
     },
