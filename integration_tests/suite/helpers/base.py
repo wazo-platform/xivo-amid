@@ -113,6 +113,11 @@ class APIIntegrationTest(unittest.TestCase):
         return f'{cls.ajam_base_url}/{path}'
 
     @classmethod
+    def restart_amid(cls) -> None:
+        cls.asset_cls.restart_service('amid')
+        cls.amid = cls.asset_cls.make_amid()
+
+    @classmethod
     @contextmanager
     def auth_stopped(cls) -> Generator[None, None, None]:
         cls.asset_cls.stop_service(SERVICE_AUTH)

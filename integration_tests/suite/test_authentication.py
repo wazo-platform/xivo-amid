@@ -82,8 +82,7 @@ class TestAuthentication(APIIntegrationTest):
             config_file,
             content='auth: {username: invalid-service}',
         )
-        self.asset_cls.restart_service('amid')
-        self.reset_clients()
+        self.restart_amid()
 
         def _returns_503() -> None:
             assert_that(
@@ -100,8 +99,7 @@ class TestAuthentication(APIIntegrationTest):
             until.assert_(_returns_503, timeout=10)
         finally:
             filesystem.remove_file(config_file)
-            self.asset_cls.restart_service('amid')
-            self.reset_clients()
+            self.restart_amid()
             self.asset_cls.wait_strategy.wait(self)
 
     def test_no_auth_server_gives_503(self) -> None:
