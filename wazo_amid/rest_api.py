@@ -68,8 +68,6 @@ def configure(
     load_resources(global_config, status_aggregator)
     api.init_app(app)
 
-    auth_verifier.set_config(global_config['auth'])
-
 
 def load_resources(
     global_config: AmidConfigDict, status_aggregator: StatusAggregator
