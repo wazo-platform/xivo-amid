@@ -21,12 +21,7 @@ from wazo_test_helpers import until
 from wazo_test_helpers.filesystem import FileSystemClient
 from wazo_test_helpers.hamcrest.raises import raises
 
-from .helpers.base import (
-    TOKEN_SUB_TENANT,
-    VALID_TOKEN,
-    APIAssetLaunchingTestCase,
-    APIIntegrationTest,
-)
+from .helpers.base import TOKEN_SUB_TENANT, VALID_TOKEN, APIIntegrationTest
 
 
 @pytest.mark.usefixtures('base')
@@ -79,7 +74,7 @@ class TestAuthentication(APIIntegrationTest):
     def test_restrict_when_service_token_not_initialized(self) -> None:
         config_file = '/etc/wazo-amid/conf.d/10-invalid-service-token.yml'
         filesystem = FileSystemClient(
-            execute=APIAssetLaunchingTestCase.docker_exec,
+            execute=self.asset_cls.docker_exec,
             service_name='amid',
             root=True,
         )
@@ -87,7 +82,7 @@ class TestAuthentication(APIIntegrationTest):
             config_file,
             content='auth: {username: invalid-service}',
         )
-        APIAssetLaunchingTestCase.restart_service('amid')
+        self.asset_cls.restart_service('amid')
         self.reset_clients()
 
         def _returns_503() -> None:
@@ -105,8 +100,9 @@ class TestAuthentication(APIIntegrationTest):
             until.assert_(_returns_503, timeout=10)
         finally:
             filesystem.remove_file(config_file)
-            APIAssetLaunchingTestCase.restart_service('amid')
+            self.asset_cls.restart_service('amid')
             self.reset_clients()
+            self.asset_cls.wait_strategy.wait(self)
 
     def test_no_auth_server_gives_503(self) -> None:
         with self.auth_stopped():
