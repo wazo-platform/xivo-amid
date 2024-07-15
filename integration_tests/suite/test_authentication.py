@@ -1,4 +1,4 @@
-# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
@@ -18,6 +18,7 @@ from hamcrest import (
 from requests.exceptions import HTTPError
 from wazo_amid_client.exceptions import AmidError
 from wazo_test_helpers import until
+from wazo_test_helpers.filesystem import FileSystemClient
 from wazo_test_helpers.hamcrest.raises import raises
 
 from .helpers.base import (
@@ -75,32 +76,37 @@ class TestAuthentication(APIIntegrationTest):
         url = self.amid.config.patch
         self._assert_unauthorized(url, {})
 
-    def test_restrict_on_with_slow_wazo_auth(self) -> None:
-        APIAssetLaunchingTestCase.stop_service('amid')
-        with self.auth_stopped():
-            APIAssetLaunchingTestCase.start_service('amid')
-            self.reset_clients()
+    def test_restrict_when_service_token_not_initialized(self) -> None:
+        config_file = '/etc/wazo-amid/conf.d/10-invalid-service-token.yml'
+        filesystem = FileSystemClient(
+            execute=APIAssetLaunchingTestCase.docker_exec,
+            service_name='amid',
+            root=True,
+        )
+        filesystem.create_file(
+            config_file,
+            content='auth: {username: invalid-service}',
+        )
+        APIAssetLaunchingTestCase.restart_service('amid')
+        self.reset_clients()
 
-            def _amid_returns_503() -> None:
-                assert_that(
-                    calling(self.amid.action).with_args('ping'),
-                    raises(AmidError).matching(
-                        has_properties(
-                            status_code=503,
-                            error_id='not-initialized',
-                        )
-                    ),
-                )
-
-            until.assert_(_amid_returns_503, timeout=10)
-
-        def _amid_does_not_return_503() -> None:
+        def _returns_503() -> None:
             assert_that(
                 calling(self.amid.action).with_args('ping'),
-                not_(raises(HTTPError)),
+                raises(AmidError).matching(
+                    has_properties(
+                        status_code=503,
+                        error_id='not-initialized',
+                    )
+                ),
             )
 
-        until.assert_(_amid_does_not_return_503, timeout=10)
+        try:
+            until.assert_(_returns_503, timeout=10)
+        finally:
+            filesystem.remove_file(config_file)
+            APIAssetLaunchingTestCase.restart_service('amid')
+            self.reset_clients()
 
     def test_no_auth_server_gives_503(self) -> None:
         with self.auth_stopped():
