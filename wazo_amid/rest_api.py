@@ -15,7 +15,7 @@ from flask_cors import CORS
 from flask_restful import Api, Resource
 from werkzeug.middleware.proxy_fix import ProxyFix
 from xivo import http_helpers, plugin_helpers, rest_api_helpers
-from xivo.auth_verifier import AuthVerifier
+from xivo.flask.auth_verifier import AuthVerifierFlask
 from xivo.http_helpers import ReverseProxied
 
 from wazo_amid.plugin_helpers.ajam import AJAMClient
@@ -39,7 +39,7 @@ VERSION = 1.0
 app = Flask('wazo_amid')
 logger = logging.getLogger(__name__)
 api = Api(prefix=f'/{VERSION}')
-auth_verifier = AuthVerifier()
+auth_verifier = AuthVerifierFlask()
 wsgi_server: wsgi.WSGIServer = None
 
 
@@ -67,8 +67,6 @@ def configure(
 
     load_resources(global_config, status_aggregator)
     api.init_app(app)
-
-    auth_verifier.set_config(global_config['auth'])
 
 
 def load_resources(
@@ -141,6 +139,6 @@ class ErrorCatchingResource(Resource):
 
 class AuthResource(ErrorCatchingResource):
     method_decorators = [
-        auth_verifier.verify_token,
         auth_verifier.verify_tenant,
+        auth_verifier.verify_token,
     ] + ErrorCatchingResource.method_decorators

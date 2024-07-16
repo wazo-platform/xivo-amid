@@ -1,14 +1,17 @@
-# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import logging
 import os
+import random
+import string
 import unittest
 from collections.abc import Generator
 from contextlib import contextmanager
 from typing import Any
 
 import requests
+import yaml
 from hamcrest import assert_that, equal_to
 from wazo_amid_client import Client as AmidClient
 from wazo_test_helpers.asset_launching_test_case import (
@@ -18,6 +21,9 @@ from wazo_test_helpers.asset_launching_test_case import (
     WrongClient,
 )
 from wazo_test_helpers.bus import BusClient
+from wazo_test_helpers.filesystem import FileSystemClient
+
+from .wait_strategy import EverythingOkWaitStrategy
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +44,7 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
     assets_root = ASSETS_ROOT
     asset = 'base'
     service = SERVICE_AMID
+    wait_strategy = EverythingOkWaitStrategy()
 
     @classmethod
     def make_amid(cls, token: str = VALID_TOKEN) -> AmidClient:
@@ -87,11 +94,13 @@ class APIAssetLaunchingTestCase(AssetLaunchingTestCase):
 class APIIntegrationTest(unittest.TestCase):
     amid: AmidClient
     ajam_base_url: str
+    asset_cls = APIAssetLaunchingTestCase
 
     @classmethod
     def setUpClass(cls) -> None:
         super().setUpClass()
         cls.reset_clients()
+        cls.asset_cls.wait_strategy.wait(cls)
 
     def setUp(self) -> None:
         super().setUp()
@@ -99,8 +108,8 @@ class APIIntegrationTest(unittest.TestCase):
 
     @classmethod
     def reset_clients(cls) -> None:
-        cls.amid = APIAssetLaunchingTestCase.make_amid()
-        cls.ajam_base_url = APIAssetLaunchingTestCase.make_ajam_base_url()
+        cls.amid = cls.asset_cls.make_amid()
+        cls.ajam_base_url = cls.asset_cls.make_ajam_base_url()
 
     @classmethod
     def ajam_url(cls, *parts: str) -> str:
@@ -108,42 +117,66 @@ class APIIntegrationTest(unittest.TestCase):
         return f'{cls.ajam_base_url}/{path}'
 
     @classmethod
+    def restart_amid(cls) -> None:
+        cls.asset_cls.restart_service('amid')
+        cls.amid = cls.asset_cls.make_amid()
+
+    @classmethod
+    @contextmanager
+    def amid_with_config_file(cls, config: dict) -> Generator[None, None, None]:
+        filesystem = FileSystemClient(
+            execute=cls.asset_cls.docker_exec,
+            service_name='amid',
+            root=True,
+        )
+        name = ''.join(random.choice(string.ascii_lowercase) for _ in range(6))
+        config_file = f'/etc/wazo-amid/conf.d/10-{name}.yml'
+        content = yaml.dump(config)
+        try:
+            with filesystem.file_(config_file, content=content):
+                cls.restart_amid()
+                yield
+        finally:
+            cls.restart_amid()
+            cls.asset_cls.wait_strategy.wait(cls)
+
+    @classmethod
     @contextmanager
     def auth_stopped(cls) -> Generator[None, None, None]:
-        APIAssetLaunchingTestCase.stop_service(SERVICE_AUTH)
+        cls.asset_cls.stop_service(SERVICE_AUTH)
         try:
             yield
         finally:
-            APIAssetLaunchingTestCase.start_service(SERVICE_AUTH)
+            cls.asset_cls.start_service(SERVICE_AUTH)
             cls.reset_clients()
 
     @classmethod
     @contextmanager
     def ajam_stopped(cls) -> Generator[None, None, None]:
-        APIAssetLaunchingTestCase.stop_service(SERVICE_ASTERISK_AJAM)
+        cls.asset_cls.stop_service(SERVICE_ASTERISK_AJAM)
         try:
             yield
         finally:
-            APIAssetLaunchingTestCase.start_service(SERVICE_ASTERISK_AJAM)
+            cls.asset_cls.start_service(SERVICE_ASTERISK_AJAM)
             cls.reset_clients()
 
     @classmethod
     @contextmanager
     def ami_stopped(cls) -> Generator[None, None, None]:
-        APIAssetLaunchingTestCase.stop_service(SERVICE_ASTERISK_AMI)
+        cls.asset_cls.stop_service(SERVICE_ASTERISK_AMI)
         try:
             yield
         finally:
-            APIAssetLaunchingTestCase.start_service(SERVICE_ASTERISK_AMI)
+            cls.asset_cls.start_service(SERVICE_ASTERISK_AMI)
 
     @classmethod
     @contextmanager
     def rabbitmq_stopped(cls) -> Generator[None, None, None]:
-        APIAssetLaunchingTestCase.stop_service(SERVICE_RABBITMQ)
+        cls.asset_cls.stop_service(SERVICE_RABBITMQ)
         try:
             yield
         finally:
-            APIAssetLaunchingTestCase.start_service(SERVICE_RABBITMQ)
+            cls.asset_cls.start_service(SERVICE_RABBITMQ)
 
     @classmethod
     def ajam_requests(cls) -> dict[str, Any]:

@@ -1,4 +1,4 @@
-# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
@@ -20,12 +20,7 @@ from wazo_amid_client.exceptions import AmidError
 from wazo_test_helpers import until
 from wazo_test_helpers.hamcrest.raises import raises
 
-from .helpers.base import (
-    TOKEN_SUB_TENANT,
-    VALID_TOKEN,
-    APIAssetLaunchingTestCase,
-    APIIntegrationTest,
-)
+from .helpers.base import TOKEN_SUB_TENANT, VALID_TOKEN, APIIntegrationTest
 
 
 @pytest.mark.usefixtures('base')
@@ -75,32 +70,21 @@ class TestAuthentication(APIIntegrationTest):
         url = self.amid.config.patch
         self._assert_unauthorized(url, {})
 
-    def test_restrict_on_with_slow_wazo_auth(self) -> None:
-        APIAssetLaunchingTestCase.stop_service('amid')
-        with self.auth_stopped():
-            APIAssetLaunchingTestCase.start_service('amid')
-            self.reset_clients()
-
-            def _amid_returns_503() -> None:
-                assert_that(
-                    calling(self.amid.action).with_args('ping'),
-                    raises(AmidError).matching(
-                        has_properties(
-                            status_code=503,
-                            error_id='not-initialized',
-                        )
-                    ),
-                )
-
-            until.assert_(_amid_returns_503, timeout=10)
-
-        def _amid_does_not_return_503() -> None:
+    def test_restrict_when_service_token_not_initialized(self) -> None:
+        def _returns_503() -> None:
             assert_that(
                 calling(self.amid.action).with_args('ping'),
-                not_(raises(HTTPError)),
+                raises(AmidError).matching(
+                    has_properties(
+                        status_code=503,
+                        error_id='not-initialized',
+                    )
+                ),
             )
 
-        until.assert_(_amid_does_not_return_503, timeout=10)
+        config = {'auth': {'username': 'invalid-service'}}
+        with self.amid_with_config_file(config):
+            until.assert_(_returns_503, timeout=10)
 
     def test_no_auth_server_gives_503(self) -> None:
         with self.auth_stopped():
