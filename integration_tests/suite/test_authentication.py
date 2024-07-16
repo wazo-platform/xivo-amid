@@ -18,7 +18,6 @@ from hamcrest import (
 from requests.exceptions import HTTPError
 from wazo_amid_client.exceptions import AmidError
 from wazo_test_helpers import until
-from wazo_test_helpers.filesystem import FileSystemClient
 from wazo_test_helpers.hamcrest.raises import raises
 
 from .helpers.base import TOKEN_SUB_TENANT, VALID_TOKEN, APIIntegrationTest
@@ -72,18 +71,6 @@ class TestAuthentication(APIIntegrationTest):
         self._assert_unauthorized(url, {})
 
     def test_restrict_when_service_token_not_initialized(self) -> None:
-        config_file = '/etc/wazo-amid/conf.d/10-invalid-service-token.yml'
-        filesystem = FileSystemClient(
-            execute=self.asset_cls.docker_exec,
-            service_name='amid',
-            root=True,
-        )
-        filesystem.create_file(
-            config_file,
-            content='auth: {username: invalid-service}',
-        )
-        self.restart_amid()
-
         def _returns_503() -> None:
             assert_that(
                 calling(self.amid.action).with_args('ping'),
@@ -95,12 +82,9 @@ class TestAuthentication(APIIntegrationTest):
                 ),
             )
 
-        try:
+        config = {'auth': {'username': 'invalid-service'}}
+        with self.amid_with_config_file(config):
             until.assert_(_returns_503, timeout=10)
-        finally:
-            filesystem.remove_file(config_file)
-            self.restart_amid()
-            self.asset_cls.wait_strategy.wait(self)
 
     def test_no_auth_server_gives_503(self) -> None:
         with self.auth_stopped():

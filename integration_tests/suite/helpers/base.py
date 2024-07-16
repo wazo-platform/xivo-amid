@@ -3,12 +3,15 @@
 
 import logging
 import os
+import random
+import string
 import unittest
 from collections.abc import Generator
 from contextlib import contextmanager
 from typing import Any
 
 import requests
+import yaml
 from hamcrest import assert_that, equal_to
 from wazo_amid_client import Client as AmidClient
 from wazo_test_helpers.asset_launching_test_case import (
@@ -18,6 +21,7 @@ from wazo_test_helpers.asset_launching_test_case import (
     WrongClient,
 )
 from wazo_test_helpers.bus import BusClient
+from wazo_test_helpers.filesystem import FileSystemClient
 
 from .wait_strategy import EverythingOkWaitStrategy
 
@@ -116,6 +120,25 @@ class APIIntegrationTest(unittest.TestCase):
     def restart_amid(cls) -> None:
         cls.asset_cls.restart_service('amid')
         cls.amid = cls.asset_cls.make_amid()
+
+    @classmethod
+    @contextmanager
+    def amid_with_config_file(cls, config: dict) -> Generator[None, None, None]:
+        filesystem = FileSystemClient(
+            execute=cls.asset_cls.docker_exec,
+            service_name='amid',
+            root=True,
+        )
+        name = ''.join(random.choice(string.ascii_lowercase) for _ in range(6))
+        config_file = f'/etc/wazo-amid/conf.d/10-{name}.yml'
+        content = yaml.dump(config)
+        try:
+            with filesystem.file_(config_file, content=content):
+                cls.restart_amid()
+                yield
+        finally:
+            cls.restart_amid()
+            cls.asset_cls.wait_strategy.wait(cls)
 
     @classmethod
     @contextmanager
