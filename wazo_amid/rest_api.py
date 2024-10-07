@@ -10,12 +10,11 @@ from functools import wraps
 from typing import TYPE_CHECKING, TypedDict
 
 import marshmallow
-from cheroot import wsgi
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api, Resource
 from werkzeug.middleware.proxy_fix import ProxyFix
-from xivo import http_helpers, plugin_helpers, rest_api_helpers
+from xivo import http_helpers, plugin_helpers, rest_api_helpers, wsgi
 from xivo.flask.auth_verifier import AuthVerifierFlask
 from xivo.http_helpers import ReverseProxied
 
