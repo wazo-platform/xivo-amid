@@ -10,7 +10,7 @@ itsdangerous==1.1.0  # from flask
 jinja2==3.0.3  # from flask
 kombu==5.0.2
 markupsafe==2.0.1 # from jinja
-marshmallow==3.10.0
+marshmallow==3.18.0
 pyyaml==5.3.1  # from xivo-lib-python
 requests==2.25.1
 werkzeug==1.0.1 # from flask
