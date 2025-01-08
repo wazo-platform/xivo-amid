@@ -65,7 +65,7 @@ paths:
         The Action endpoint sends an action to the Asterisk Manager.
 
 
-        See https://wiki.asterisk.org/wiki/display/AST/Asterisk+14+AMI+Actions for
+        See https://docs.asterisk.org/Latest_API/API_Documentation/AMI_Actions/ for
         more details about the AMI message parameters.
 
         '
@@ -116,7 +116,7 @@ paths:
         This endpoint sends a command to the Asterisk Manager.
 
 
-        See https://wiki.asterisk.org/wiki/display/AST/Asterisk+14+AMI+Actions for
+        See https://docs.asterisk.org/Latest_API/API_Documentation/AMI_Actions/ for
         more details about the AMI message parameters.
 
         '
